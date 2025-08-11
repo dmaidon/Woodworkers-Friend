@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+	<RootNamespace>WwFriend</RootNamespace>
+	<StartupObject>WwFriend.FrmMain</StartupObject>
+	<UseWindowsForms>true</UseWindowsForms>
+	<MyType>WindowsForms</MyType>
+	<OptionStrict>On</OptionStrict>
+	<Title>Woodworkers Friend</Title>
+	<AssemblyVersion>25.8.11.192</AssemblyVersion>
+	<FileVersion>25.8.11.192</FileVersion>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
+	  <NeutralLanguage>en-US</NeutralLanguage>
+	  <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+	  <ImportedNamespaces>System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Woodworkers Friend=True</ImportedNamespaces>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<ShouldCreateLogs>True</ShouldCreateLogs>
+	<AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+	<UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+	<UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+	<UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+	<UpdatePackageVersion>False</UpdatePackageVersion>
+	<AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+	<InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+	<PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+	<OutputPath>C:\VB17\Release\WwFriend</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	<ShouldCreateLogs>True</ShouldCreateLogs>
+	<AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+	<UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+	<UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+	<UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+	<UpdatePackageVersion>False</UpdatePackageVersion>
+	<AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+	<InheritWinAppVersionFrom>AssemblyVersion</InheritWinAppVersionFrom>
+	<PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+	<OutputPath>C:\VB17\Release\WwFriend</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Import Include="System.Data" />
+	<Import Include="System.Drawing" />
+	<Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Compile Update="My Project\Application.Designer.vb">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>Application.myapp</DependentUpon>
+	</Compile>
+	<Compile Update="My Project\Resources.Designer.vb">
+	  <DesignTime>True</DesignTime>
+	  <AutoGen>True</AutoGen>
+	  <DependentUpon>Resources.resx</DependentUpon>
+	</Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+	<None Update="My Project\Application.myapp">
+	  <Generator>MyApplicationCodeGenerator</Generator>
+	  <LastGenOutput>Application.Designer.vb</LastGenOutput>
+	</None>
+	<None Update="Settings\bfCost.csv">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Settings\BoardFeetCost.txt">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+  </ItemGroup>
+
+  <ItemGroup>
+	<EmbeddedResource Update="My Project\Resources.resx">
+	  <CustomToolNamespace>My.Resources</CustomToolNamespace>
+	  <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+	  <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+	</EmbeddedResource>
+  </ItemGroup>
+
+</Project>

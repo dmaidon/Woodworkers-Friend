@@ -1,0 +1,3 @@
+﻿Friend Module DrawerCalculationRoutines
+
+End Module

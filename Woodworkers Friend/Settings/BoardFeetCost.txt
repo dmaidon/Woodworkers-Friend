@@ -1,0 +1,11 @@
+﻿Ash:4/4:4.82
+Cherry:4/4:4.82
+Cherry:5/4:7.73
+Hard Maple:4/4:6.64
+Padouk:4/4:12.65
+Poplar:4/4:3.00
+Purple Heart:4/4:11.74
+Red Oak:4/4:3.91
+Walnut:4/4:12.29
+Walnut:8/4:12.65
+White Oak:4/4:9.92
