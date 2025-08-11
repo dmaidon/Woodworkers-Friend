@@ -98,6 +98,59 @@ Partial Class FrmMain
         BtnSaveProject = New Button()
         Label34 = New Label()
         TxtProjectName = New TextBox()
+        TpDoors = New TabPage()
+        ScDoors = New SplitContainer()
+        BtnDeleteDoorProject = New Button()
+        BtnLoadDoorProject = New Button()
+        GroupBox12 = New GroupBox()
+        Button1 = New Button()
+        BtnOfficeDoorPreset = New Button()
+        BtnBathroomDoorPreset = New Button()
+        BtnKitchenDoorPreset = New Button()
+        Label48 = New Label()
+        Panel6 = New Panel()
+        TxtCabinetOpeningHeight = New TextBox()
+        TxtCabinetOpeningWidth = New TextBox()
+        Label35 = New Label()
+        Label36 = New Label()
+        Label37 = New Label()
+        GroupBox10 = New GroupBox()
+        LblPanelWidth = New Label()
+        LblPanelHeight = New Label()
+        Label46 = New Label()
+        LblStileLength = New Label()
+        LblRailLength = New Label()
+        BtnCalculateDoors = New Button()
+        BtnSaveDoorProject = New Button()
+        Panel8 = New Panel()
+        TxtDoorOverlay = New TextBox()
+        TxtGapSize = New TextBox()
+        TxtRailWidth = New TextBox()
+        TxtStileWidth = New TextBox()
+        Label41 = New Label()
+        Label42 = New Label()
+        Label43 = New Label()
+        Panel9 = New Panel()
+        RbInset = New RadioButton()
+        RbOverlay = New RadioButton()
+        Label44 = New Label()
+        Panel10 = New Panel()
+        Rb2Door = New RadioButton()
+        Rb1Door = New RadioButton()
+        Label45 = New Label()
+        TxtDoorProjectName = New TextBox()
+        Panel7 = New Panel()
+        TxtPanelExpansionGap = New TextBox()
+        TxtPanelGrooveDepth = New TextBox()
+        Label38 = New Label()
+        Label39 = New Label()
+        Label40 = New Label()
+        BtnPrintDoorResults = New Button()
+        BtnExportDoorResults = New Button()
+        Label50 = New Label()
+        PnlDoorResults = New Panel()
+        RtbDoorResults = New RichTextBox()
+        Label49 = New Label()
         TpBoardfeet = New TabPage()
         PnlBoardFeet = New Panel()
         BtnPrtBfProject = New Button()
@@ -189,59 +242,6 @@ Partial Class FrmMain
         RbMetric = New RadioButton()
         RbImperial = New RadioButton()
         RtbLog = New RichTextBox()
-        TpDoors = New TabPage()
-        ScDoors = New SplitContainer()
-        BtnDeleteDoorProject = New Button()
-        BtnLoadDoorProject = New Button()
-        GroupBox12 = New GroupBox()
-        Button1 = New Button()
-        BtnOfficeDoorPreset = New Button()
-        BtnBathroomDoorPreset = New Button()
-        BtnKitchenDoorPreset = New Button()
-        Label48 = New Label()
-        Panel6 = New Panel()
-        TxtCabinetOpeningHeight = New TextBox()
-        TxtCabinetOpeningWidth = New TextBox()
-        Label35 = New Label()
-        Label36 = New Label()
-        Label37 = New Label()
-        GroupBox10 = New GroupBox()
-        LblPanelWidth = New Label()
-        LblPanelHeight = New Label()
-        Label46 = New Label()
-        LblStileLength = New Label()
-        LblRailLength = New Label()
-        BtnCalculateDoors = New Button()
-        BtnSaveDoorProject = New Button()
-        Panel8 = New Panel()
-        TxtDoorOverlay = New TextBox()
-        TxtGapSize = New TextBox()
-        TxtRailWidth = New TextBox()
-        TxtStileWidth = New TextBox()
-        Label41 = New Label()
-        Label42 = New Label()
-        Label43 = New Label()
-        Panel9 = New Panel()
-        RbInset = New RadioButton()
-        RbOverlay = New RadioButton()
-        Label44 = New Label()
-        Panel10 = New Panel()
-        Rb2Door = New RadioButton()
-        Rb1Door = New RadioButton()
-        Label45 = New Label()
-        TxtDoorProjectName = New TextBox()
-        Panel7 = New Panel()
-        TxtPanelExpansionGap = New TextBox()
-        TxtPanelGrooveDepth = New TextBox()
-        Label38 = New Label()
-        Label39 = New Label()
-        Label40 = New Label()
-        BtnPrintDoorResults = New Button()
-        BtnExportDoorResults = New Button()
-        Label50 = New Label()
-        PnlDoorResults = New Panel()
-        RtbDoorResults = New RichTextBox()
-        Label49 = New Label()
         tTip = New ToolTip(components)
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
@@ -261,6 +261,19 @@ Partial Class FrmMain
         GroupBox5.SuspendLayout()
         PnlResults.SuspendLayout()
         GroupBox11.SuspendLayout()
+        TpDoors.SuspendLayout()
+        CType(ScDoors, ComponentModel.ISupportInitialize).BeginInit()
+        ScDoors.Panel1.SuspendLayout()
+        ScDoors.Panel2.SuspendLayout()
+        ScDoors.SuspendLayout()
+        GroupBox12.SuspendLayout()
+        Panel6.SuspendLayout()
+        GroupBox10.SuspendLayout()
+        Panel8.SuspendLayout()
+        Panel9.SuspendLayout()
+        Panel10.SuspendLayout()
+        Panel7.SuspendLayout()
+        PnlDoorResults.SuspendLayout()
         TpBoardfeet.SuspendLayout()
         PnlBoardFeet.SuspendLayout()
         CType(DgvBoardfeet, ComponentModel.ISupportInitialize).BeginInit()
@@ -276,19 +289,6 @@ Partial Class FrmMain
         Panel2.SuspendLayout()
         Panel1.SuspendLayout()
         TpLogs.SuspendLayout()
-        TpDoors.SuspendLayout()
-        CType(ScDoors, ComponentModel.ISupportInitialize).BeginInit()
-        ScDoors.Panel1.SuspendLayout()
-        ScDoors.Panel2.SuspendLayout()
-        ScDoors.SuspendLayout()
-        GroupBox12.SuspendLayout()
-        Panel6.SuspendLayout()
-        GroupBox10.SuspendLayout()
-        Panel8.SuspendLayout()
-        Panel9.SuspendLayout()
-        Panel10.SuspendLayout()
-        Panel7.SuspendLayout()
-        PnlDoorResults.SuspendLayout()
         SuspendLayout()
         ' 
         ' Ss1
@@ -383,10 +383,10 @@ Partial Class FrmMain
         ' Tc
         ' 
         Tc.Controls.Add(TpDrawersDoors)
+        Tc.Controls.Add(TpDoors)
         Tc.Controls.Add(TpBoardfeet)
         Tc.Controls.Add(TpCalculations)
         Tc.Controls.Add(TpLogs)
-        Tc.Controls.Add(TpDoors)
         Tc.Dock = DockStyle.Top
         Tc.Location = New Point(0, 0)
         Tc.Name = "Tc"
@@ -427,7 +427,7 @@ Partial Class FrmMain
         SplitContainer1.Panel1.Controls.Add(Label32)
         SplitContainer1.Panel1.Controls.Add(GroupBox6)
         SplitContainer1.Panel1.Controls.Add(GroupBox5)
-        SplitContainer1.Panel1.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        SplitContainer1.Panel1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         ' 
         ' SplitContainer1.Panel2
         ' 
@@ -514,7 +514,7 @@ Partial Class FrmMain
         DgvDrawerHeights.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = SystemColors.Control
-        DataGridViewCellStyle2.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.Font = New Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
@@ -727,7 +727,7 @@ Partial Class FrmMain
         ' Label32
         ' 
         Label32.AutoSize = True
-        Label32.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label32.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label32.ForeColor = Color.Maroon
         Label32.Location = New Point(81, 13)
         Label32.Name = "Label32"
@@ -926,7 +926,7 @@ Partial Class FrmMain
         GroupBox11.Controls.Add(RbCustomRatio)
         GroupBox11.Controls.Add(RbExponential)
         GroupBox11.Controls.Add(RbLogarithmic)
-        GroupBox11.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox11.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox11.Location = New Point(12, 60)
         GroupBox11.Name = "GroupBox11"
         GroupBox11.Size = New Size(523, 367)
@@ -1065,7 +1065,7 @@ Partial Class FrmMain
         ' Label47
         ' 
         Label47.AutoSize = True
-        Label47.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label47.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label47.ForeColor = Color.Maroon
         Label47.Location = New Point(210, 583)
         Label47.Name = "Label47"
@@ -1076,7 +1076,7 @@ Partial Class FrmMain
         ' Label33
         ' 
         Label33.AutoSize = True
-        Label33.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label33.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label33.ForeColor = Color.Maroon
         Label33.Location = New Point(96, 15)
         Label33.Name = "Label33"
@@ -1096,7 +1096,7 @@ Partial Class FrmMain
         ' Label34
         ' 
         Label34.AutoSize = True
-        Label34.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label34.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label34.Location = New Point(237, 472)
         Label34.Name = "Label34"
         Label34.Size = New Size(114, 21)
@@ -1110,964 +1110,14 @@ Partial Class FrmMain
         TxtProjectName.Size = New Size(150, 29)
         TxtProjectName.TabIndex = 8
         ' 
-        ' TpBoardfeet
-        ' 
-        TpBoardfeet.BackColor = Color.Gainsboro
-        TpBoardfeet.BorderStyle = BorderStyle.Fixed3D
-        TpBoardfeet.Controls.Add(PnlBoardFeet)
-        TpBoardfeet.Location = New Point(4, 34)
-        TpBoardfeet.Name = "TpBoardfeet"
-        TpBoardfeet.Padding = New Padding(3)
-        TpBoardfeet.Size = New Size(1076, 958)
-        TpBoardfeet.TabIndex = 0
-        TpBoardfeet.Text = "Boardfeet"
-        ' 
-        ' PnlBoardFeet
-        ' 
-        PnlBoardFeet.BackColor = Color.WhiteSmoke
-        PnlBoardFeet.BorderStyle = BorderStyle.Fixed3D
-        PnlBoardFeet.Controls.Add(BtnPrtBfProject)
-        PnlBoardFeet.Controls.Add(TxtBfProjectName)
-        PnlBoardFeet.Controls.Add(BtnSaveBfProject)
-        PnlBoardFeet.Controls.Add(LblBoardFeetCost20)
-        PnlBoardFeet.Controls.Add(LblTotalBoardFeet20)
-        PnlBoardFeet.Controls.Add(Label12)
-        PnlBoardFeet.Controls.Add(LblBoardFeetCost15)
-        PnlBoardFeet.Controls.Add(LblTotalBoardFeet15)
-        PnlBoardFeet.Controls.Add(Label9)
-        PnlBoardFeet.Controls.Add(LblBoardFeetCost10)
-        PnlBoardFeet.Controls.Add(LblTotalBoardFeet10)
-        PnlBoardFeet.Controls.Add(Label6)
-        PnlBoardFeet.Controls.Add(LblBoardFeetCost)
-        PnlBoardFeet.Controls.Add(LblTotalBoardFeet)
-        PnlBoardFeet.Controls.Add(Label1)
-        PnlBoardFeet.Controls.Add(lblCalculateBoardfeet)
-        PnlBoardFeet.Controls.Add(DgvBoardfeet)
-        PnlBoardFeet.Location = New Point(5, 5)
-        PnlBoardFeet.Name = "PnlBoardFeet"
-        PnlBoardFeet.Size = New Size(1038, 588)
-        PnlBoardFeet.TabIndex = 0
-        ' 
-        ' BtnPrtBfProject
-        ' 
-        BtnPrtBfProject.Location = New Point(760, 522)
-        BtnPrtBfProject.Name = "BtnPrtBfProject"
-        BtnPrtBfProject.Size = New Size(144, 34)
-        BtnPrtBfProject.TabIndex = 16
-        BtnPrtBfProject.Text = "Print Project"
-        BtnPrtBfProject.UseVisualStyleBackColor = True
-        ' 
-        ' TxtBfProjectName
-        ' 
-        TxtBfProjectName.Location = New Point(406, 525)
-        TxtBfProjectName.Name = "TxtBfProjectName"
-        TxtBfProjectName.Size = New Size(222, 29)
-        TxtBfProjectName.TabIndex = 15
-        tTip.SetToolTip(TxtBfProjectName, "Enter project name")
-        ' 
-        ' BtnSaveBfProject
-        ' 
-        BtnSaveBfProject.Location = New Point(130, 522)
-        BtnSaveBfProject.Name = "BtnSaveBfProject"
-        BtnSaveBfProject.Size = New Size(144, 34)
-        BtnSaveBfProject.TabIndex = 14
-        BtnSaveBfProject.Text = "Save Project"
-        BtnSaveBfProject.UseVisualStyleBackColor = True
-        ' 
-        ' LblBoardFeetCost20
-        ' 
-        LblBoardFeetCost20.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost20.Location = New Point(767, 470)
-        LblBoardFeetCost20.Name = "LblBoardFeetCost20"
-        LblBoardFeetCost20.Size = New Size(175, 32)
-        LblBoardFeetCost20.TabIndex = 13
-        LblBoardFeetCost20.Text = "$0.00"
-        LblBoardFeetCost20.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblTotalBoardFeet20
-        ' 
-        LblTotalBoardFeet20.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet20.Location = New Point(767, 425)
-        LblTotalBoardFeet20.Name = "LblTotalBoardFeet20"
-        LblTotalBoardFeet20.Size = New Size(175, 32)
-        LblTotalBoardFeet20.TabIndex = 12
-        LblTotalBoardFeet20.Text = "0.00"
-        LblTotalBoardFeet20.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' Label12
-        ' 
-        Label12.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
-        Label12.Location = New Point(767, 375)
-        Label12.Name = "Label12"
-        Label12.Size = New Size(175, 32)
-        Label12.TabIndex = 11
-        Label12.Text = "Board Feet +20%"
-        Label12.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblBoardFeetCost15
-        ' 
-        LblBoardFeetCost15.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost15.Location = New Point(522, 461)
-        LblBoardFeetCost15.Name = "LblBoardFeetCost15"
-        LblBoardFeetCost15.Size = New Size(175, 32)
-        LblBoardFeetCost15.TabIndex = 10
-        LblBoardFeetCost15.Text = "$0.00"
-        LblBoardFeetCost15.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblTotalBoardFeet15
-        ' 
-        LblTotalBoardFeet15.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet15.Location = New Point(522, 417)
-        LblTotalBoardFeet15.Name = "LblTotalBoardFeet15"
-        LblTotalBoardFeet15.Size = New Size(175, 32)
-        LblTotalBoardFeet15.TabIndex = 9
-        LblTotalBoardFeet15.Text = "0.00"
-        LblTotalBoardFeet15.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' Label9
-        ' 
-        Label9.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
-        Label9.Location = New Point(522, 375)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(175, 32)
-        Label9.TabIndex = 8
-        Label9.Text = "Board Feet +15%"
-        Label9.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblBoardFeetCost10
-        ' 
-        LblBoardFeetCost10.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost10.Location = New Point(307, 461)
-        LblBoardFeetCost10.Name = "LblBoardFeetCost10"
-        LblBoardFeetCost10.Size = New Size(175, 32)
-        LblBoardFeetCost10.TabIndex = 7
-        LblBoardFeetCost10.Text = "$0.00"
-        LblBoardFeetCost10.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblTotalBoardFeet10
-        ' 
-        LblTotalBoardFeet10.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet10.Location = New Point(307, 417)
-        LblTotalBoardFeet10.Name = "LblTotalBoardFeet10"
-        LblTotalBoardFeet10.Size = New Size(175, 32)
-        LblTotalBoardFeet10.TabIndex = 6
-        LblTotalBoardFeet10.Text = "0.00"
-        LblTotalBoardFeet10.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' Label6
-        ' 
-        Label6.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
-        Label6.Location = New Point(307, 375)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(175, 32)
-        Label6.TabIndex = 5
-        Label6.Text = "Board Feet +10%"
-        Label6.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblBoardFeetCost
-        ' 
-        LblBoardFeetCost.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost.Location = New Point(93, 461)
-        LblBoardFeetCost.Name = "LblBoardFeetCost"
-        LblBoardFeetCost.Size = New Size(175, 32)
-        LblBoardFeetCost.TabIndex = 4
-        LblBoardFeetCost.Text = "$0.00"
-        LblBoardFeetCost.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' LblTotalBoardFeet
-        ' 
-        LblTotalBoardFeet.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet.Location = New Point(93, 417)
-        LblTotalBoardFeet.Name = "LblTotalBoardFeet"
-        LblTotalBoardFeet.Size = New Size(175, 32)
-        LblTotalBoardFeet.TabIndex = 3
-        LblTotalBoardFeet.Text = "0.00"
-        LblTotalBoardFeet.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' Label1
-        ' 
-        Label1.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
-        Label1.Location = New Point(93, 375)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(175, 32)
-        Label1.TabIndex = 2
-        Label1.Text = "Total Board Feet"
-        Label1.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' lblCalculateBoardfeet
-        ' 
-        lblCalculateBoardfeet.AutoSize = True
-        lblCalculateBoardfeet.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
-        lblCalculateBoardfeet.Location = New Point(364, 28)
-        lblCalculateBoardfeet.Name = "lblCalculateBoardfeet"
-        lblCalculateBoardfeet.Size = New Size(341, 38)
-        lblCalculateBoardfeet.TabIndex = 1
-        lblCalculateBoardfeet.Text = "Calculate Boardfeet"
-        ' 
-        ' DgvBoardfeet
-        ' 
-        DataGridViewCellStyle3.BackColor = Color.Beige
-        DgvBoardfeet.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
-        DgvBoardfeet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        DgvBoardfeet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvBoardfeet.Columns.AddRange(New DataGridViewColumn() {bfCol0, bfCol1, bfCol2, bfCol3, bfCol4, bfCol5, bfCol6})
-        DgvBoardfeet.Location = New Point(10, 74)
-        DgvBoardfeet.Name = "DgvBoardfeet"
-        DgvBoardfeet.RowHeadersWidth = 62
-        DgvBoardfeet.Size = New Size(1014, 276)
-        DgvBoardfeet.TabIndex = 0
-        ' 
-        ' bfCol0
-        ' 
-        bfCol0.HeaderText = "Length"
-        bfCol0.MinimumWidth = 8
-        bfCol0.Name = "bfCol0"
-        ' 
-        ' bfCol1
-        ' 
-        bfCol1.HeaderText = "Width"
-        bfCol1.MinimumWidth = 8
-        bfCol1.Name = "bfCol1"
-        ' 
-        ' bfCol2
-        ' 
-        bfCol2.HeaderText = "Thickness"
-        bfCol2.MinimumWidth = 8
-        bfCol2.Name = "bfCol2"
-        ' 
-        ' bfCol3
-        ' 
-        bfCol3.HeaderText = "Amount"
-        bfCol3.MinimumWidth = 8
-        bfCol3.Name = "bfCol3"
-        ' 
-        ' bfCol4
-        ' 
-        bfCol4.HeaderText = "Wood Type"
-        bfCol4.MinimumWidth = 8
-        bfCol4.Name = "bfCol4"
-        ' 
-        ' bfCol5
-        ' 
-        bfCol5.HeaderText = "Cost/Bf"
-        bfCol5.MinimumWidth = 8
-        bfCol5.Name = "bfCol5"
-        ' 
-        ' bfCol6
-        ' 
-        bfCol6.HeaderText = "Total Bf"
-        bfCol6.MinimumWidth = 8
-        bfCol6.Name = "bfCol6"
-        ' 
-        ' TpCalculations
-        ' 
-        TpCalculations.BackColor = Color.Gainsboro
-        TpCalculations.BorderStyle = BorderStyle.Fixed3D
-        TpCalculations.Controls.Add(Panel5)
-        TpCalculations.Controls.Add(Panel4)
-        TpCalculations.Controls.Add(Panel3)
-        TpCalculations.Controls.Add(Panel2)
-        TpCalculations.Controls.Add(Panel1)
-        TpCalculations.Location = New Point(4, 34)
-        TpCalculations.Name = "TpCalculations"
-        TpCalculations.Size = New Size(1076, 958)
-        TpCalculations.TabIndex = 2
-        TpCalculations.Text = "Calculations"
-        ' 
-        ' Panel5
-        ' 
-        Panel5.BackColor = Color.WhiteSmoke
-        Panel5.BorderStyle = BorderStyle.Fixed3D
-        Panel5.Controls.Add(LblTippingForce)
-        Panel5.Controls.Add(TxtTtTableBaseWeight)
-        Panel5.Controls.Add(TxtTtTableBaselength)
-        Panel5.Controls.Add(TxtTtTableTopWeight)
-        Panel5.Controls.Add(TxtTtTableTopLength)
-        Panel5.Controls.Add(Label25)
-        Panel5.Controls.Add(Label24)
-        Panel5.Controls.Add(Label22)
-        Panel5.Controls.Add(Label23)
-        Panel5.Controls.Add(Label21)
-        Panel5.Controls.Add(Label20)
-        Panel5.Controls.Add(Label18)
-        Panel5.Controls.Add(Label15)
-        Panel5.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel5.Location = New Point(356, 485)
-        Panel5.Name = "Panel5"
-        Panel5.Size = New Size(391, 413)
-        Panel5.TabIndex = 4
-        ' 
-        ' LblTippingForce
-        ' 
-        LblTippingForce.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        LblTippingForce.ForeColor = Color.DodgerBlue
-        LblTippingForce.Location = New Point(5, 317)
-        LblTippingForce.Name = "LblTippingForce"
-        LblTippingForce.Size = New Size(377, 38)
-        LblTippingForce.TabIndex = 12
-        LblTippingForce.Tag = "Tipping force required: {0:N2} lbs"
-        LblTippingForce.Text = "Tipping force required"
-        LblTippingForce.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' TxtTtTableBaseWeight
-        ' 
-        TxtTtTableBaseWeight.Location = New Point(106, 268)
-        TxtTtTableBaseWeight.Name = "TxtTtTableBaseWeight"
-        TxtTtTableBaseWeight.Size = New Size(75, 29)
-        TxtTtTableBaseWeight.TabIndex = 11
-        ' 
-        ' TxtTtTableBaselength
-        ' 
-        TxtTtTableBaselength.Location = New Point(106, 223)
-        TxtTtTableBaselength.Name = "TxtTtTableBaselength"
-        TxtTtTableBaselength.Size = New Size(75, 29)
-        TxtTtTableBaselength.TabIndex = 10
-        ' 
-        ' TxtTtTableTopWeight
-        ' 
-        TxtTtTableTopWeight.Location = New Point(106, 141)
-        TxtTtTableTopWeight.Name = "TxtTtTableTopWeight"
-        TxtTtTableTopWeight.Size = New Size(75, 29)
-        TxtTtTableTopWeight.TabIndex = 9
-        ' 
-        ' TxtTtTableTopLength
-        ' 
-        TxtTtTableTopLength.Location = New Point(106, 104)
-        TxtTtTableTopLength.Name = "TxtTtTableTopLength"
-        TxtTtTableTopLength.Size = New Size(75, 29)
-        TxtTtTableTopLength.TabIndex = 8
-        ' 
-        ' Label25
-        ' 
-        Label25.AutoSize = True
-        Label25.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
-        Label25.ForeColor = Color.OrangeRed
-        Label25.Location = New Point(86, 189)
-        Label25.Name = "Label25"
-        Label25.Size = New Size(102, 25)
-        Label25.TabIndex = 7
-        Label25.Text = "Table Base"
-        ' 
-        ' Label24
-        ' 
-        Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
-        Label24.ForeColor = Color.OrangeRed
-        Label24.Location = New Point(97, 72)
-        Label24.Name = "Label24"
-        Label24.Size = New Size(93, 25)
-        Label24.TabIndex = 6
-        Label24.Text = "Table Top"
-        ' 
-        ' Label22
-        ' 
-        Label22.AutoSize = True
-        Label22.Location = New Point(31, 272)
-        Label22.Name = "Label22"
-        Label22.Size = New Size(66, 21)
-        Label22.TabIndex = 5
-        Label22.Text = "Weight"
-        Label22.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label23
-        ' 
-        Label23.AutoSize = True
-        Label23.Location = New Point(34, 227)
-        Label23.Name = "Label23"
-        Label23.Size = New Size(63, 21)
-        Label23.TabIndex = 4
-        Label23.Text = "Length"
-        Label23.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label21
-        ' 
-        Label21.AutoSize = True
-        Label21.Location = New Point(31, 145)
-        Label21.Name = "Label21"
-        Label21.Size = New Size(66, 21)
-        Label21.TabIndex = 3
-        Label21.Text = "Weight"
-        Label21.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label20
-        ' 
-        Label20.AutoSize = True
-        Label20.Location = New Point(34, 108)
-        Label20.Name = "Label20"
-        Label20.Size = New Size(63, 21)
-        Label20.TabIndex = 2
-        Label20.Text = "Length"
-        Label20.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label18
-        ' 
-        Label18.AutoSize = True
-        Label18.Location = New Point(46, 365)
-        Label18.Name = "Label18"
-        Label18.Size = New Size(294, 21)
-        Label18.TabIndex = 1
-        Label18.Text = "Calculate force required to tip a table"
-        ' 
-        ' Label15
-        ' 
-        Label15.AutoSize = True
-        Label15.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label15.ForeColor = Color.Maroon
-        Label15.Location = New Point(58, 23)
-        Label15.Name = "Label15"
-        Label15.Size = New Size(271, 38)
-        Label15.TabIndex = 0
-        Label15.Text = "Table Tip Force"
-        ' 
-        ' Panel4
-        ' 
-        Panel4.BackColor = Color.WhiteSmoke
-        Panel4.BorderStyle = BorderStyle.Fixed3D
-        Panel4.Controls.Add(GroupBox4)
-        Panel4.Controls.Add(GroupBox3)
-        Panel4.Controls.Add(GroupBox2)
-        Panel4.Controls.Add(GroupBox1)
-        Panel4.Controls.Add(Label13)
-        Panel4.Location = New Point(762, 19)
-        Panel4.Name = "Panel4"
-        Panel4.Size = New Size(300, 568)
-        Panel4.TabIndex = 3
-        ' 
-        ' GroupBox4
-        ' 
-        GroupBox4.BackColor = Color.Silver
-        GroupBox4.Controls.Add(LblFraction2Decimal)
-        GroupBox4.Controls.Add(TxtFraction2Decimal)
-        GroupBox4.Controls.Add(Label16)
-        GroupBox4.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox4.Location = New Point(20, 435)
-        GroupBox4.Name = "GroupBox4"
-        GroupBox4.Size = New Size(257, 115)
-        GroupBox4.TabIndex = 4
-        GroupBox4.TabStop = False
-        GroupBox4.Tag = "Decimal: {0}"
-        GroupBox4.Text = "Fraction to Decimal"
-        ' 
-        ' LblFraction2Decimal
-        ' 
-        LblFraction2Decimal.AutoSize = True
-        LblFraction2Decimal.Location = New Point(20, 67)
-        LblFraction2Decimal.Name = "LblFraction2Decimal"
-        LblFraction2Decimal.Size = New Size(73, 21)
-        LblFraction2Decimal.TabIndex = 2
-        LblFraction2Decimal.Tag = "Decimal: {0:N3} "
-        LblFraction2Decimal.Text = "Decimal"
-        ' 
-        ' TxtFraction2Decimal
-        ' 
-        TxtFraction2Decimal.Location = New Point(98, 26)
-        TxtFraction2Decimal.Name = "TxtFraction2Decimal"
-        TxtFraction2Decimal.Size = New Size(81, 29)
-        TxtFraction2Decimal.TabIndex = 1
-        ' 
-        ' Label16
-        ' 
-        Label16.AutoSize = True
-        Label16.Location = New Point(20, 30)
-        Label16.Name = "Label16"
-        Label16.Size = New Size(72, 21)
-        Label16.TabIndex = 0
-        Label16.Text = "Fraction"
-        ' 
-        ' GroupBox3
-        ' 
-        GroupBox3.BackColor = Color.Silver
-        GroupBox3.Controls.Add(LblDecimal2Fraction)
-        GroupBox3.Controls.Add(TxtDecimal2Fraction)
-        GroupBox3.Controls.Add(Label19)
-        GroupBox3.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox3.Location = New Point(20, 314)
-        GroupBox3.Name = "GroupBox3"
-        GroupBox3.Size = New Size(257, 115)
-        GroupBox3.TabIndex = 3
-        GroupBox3.TabStop = False
-        GroupBox3.Text = "Decimal to Fraction"
-        ' 
-        ' LblDecimal2Fraction
-        ' 
-        LblDecimal2Fraction.AutoSize = True
-        LblDecimal2Fraction.Location = New Point(20, 67)
-        LblDecimal2Fraction.Name = "LblDecimal2Fraction"
-        LblDecimal2Fraction.Size = New Size(72, 21)
-        LblDecimal2Fraction.TabIndex = 2
-        LblDecimal2Fraction.Tag = "Fraction: {0}"
-        LblDecimal2Fraction.Text = "Fraction"
-        ' 
-        ' TxtDecimal2Fraction
-        ' 
-        TxtDecimal2Fraction.Location = New Point(98, 26)
-        TxtDecimal2Fraction.Name = "TxtDecimal2Fraction"
-        TxtDecimal2Fraction.Size = New Size(81, 29)
-        TxtDecimal2Fraction.TabIndex = 1
-        ' 
-        ' Label19
-        ' 
-        Label19.AutoSize = True
-        Label19.Location = New Point(20, 30)
-        Label19.Name = "Label19"
-        Label19.Size = New Size(73, 21)
-        Label19.TabIndex = 0
-        Label19.Text = "Decimal"
-        ' 
-        ' GroupBox2
-        ' 
-        GroupBox2.BackColor = Color.Silver
-        GroupBox2.Controls.Add(LblMM2Inches)
-        GroupBox2.Controls.Add(TxtMm2Inches)
-        GroupBox2.Controls.Add(Label17)
-        GroupBox2.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox2.Location = New Point(20, 193)
-        GroupBox2.Name = "GroupBox2"
-        GroupBox2.Size = New Size(257, 115)
-        GroupBox2.TabIndex = 2
-        GroupBox2.TabStop = False
-        GroupBox2.Text = "MM to Inches"
-        ' 
-        ' LblMM2Inches
-        ' 
-        LblMM2Inches.AutoSize = True
-        LblMM2Inches.Location = New Point(20, 67)
-        LblMM2Inches.Name = "LblMM2Inches"
-        LblMM2Inches.Size = New Size(59, 21)
-        LblMM2Inches.TabIndex = 2
-        LblMM2Inches.Tag = "Inches: {0:N2} in"
-        LblMM2Inches.Text = "Inches"
-        ' 
-        ' TxtMm2Inches
-        ' 
-        TxtMm2Inches.Location = New Point(90, 26)
-        TxtMm2Inches.Name = "TxtMm2Inches"
-        TxtMm2Inches.Size = New Size(81, 29)
-        TxtMm2Inches.TabIndex = 1
-        ' 
-        ' Label17
-        ' 
-        Label17.AutoSize = True
-        Label17.Location = New Point(20, 30)
-        Label17.Name = "Label17"
-        Label17.Size = New Size(59, 21)
-        Label17.TabIndex = 0
-        Label17.Text = "Inches"
-        ' 
-        ' GroupBox1
-        ' 
-        GroupBox1.BackColor = Color.Silver
-        GroupBox1.Controls.Add(LblInches2MM)
-        GroupBox1.Controls.Add(TxtInches2Mm)
-        GroupBox1.Controls.Add(Label14)
-        GroupBox1.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox1.Location = New Point(20, 72)
-        GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(257, 115)
-        GroupBox1.TabIndex = 1
-        GroupBox1.TabStop = False
-        GroupBox1.Text = "Inches to MM"
-        ' 
-        ' LblInches2MM
-        ' 
-        LblInches2MM.AutoSize = True
-        LblInches2MM.Location = New Point(20, 67)
-        LblInches2MM.Name = "LblInches2MM"
-        LblInches2MM.Size = New Size(97, 21)
-        LblInches2MM.TabIndex = 2
-        LblInches2MM.Tag = "Millimeters: {0:N2} mm"
-        LblInches2MM.Text = "Millimeters"
-        ' 
-        ' TxtInches2Mm
-        ' 
-        TxtInches2Mm.Location = New Point(90, 26)
-        TxtInches2Mm.Name = "TxtInches2Mm"
-        TxtInches2Mm.Size = New Size(81, 29)
-        TxtInches2Mm.TabIndex = 1
-        ' 
-        ' Label14
-        ' 
-        Label14.AutoSize = True
-        Label14.Location = New Point(20, 30)
-        Label14.Name = "Label14"
-        Label14.Size = New Size(59, 21)
-        Label14.TabIndex = 0
-        Label14.Text = "Inches"
-        ' 
-        ' Label13
-        ' 
-        Label13.AutoSize = True
-        Label13.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label13.ForeColor = Color.Maroon
-        Label13.Location = New Point(49, 24)
-        Label13.Name = "Label13"
-        Label13.Size = New Size(199, 38)
-        Label13.TabIndex = 0
-        Label13.Text = "Converters"
-        ' 
-        ' Panel3
-        ' 
-        Panel3.BackColor = Color.WhiteSmoke
-        Panel3.BorderStyle = BorderStyle.Fixed3D
-        Panel3.Controls.Add(LblPolygonPieceAngle)
-        Panel3.Controls.Add(LblPolygonSideAngle)
-        Panel3.Controls.Add(TxtPolygonSides)
-        Panel3.Controls.Add(Label11)
-        Panel3.Controls.Add(PbPolygon)
-        Panel3.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel3.Location = New Point(26, 477)
-        Panel3.Name = "Panel3"
-        Panel3.Size = New Size(302, 462)
-        Panel3.TabIndex = 2
-        ' 
-        ' LblPolygonPieceAngle
-        ' 
-        LblPolygonPieceAngle.AutoSize = True
-        LblPolygonPieceAngle.Location = New Point(24, 100)
-        LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
-        LblPolygonPieceAngle.Size = New Size(168, 21)
-        LblPolygonPieceAngle.TabIndex = 4
-        LblPolygonPieceAngle.Tag = "Cut angle each piece: {0:N2}°"
-        LblPolygonPieceAngle.Text = "Cut angle each piece"
-        LblPolygonPieceAngle.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' LblPolygonSideAngle
-        ' 
-        LblPolygonSideAngle.AutoSize = True
-        LblPolygonSideAngle.Location = New Point(24, 60)
-        LblPolygonSideAngle.Name = "LblPolygonSideAngle"
-        LblPolygonSideAngle.Size = New Size(130, 21)
-        LblPolygonSideAngle.TabIndex = 3
-        LblPolygonSideAngle.Tag = "Angle each side: {0:N2}°"
-        LblPolygonSideAngle.Text = "Angle each side"
-        LblPolygonSideAngle.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' TxtPolygonSides
-        ' 
-        TxtPolygonSides.Location = New Point(146, 15)
-        TxtPolygonSides.MaxLength = 5
-        TxtPolygonSides.Name = "TxtPolygonSides"
-        TxtPolygonSides.Size = New Size(49, 29)
-        TxtPolygonSides.TabIndex = 0
-        ' 
-        ' Label11
-        ' 
-        Label11.AutoSize = True
-        Label11.Location = New Point(24, 19)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(115, 21)
-        Label11.TabIndex = 1
-        Label11.Text = "Number sides"
-        ' 
-        ' PbPolygon
-        ' 
-        PbPolygon.BackColor = Color.LightGray
-        PbPolygon.BorderStyle = BorderStyle.Fixed3D
-        PbPolygon.Location = New Point(21, 144)
-        PbPolygon.Name = "PbPolygon"
-        PbPolygon.Size = New Size(257, 275)
-        PbPolygon.TabIndex = 0
-        PbPolygon.TabStop = False
-        ' 
-        ' Panel2
-        ' 
-        Panel2.BackColor = Color.WhiteSmoke
-        Panel2.BorderStyle = BorderStyle.Fixed3D
-        Panel2.Controls.Add(RtbFraction2Mm)
-        Panel2.Controls.Add(RtbFraction2Decimal)
-        Panel2.Controls.Add(Label10)
-        Panel2.Controls.Add(Label8)
-        Panel2.Location = New Point(282, 19)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(465, 449)
-        Panel2.TabIndex = 1
-        ' 
-        ' RtbFraction2Mm
-        ' 
-        RtbFraction2Mm.BackColor = Color.White
-        RtbFraction2Mm.DetectUrls = False
-        RtbFraction2Mm.Location = New Point(239, 55)
-        RtbFraction2Mm.Name = "RtbFraction2Mm"
-        RtbFraction2Mm.ReadOnly = True
-        RtbFraction2Mm.ScrollBars = RichTextBoxScrollBars.Vertical
-        RtbFraction2Mm.ShowSelectionMargin = True
-        RtbFraction2Mm.Size = New Size(209, 374)
-        RtbFraction2Mm.TabIndex = 3
-        RtbFraction2Mm.TabStop = False
-        RtbFraction2Mm.Text = ""
-        ' 
-        ' RtbFraction2Decimal
-        ' 
-        RtbFraction2Decimal.BackColor = Color.White
-        RtbFraction2Decimal.DetectUrls = False
-        RtbFraction2Decimal.Location = New Point(12, 55)
-        RtbFraction2Decimal.Name = "RtbFraction2Decimal"
-        RtbFraction2Decimal.ReadOnly = True
-        RtbFraction2Decimal.ScrollBars = RichTextBoxScrollBars.Vertical
-        RtbFraction2Decimal.ShowSelectionMargin = True
-        RtbFraction2Decimal.Size = New Size(209, 374)
-        RtbFraction2Decimal.TabIndex = 2
-        RtbFraction2Decimal.TabStop = False
-        RtbFraction2Decimal.Text = ""
-        ' 
-        ' Label10
-        ' 
-        Label10.AutoSize = True
-        Label10.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold)
-        Label10.ForeColor = Color.Maroon
-        Label10.Location = New Point(286, 21)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(126, 21)
-        Label10.TabIndex = 1
-        Label10.Text = "Fraction to mm"
-        ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold)
-        Label8.ForeColor = Color.Maroon
-        Label8.Location = New Point(43, 21)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(159, 21)
-        Label8.TabIndex = 0
-        Label8.Text = "Fraction to Decimal"
-        ' 
-        ' Panel1
-        ' 
-        Panel1.BackColor = Color.WhiteSmoke
-        Panel1.BorderStyle = BorderStyle.Fixed3D
-        Panel1.Controls.Add(RbEpoxyWaste20)
-        Panel1.Controls.Add(RbEpoxyWaste15)
-        Panel1.Controls.Add(RbEpoxyWaste10)
-        Panel1.Controls.Add(RbEpoxyWaste0)
-        Panel1.Controls.Add(Label7)
-        Panel1.Controls.Add(TxtEpoxyDepth)
-        Panel1.Controls.Add(TxtEpoxyWidth)
-        Panel1.Controls.Add(TxtEpoxyLength)
-        Panel1.Controls.Add(LblEpoxyPints)
-        Panel1.Controls.Add(LblEpoxyQuarts)
-        Panel1.Controls.Add(LblEpoxyGallons)
-        Panel1.Controls.Add(LblEpoxyOunces)
-        Panel1.Controls.Add(Label5)
-        Panel1.Controls.Add(Label4)
-        Panel1.Controls.Add(Label3)
-        Panel1.Controls.Add(Label2)
-        Panel1.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel1.Location = New Point(26, 19)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(250, 449)
-        Panel1.TabIndex = 0
-        ' 
-        ' RbEpoxyWaste20
-        ' 
-        RbEpoxyWaste20.AutoSize = True
-        RbEpoxyWaste20.Location = New Point(140, 408)
-        RbEpoxyWaste20.Name = "RbEpoxyWaste20"
-        RbEpoxyWaste20.Size = New Size(67, 25)
-        RbEpoxyWaste20.TabIndex = 5
-        RbEpoxyWaste20.Text = "20%"
-        RbEpoxyWaste20.UseVisualStyleBackColor = True
-        ' 
-        ' RbEpoxyWaste15
-        ' 
-        RbEpoxyWaste15.AutoSize = True
-        RbEpoxyWaste15.Location = New Point(140, 375)
-        RbEpoxyWaste15.Name = "RbEpoxyWaste15"
-        RbEpoxyWaste15.Size = New Size(67, 25)
-        RbEpoxyWaste15.TabIndex = 3
-        RbEpoxyWaste15.Text = "15%"
-        RbEpoxyWaste15.UseVisualStyleBackColor = True
-        ' 
-        ' RbEpoxyWaste10
-        ' 
-        RbEpoxyWaste10.AutoSize = True
-        RbEpoxyWaste10.Location = New Point(40, 408)
-        RbEpoxyWaste10.Name = "RbEpoxyWaste10"
-        RbEpoxyWaste10.Size = New Size(67, 25)
-        RbEpoxyWaste10.TabIndex = 4
-        RbEpoxyWaste10.Text = "10%"
-        RbEpoxyWaste10.UseVisualStyleBackColor = True
-        ' 
-        ' RbEpoxyWaste0
-        ' 
-        RbEpoxyWaste0.AutoSize = True
-        RbEpoxyWaste0.Location = New Point(40, 375)
-        RbEpoxyWaste0.Name = "RbEpoxyWaste0"
-        RbEpoxyWaste0.Size = New Size(58, 25)
-        RbEpoxyWaste0.TabIndex = 2
-        RbEpoxyWaste0.Text = "0%"
-        RbEpoxyWaste0.UseVisualStyleBackColor = True
-        ' 
-        ' Label7
-        ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.ForeColor = Color.Maroon
-        Label7.Location = New Point(41, 338)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(164, 25)
-        Label7.TabIndex = 11
-        Label7.Text = "Waste Percentage"
-        ' 
-        ' TxtEpoxyDepth
-        ' 
-        TxtEpoxyDepth.Location = New Point(102, 140)
-        TxtEpoxyDepth.Name = "TxtEpoxyDepth"
-        TxtEpoxyDepth.Size = New Size(69, 29)
-        TxtEpoxyDepth.TabIndex = 2
-        ' 
-        ' TxtEpoxyWidth
-        ' 
-        TxtEpoxyWidth.Location = New Point(102, 100)
-        TxtEpoxyWidth.Name = "TxtEpoxyWidth"
-        TxtEpoxyWidth.Size = New Size(69, 29)
-        TxtEpoxyWidth.TabIndex = 1
-        ' 
-        ' TxtEpoxyLength
-        ' 
-        TxtEpoxyLength.Location = New Point(102, 60)
-        TxtEpoxyLength.Name = "TxtEpoxyLength"
-        TxtEpoxyLength.Size = New Size(69, 29)
-        TxtEpoxyLength.TabIndex = 0
-        ' 
-        ' LblEpoxyPints
-        ' 
-        LblEpoxyPints.AutoSize = True
-        LblEpoxyPints.Location = New Point(23, 297)
-        LblEpoxyPints.Name = "LblEpoxyPints"
-        LblEpoxyPints.Size = New Size(117, 21)
-        LblEpoxyPints.TabIndex = 7
-        LblEpoxyPints.Tag = "Pints: {0:N2} pts"
-        LblEpoxyPints.Text = "Pints required"
-        LblEpoxyPints.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' LblEpoxyQuarts
-        ' 
-        LblEpoxyQuarts.AutoSize = True
-        LblEpoxyQuarts.Location = New Point(23, 260)
-        LblEpoxyQuarts.Name = "LblEpoxyQuarts"
-        LblEpoxyQuarts.Size = New Size(129, 21)
-        LblEpoxyQuarts.TabIndex = 6
-        LblEpoxyQuarts.Tag = "Quarts {0:N2} qts"
-        LblEpoxyQuarts.Text = "Quarts required"
-        LblEpoxyQuarts.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' LblEpoxyGallons
-        ' 
-        LblEpoxyGallons.AutoSize = True
-        LblEpoxyGallons.Location = New Point(23, 223)
-        LblEpoxyGallons.Name = "LblEpoxyGallons"
-        LblEpoxyGallons.Size = New Size(136, 21)
-        LblEpoxyGallons.TabIndex = 5
-        LblEpoxyGallons.Tag = "Gallons: {0:N2} gal"
-        LblEpoxyGallons.Text = "Gallons required"
-        LblEpoxyGallons.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' LblEpoxyOunces
-        ' 
-        LblEpoxyOunces.AutoSize = True
-        LblEpoxyOunces.Location = New Point(23, 186)
-        LblEpoxyOunces.Name = "LblEpoxyOunces"
-        LblEpoxyOunces.Size = New Size(135, 21)
-        LblEpoxyOunces.TabIndex = 4
-        LblEpoxyOunces.Tag = "Ounces: {0:N2} oz"
-        LblEpoxyOunces.Text = "Ounces required"
-        LblEpoxyOunces.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Location = New Point(37, 144)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(57, 21)
-        Label5.TabIndex = 3
-        Label5.Text = "Depth"
-        Label5.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Location = New Point(37, 104)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(57, 21)
-        Label4.TabIndex = 2
-        Label4.Text = "Width"
-        Label4.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Location = New Point(31, 64)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(63, 21)
-        Label3.TabIndex = 1
-        Label3.Text = "Length"
-        Label3.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Georgia", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.ForeColor = Color.Maroon
-        Label2.Location = New Point(26, 13)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(195, 32)
-        Label2.TabIndex = 0
-        Label2.Text = "Epoxy Pours"
-        ' 
-        ' TpLogs
-        ' 
-        TpLogs.BackColor = Color.Gainsboro
-        TpLogs.BorderStyle = BorderStyle.Fixed3D
-        TpLogs.Controls.Add(RbMetric)
-        TpLogs.Controls.Add(RbImperial)
-        TpLogs.Controls.Add(RtbLog)
-        TpLogs.Location = New Point(4, 34)
-        TpLogs.Name = "TpLogs"
-        TpLogs.Size = New Size(1076, 958)
-        TpLogs.TabIndex = 3
-        TpLogs.Text = "Logs"
-        ' 
-        ' RbMetric
-        ' 
-        RbMetric.AutoSize = True
-        RbMetric.Location = New Point(276, 75)
-        RbMetric.Name = "RbMetric"
-        RbMetric.Size = New Size(79, 25)
-        RbMetric.TabIndex = 2
-        RbMetric.TabStop = True
-        RbMetric.Text = "Metric"
-        RbMetric.UseVisualStyleBackColor = True
-        ' 
-        ' RbImperial
-        ' 
-        RbImperial.AutoSize = True
-        RbImperial.Location = New Point(94, 81)
-        RbImperial.Name = "RbImperial"
-        RbImperial.Size = New Size(92, 25)
-        RbImperial.TabIndex = 1
-        RbImperial.TabStop = True
-        RbImperial.Text = "Imperial"
-        RbImperial.UseVisualStyleBackColor = True
-        ' 
-        ' RtbLog
-        ' 
-        RtbLog.Location = New Point(151, 239)
-        RtbLog.Name = "RtbLog"
-        RtbLog.ReadOnly = True
-        RtbLog.ShowSelectionMargin = True
-        RtbLog.Size = New Size(590, 583)
-        RtbLog.TabIndex = 0
-        RtbLog.Text = ""
-        ' 
         ' TpDoors
         ' 
         TpDoors.BackColor = Color.Gainsboro
         TpDoors.BorderStyle = BorderStyle.Fixed3D
         TpDoors.Controls.Add(ScDoors)
-        TpDoors.Location = New Point(4, 30)
+        TpDoors.Location = New Point(4, 34)
         TpDoors.Name = "TpDoors"
-        TpDoors.Size = New Size(1076, 962)
+        TpDoors.Size = New Size(1076, 958)
         TpDoors.TabIndex = 4
         TpDoors.Text = "Doors"
         ' 
@@ -2179,7 +1229,7 @@ Partial Class FrmMain
         ' Label48
         ' 
         Label48.AutoSize = True
-        Label48.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label48.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label48.ForeColor = Color.Maroon
         Label48.Location = New Point(126, 18)
         Label48.Name = "Label48"
@@ -2280,7 +1330,7 @@ Partial Class FrmMain
         ' Label46
         ' 
         Label46.AutoSize = True
-        Label46.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold)
+        Label46.Font = New Font("Segoe UI", 7F, FontStyle.Bold)
         Label46.Location = New Point(248, 14)
         Label46.Name = "Label46"
         Label46.Size = New Size(77, 19)
@@ -2290,7 +1340,7 @@ Partial Class FrmMain
         ' LblStileLength
         ' 
         LblStileLength.AutoSize = True
-        LblStileLength.Font = New Font("Segoe UI", 7.0F)
+        LblStileLength.Font = New Font("Segoe UI", 7F)
         LblStileLength.Location = New Point(13, 61)
         LblStileLength.Name = "LblStileLength"
         LblStileLength.Size = New Size(40, 19)
@@ -2302,7 +1352,7 @@ Partial Class FrmMain
         ' LblRailLength
         ' 
         LblRailLength.AutoSize = True
-        LblRailLength.Font = New Font("Segoe UI", 7.0F)
+        LblRailLength.Font = New Font("Segoe UI", 7F)
         LblRailLength.Location = New Point(13, 27)
         LblRailLength.Name = "LblRailLength"
         LblRailLength.Size = New Size(36, 19)
@@ -2313,7 +1363,7 @@ Partial Class FrmMain
         ' 
         ' BtnCalculateDoors
         ' 
-        BtnCalculateDoors.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold)
+        BtnCalculateDoors.Font = New Font("Segoe UI", 7F, FontStyle.Bold)
         BtnCalculateDoors.Location = New Point(358, 537)
         BtnCalculateDoors.Name = "BtnCalculateDoors"
         BtnCalculateDoors.Size = New Size(154, 34)
@@ -2392,7 +1442,7 @@ Partial Class FrmMain
         ' 
         ' Label42
         ' 
-        Label42.Font = New Font("Segoe UI", 7.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label42.Font = New Font("Segoe UI", 7F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label42.ImageAlign = ContentAlignment.MiddleRight
         Label42.Location = New Point(8, 224)
         Label42.Name = "Label42"
@@ -2586,7 +1636,7 @@ Partial Class FrmMain
         ' Label50
         ' 
         Label50.AutoSize = True
-        Label50.Font = New Font("Georgia", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label50.Font = New Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label50.ForeColor = Color.Maroon
         Label50.Location = New Point(213, 191)
         Label50.Name = "Label50"
@@ -2616,13 +1666,963 @@ Partial Class FrmMain
         ' Label49
         ' 
         Label49.AutoSize = True
-        Label49.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label49.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label49.ForeColor = Color.Maroon
         Label49.Location = New Point(122, 18)
         Label49.Name = "Label49"
         Label49.Size = New Size(313, 38)
         Label49.TabIndex = 23
         Label49.Text = "Door Calculations"
+        ' 
+        ' TpBoardfeet
+        ' 
+        TpBoardfeet.BackColor = Color.Gainsboro
+        TpBoardfeet.BorderStyle = BorderStyle.Fixed3D
+        TpBoardfeet.Controls.Add(PnlBoardFeet)
+        TpBoardfeet.Location = New Point(4, 34)
+        TpBoardfeet.Name = "TpBoardfeet"
+        TpBoardfeet.Padding = New Padding(3)
+        TpBoardfeet.Size = New Size(1076, 958)
+        TpBoardfeet.TabIndex = 0
+        TpBoardfeet.Text = "Boardfeet"
+        ' 
+        ' PnlBoardFeet
+        ' 
+        PnlBoardFeet.BackColor = Color.WhiteSmoke
+        PnlBoardFeet.BorderStyle = BorderStyle.Fixed3D
+        PnlBoardFeet.Controls.Add(BtnPrtBfProject)
+        PnlBoardFeet.Controls.Add(TxtBfProjectName)
+        PnlBoardFeet.Controls.Add(BtnSaveBfProject)
+        PnlBoardFeet.Controls.Add(LblBoardFeetCost20)
+        PnlBoardFeet.Controls.Add(LblTotalBoardFeet20)
+        PnlBoardFeet.Controls.Add(Label12)
+        PnlBoardFeet.Controls.Add(LblBoardFeetCost15)
+        PnlBoardFeet.Controls.Add(LblTotalBoardFeet15)
+        PnlBoardFeet.Controls.Add(Label9)
+        PnlBoardFeet.Controls.Add(LblBoardFeetCost10)
+        PnlBoardFeet.Controls.Add(LblTotalBoardFeet10)
+        PnlBoardFeet.Controls.Add(Label6)
+        PnlBoardFeet.Controls.Add(LblBoardFeetCost)
+        PnlBoardFeet.Controls.Add(LblTotalBoardFeet)
+        PnlBoardFeet.Controls.Add(Label1)
+        PnlBoardFeet.Controls.Add(lblCalculateBoardfeet)
+        PnlBoardFeet.Controls.Add(DgvBoardfeet)
+        PnlBoardFeet.Location = New Point(5, 5)
+        PnlBoardFeet.Name = "PnlBoardFeet"
+        PnlBoardFeet.Size = New Size(1038, 588)
+        PnlBoardFeet.TabIndex = 0
+        ' 
+        ' BtnPrtBfProject
+        ' 
+        BtnPrtBfProject.Location = New Point(760, 522)
+        BtnPrtBfProject.Name = "BtnPrtBfProject"
+        BtnPrtBfProject.Size = New Size(144, 34)
+        BtnPrtBfProject.TabIndex = 16
+        BtnPrtBfProject.Text = "Print Project"
+        BtnPrtBfProject.UseVisualStyleBackColor = True
+        ' 
+        ' TxtBfProjectName
+        ' 
+        TxtBfProjectName.Location = New Point(406, 525)
+        TxtBfProjectName.Name = "TxtBfProjectName"
+        TxtBfProjectName.Size = New Size(222, 29)
+        TxtBfProjectName.TabIndex = 15
+        tTip.SetToolTip(TxtBfProjectName, "Enter project name")
+        ' 
+        ' BtnSaveBfProject
+        ' 
+        BtnSaveBfProject.Location = New Point(130, 522)
+        BtnSaveBfProject.Name = "BtnSaveBfProject"
+        BtnSaveBfProject.Size = New Size(144, 34)
+        BtnSaveBfProject.TabIndex = 14
+        BtnSaveBfProject.Text = "Save Project"
+        BtnSaveBfProject.UseVisualStyleBackColor = True
+        ' 
+        ' LblBoardFeetCost20
+        ' 
+        LblBoardFeetCost20.BorderStyle = BorderStyle.FixedSingle
+        LblBoardFeetCost20.Location = New Point(767, 470)
+        LblBoardFeetCost20.Name = "LblBoardFeetCost20"
+        LblBoardFeetCost20.Size = New Size(175, 32)
+        LblBoardFeetCost20.TabIndex = 13
+        LblBoardFeetCost20.Text = "$0.00"
+        LblBoardFeetCost20.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblTotalBoardFeet20
+        ' 
+        LblTotalBoardFeet20.BorderStyle = BorderStyle.FixedSingle
+        LblTotalBoardFeet20.Location = New Point(767, 425)
+        LblTotalBoardFeet20.Name = "LblTotalBoardFeet20"
+        LblTotalBoardFeet20.Size = New Size(175, 32)
+        LblTotalBoardFeet20.TabIndex = 12
+        LblTotalBoardFeet20.Text = "0.00"
+        LblTotalBoardFeet20.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' Label12
+        ' 
+        Label12.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label12.Location = New Point(767, 375)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(175, 32)
+        Label12.TabIndex = 11
+        Label12.Text = "Board Feet +20%"
+        Label12.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblBoardFeetCost15
+        ' 
+        LblBoardFeetCost15.BorderStyle = BorderStyle.FixedSingle
+        LblBoardFeetCost15.Location = New Point(522, 461)
+        LblBoardFeetCost15.Name = "LblBoardFeetCost15"
+        LblBoardFeetCost15.Size = New Size(175, 32)
+        LblBoardFeetCost15.TabIndex = 10
+        LblBoardFeetCost15.Text = "$0.00"
+        LblBoardFeetCost15.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblTotalBoardFeet15
+        ' 
+        LblTotalBoardFeet15.BorderStyle = BorderStyle.FixedSingle
+        LblTotalBoardFeet15.Location = New Point(522, 417)
+        LblTotalBoardFeet15.Name = "LblTotalBoardFeet15"
+        LblTotalBoardFeet15.Size = New Size(175, 32)
+        LblTotalBoardFeet15.TabIndex = 9
+        LblTotalBoardFeet15.Text = "0.00"
+        LblTotalBoardFeet15.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' Label9
+        ' 
+        Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label9.Location = New Point(522, 375)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(175, 32)
+        Label9.TabIndex = 8
+        Label9.Text = "Board Feet +15%"
+        Label9.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblBoardFeetCost10
+        ' 
+        LblBoardFeetCost10.BorderStyle = BorderStyle.FixedSingle
+        LblBoardFeetCost10.Location = New Point(307, 461)
+        LblBoardFeetCost10.Name = "LblBoardFeetCost10"
+        LblBoardFeetCost10.Size = New Size(175, 32)
+        LblBoardFeetCost10.TabIndex = 7
+        LblBoardFeetCost10.Text = "$0.00"
+        LblBoardFeetCost10.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblTotalBoardFeet10
+        ' 
+        LblTotalBoardFeet10.BorderStyle = BorderStyle.FixedSingle
+        LblTotalBoardFeet10.Location = New Point(307, 417)
+        LblTotalBoardFeet10.Name = "LblTotalBoardFeet10"
+        LblTotalBoardFeet10.Size = New Size(175, 32)
+        LblTotalBoardFeet10.TabIndex = 6
+        LblTotalBoardFeet10.Text = "0.00"
+        LblTotalBoardFeet10.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' Label6
+        ' 
+        Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label6.Location = New Point(307, 375)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(175, 32)
+        Label6.TabIndex = 5
+        Label6.Text = "Board Feet +10%"
+        Label6.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblBoardFeetCost
+        ' 
+        LblBoardFeetCost.BorderStyle = BorderStyle.FixedSingle
+        LblBoardFeetCost.Location = New Point(93, 461)
+        LblBoardFeetCost.Name = "LblBoardFeetCost"
+        LblBoardFeetCost.Size = New Size(175, 32)
+        LblBoardFeetCost.TabIndex = 4
+        LblBoardFeetCost.Text = "$0.00"
+        LblBoardFeetCost.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' LblTotalBoardFeet
+        ' 
+        LblTotalBoardFeet.BorderStyle = BorderStyle.FixedSingle
+        LblTotalBoardFeet.Location = New Point(93, 417)
+        LblTotalBoardFeet.Name = "LblTotalBoardFeet"
+        LblTotalBoardFeet.Size = New Size(175, 32)
+        LblTotalBoardFeet.TabIndex = 3
+        LblTotalBoardFeet.Text = "0.00"
+        LblTotalBoardFeet.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' Label1
+        ' 
+        Label1.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label1.Location = New Point(93, 375)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(175, 32)
+        Label1.TabIndex = 2
+        Label1.Text = "Total Board Feet"
+        Label1.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblCalculateBoardfeet
+        ' 
+        lblCalculateBoardfeet.AutoSize = True
+        lblCalculateBoardfeet.Font = New Font("Georgia", 16F, FontStyle.Bold)
+        lblCalculateBoardfeet.Location = New Point(364, 28)
+        lblCalculateBoardfeet.Name = "lblCalculateBoardfeet"
+        lblCalculateBoardfeet.Size = New Size(341, 38)
+        lblCalculateBoardfeet.TabIndex = 1
+        lblCalculateBoardfeet.Text = "Calculate Boardfeet"
+        ' 
+        ' DgvBoardfeet
+        ' 
+        DataGridViewCellStyle3.BackColor = Color.Beige
+        DgvBoardfeet.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DgvBoardfeet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DgvBoardfeet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvBoardfeet.Columns.AddRange(New DataGridViewColumn() {bfCol0, bfCol1, bfCol2, bfCol3, bfCol4, bfCol5, bfCol6})
+        DgvBoardfeet.Location = New Point(10, 74)
+        DgvBoardfeet.Name = "DgvBoardfeet"
+        DgvBoardfeet.RowHeadersWidth = 62
+        DgvBoardfeet.Size = New Size(1014, 276)
+        DgvBoardfeet.TabIndex = 0
+        ' 
+        ' bfCol0
+        ' 
+        bfCol0.HeaderText = "Length"
+        bfCol0.MinimumWidth = 8
+        bfCol0.Name = "bfCol0"
+        ' 
+        ' bfCol1
+        ' 
+        bfCol1.HeaderText = "Width"
+        bfCol1.MinimumWidth = 8
+        bfCol1.Name = "bfCol1"
+        ' 
+        ' bfCol2
+        ' 
+        bfCol2.HeaderText = "Thickness"
+        bfCol2.MinimumWidth = 8
+        bfCol2.Name = "bfCol2"
+        ' 
+        ' bfCol3
+        ' 
+        bfCol3.HeaderText = "Amount"
+        bfCol3.MinimumWidth = 8
+        bfCol3.Name = "bfCol3"
+        ' 
+        ' bfCol4
+        ' 
+        bfCol4.HeaderText = "Wood Type"
+        bfCol4.MinimumWidth = 8
+        bfCol4.Name = "bfCol4"
+        ' 
+        ' bfCol5
+        ' 
+        bfCol5.HeaderText = "Cost/Bf"
+        bfCol5.MinimumWidth = 8
+        bfCol5.Name = "bfCol5"
+        ' 
+        ' bfCol6
+        ' 
+        bfCol6.HeaderText = "Total Bf"
+        bfCol6.MinimumWidth = 8
+        bfCol6.Name = "bfCol6"
+        ' 
+        ' TpCalculations
+        ' 
+        TpCalculations.BackColor = Color.Gainsboro
+        TpCalculations.BorderStyle = BorderStyle.Fixed3D
+        TpCalculations.Controls.Add(Panel5)
+        TpCalculations.Controls.Add(Panel4)
+        TpCalculations.Controls.Add(Panel3)
+        TpCalculations.Controls.Add(Panel2)
+        TpCalculations.Controls.Add(Panel1)
+        TpCalculations.Location = New Point(4, 34)
+        TpCalculations.Name = "TpCalculations"
+        TpCalculations.Size = New Size(1076, 958)
+        TpCalculations.TabIndex = 2
+        TpCalculations.Text = "Calculations"
+        ' 
+        ' Panel5
+        ' 
+        Panel5.BackColor = Color.WhiteSmoke
+        Panel5.BorderStyle = BorderStyle.Fixed3D
+        Panel5.Controls.Add(LblTippingForce)
+        Panel5.Controls.Add(TxtTtTableBaseWeight)
+        Panel5.Controls.Add(TxtTtTableBaselength)
+        Panel5.Controls.Add(TxtTtTableTopWeight)
+        Panel5.Controls.Add(TxtTtTableTopLength)
+        Panel5.Controls.Add(Label25)
+        Panel5.Controls.Add(Label24)
+        Panel5.Controls.Add(Label22)
+        Panel5.Controls.Add(Label23)
+        Panel5.Controls.Add(Label21)
+        Panel5.Controls.Add(Label20)
+        Panel5.Controls.Add(Label18)
+        Panel5.Controls.Add(Label15)
+        Panel5.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Panel5.Location = New Point(356, 485)
+        Panel5.Name = "Panel5"
+        Panel5.Size = New Size(391, 413)
+        Panel5.TabIndex = 4
+        ' 
+        ' LblTippingForce
+        ' 
+        LblTippingForce.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblTippingForce.ForeColor = Color.DodgerBlue
+        LblTippingForce.Location = New Point(5, 317)
+        LblTippingForce.Name = "LblTippingForce"
+        LblTippingForce.Size = New Size(377, 38)
+        LblTippingForce.TabIndex = 12
+        LblTippingForce.Tag = "Tipping force required: {0:N2} lbs"
+        LblTippingForce.Text = "Tipping force required"
+        LblTippingForce.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' TxtTtTableBaseWeight
+        ' 
+        TxtTtTableBaseWeight.Location = New Point(106, 268)
+        TxtTtTableBaseWeight.Name = "TxtTtTableBaseWeight"
+        TxtTtTableBaseWeight.Size = New Size(75, 29)
+        TxtTtTableBaseWeight.TabIndex = 11
+        ' 
+        ' TxtTtTableBaselength
+        ' 
+        TxtTtTableBaselength.Location = New Point(106, 223)
+        TxtTtTableBaselength.Name = "TxtTtTableBaselength"
+        TxtTtTableBaselength.Size = New Size(75, 29)
+        TxtTtTableBaselength.TabIndex = 10
+        ' 
+        ' TxtTtTableTopWeight
+        ' 
+        TxtTtTableTopWeight.Location = New Point(106, 141)
+        TxtTtTableTopWeight.Name = "TxtTtTableTopWeight"
+        TxtTtTableTopWeight.Size = New Size(75, 29)
+        TxtTtTableTopWeight.TabIndex = 9
+        ' 
+        ' TxtTtTableTopLength
+        ' 
+        TxtTtTableTopLength.Location = New Point(106, 104)
+        TxtTtTableTopLength.Name = "TxtTtTableTopLength"
+        TxtTtTableTopLength.Size = New Size(75, 29)
+        TxtTtTableTopLength.TabIndex = 8
+        ' 
+        ' Label25
+        ' 
+        Label25.AutoSize = True
+        Label25.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label25.ForeColor = Color.OrangeRed
+        Label25.Location = New Point(86, 189)
+        Label25.Name = "Label25"
+        Label25.Size = New Size(102, 25)
+        Label25.TabIndex = 7
+        Label25.Text = "Table Base"
+        ' 
+        ' Label24
+        ' 
+        Label24.AutoSize = True
+        Label24.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label24.ForeColor = Color.OrangeRed
+        Label24.Location = New Point(97, 72)
+        Label24.Name = "Label24"
+        Label24.Size = New Size(93, 25)
+        Label24.TabIndex = 6
+        Label24.Text = "Table Top"
+        ' 
+        ' Label22
+        ' 
+        Label22.AutoSize = True
+        Label22.Location = New Point(31, 272)
+        Label22.Name = "Label22"
+        Label22.Size = New Size(66, 21)
+        Label22.TabIndex = 5
+        Label22.Text = "Weight"
+        Label22.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label23
+        ' 
+        Label23.AutoSize = True
+        Label23.Location = New Point(34, 227)
+        Label23.Name = "Label23"
+        Label23.Size = New Size(63, 21)
+        Label23.TabIndex = 4
+        Label23.Text = "Length"
+        Label23.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label21
+        ' 
+        Label21.AutoSize = True
+        Label21.Location = New Point(31, 145)
+        Label21.Name = "Label21"
+        Label21.Size = New Size(66, 21)
+        Label21.TabIndex = 3
+        Label21.Text = "Weight"
+        Label21.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label20
+        ' 
+        Label20.AutoSize = True
+        Label20.Location = New Point(34, 108)
+        Label20.Name = "Label20"
+        Label20.Size = New Size(63, 21)
+        Label20.TabIndex = 2
+        Label20.Text = "Length"
+        Label20.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label18
+        ' 
+        Label18.AutoSize = True
+        Label18.Location = New Point(46, 365)
+        Label18.Name = "Label18"
+        Label18.Size = New Size(294, 21)
+        Label18.TabIndex = 1
+        Label18.Text = "Calculate force required to tip a table"
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.ForeColor = Color.Maroon
+        Label15.Location = New Point(58, 23)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(271, 38)
+        Label15.TabIndex = 0
+        Label15.Text = "Table Tip Force"
+        ' 
+        ' Panel4
+        ' 
+        Panel4.BackColor = Color.WhiteSmoke
+        Panel4.BorderStyle = BorderStyle.Fixed3D
+        Panel4.Controls.Add(GroupBox4)
+        Panel4.Controls.Add(GroupBox3)
+        Panel4.Controls.Add(GroupBox2)
+        Panel4.Controls.Add(GroupBox1)
+        Panel4.Controls.Add(Label13)
+        Panel4.Location = New Point(762, 19)
+        Panel4.Name = "Panel4"
+        Panel4.Size = New Size(300, 568)
+        Panel4.TabIndex = 3
+        ' 
+        ' GroupBox4
+        ' 
+        GroupBox4.BackColor = Color.Silver
+        GroupBox4.Controls.Add(LblFraction2Decimal)
+        GroupBox4.Controls.Add(TxtFraction2Decimal)
+        GroupBox4.Controls.Add(Label16)
+        GroupBox4.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox4.Location = New Point(20, 435)
+        GroupBox4.Name = "GroupBox4"
+        GroupBox4.Size = New Size(257, 115)
+        GroupBox4.TabIndex = 4
+        GroupBox4.TabStop = False
+        GroupBox4.Tag = "Decimal: {0}"
+        GroupBox4.Text = "Fraction to Decimal"
+        ' 
+        ' LblFraction2Decimal
+        ' 
+        LblFraction2Decimal.AutoSize = True
+        LblFraction2Decimal.Location = New Point(20, 67)
+        LblFraction2Decimal.Name = "LblFraction2Decimal"
+        LblFraction2Decimal.Size = New Size(73, 21)
+        LblFraction2Decimal.TabIndex = 2
+        LblFraction2Decimal.Tag = "Decimal: {0:N3} "
+        LblFraction2Decimal.Text = "Decimal"
+        ' 
+        ' TxtFraction2Decimal
+        ' 
+        TxtFraction2Decimal.Location = New Point(98, 26)
+        TxtFraction2Decimal.Name = "TxtFraction2Decimal"
+        TxtFraction2Decimal.Size = New Size(81, 29)
+        TxtFraction2Decimal.TabIndex = 1
+        ' 
+        ' Label16
+        ' 
+        Label16.AutoSize = True
+        Label16.Location = New Point(20, 30)
+        Label16.Name = "Label16"
+        Label16.Size = New Size(72, 21)
+        Label16.TabIndex = 0
+        Label16.Text = "Fraction"
+        ' 
+        ' GroupBox3
+        ' 
+        GroupBox3.BackColor = Color.Silver
+        GroupBox3.Controls.Add(LblDecimal2Fraction)
+        GroupBox3.Controls.Add(TxtDecimal2Fraction)
+        GroupBox3.Controls.Add(Label19)
+        GroupBox3.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox3.Location = New Point(20, 314)
+        GroupBox3.Name = "GroupBox3"
+        GroupBox3.Size = New Size(257, 115)
+        GroupBox3.TabIndex = 3
+        GroupBox3.TabStop = False
+        GroupBox3.Text = "Decimal to Fraction"
+        ' 
+        ' LblDecimal2Fraction
+        ' 
+        LblDecimal2Fraction.AutoSize = True
+        LblDecimal2Fraction.Location = New Point(20, 67)
+        LblDecimal2Fraction.Name = "LblDecimal2Fraction"
+        LblDecimal2Fraction.Size = New Size(72, 21)
+        LblDecimal2Fraction.TabIndex = 2
+        LblDecimal2Fraction.Tag = "Fraction: {0}"
+        LblDecimal2Fraction.Text = "Fraction"
+        ' 
+        ' TxtDecimal2Fraction
+        ' 
+        TxtDecimal2Fraction.Location = New Point(98, 26)
+        TxtDecimal2Fraction.Name = "TxtDecimal2Fraction"
+        TxtDecimal2Fraction.Size = New Size(81, 29)
+        TxtDecimal2Fraction.TabIndex = 1
+        ' 
+        ' Label19
+        ' 
+        Label19.AutoSize = True
+        Label19.Location = New Point(20, 30)
+        Label19.Name = "Label19"
+        Label19.Size = New Size(73, 21)
+        Label19.TabIndex = 0
+        Label19.Text = "Decimal"
+        ' 
+        ' GroupBox2
+        ' 
+        GroupBox2.BackColor = Color.Silver
+        GroupBox2.Controls.Add(LblMM2Inches)
+        GroupBox2.Controls.Add(TxtMm2Inches)
+        GroupBox2.Controls.Add(Label17)
+        GroupBox2.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox2.Location = New Point(20, 193)
+        GroupBox2.Name = "GroupBox2"
+        GroupBox2.Size = New Size(257, 115)
+        GroupBox2.TabIndex = 2
+        GroupBox2.TabStop = False
+        GroupBox2.Text = "MM to Inches"
+        ' 
+        ' LblMM2Inches
+        ' 
+        LblMM2Inches.AutoSize = True
+        LblMM2Inches.Location = New Point(20, 67)
+        LblMM2Inches.Name = "LblMM2Inches"
+        LblMM2Inches.Size = New Size(59, 21)
+        LblMM2Inches.TabIndex = 2
+        LblMM2Inches.Tag = "Inches: {0:N2} in"
+        LblMM2Inches.Text = "Inches"
+        ' 
+        ' TxtMm2Inches
+        ' 
+        TxtMm2Inches.Location = New Point(90, 26)
+        TxtMm2Inches.Name = "TxtMm2Inches"
+        TxtMm2Inches.Size = New Size(81, 29)
+        TxtMm2Inches.TabIndex = 1
+        ' 
+        ' Label17
+        ' 
+        Label17.AutoSize = True
+        Label17.Location = New Point(20, 30)
+        Label17.Name = "Label17"
+        Label17.Size = New Size(59, 21)
+        Label17.TabIndex = 0
+        Label17.Text = "Inches"
+        ' 
+        ' GroupBox1
+        ' 
+        GroupBox1.BackColor = Color.Silver
+        GroupBox1.Controls.Add(LblInches2MM)
+        GroupBox1.Controls.Add(TxtInches2Mm)
+        GroupBox1.Controls.Add(Label14)
+        GroupBox1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox1.Location = New Point(20, 72)
+        GroupBox1.Name = "GroupBox1"
+        GroupBox1.Size = New Size(257, 115)
+        GroupBox1.TabIndex = 1
+        GroupBox1.TabStop = False
+        GroupBox1.Text = "Inches to MM"
+        ' 
+        ' LblInches2MM
+        ' 
+        LblInches2MM.AutoSize = True
+        LblInches2MM.Location = New Point(20, 67)
+        LblInches2MM.Name = "LblInches2MM"
+        LblInches2MM.Size = New Size(97, 21)
+        LblInches2MM.TabIndex = 2
+        LblInches2MM.Tag = "Millimeters: {0:N2} mm"
+        LblInches2MM.Text = "Millimeters"
+        ' 
+        ' TxtInches2Mm
+        ' 
+        TxtInches2Mm.Location = New Point(90, 26)
+        TxtInches2Mm.Name = "TxtInches2Mm"
+        TxtInches2Mm.Size = New Size(81, 29)
+        TxtInches2Mm.TabIndex = 1
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.Location = New Point(20, 30)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(59, 21)
+        Label14.TabIndex = 0
+        Label14.Text = "Inches"
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label13.ForeColor = Color.Maroon
+        Label13.Location = New Point(49, 24)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(199, 38)
+        Label13.TabIndex = 0
+        Label13.Text = "Converters"
+        ' 
+        ' Panel3
+        ' 
+        Panel3.BackColor = Color.WhiteSmoke
+        Panel3.BorderStyle = BorderStyle.Fixed3D
+        Panel3.Controls.Add(LblPolygonPieceAngle)
+        Panel3.Controls.Add(LblPolygonSideAngle)
+        Panel3.Controls.Add(TxtPolygonSides)
+        Panel3.Controls.Add(Label11)
+        Panel3.Controls.Add(PbPolygon)
+        Panel3.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Panel3.Location = New Point(26, 477)
+        Panel3.Name = "Panel3"
+        Panel3.Size = New Size(302, 462)
+        Panel3.TabIndex = 2
+        ' 
+        ' LblPolygonPieceAngle
+        ' 
+        LblPolygonPieceAngle.AutoSize = True
+        LblPolygonPieceAngle.Location = New Point(24, 100)
+        LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
+        LblPolygonPieceAngle.Size = New Size(168, 21)
+        LblPolygonPieceAngle.TabIndex = 4
+        LblPolygonPieceAngle.Tag = "Cut angle each piece: {0:N2}°"
+        LblPolygonPieceAngle.Text = "Cut angle each piece"
+        LblPolygonPieceAngle.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonSideAngle
+        ' 
+        LblPolygonSideAngle.AutoSize = True
+        LblPolygonSideAngle.Location = New Point(24, 60)
+        LblPolygonSideAngle.Name = "LblPolygonSideAngle"
+        LblPolygonSideAngle.Size = New Size(130, 21)
+        LblPolygonSideAngle.TabIndex = 3
+        LblPolygonSideAngle.Tag = "Angle each side: {0:N2}°"
+        LblPolygonSideAngle.Text = "Angle each side"
+        LblPolygonSideAngle.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' TxtPolygonSides
+        ' 
+        TxtPolygonSides.Location = New Point(146, 15)
+        TxtPolygonSides.MaxLength = 5
+        TxtPolygonSides.Name = "TxtPolygonSides"
+        TxtPolygonSides.Size = New Size(49, 29)
+        TxtPolygonSides.TabIndex = 0
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(24, 19)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(115, 21)
+        Label11.TabIndex = 1
+        Label11.Text = "Number sides"
+        ' 
+        ' PbPolygon
+        ' 
+        PbPolygon.BackColor = Color.LightGray
+        PbPolygon.BorderStyle = BorderStyle.Fixed3D
+        PbPolygon.Location = New Point(21, 144)
+        PbPolygon.Name = "PbPolygon"
+        PbPolygon.Size = New Size(257, 275)
+        PbPolygon.TabIndex = 0
+        PbPolygon.TabStop = False
+        ' 
+        ' Panel2
+        ' 
+        Panel2.BackColor = Color.WhiteSmoke
+        Panel2.BorderStyle = BorderStyle.Fixed3D
+        Panel2.Controls.Add(RtbFraction2Mm)
+        Panel2.Controls.Add(RtbFraction2Decimal)
+        Panel2.Controls.Add(Label10)
+        Panel2.Controls.Add(Label8)
+        Panel2.Location = New Point(282, 19)
+        Panel2.Name = "Panel2"
+        Panel2.Size = New Size(465, 449)
+        Panel2.TabIndex = 1
+        ' 
+        ' RtbFraction2Mm
+        ' 
+        RtbFraction2Mm.BackColor = Color.White
+        RtbFraction2Mm.DetectUrls = False
+        RtbFraction2Mm.Location = New Point(239, 55)
+        RtbFraction2Mm.Name = "RtbFraction2Mm"
+        RtbFraction2Mm.ReadOnly = True
+        RtbFraction2Mm.ScrollBars = RichTextBoxScrollBars.Vertical
+        RtbFraction2Mm.ShowSelectionMargin = True
+        RtbFraction2Mm.Size = New Size(209, 374)
+        RtbFraction2Mm.TabIndex = 3
+        RtbFraction2Mm.TabStop = False
+        RtbFraction2Mm.Text = ""
+        ' 
+        ' RtbFraction2Decimal
+        ' 
+        RtbFraction2Decimal.BackColor = Color.White
+        RtbFraction2Decimal.DetectUrls = False
+        RtbFraction2Decimal.Location = New Point(12, 55)
+        RtbFraction2Decimal.Name = "RtbFraction2Decimal"
+        RtbFraction2Decimal.ReadOnly = True
+        RtbFraction2Decimal.ScrollBars = RichTextBoxScrollBars.Vertical
+        RtbFraction2Decimal.ShowSelectionMargin = True
+        RtbFraction2Decimal.Size = New Size(209, 374)
+        RtbFraction2Decimal.TabIndex = 2
+        RtbFraction2Decimal.TabStop = False
+        RtbFraction2Decimal.Text = ""
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        Label10.ForeColor = Color.Maroon
+        Label10.Location = New Point(286, 21)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(126, 21)
+        Label10.TabIndex = 1
+        Label10.Text = "Fraction to mm"
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        Label8.ForeColor = Color.Maroon
+        Label8.Location = New Point(43, 21)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(159, 21)
+        Label8.TabIndex = 0
+        Label8.Text = "Fraction to Decimal"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.BackColor = Color.WhiteSmoke
+        Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(RbEpoxyWaste20)
+        Panel1.Controls.Add(RbEpoxyWaste15)
+        Panel1.Controls.Add(RbEpoxyWaste10)
+        Panel1.Controls.Add(RbEpoxyWaste0)
+        Panel1.Controls.Add(Label7)
+        Panel1.Controls.Add(TxtEpoxyDepth)
+        Panel1.Controls.Add(TxtEpoxyWidth)
+        Panel1.Controls.Add(TxtEpoxyLength)
+        Panel1.Controls.Add(LblEpoxyPints)
+        Panel1.Controls.Add(LblEpoxyQuarts)
+        Panel1.Controls.Add(LblEpoxyGallons)
+        Panel1.Controls.Add(LblEpoxyOunces)
+        Panel1.Controls.Add(Label5)
+        Panel1.Controls.Add(Label4)
+        Panel1.Controls.Add(Label3)
+        Panel1.Controls.Add(Label2)
+        Panel1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Panel1.Location = New Point(26, 19)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(250, 449)
+        Panel1.TabIndex = 0
+        ' 
+        ' RbEpoxyWaste20
+        ' 
+        RbEpoxyWaste20.AutoSize = True
+        RbEpoxyWaste20.Location = New Point(140, 408)
+        RbEpoxyWaste20.Name = "RbEpoxyWaste20"
+        RbEpoxyWaste20.Size = New Size(67, 25)
+        RbEpoxyWaste20.TabIndex = 5
+        RbEpoxyWaste20.Text = "20%"
+        RbEpoxyWaste20.UseVisualStyleBackColor = True
+        ' 
+        ' RbEpoxyWaste15
+        ' 
+        RbEpoxyWaste15.AutoSize = True
+        RbEpoxyWaste15.Location = New Point(140, 375)
+        RbEpoxyWaste15.Name = "RbEpoxyWaste15"
+        RbEpoxyWaste15.Size = New Size(67, 25)
+        RbEpoxyWaste15.TabIndex = 3
+        RbEpoxyWaste15.Text = "15%"
+        RbEpoxyWaste15.UseVisualStyleBackColor = True
+        ' 
+        ' RbEpoxyWaste10
+        ' 
+        RbEpoxyWaste10.AutoSize = True
+        RbEpoxyWaste10.Location = New Point(40, 408)
+        RbEpoxyWaste10.Name = "RbEpoxyWaste10"
+        RbEpoxyWaste10.Size = New Size(67, 25)
+        RbEpoxyWaste10.TabIndex = 4
+        RbEpoxyWaste10.Text = "10%"
+        RbEpoxyWaste10.UseVisualStyleBackColor = True
+        ' 
+        ' RbEpoxyWaste0
+        ' 
+        RbEpoxyWaste0.AutoSize = True
+        RbEpoxyWaste0.Location = New Point(40, 375)
+        RbEpoxyWaste0.Name = "RbEpoxyWaste0"
+        RbEpoxyWaste0.Size = New Size(58, 25)
+        RbEpoxyWaste0.TabIndex = 2
+        RbEpoxyWaste0.Text = "0%"
+        RbEpoxyWaste0.UseVisualStyleBackColor = True
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label7.ForeColor = Color.Maroon
+        Label7.Location = New Point(41, 338)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(164, 25)
+        Label7.TabIndex = 11
+        Label7.Text = "Waste Percentage"
+        ' 
+        ' TxtEpoxyDepth
+        ' 
+        TxtEpoxyDepth.Location = New Point(102, 140)
+        TxtEpoxyDepth.Name = "TxtEpoxyDepth"
+        TxtEpoxyDepth.Size = New Size(69, 29)
+        TxtEpoxyDepth.TabIndex = 2
+        ' 
+        ' TxtEpoxyWidth
+        ' 
+        TxtEpoxyWidth.Location = New Point(102, 100)
+        TxtEpoxyWidth.Name = "TxtEpoxyWidth"
+        TxtEpoxyWidth.Size = New Size(69, 29)
+        TxtEpoxyWidth.TabIndex = 1
+        ' 
+        ' TxtEpoxyLength
+        ' 
+        TxtEpoxyLength.Location = New Point(102, 60)
+        TxtEpoxyLength.Name = "TxtEpoxyLength"
+        TxtEpoxyLength.Size = New Size(69, 29)
+        TxtEpoxyLength.TabIndex = 0
+        ' 
+        ' LblEpoxyPints
+        ' 
+        LblEpoxyPints.AutoSize = True
+        LblEpoxyPints.Location = New Point(23, 297)
+        LblEpoxyPints.Name = "LblEpoxyPints"
+        LblEpoxyPints.Size = New Size(117, 21)
+        LblEpoxyPints.TabIndex = 7
+        LblEpoxyPints.Tag = "Pints: {0:N2} pts"
+        LblEpoxyPints.Text = "Pints required"
+        LblEpoxyPints.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblEpoxyQuarts
+        ' 
+        LblEpoxyQuarts.AutoSize = True
+        LblEpoxyQuarts.Location = New Point(23, 260)
+        LblEpoxyQuarts.Name = "LblEpoxyQuarts"
+        LblEpoxyQuarts.Size = New Size(129, 21)
+        LblEpoxyQuarts.TabIndex = 6
+        LblEpoxyQuarts.Tag = "Quarts {0:N2} qts"
+        LblEpoxyQuarts.Text = "Quarts required"
+        LblEpoxyQuarts.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblEpoxyGallons
+        ' 
+        LblEpoxyGallons.AutoSize = True
+        LblEpoxyGallons.Location = New Point(23, 223)
+        LblEpoxyGallons.Name = "LblEpoxyGallons"
+        LblEpoxyGallons.Size = New Size(136, 21)
+        LblEpoxyGallons.TabIndex = 5
+        LblEpoxyGallons.Tag = "Gallons: {0:N2} gal"
+        LblEpoxyGallons.Text = "Gallons required"
+        LblEpoxyGallons.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblEpoxyOunces
+        ' 
+        LblEpoxyOunces.AutoSize = True
+        LblEpoxyOunces.Location = New Point(23, 186)
+        LblEpoxyOunces.Name = "LblEpoxyOunces"
+        LblEpoxyOunces.Size = New Size(135, 21)
+        LblEpoxyOunces.TabIndex = 4
+        LblEpoxyOunces.Tag = "Ounces: {0:N2} oz"
+        LblEpoxyOunces.Text = "Ounces required"
+        LblEpoxyOunces.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(37, 144)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(57, 21)
+        Label5.TabIndex = 3
+        Label5.Text = "Depth"
+        Label5.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Location = New Point(37, 104)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(57, 21)
+        Label4.TabIndex = 2
+        Label4.Text = "Width"
+        Label4.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Location = New Point(31, 64)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(63, 21)
+        Label3.TabIndex = 1
+        Label3.Text = "Length"
+        Label3.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Georgia", 14F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.ForeColor = Color.Maroon
+        Label2.Location = New Point(26, 13)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(195, 32)
+        Label2.TabIndex = 0
+        Label2.Text = "Epoxy Pours"
+        ' 
+        ' TpLogs
+        ' 
+        TpLogs.BackColor = Color.Gainsboro
+        TpLogs.BorderStyle = BorderStyle.Fixed3D
+        TpLogs.Controls.Add(RbMetric)
+        TpLogs.Controls.Add(RbImperial)
+        TpLogs.Controls.Add(RtbLog)
+        TpLogs.Location = New Point(4, 34)
+        TpLogs.Name = "TpLogs"
+        TpLogs.Size = New Size(1076, 958)
+        TpLogs.TabIndex = 3
+        TpLogs.Text = "Logs"
+        ' 
+        ' RbMetric
+        ' 
+        RbMetric.AutoSize = True
+        RbMetric.Location = New Point(276, 75)
+        RbMetric.Name = "RbMetric"
+        RbMetric.Size = New Size(79, 25)
+        RbMetric.TabIndex = 2
+        RbMetric.TabStop = True
+        RbMetric.Text = "Metric"
+        RbMetric.UseVisualStyleBackColor = True
+        ' 
+        ' RbImperial
+        ' 
+        RbImperial.AutoSize = True
+        RbImperial.Location = New Point(94, 81)
+        RbImperial.Name = "RbImperial"
+        RbImperial.Size = New Size(92, 25)
+        RbImperial.TabIndex = 1
+        RbImperial.TabStop = True
+        RbImperial.Text = "Imperial"
+        RbImperial.UseVisualStyleBackColor = True
+        ' 
+        ' RtbLog
+        ' 
+        RtbLog.Location = New Point(151, 239)
+        RtbLog.Name = "RtbLog"
+        RtbLog.ReadOnly = True
+        RtbLog.ShowSelectionMargin = True
+        RtbLog.Size = New Size(590, 583)
+        RtbLog.TabIndex = 0
+        RtbLog.Text = ""
         ' 
         ' tTip
         ' 
@@ -2642,18 +2642,20 @@ Partial Class FrmMain
         ' 
         ' FrmMain
         ' 
-        AutoScaleDimensions = New SizeF(9.0F, 21.0F)
+        AutoScaleDimensions = New SizeF(9F, 21F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1084, 1118)
         Controls.Add(Tc)
         Controls.Add(Ss3)
         Controls.Add(Ss2)
         Controls.Add(Ss1)
-        Font = New Font("Segoe UI", 8.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Font = New Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         FormBorderStyle = FormBorderStyle.Fixed3D
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximizeBox = False
         Name = "FrmMain"
         SizeGripStyle = SizeGripStyle.Hide
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Form1"
         Ss1.ResumeLayout(False)
         Ss1.PerformLayout()
@@ -2678,6 +2680,27 @@ Partial Class FrmMain
         PnlResults.ResumeLayout(False)
         GroupBox11.ResumeLayout(False)
         GroupBox11.PerformLayout()
+        TpDoors.ResumeLayout(False)
+        ScDoors.Panel1.ResumeLayout(False)
+        ScDoors.Panel1.PerformLayout()
+        ScDoors.Panel2.ResumeLayout(False)
+        ScDoors.Panel2.PerformLayout()
+        CType(ScDoors, ComponentModel.ISupportInitialize).EndInit()
+        ScDoors.ResumeLayout(False)
+        GroupBox12.ResumeLayout(False)
+        Panel6.ResumeLayout(False)
+        Panel6.PerformLayout()
+        GroupBox10.ResumeLayout(False)
+        GroupBox10.PerformLayout()
+        Panel8.ResumeLayout(False)
+        Panel8.PerformLayout()
+        Panel9.ResumeLayout(False)
+        Panel9.PerformLayout()
+        Panel10.ResumeLayout(False)
+        Panel10.PerformLayout()
+        Panel7.ResumeLayout(False)
+        Panel7.PerformLayout()
+        PnlDoorResults.ResumeLayout(False)
         TpBoardfeet.ResumeLayout(False)
         PnlBoardFeet.ResumeLayout(False)
         PnlBoardFeet.PerformLayout()
@@ -2704,27 +2727,6 @@ Partial Class FrmMain
         Panel1.PerformLayout()
         TpLogs.ResumeLayout(False)
         TpLogs.PerformLayout()
-        TpDoors.ResumeLayout(False)
-        ScDoors.Panel1.ResumeLayout(False)
-        ScDoors.Panel1.PerformLayout()
-        ScDoors.Panel2.ResumeLayout(False)
-        ScDoors.Panel2.PerformLayout()
-        CType(ScDoors, ComponentModel.ISupportInitialize).EndInit()
-        ScDoors.ResumeLayout(False)
-        GroupBox12.ResumeLayout(False)
-        Panel6.ResumeLayout(False)
-        Panel6.PerformLayout()
-        GroupBox10.ResumeLayout(False)
-        GroupBox10.PerformLayout()
-        Panel8.ResumeLayout(False)
-        Panel8.PerformLayout()
-        Panel9.ResumeLayout(False)
-        Panel9.PerformLayout()
-        Panel10.ResumeLayout(False)
-        Panel10.PerformLayout()
-        Panel7.ResumeLayout(False)
-        Panel7.PerformLayout()
-        PnlDoorResults.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub

@@ -14,6 +14,17 @@ Public Class FrmMain
     Private _resourceManager As New List(Of IDisposable)
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        ' Show splash screen
+        Using splash As New FrmSplash()
+            splash.Opacity = 1
+            splash.Show()
+            Application.DoEvents()
+            Threading.Thread.Sleep(2500) ' Show splash for 1.8 seconds
+            splash.FadeOut(1000)          ' Fade out over 0.8 seconds
+            splash.Close()
+        End Using
+
         AttachSelectAllHandlerToTextBoxes(Me)
         InitializeSystem()
         InitializeManagers()
