@@ -13,6 +13,9 @@ Public Class FrmMain
     Private _loading As Boolean = False  ' ADD THIS LINE
     Private _resourceManager As New List(Of IDisposable)
 
+    ' Add a field to track the current scale
+    'Private _scaleManager As New ScaleManager()
+
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         ' Show splash screen
@@ -212,5 +215,43 @@ Public Class FrmMain
         ' Set default selection
         If RbHambridge IsNot Nothing Then RbHambridge.Checked = True
     End Sub
+
+#Region "Scale Set Methods"
+
+    Private _scaleManager As New ScaleManager()
+
+    Private Sub RbImperial_CheckedChanged(sender As Object, e As EventArgs) Handles RbImperial.CheckedChanged
+        If RbImperial.Checked Then
+            _scaleManager.SetScale(ScaleManager.ScaleType.Imperial)
+            TsslScale.Text = "Imperial"
+            TsslScale.ForeColor = Color.ForestGreen
+        End If
+    End Sub
+
+    Private Sub RbMetric_CheckedChanged(sender As Object, e As EventArgs) Handles RbMetric.CheckedChanged
+        If RbMetric.Checked Then
+            _scaleManager.SetScale(ScaleManager.ScaleType.Metric)
+            TsslScale.Text = "Metric"
+            TsslScale.ForeColor = Color.Firebrick
+
+        End If
+    End Sub
+
+    ' Add this event handler to toggle scale when TsslScale is clicked
+    Private Sub TsslScale_Click(sender As Object, e As EventArgs) Handles TsslScale.Click
+        If _scaleManager.CurrentScale = ScaleManager.ScaleType.Imperial Then
+            _scaleManager.SetScale(ScaleManager.ScaleType.Metric)
+            TsslScale.Text = "Metric"
+            TsslScale.ForeColor = Color.Firebrick
+            RbMetric.Checked = True
+        Else
+            _scaleManager.SetScale(ScaleManager.ScaleType.Imperial)
+            TsslScale.Text = "Imperial"
+            TsslScale.ForeColor = Color.ForestGreen
+            RbImperial.Checked = True
+        End If
+    End Sub
+
+#End Region
 
 End Class

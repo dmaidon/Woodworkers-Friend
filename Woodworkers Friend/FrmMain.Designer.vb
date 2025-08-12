@@ -239,9 +239,11 @@ Partial Class FrmMain
         Label3 = New Label()
         Label2 = New Label()
         TpLogs = New TabPage()
-        RbMetric = New RadioButton()
-        RbImperial = New RadioButton()
+        PngLog = New Panel()
         RtbLog = New RichTextBox()
+        GbSetScale = New GroupBox()
+        RbImperial = New RadioButton()
+        RbMetric = New RadioButton()
         tTip = New ToolTip(components)
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
@@ -289,6 +291,8 @@ Partial Class FrmMain
         Panel2.SuspendLayout()
         Panel1.SuspendLayout()
         TpLogs.SuspendLayout()
+        PngLog.SuspendLayout()
+        GbSetScale.SuspendLayout()
         SuspendLayout()
         ' 
         ' Ss1
@@ -2583,30 +2587,52 @@ Partial Class FrmMain
         ' 
         TpLogs.BackColor = Color.Gainsboro
         TpLogs.BorderStyle = BorderStyle.Fixed3D
-        TpLogs.Controls.Add(RbMetric)
-        TpLogs.Controls.Add(RbImperial)
-        TpLogs.Controls.Add(RtbLog)
-        TpLogs.Location = New Point(4, 34)
+        TpLogs.Controls.Add(PngLog)
+        TpLogs.Controls.Add(GbSetScale)
+        TpLogs.Location = New Point(4, 30)
         TpLogs.Name = "TpLogs"
-        TpLogs.Size = New Size(1076, 958)
+        TpLogs.Size = New Size(1076, 962)
         TpLogs.TabIndex = 3
         TpLogs.Text = "Logs"
         ' 
-        ' RbMetric
+        ' PngLog
         ' 
-        RbMetric.AutoSize = True
-        RbMetric.Location = New Point(276, 75)
-        RbMetric.Name = "RbMetric"
-        RbMetric.Size = New Size(79, 25)
-        RbMetric.TabIndex = 2
-        RbMetric.TabStop = True
-        RbMetric.Text = "Metric"
-        RbMetric.UseVisualStyleBackColor = True
+        PngLog.BackColor = Color.Silver
+        PngLog.BorderStyle = BorderStyle.Fixed3D
+        PngLog.Controls.Add(RtbLog)
+        PngLog.Location = New Point(4, 198)
+        PngLog.Name = "PngLog"
+        PngLog.Size = New Size(807, 749)
+        PngLog.TabIndex = 4
+        ' 
+        ' RtbLog
+        ' 
+        RtbLog.Dock = DockStyle.Fill
+        RtbLog.Location = New Point(0, 0)
+        RtbLog.Name = "RtbLog"
+        RtbLog.ReadOnly = True
+        RtbLog.ShowSelectionMargin = True
+        RtbLog.Size = New Size(803, 745)
+        RtbLog.TabIndex = 0
+        RtbLog.Text = ""
+        ' 
+        ' GbSetScale
+        ' 
+        GbSetScale.BackColor = Color.WhiteSmoke
+        GbSetScale.Controls.Add(RbImperial)
+        GbSetScale.Controls.Add(RbMetric)
+        GbSetScale.Location = New Point(6, 3)
+        GbSetScale.Name = "GbSetScale"
+        GbSetScale.Size = New Size(281, 83)
+        GbSetScale.TabIndex = 3
+        GbSetScale.TabStop = False
+        GbSetScale.Text = "Set Scale"
         ' 
         ' RbImperial
         ' 
         RbImperial.AutoSize = True
-        RbImperial.Location = New Point(94, 81)
+        RbImperial.Checked = True
+        RbImperial.Location = New Point(39, 29)
         RbImperial.Name = "RbImperial"
         RbImperial.Size = New Size(92, 25)
         RbImperial.TabIndex = 1
@@ -2614,15 +2640,15 @@ Partial Class FrmMain
         RbImperial.Text = "Imperial"
         RbImperial.UseVisualStyleBackColor = True
         ' 
-        ' RtbLog
+        ' RbMetric
         ' 
-        RtbLog.Location = New Point(151, 239)
-        RtbLog.Name = "RtbLog"
-        RtbLog.ReadOnly = True
-        RtbLog.ShowSelectionMargin = True
-        RtbLog.Size = New Size(590, 583)
-        RtbLog.TabIndex = 0
-        RtbLog.Text = ""
+        RbMetric.AutoSize = True
+        RbMetric.Location = New Point(162, 29)
+        RbMetric.Name = "RbMetric"
+        RbMetric.Size = New Size(79, 25)
+        RbMetric.TabIndex = 2
+        RbMetric.Text = "Metric"
+        RbMetric.UseVisualStyleBackColor = True
         ' 
         ' tTip
         ' 
@@ -2726,7 +2752,9 @@ Partial Class FrmMain
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         TpLogs.ResumeLayout(False)
-        TpLogs.PerformLayout()
+        PngLog.ResumeLayout(False)
+        GbSetScale.ResumeLayout(False)
+        GbSetScale.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -2949,5 +2977,7 @@ Partial Class FrmMain
     Friend WithEvents BtnDeleteDoorProject As Button
     Friend WithEvents TmrDoorCalculationDelay As Timer
     Friend WithEvents BtnPrintDoorResults As Button
+    Friend WithEvents GbSetScale As GroupBox
+    Friend WithEvents PngLog As Panel
 
 End Class

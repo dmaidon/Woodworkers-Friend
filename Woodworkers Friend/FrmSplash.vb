@@ -6,6 +6,8 @@
     Private lblInstructions As Label
 
     Public Sub New()
+        InitializeComponent()
+
         Me.FormBorderStyle = FormBorderStyle.None
         Me.StartPosition = FormStartPosition.CenterScreen
         Me.BackColor = Color.White
