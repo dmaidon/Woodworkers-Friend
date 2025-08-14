@@ -1,7 +1,9 @@
-﻿Imports System.Globalization ' <-- Add this line
-Imports System.Media ' <-- Add this line for SystemSounds
+﻿Imports System.Media ' <-- Add this line for SystemSounds
 
 Partial Public Class FrmMain
+
+    Private _lastDrawerResult As DrawerCalculationResult
+    Private _lastDrawerParameters As DrawerCalculationParameters
 
 #Region "Drawer Calculator Event Handlers - Simplified"
 
@@ -15,23 +17,31 @@ Partial Public Class FrmMain
         Try
             SetCalculatingState(True)
 
-            ' Collect parameters using helper method
-            Dim parameters As DrawerCalculationParameters = CollectDrawerParameters()
+            ' Collect using helper
+            Dim parameters As DrawerCalculationParameters = WwFriend.Modules.Drawers.DrawerParameterCollector.Collect(Me)
 
-            ' Use extracted calculation engine
+            ' Calculate
             Dim result As DrawerCalculationResult = DrawerCalculationEngine.Calculate(parameters)
 
-            ' Display results using helper method
-            DisplayDrawerResults(result)
+            ' Present results
+            WwFriend.Modules.Drawers.DrawerResultsPresenter.Present(Me, result)
+
+            _lastDrawerResult = result
+            _lastDrawerParameters = parameters
 
             SetCalculatingState(False)
 
             If result.IsValid Then
                 UpdateDrawerStatus("Calculation completed successfully", Color.Green)
                 EnableExportButtons(True)
+                BtnDrawDrawerImage.Enabled = True
+
+                SetDrawerDrawingContext()
+                If BtnDrawDrawerImage IsNot Nothing Then BtnDrawDrawerImage.Enabled = True
             Else
                 UpdateDrawerStatus($"Calculation failed: {result.ErrorMessage}", Color.Red)
                 ShowErrorMessage("Calculation Error", result.ErrorMessage)
+                BtnDrawDrawerImage.Enabled = False
             End If
         Catch ex As Exception
             SetCalculatingState(False)
@@ -95,235 +105,14 @@ Partial Public Class FrmMain
 
 #End Region
 
-    Private Function CollectDrawerParameters() As DrawerCalculationParameters
-        Dim method = GetSelectedCalculationMethod()
-        Dim multiplier As Double = 0
-        Dim arithmeticIncrement As Double = 0
-        Dim customRatios As Double() = Nothing ' <-- Fixed variable name
-
-        ' Method-specific parameter collection
-        Select Case method
-            Case DrawerCalculationMethod.Geometric
-                multiplier = ValidationManager.GetDoubleFromControl(TxtMultiplier, "Multiplier")
-
-            Case DrawerCalculationMethod.Arithmetic, DrawerCalculationMethod.ReverseArithmetic
-                arithmeticIncrement = ValidationManager.GetDoubleFromControl(TxtArithmeticIncrement, "Arithmetic Increment")
-
-            Case DrawerCalculationMethod.Exponential
-                multiplier = ValidationManager.GetDoubleFromControl(TxtMultiplier, "Exponential Base")
-
-            Case DrawerCalculationMethod.CustomRatio
-                ' Parse custom ratios from multiline textbox
-                customRatios = ParseCustomRatios()
-
-            Case DrawerCalculationMethod.Logarithmic, DrawerCalculationMethod.Uniform,
-                 DrawerCalculationMethod.Fibonacci, DrawerCalculationMethod.Hambridge,
-                 DrawerCalculationMethod.GoldenRatio
-                ' These methods don't need additional parameters
-        End Select
-
-        Return New DrawerCalculationParameters() With {
-            .CalculationMethod = method,
-            .DrawerCount = ValidationManager.GetIntegerFromControl(TxtDrawerCount, "Number of Drawers"),
-            .DrawerSpacing = ValidationManager.GetDoubleFromControl(TxtDrawerSpacing, "Drawer Spacing"),
-            .DrawerWidth = ValidationManager.GetDoubleFromControl(TxtDrawerWidth, "Drawer Width"),
-            .FirstDrawerHeight = GetFirstDrawerHeightSafely(method),
-            .Multiplier = multiplier,
-            .ArithmeticIncrement = arithmeticIncrement,
-            .CustomRatios = customRatios, ' <-- Fixed property name
-            .Scale = If(RbImperial IsNot Nothing AndAlso RbImperial.Checked, MeasurementScale.Imperial, MeasurementScale.Metric)
-        }
-    End Function
-
-    ' Add this new helper method for parsing custom ratios:
-    Private Function ParseCustomRatios() As Double()
-        If TxtCustomRatioInput Is Nothing OrElse String.IsNullOrWhiteSpace(TxtCustomRatioInput.Text) Then
-            Return Nothing
-        End If
-
-        Try
-            Dim ratioList As New List(Of Double)()
-            Dim lines As String() = TxtCustomRatioInput.Lines
-            Dim invalidValues As New List(Of String)()
-
-            For Each line In lines
-                If Not String.IsNullOrWhiteSpace(line) Then
-                    ' Support multiple formats: comma-separated, space-separated, or one per line
-                    Dim values As String() = line.Split({","c, " "c, vbTab(0)}, StringSplitOptions.RemoveEmptyEntries)
-
-                    For Each value In values
-                        Dim cleanValue As String = value.Trim()
-                        Dim ratio As Double
-                        If Double.TryParse(cleanValue, ratio) Then
-                            If ratio > 0 Then
-                                ratioList.Add(ratio)
-                            Else
-                                invalidValues.Add($"'{cleanValue}' (must be positive)")
-                            End If
-                        Else
-                            invalidValues.Add($"'{cleanValue}' (not a valid number)")
-                        End If
-                    Next
-                End If
-            Next
-
-            If invalidValues.Count > 0 Then
-                Throw New InvalidDrawerParametersException($"Invalid custom ratio values: {String.Join(", ", invalidValues)}")
-            End If
-
-            If ratioList.Count = 0 Then
-                Throw New InvalidDrawerParametersException("Please enter valid custom ratios (positive numbers only)")
-            End If
-
-            Return ratioList.ToArray()
-        Catch ex As InvalidDrawerParametersException
-            Throw ' Re-throw our custom exceptions
-        Catch ex As Exception
-            Throw New InvalidDrawerParametersException($"Error parsing custom ratios: {ex.Message}")
-        End Try
-    End Function
-
-    ' Add this helper method:
-    Private Function GetFirstDrawerHeightSafely(method As DrawerCalculationMethod) As Double
-        ' Some methods don't require FirstDrawerHeight
-        If method = DrawerCalculationMethod.Uniform Then
-            Return 0 ' Not used for uniform
-        End If
-
-        ' Methods that absolutely require FirstDrawerHeight
-        Dim requiresHeight As Boolean = method = DrawerCalculationMethod.Geometric OrElse
-                                       method = DrawerCalculationMethod.Arithmetic OrElse
-                                       method = DrawerCalculationMethod.ReverseArithmetic OrElse
-                                       method = DrawerCalculationMethod.Exponential
-
-        Try
-            Dim height As Double = ValidationManager.GetDoubleFromControl(TxtFirstDrawerHeight, "First Drawer Height")
-
-            ' Additional validation for methods that require positive height
-            If requiresHeight AndAlso height <= 0 Then
-                Throw New InvalidDrawerParametersException($"{method} method requires a positive first drawer height")
-            End If
-
-            Return height
-        Catch ex As InvalidDrawerParametersException
-            Throw ' Re-throw validation exceptions
-        Catch
-            ' Return a reasonable default only for methods that don't strictly require it
-            If requiresHeight Then
-                Throw New InvalidDrawerParametersException("First drawer height is required for this calculation method")
-            End If
-            Return If(RbImperial IsNot Nothing AndAlso RbImperial.Checked, 3.0, 76.2) ' 3" or 76.2mm
-        End Try
-    End Function
-
-    Private Function GetSelectedCalculationMethod() As DrawerCalculationMethod
-        ' Find the checked radio button among the four options
-        Dim selectedRb As RadioButton = Nothing
-        For Each rb In {RbHambridge, RbGeometric, RbFibonacci, RbArithmetic, RbLogarithmic, RbExponential, RbCustomRatio, RbUniform, RbReverseArithmetic, RbGoldenRatio}
-            If rb IsNot Nothing AndAlso rb.Checked Then
-                selectedRb = rb
-                Exit For
-            End If
-        Next
-
-        If selectedRb Is Nothing OrElse selectedRb.Tag Is Nothing Then
-            Throw New InvalidDrawerParametersException("Please select a calculation method")
-        End If
-
-        Select Case CInt(selectedRb.Tag)
-            Case 0 : Return DrawerCalculationMethod.Hambridge
-            Case 1 : Return DrawerCalculationMethod.Geometric
-            Case 2 : Return DrawerCalculationMethod.Fibonacci
-            Case 3 : Return DrawerCalculationMethod.Arithmetic
-            Case 4 : Return DrawerCalculationMethod.Logarithmic
-            Case 5 : Return DrawerCalculationMethod.Exponential
-            Case 6 : Return DrawerCalculationMethod.CustomRatio
-            Case 7 : Return DrawerCalculationMethod.Uniform
-            Case 8 : Return DrawerCalculationMethod.ReverseArithmetic
-            Case 9 : Return DrawerCalculationMethod.GoldenRatio
-            Case Else
-                Throw New InvalidDrawerParametersException("Unknown calculation method")
-        End Select
-    End Function
-
-    ''' <summary>
-    ''' Calculation method change handler - delegates to EventCoordinator
-    ''' </summary>
-    Private Sub CalculationMethod_Changed(sender As Object, e As EventArgs) Handles RbHambridge.CheckedChanged, RbGeometric.CheckedChanged, RbFibonacci.CheckedChanged, RbArithmetic.CheckedChanged, RbReverseArithmetic.CheckedChanged, RbLogarithmic.CheckedChanged, RbExponential.CheckedChanged, RbCustomRatio.CheckedChanged, RbUniform.CheckedChanged, RbGoldenRatio.CheckedChanged
-        ArgumentNullException.ThrowIfNull(sender)
-        ArgumentNullException.ThrowIfNull(e)
-        _eventCoordinator?.HandleDrawerCalculationMethodChange(sender, e)
-    End Sub
-
-    ''' <summary>
-    ''' General calculator control change handler - delegates to EventCoordinator
-    ''' </summary>
-    Private Sub CalculatorControl_Changed(sender As Object, e As EventArgs)
-        ArgumentNullException.ThrowIfNull(sender)
-        ArgumentNullException.ThrowIfNull(e)
-        _eventCoordinator?.HandleCalculatorControlChanged(sender, e)
-    End Sub
-
-    Private Sub ProjectName_Changed(sender As Object, e As EventArgs) Handles TxtProjectName.TextChanged
-        ArgumentNullException.ThrowIfNull(sender)
-        ArgumentNullException.ThrowIfNull(e)
-        UpdateSaveButtonState()
-    End Sub
-
     Private Sub DisplayDrawerResults(result As DrawerCalculationResult)
         ArgumentNullException.ThrowIfNull(result)
-
         If Not result.IsValid Then
-            ClearResults()
+            WwFriend.Modules.Drawers.DrawerResultsPresenter.Clear(Me)
             Return
         End If
 
-        Try
-
-            ' Update text controls using utility method
-            ControlUtility.ClearTextControls(RtbResults, LblTotalHeightResults, LbltotalDrawerHeightResults, LblTotalMaterialResults, LblAverageHeightResults, LblHeightRatioResults)
-
-            UpdateTextControl(RtbResults, result.Details)
-            UpdateLabelControl(LblTotalHeightResults, String.Format(CStr(LblTotalHeightResults.Tag), $"{result.TotalHeight:N3} {result.Unit}"))
-            UpdateLabelControl(LbltotalDrawerHeightResults, String.Format(CStr(LbltotalDrawerHeightResults.Tag), $"{result.TotalDrawerHeight:N3} {result.Unit}"))
-            UpdateLabelControl(LblTotalMaterialResults, String.Format(CStr(LblTotalMaterialResults.Tag), $"{result.TotalMaterialArea:N3} {result.AreaUnit}"))
-            UpdateLabelControl(LblAverageHeightResults, String.Format(CStr(LblAverageHeightResults.Tag), $"{result.AverageDrawerHeight:N3} {result.Unit}"))
-            ' Defensive: Only call String.Format if LblHeightRatioResults.Tag is not null or empty
-            If LblHeightRatioResults.Tag IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(CStr(LblHeightRatioResults.Tag)) Then
-                UpdateLabelControl(LblHeightRatioResults, String.Format(CStr(LblHeightRatioResults.Tag), $"{result.HeightRatio:N2}:1"))
-            Else
-                UpdateLabelControl(LblHeightRatioResults, $"Height Ratio: {result.HeightRatio:N2}:1")
-            End If
-
-            ' Update grid
-            PopulateDrawerHeightsGrid(result)
-        Catch ex As Exception
-            RtbLog.AppendText(Format(Now, "hh:mm:ss") & " - Error displaying drawer results: " & ex.Message & vbCrLf)
-        End Try
-    End Sub
-
-    ''' <summary>
-    ''' Populate the drawer heights grid with results
-    ''' </summary>
-    Private Sub PopulateDrawerHeightsGrid(result As DrawerCalculationResult)
-        ArgumentNullException.ThrowIfNull(result)
-
-        DgvDrawerHeights.Rows.Clear()
-
-        For i As Integer = 0 To result.DrawerHeights.Length - 1
-            Dim rowIndex As Integer = DgvDrawerHeights.Rows.Add()
-            Dim row As DataGridViewRow = DgvDrawerHeights.Rows(rowIndex)
-
-            row.Cells("DrawerNumber").Value = (i + 1).ToString()
-            row.Cells("DwHeight").Value = $"{result.DrawerHeights(i):N3}"
-            row.Cells("Unit").Value = result.Unit
-
-            ' Guard against division by zero
-            Dim percentage As Double = If(result.TotalDrawerHeight > 0,
-                                         result.DrawerHeights(i) / result.TotalDrawerHeight * 100,
-                                         0)
-            row.Cells("Percentage").Value = $"{percentage:N1}%"
-        Next
+        WwFriend.Modules.Drawers.DrawerResultsPresenter.Present(Me, result)
     End Sub
 
     Private Sub SetCalculatingState(calculating As Boolean)
@@ -335,7 +124,7 @@ Partial Public Class FrmMain
 
     Private Sub UpdateSaveButtonState()
         If BtnSaveProject IsNot Nothing Then
-            BtnSaveProject.Enabled = Not String.IsNullOrWhiteSpace(TxtProjectName?.Text) AndAlso
+            BtnSaveProject.Enabled = Not String.IsNullOrWhiteSpace(TxtDrawerProjectName?.Text) AndAlso
                                     Not _loading AndAlso _calculatorInitialized
         End If
     End Sub
@@ -476,6 +265,14 @@ Partial Public Class FrmMain
         Else
             e.Handled = True
             SystemSounds.Beep.Play()
+        End If
+    End Sub
+
+    Private Sub BtnDrawDrawerImage_Click(sender As Object, e As EventArgs) Handles BtnDrawDrawerImage.Click
+        If _lastDrawerResult IsNot Nothing AndAlso _lastDrawerResult.IsValid Then
+            SetDrawerDrawingContext()
+        Else
+            MessageBox.Show("No calculation results available to draw.", "Draw Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 

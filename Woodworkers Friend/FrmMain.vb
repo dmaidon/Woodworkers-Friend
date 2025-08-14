@@ -70,9 +70,12 @@ Public Class FrmMain
 
 #End Region
 
+        InitializeDoorControls()
+
         TmrRotation.Interval = CInt(1000 / 60) ' 60 FPS
         TmrRotation.Start()
         AddHandler TmrRotation.Tick, AddressOf TmrRotation_Tick
+        AddHandler PbOutputDrawing.Paint, AddressOf PbOutputDrawing_Paint
 
         Me.Text = $"{AppName} - {Version}"
         TsslCpy.Text = GetCopyrightNotice()
@@ -220,7 +223,7 @@ Public Class FrmMain
 
     Private _scaleManager As New ScaleManager()
 
-    Private Sub RbImperial_CheckedChanged(sender As Object, e As EventArgs) Handles RbImperial.CheckedChanged
+    Private Sub RbImperial_CheckedChanged(sender As Object, e As EventArgs)
         If RbImperial.Checked Then
             _scaleManager.SetScale(ScaleManager.ScaleType.Imperial)
             TsslScale.Text = "Imperial"
@@ -228,7 +231,7 @@ Public Class FrmMain
         End If
     End Sub
 
-    Private Sub RbMetric_CheckedChanged(sender As Object, e As EventArgs) Handles RbMetric.CheckedChanged
+    Private Sub RbMetric_CheckedChanged(sender As Object, e As EventArgs)
         If RbMetric.Checked Then
             _scaleManager.SetScale(ScaleManager.ScaleType.Metric)
             TsslScale.Text = "Metric"
@@ -250,6 +253,20 @@ Public Class FrmMain
             TsslScale.ForeColor = Color.ForestGreen
             RbImperial.Checked = True
         End If
+    End Sub
+
+    Private Sub TpDrawings_Enter(sender As Object, e As EventArgs) Handles TpDrawings.Enter
+        TsslToggleDoorExploded.Enabled = True
+        TsslToggleDoorExploded.Visible = True
+    End Sub
+
+    Private Sub TpDrawings_Leave(sender As Object, e As EventArgs) Handles TpDrawings.Leave
+        TsslToggleDoorExploded.Enabled = False
+        TsslToggleDoorExploded.Visible = False
+    End Sub
+
+    Private Sub TmrClock_Tick(sender As Object, e As EventArgs) Handles TmrClock.Tick
+        TsslClock.Text = Now.ToLongTimeString
     End Sub
 
 #End Region

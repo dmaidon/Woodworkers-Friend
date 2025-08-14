@@ -36,9 +36,10 @@ Partial Class FrmMain
         Ss3 = New StatusStrip()
         TsslToggleTheme = New ToolStripDropDownButton()
         TsslMemoriam = New ToolStripStatusLabel()
+        TsslToggleDoorExploded = New ToolStripStatusLabel()
         TsslScale = New ToolStripStatusLabel()
         Tc = New TabControl()
-        TpDrawersDoors = New TabPage()
+        TpDrawers = New TabPage()
         SplitContainer1 = New SplitContainer()
         LblAverageHeightResults = New Label()
         LblTotalMaterialResults = New Label()
@@ -80,6 +81,7 @@ Partial Class FrmMain
         Label28 = New Label()
         Label27 = New Label()
         Label26 = New Label()
+        BtnDrawDrawerImage = New Button()
         PnlResults = New Panel()
         RtbResults = New RichTextBox()
         GroupBox11 = New GroupBox()
@@ -97,13 +99,18 @@ Partial Class FrmMain
         Label33 = New Label()
         BtnSaveProject = New Button()
         Label34 = New Label()
-        TxtProjectName = New TextBox()
+        TxtDrawerProjectName = New TextBox()
         TpDoors = New TabPage()
+        GbSetScale = New GroupBox()
+        RbImperial = New RadioButton()
+        RbMetric = New RadioButton()
         ScDoors = New SplitContainer()
+        LblTotalMaterialArea = New Label()
+        LblDoorWidth = New Label()
+        LblDoorHeight = New Label()
         BtnDeleteDoorProject = New Button()
         BtnLoadDoorProject = New Button()
         GroupBox12 = New GroupBox()
-        Button1 = New Button()
         BtnOfficeDoorPreset = New Button()
         BtnBathroomDoorPreset = New Button()
         BtnKitchenDoorPreset = New Button()
@@ -145,6 +152,7 @@ Partial Class FrmMain
         Label38 = New Label()
         Label39 = New Label()
         Label40 = New Label()
+        BtnDrawDoorImage = New Button()
         BtnPrintDoorResults = New Button()
         BtnExportDoorResults = New Button()
         Label50 = New Label()
@@ -177,6 +185,7 @@ Partial Class FrmMain
         bfCol4 = New DataGridViewTextBoxColumn()
         bfCol5 = New DataGridViewTextBoxColumn()
         bfCol6 = New DataGridViewTextBoxColumn()
+        bfCol7 = New DataGridViewTextBoxColumn()
         TpCalculations = New TabPage()
         Panel5 = New Panel()
         LblTippingForce = New Label()
@@ -211,6 +220,7 @@ Partial Class FrmMain
         Label14 = New Label()
         Label13 = New Label()
         Panel3 = New Panel()
+        Label51 = New Label()
         LblPolygonPieceAngle = New Label()
         LblPolygonSideAngle = New Label()
         TxtPolygonSides = New TextBox()
@@ -222,6 +232,9 @@ Partial Class FrmMain
         Label10 = New Label()
         Label8 = New Label()
         Panel1 = New Panel()
+        CmbEpoxyCost = New ComboBox()
+        LblEpoxyCost = New Label()
+        LblEpoxyLiters = New Label()
         RbEpoxyWaste20 = New RadioButton()
         RbEpoxyWaste15 = New RadioButton()
         RbEpoxyWaste10 = New RadioButton()
@@ -238,19 +251,16 @@ Partial Class FrmMain
         Label4 = New Label()
         Label3 = New Label()
         Label2 = New Label()
-        TpLogs = New TabPage()
-        PngLog = New Panel()
-        RtbLog = New RichTextBox()
-        GbSetScale = New GroupBox()
-        RbImperial = New RadioButton()
-        RbMetric = New RadioButton()
+        TpDrawings = New TabPage()
+        PbOutputDrawing = New PictureBox()
         tTip = New ToolTip(components)
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
+        TmrClock = New Timer(components)
         Ss1.SuspendLayout()
         Ss3.SuspendLayout()
         Tc.SuspendLayout()
-        TpDrawersDoors.SuspendLayout()
+        TpDrawers.SuspendLayout()
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
         SplitContainer1.Panel1.SuspendLayout()
         SplitContainer1.Panel2.SuspendLayout()
@@ -264,6 +274,7 @@ Partial Class FrmMain
         PnlResults.SuspendLayout()
         GroupBox11.SuspendLayout()
         TpDoors.SuspendLayout()
+        GbSetScale.SuspendLayout()
         CType(ScDoors, ComponentModel.ISupportInitialize).BeginInit()
         ScDoors.Panel1.SuspendLayout()
         ScDoors.Panel2.SuspendLayout()
@@ -290,9 +301,8 @@ Partial Class FrmMain
         CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         Panel1.SuspendLayout()
-        TpLogs.SuspendLayout()
-        PngLog.SuspendLayout()
-        GbSetScale.SuspendLayout()
+        TpDrawings.SuspendLayout()
+        CType(PbOutputDrawing, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Ss1
@@ -300,7 +310,7 @@ Partial Class FrmMain
         Ss1.GripMargin = New Padding(0)
         Ss1.ImageScalingSize = New Size(24, 24)
         Ss1.Items.AddRange(New ToolStripItem() {TsslVersion, TsslCpy, TsslError, TsslClock})
-        Ss1.Location = New Point(0, 1086)
+        Ss1.Location = New Point(0, 926)
         Ss1.Name = "Ss1"
         Ss1.Padding = New Padding(1, 0, 13, 0)
         Ss1.Size = New Size(1084, 32)
@@ -317,10 +327,10 @@ Partial Class FrmMain
         ' TsslCpy
         ' 
         TsslCpy.AutoSize = False
-        TsslCpy.Font = New Font("Microsoft Sans Serif", 8.28F)
+        TsslCpy.Font = New Font("Microsoft Sans Serif", 8.28F, FontStyle.Italic)
         TsslCpy.ForeColor = Color.Brown
         TsslCpy.Name = "TsslCpy"
-        TsslCpy.Size = New Size(1009, 25)
+        TsslCpy.Size = New Size(963, 25)
         TsslCpy.Spring = True
         TsslCpy.Text = "cpy"
         ' 
@@ -342,10 +352,10 @@ Partial Class FrmMain
         Ss2.Font = New Font("Microsoft Sans Serif", 8.28F)
         Ss2.GripMargin = New Padding(0)
         Ss2.ImageScalingSize = New Size(24, 24)
-        Ss2.Location = New Point(0, 1061)
+        Ss2.Location = New Point(0, 905)
         Ss2.Name = "Ss2"
         Ss2.Padding = New Padding(1, 0, 13, 0)
-        Ss2.Size = New Size(1084, 25)
+        Ss2.Size = New Size(1084, 21)
         Ss2.SizingGrip = False
         Ss2.TabIndex = 1
         Ss2.Text = "StatusStrip2"
@@ -356,11 +366,11 @@ Partial Class FrmMain
         Ss3.Font = New Font("Microsoft Sans Serif", 8.28F)
         Ss3.GripMargin = New Padding(0)
         Ss3.ImageScalingSize = New Size(24, 24)
-        Ss3.Items.AddRange(New ToolStripItem() {TsslToggleTheme, TsslMemoriam, TsslScale})
-        Ss3.Location = New Point(0, 1023)
+        Ss3.Items.AddRange(New ToolStripItem() {TsslToggleTheme, TsslMemoriam, TsslToggleDoorExploded, TsslScale})
+        Ss3.Location = New Point(0, 872)
         Ss3.Name = "Ss3"
         Ss3.Padding = New Padding(1, 0, 13, 0)
-        Ss3.Size = New Size(1084, 38)
+        Ss3.Size = New Size(1084, 33)
         Ss3.SizingGrip = False
         Ss3.TabIndex = 2
         Ss3.Text = "StatusStrip3"
@@ -368,47 +378,62 @@ Partial Class FrmMain
         ' TsslToggleTheme
         ' 
         TsslToggleTheme.Name = "TsslToggleTheme"
-        TsslToggleTheme.Size = New Size(18, 35)
+        TsslToggleTheme.Size = New Size(18, 30)
         ' 
         ' TsslMemoriam
         ' 
         TsslMemoriam.Name = "TsslMemoriam"
-        TsslMemoriam.Size = New Size(976, 31)
+        TsslMemoriam.Size = New Size(976, 26)
         TsslMemoriam.Spring = True
+        ' 
+        ' TsslToggleDoorExploded
+        ' 
+        TsslToggleDoorExploded.AutoToolTip = True
+        TsslToggleDoorExploded.BackColor = Color.MintCream
+        TsslToggleDoorExploded.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
+        TsslToggleDoorExploded.BorderStyle = Border3DStyle.Raised
+        TsslToggleDoorExploded.Enabled = False
+        TsslToggleDoorExploded.Font = New Font("Microsoft Sans Serif", 8F, FontStyle.Bold)
+        TsslToggleDoorExploded.IsLink = True
+        TsslToggleDoorExploded.Name = "TsslToggleDoorExploded"
+        TsslToggleDoorExploded.Size = New Size(190, 26)
+        TsslToggleDoorExploded.Text = "Toggle Door Exploded"
+        TsslToggleDoorExploded.Visible = False
         ' 
         ' TsslScale
         ' 
         TsslScale.Font = New Font("Microsoft Sans Serif", 8.28F, FontStyle.Bold)
         TsslScale.ForeColor = Color.ForestGreen
         TsslScale.Name = "TsslScale"
-        TsslScale.Size = New Size(76, 31)
+        TsslScale.Size = New Size(76, 26)
         TsslScale.Text = "Imperial"
         ' 
         ' Tc
         ' 
-        Tc.Controls.Add(TpDrawersDoors)
+        Tc.Controls.Add(TpDrawers)
         Tc.Controls.Add(TpDoors)
         Tc.Controls.Add(TpBoardfeet)
         Tc.Controls.Add(TpCalculations)
-        Tc.Controls.Add(TpLogs)
+        Tc.Controls.Add(TpDrawings)
         Tc.Dock = DockStyle.Top
+        Tc.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Tc.Location = New Point(0, 0)
         Tc.Name = "Tc"
         Tc.SelectedIndex = 0
-        Tc.Size = New Size(1084, 996)
+        Tc.Size = New Size(1084, 854)
         Tc.TabIndex = 3
         ' 
-        ' TpDrawersDoors
+        ' TpDrawers
         ' 
-        TpDrawersDoors.BackColor = Color.Gainsboro
-        TpDrawersDoors.BorderStyle = BorderStyle.Fixed3D
-        TpDrawersDoors.Controls.Add(SplitContainer1)
-        TpDrawersDoors.Location = New Point(4, 30)
-        TpDrawersDoors.Name = "TpDrawersDoors"
-        TpDrawersDoors.Padding = New Padding(3)
-        TpDrawersDoors.Size = New Size(1076, 962)
-        TpDrawersDoors.TabIndex = 1
-        TpDrawersDoors.Text = "Drawers/Doors"
+        TpDrawers.BackColor = Color.Gainsboro
+        TpDrawers.BorderStyle = BorderStyle.Fixed3D
+        TpDrawers.Controls.Add(SplitContainer1)
+        TpDrawers.Location = New Point(4, 27)
+        TpDrawers.Name = "TpDrawers"
+        TpDrawers.Padding = New Padding(3)
+        TpDrawers.Size = New Size(1076, 823)
+        TpDrawers.TabIndex = 1
+        TpDrawers.Text = "Drawers"
         ' 
         ' SplitContainer1
         ' 
@@ -435,21 +460,22 @@ Partial Class FrmMain
         ' 
         ' SplitContainer1.Panel2
         ' 
+        SplitContainer1.Panel2.Controls.Add(BtnDrawDrawerImage)
         SplitContainer1.Panel2.Controls.Add(PnlResults)
         SplitContainer1.Panel2.Controls.Add(GroupBox11)
         SplitContainer1.Panel2.Controls.Add(Label47)
         SplitContainer1.Panel2.Controls.Add(Label33)
         SplitContainer1.Panel2.Controls.Add(BtnSaveProject)
         SplitContainer1.Panel2.Controls.Add(Label34)
-        SplitContainer1.Panel2.Controls.Add(TxtProjectName)
-        SplitContainer1.Size = New Size(1066, 952)
+        SplitContainer1.Panel2.Controls.Add(TxtDrawerProjectName)
+        SplitContainer1.Size = New Size(1066, 813)
         SplitContainer1.SplitterDistance = 516
         SplitContainer1.TabIndex = 0
         ' 
         ' LblAverageHeightResults
         ' 
         LblAverageHeightResults.AutoSize = True
-        LblAverageHeightResults.Location = New Point(17, 825)
+        LblAverageHeightResults.Location = New Point(17, 707)
         LblAverageHeightResults.Name = "LblAverageHeightResults"
         LblAverageHeightResults.Size = New Size(129, 21)
         LblAverageHeightResults.TabIndex = 15
@@ -458,7 +484,7 @@ Partial Class FrmMain
         ' LblTotalMaterialResults
         ' 
         LblTotalMaterialResults.AutoSize = True
-        LblTotalMaterialResults.Location = New Point(17, 854)
+        LblTotalMaterialResults.Location = New Point(17, 732)
         LblTotalMaterialResults.Name = "LblTotalMaterialResults"
         LblTotalMaterialResults.Size = New Size(116, 21)
         LblTotalMaterialResults.TabIndex = 14
@@ -467,7 +493,7 @@ Partial Class FrmMain
         ' LblHeightRatioResults
         ' 
         LblHeightRatioResults.AutoSize = True
-        LblHeightRatioResults.Location = New Point(17, 796)
+        LblHeightRatioResults.Location = New Point(17, 682)
         LblHeightRatioResults.Name = "LblHeightRatioResults"
         LblHeightRatioResults.Size = New Size(106, 21)
         LblHeightRatioResults.TabIndex = 13
@@ -476,7 +502,7 @@ Partial Class FrmMain
         ' LbltotalDrawerHeightResults
         ' 
         LbltotalDrawerHeightResults.AutoSize = True
-        LbltotalDrawerHeightResults.Location = New Point(17, 883)
+        LbltotalDrawerHeightResults.Location = New Point(17, 757)
         LbltotalDrawerHeightResults.Name = "LbltotalDrawerHeightResults"
         LbltotalDrawerHeightResults.Size = New Size(163, 21)
         LbltotalDrawerHeightResults.TabIndex = 12
@@ -485,7 +511,7 @@ Partial Class FrmMain
         ' LblTotalHeightResults
         ' 
         LblTotalHeightResults.AutoSize = True
-        LblTotalHeightResults.Location = New Point(17, 912)
+        LblTotalHeightResults.Location = New Point(17, 782)
         LblTotalHeightResults.Name = "LblTotalHeightResults"
         LblTotalHeightResults.Size = New Size(111, 21)
         LblTotalHeightResults.TabIndex = 11
@@ -493,9 +519,9 @@ Partial Class FrmMain
         ' 
         ' LblStatus
         ' 
-        LblStatus.Location = New Point(62, 766)
+        LblStatus.Location = New Point(62, 657)
         LblStatus.Name = "LblStatus"
-        LblStatus.Size = New Size(392, 21)
+        LblStatus.Size = New Size(392, 18)
         LblStatus.TabIndex = 10
         LblStatus.Text = "Status"
         LblStatus.TextAlign = ContentAlignment.MiddleCenter
@@ -504,9 +530,9 @@ Partial Class FrmMain
         ' 
         GroupBox9.BackColor = Color.WhiteSmoke
         GroupBox9.Controls.Add(DgvDrawerHeights)
-        GroupBox9.Location = New Point(14, 552)
+        GroupBox9.Location = New Point(14, 473)
         GroupBox9.Name = "GroupBox9"
-        GroupBox9.Size = New Size(478, 199)
+        GroupBox9.Size = New Size(478, 171)
         GroupBox9.TabIndex = 6
         GroupBox9.TabStop = False
         GroupBox9.Text = "Individual Drawer Heights"
@@ -529,7 +555,7 @@ Partial Class FrmMain
         DgvDrawerHeights.Location = New Point(3, 25)
         DgvDrawerHeights.Name = "DgvDrawerHeights"
         DgvDrawerHeights.RowHeadersWidth = 30
-        DgvDrawerHeights.Size = New Size(472, 171)
+        DgvDrawerHeights.Size = New Size(472, 143)
         DgvDrawerHeights.TabIndex = 0
         ' 
         ' GroupBox8
@@ -538,9 +564,9 @@ Partial Class FrmMain
         GroupBox8.Controls.Add(Button7)
         GroupBox8.Controls.Add(Button6)
         GroupBox8.Controls.Add(BtnCalculateDrawers)
-        GroupBox8.Location = New Point(14, 477)
+        GroupBox8.Location = New Point(14, 409)
         GroupBox8.Name = "GroupBox8"
-        GroupBox8.Size = New Size(481, 75)
+        GroupBox8.Size = New Size(481, 64)
         GroupBox8.TabIndex = 5
         GroupBox8.TabStop = False
         GroupBox8.Text = "Actions"
@@ -549,9 +575,9 @@ Partial Class FrmMain
         ' 
         Button7.BackColor = Color.DarkSalmon
         Button7.FlatAppearance.BorderColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
-        Button7.Location = New Point(341, 20)
+        Button7.Location = New Point(341, 17)
         Button7.Name = "Button7"
-        Button7.Size = New Size(112, 34)
+        Button7.Size = New Size(112, 29)
         Button7.TabIndex = 2
         Button7.Text = "Clear Cache"
         Button7.UseVisualStyleBackColor = False
@@ -560,9 +586,9 @@ Partial Class FrmMain
         ' 
         Button6.BackColor = Color.DarkSalmon
         Button6.FlatAppearance.BorderColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
-        Button6.Location = New Point(184, 20)
+        Button6.Location = New Point(184, 17)
         Button6.Name = "Button6"
-        Button6.Size = New Size(112, 34)
+        Button6.Size = New Size(112, 29)
         Button6.TabIndex = 1
         Button6.Text = "Clear"
         Button6.UseVisualStyleBackColor = False
@@ -571,9 +597,9 @@ Partial Class FrmMain
         ' 
         BtnCalculateDrawers.BackColor = Color.DarkSalmon
         BtnCalculateDrawers.FlatAppearance.BorderColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
-        BtnCalculateDrawers.Location = New Point(27, 20)
+        BtnCalculateDrawers.Location = New Point(27, 17)
         BtnCalculateDrawers.Name = "BtnCalculateDrawers"
-        BtnCalculateDrawers.Size = New Size(112, 34)
+        BtnCalculateDrawers.Size = New Size(112, 29)
         BtnCalculateDrawers.TabIndex = 0
         BtnCalculateDrawers.Text = "Calculate"
         BtnCalculateDrawers.UseVisualStyleBackColor = False
@@ -591,9 +617,9 @@ Partial Class FrmMain
         GroupBox7.Controls.Add(BtnBathroomVanityPreset)
         GroupBox7.Controls.Add(BtnOfficeDeskPreset)
         GroupBox7.Controls.Add(BtnKitchenStandardPreset)
-        GroupBox7.Location = New Point(14, 251)
+        GroupBox7.Location = New Point(14, 215)
         GroupBox7.Name = "GroupBox7"
-        GroupBox7.Size = New Size(481, 226)
+        GroupBox7.Size = New Size(481, 194)
         GroupBox7.TabIndex = 4
         GroupBox7.TabStop = False
         GroupBox7.Text = "Quick Presets"
@@ -603,12 +629,12 @@ Partial Class FrmMain
         BtnUniformPreset.BackColor = Color.LightCyan
         BtnUniformPreset.FlatAppearance.BorderColor = Color.Blue
         BtnUniformPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnUniformPreset.Location = New Point(241, 179)
+        BtnUniformPreset.Location = New Point(241, 153)
         BtnUniformPreset.Name = "BtnUniformPreset"
-        BtnUniformPreset.Size = New Size(196, 34)
+        BtnUniformPreset.Size = New Size(196, 29)
         BtnUniformPreset.TabIndex = 9
         BtnUniformPreset.Tag = "2"
-        BtnUniformPreset.Text = "Golden Ratio"
+        BtnUniformPreset.Text = "Uniform"
         BtnUniformPreset.UseVisualStyleBackColor = False
         ' 
         ' BtnCustomRatioPreset
@@ -616,9 +642,9 @@ Partial Class FrmMain
         BtnCustomRatioPreset.BackColor = Color.LightCyan
         BtnCustomRatioPreset.FlatAppearance.BorderColor = Color.Blue
         BtnCustomRatioPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnCustomRatioPreset.Location = New Point(241, 142)
+        BtnCustomRatioPreset.Location = New Point(241, 122)
         BtnCustomRatioPreset.Name = "BtnCustomRatioPreset"
-        BtnCustomRatioPreset.Size = New Size(196, 34)
+        BtnCustomRatioPreset.Size = New Size(196, 29)
         BtnCustomRatioPreset.TabIndex = 8
         BtnCustomRatioPreset.Tag = "2"
         BtnCustomRatioPreset.Text = "Custom Ratio"
@@ -629,9 +655,9 @@ Partial Class FrmMain
         BtnExponentialProgressionPreset.BackColor = Color.LightCyan
         BtnExponentialProgressionPreset.FlatAppearance.BorderColor = Color.Blue
         BtnExponentialProgressionPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnExponentialProgressionPreset.Location = New Point(41, 179)
+        BtnExponentialProgressionPreset.Location = New Point(41, 153)
         BtnExponentialProgressionPreset.Name = "BtnExponentialProgressionPreset"
-        BtnExponentialProgressionPreset.Size = New Size(196, 34)
+        BtnExponentialProgressionPreset.Size = New Size(196, 29)
         BtnExponentialProgressionPreset.TabIndex = 7
         BtnExponentialProgressionPreset.Tag = "2"
         BtnExponentialProgressionPreset.Text = "Exponential Progression"
@@ -642,9 +668,9 @@ Partial Class FrmMain
         BtnLogarithmicProgressionPreset.BackColor = Color.LightCyan
         BtnLogarithmicProgressionPreset.FlatAppearance.BorderColor = Color.Blue
         BtnLogarithmicProgressionPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnLogarithmicProgressionPreset.Location = New Point(42, 142)
+        BtnLogarithmicProgressionPreset.Location = New Point(42, 122)
         BtnLogarithmicProgressionPreset.Name = "BtnLogarithmicProgressionPreset"
-        BtnLogarithmicProgressionPreset.Size = New Size(196, 34)
+        BtnLogarithmicProgressionPreset.Size = New Size(196, 29)
         BtnLogarithmicProgressionPreset.TabIndex = 6
         BtnLogarithmicProgressionPreset.Tag = "2"
         BtnLogarithmicProgressionPreset.Text = "Logarithmic Progression"
@@ -655,9 +681,9 @@ Partial Class FrmMain
         BtnReverseArithmeticPreset.BackColor = Color.LightCyan
         BtnReverseArithmeticPreset.FlatAppearance.BorderColor = Color.Blue
         BtnReverseArithmeticPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnReverseArithmeticPreset.Location = New Point(243, 102)
+        BtnReverseArithmeticPreset.Location = New Point(243, 87)
         BtnReverseArithmeticPreset.Name = "BtnReverseArithmeticPreset"
-        BtnReverseArithmeticPreset.Size = New Size(196, 34)
+        BtnReverseArithmeticPreset.Size = New Size(196, 29)
         BtnReverseArithmeticPreset.TabIndex = 5
         BtnReverseArithmeticPreset.Tag = "2"
         BtnReverseArithmeticPreset.Text = "Reverse Arithmetic"
@@ -668,9 +694,9 @@ Partial Class FrmMain
         BtnGoldenRatioPreset.BackColor = Color.LightCyan
         BtnGoldenRatioPreset.FlatAppearance.BorderColor = Color.Blue
         BtnGoldenRatioPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnGoldenRatioPreset.Location = New Point(42, 102)
+        BtnGoldenRatioPreset.Location = New Point(42, 87)
         BtnGoldenRatioPreset.Name = "BtnGoldenRatioPreset"
-        BtnGoldenRatioPreset.Size = New Size(196, 34)
+        BtnGoldenRatioPreset.Size = New Size(196, 29)
         BtnGoldenRatioPreset.TabIndex = 4
         BtnGoldenRatioPreset.Tag = "2"
         BtnGoldenRatioPreset.Text = "Golden Ratio"
@@ -681,9 +707,9 @@ Partial Class FrmMain
         BtnCustomCabinetPreset.BackColor = Color.LightCyan
         BtnCustomCabinetPreset.FlatAppearance.BorderColor = Color.Blue
         BtnCustomCabinetPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnCustomCabinetPreset.Location = New Point(243, 63)
+        BtnCustomCabinetPreset.Location = New Point(243, 54)
         BtnCustomCabinetPreset.Name = "BtnCustomCabinetPreset"
-        BtnCustomCabinetPreset.Size = New Size(196, 34)
+        BtnCustomCabinetPreset.Size = New Size(196, 29)
         BtnCustomCabinetPreset.TabIndex = 3
         BtnCustomCabinetPreset.Tag = "4"
         BtnCustomCabinetPreset.Text = "Custom Cabinet"
@@ -694,9 +720,9 @@ Partial Class FrmMain
         BtnBathroomVanityPreset.BackColor = Color.LightCyan
         BtnBathroomVanityPreset.FlatAppearance.BorderColor = Color.Blue
         BtnBathroomVanityPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnBathroomVanityPreset.Location = New Point(243, 24)
+        BtnBathroomVanityPreset.Location = New Point(243, 21)
         BtnBathroomVanityPreset.Name = "BtnBathroomVanityPreset"
-        BtnBathroomVanityPreset.Size = New Size(196, 34)
+        BtnBathroomVanityPreset.Size = New Size(196, 29)
         BtnBathroomVanityPreset.TabIndex = 2
         BtnBathroomVanityPreset.Tag = "3"
         BtnBathroomVanityPreset.Text = "Bathroom Vanity"
@@ -707,9 +733,9 @@ Partial Class FrmMain
         BtnOfficeDeskPreset.BackColor = Color.LightCyan
         BtnOfficeDeskPreset.FlatAppearance.BorderColor = Color.Blue
         BtnOfficeDeskPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnOfficeDeskPreset.Location = New Point(42, 63)
+        BtnOfficeDeskPreset.Location = New Point(42, 54)
         BtnOfficeDeskPreset.Name = "BtnOfficeDeskPreset"
-        BtnOfficeDeskPreset.Size = New Size(196, 34)
+        BtnOfficeDeskPreset.Size = New Size(196, 29)
         BtnOfficeDeskPreset.TabIndex = 1
         BtnOfficeDeskPreset.Tag = "1"
         BtnOfficeDeskPreset.Text = "Office Desk"
@@ -720,9 +746,9 @@ Partial Class FrmMain
         BtnKitchenStandardPreset.BackColor = Color.LightCyan
         BtnKitchenStandardPreset.FlatAppearance.BorderColor = Color.Blue
         BtnKitchenStandardPreset.Font = New Font("Microsoft Sans Serif", 7.25F)
-        BtnKitchenStandardPreset.Location = New Point(42, 24)
+        BtnKitchenStandardPreset.Location = New Point(42, 21)
         BtnKitchenStandardPreset.Name = "BtnKitchenStandardPreset"
-        BtnKitchenStandardPreset.Size = New Size(196, 34)
+        BtnKitchenStandardPreset.Size = New Size(196, 29)
         BtnKitchenStandardPreset.TabIndex = 0
         BtnKitchenStandardPreset.Tag = "0"
         BtnKitchenStandardPreset.Text = "Kitchen Standard"
@@ -733,7 +759,7 @@ Partial Class FrmMain
         Label32.AutoSize = True
         Label32.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label32.ForeColor = Color.Maroon
-        Label32.Location = New Point(81, 13)
+        Label32.Location = New Point(81, 11)
         Label32.Name = "Label32"
         Label32.Size = New Size(355, 38)
         Label32.TabIndex = 3
@@ -750,9 +776,9 @@ Partial Class FrmMain
         GroupBox6.Controls.Add(Label31)
         GroupBox6.Controls.Add(Label30)
         GroupBox6.Controls.Add(Label29)
-        GroupBox6.Location = New Point(244, 62)
+        GroupBox6.Location = New Point(244, 53)
         GroupBox6.Name = "GroupBox6"
-        GroupBox6.Size = New Size(251, 183)
+        GroupBox6.Size = New Size(251, 157)
         GroupBox6.TabIndex = 2
         GroupBox6.TabStop = False
         GroupBox6.Text = "Method Specific Parameters"
@@ -760,7 +786,7 @@ Partial Class FrmMain
         ' LblCustomRatioInput
         ' 
         LblCustomRatioInput.AutoSize = True
-        LblCustomRatioInput.Location = New Point(50, 147)
+        LblCustomRatioInput.Location = New Point(50, 126)
         LblCustomRatioInput.Name = "LblCustomRatioInput"
         LblCustomRatioInput.Size = New Size(112, 21)
         LblCustomRatioInput.TabIndex = 8
@@ -768,16 +794,16 @@ Partial Class FrmMain
         ' 
         ' TxtCustomRatioInput
         ' 
-        TxtCustomRatioInput.Location = New Point(180, 134)
+        TxtCustomRatioInput.Location = New Point(180, 115)
         TxtCustomRatioInput.Multiline = True
         TxtCustomRatioInput.Name = "TxtCustomRatioInput"
-        TxtCustomRatioInput.Size = New Size(65, 46)
+        TxtCustomRatioInput.Size = New Size(65, 40)
         TxtCustomRatioInput.TabIndex = 7
         tTip.SetToolTip(TxtCustomRatioInput, "Input can be entered in the following formats:" & vbCrLf & "1.0" & vbCrLf & "1.5" & vbCrLf & "2.0" & vbCrLf & "Comma separated:" & vbCrLf & "1.0,1.5, 2.0, 3.0" & vbCrLf & "Space separated:" & vbCrLf & "1.0 1.5 2.0 3.0" & vbCrLf & "Mixed format:" & vbCrLf & "1.0, 1.5" & vbCrLf & "2.0 3.0")
         ' 
         ' TxtArithmeticIncrement
         ' 
-        TxtArithmeticIncrement.Location = New Point(180, 97)
+        TxtArithmeticIncrement.Location = New Point(180, 83)
         TxtArithmeticIncrement.Name = "TxtArithmeticIncrement"
         TxtArithmeticIncrement.Size = New Size(65, 29)
         TxtArithmeticIncrement.TabIndex = 6
@@ -785,7 +811,7 @@ Partial Class FrmMain
         ' 
         ' TxtMultiplier
         ' 
-        TxtMultiplier.Location = New Point(180, 60)
+        TxtMultiplier.Location = New Point(180, 51)
         TxtMultiplier.Name = "TxtMultiplier"
         TxtMultiplier.Size = New Size(65, 29)
         TxtMultiplier.TabIndex = 5
@@ -793,7 +819,7 @@ Partial Class FrmMain
         ' 
         ' TxtFirstDrawerHeight
         ' 
-        TxtFirstDrawerHeight.Location = New Point(180, 23)
+        TxtFirstDrawerHeight.Location = New Point(180, 20)
         TxtFirstDrawerHeight.Name = "TxtFirstDrawerHeight"
         TxtFirstDrawerHeight.Size = New Size(65, 29)
         TxtFirstDrawerHeight.TabIndex = 4
@@ -801,7 +827,7 @@ Partial Class FrmMain
         ' Label31
         ' 
         Label31.AutoSize = True
-        Label31.Location = New Point(5, 101)
+        Label31.Location = New Point(5, 87)
         Label31.Name = "Label31"
         Label31.Size = New Size(173, 21)
         Label31.TabIndex = 2
@@ -811,7 +837,7 @@ Partial Class FrmMain
         ' Label30
         ' 
         Label30.AutoSize = True
-        Label30.Location = New Point(92, 64)
+        Label30.Location = New Point(92, 55)
         Label30.Name = "Label30"
         Label30.Size = New Size(86, 21)
         Label30.TabIndex = 1
@@ -821,7 +847,7 @@ Partial Class FrmMain
         ' Label29
         ' 
         Label29.AutoSize = True
-        Label29.Location = New Point(31, 27)
+        Label29.Location = New Point(31, 23)
         Label29.Name = "Label29"
         Label29.Size = New Size(147, 21)
         Label29.TabIndex = 0
@@ -837,30 +863,30 @@ Partial Class FrmMain
         GroupBox5.Controls.Add(Label28)
         GroupBox5.Controls.Add(Label27)
         GroupBox5.Controls.Add(Label26)
-        GroupBox5.Location = New Point(14, 62)
+        GroupBox5.Location = New Point(14, 53)
         GroupBox5.Name = "GroupBox5"
-        GroupBox5.Size = New Size(224, 183)
+        GroupBox5.Size = New Size(224, 157)
         GroupBox5.TabIndex = 1
         GroupBox5.TabStop = False
         GroupBox5.Text = "Basic Parameters"
         ' 
         ' TxtDrawerWidth
         ' 
-        TxtDrawerWidth.Location = New Point(146, 91)
+        TxtDrawerWidth.Location = New Point(146, 78)
         TxtDrawerWidth.Name = "TxtDrawerWidth"
         TxtDrawerWidth.Size = New Size(65, 29)
         TxtDrawerWidth.TabIndex = 5
         ' 
         ' TxtDrawerSpacing
         ' 
-        TxtDrawerSpacing.Location = New Point(146, 57)
+        TxtDrawerSpacing.Location = New Point(146, 49)
         TxtDrawerSpacing.Name = "TxtDrawerSpacing"
         TxtDrawerSpacing.Size = New Size(65, 29)
         TxtDrawerSpacing.TabIndex = 4
         ' 
         ' TxtDrawerCount
         ' 
-        TxtDrawerCount.Location = New Point(146, 23)
+        TxtDrawerCount.Location = New Point(146, 20)
         TxtDrawerCount.Name = "TxtDrawerCount"
         TxtDrawerCount.Size = New Size(65, 29)
         TxtDrawerCount.TabIndex = 3
@@ -868,7 +894,7 @@ Partial Class FrmMain
         ' Label28
         ' 
         Label28.AutoSize = True
-        Label28.Location = New Point(24, 95)
+        Label28.Location = New Point(24, 81)
         Label28.Name = "Label28"
         Label28.Size = New Size(116, 21)
         Label28.TabIndex = 2
@@ -878,7 +904,7 @@ Partial Class FrmMain
         ' Label27
         ' 
         Label27.AutoSize = True
-        Label27.Location = New Point(10, 61)
+        Label27.Location = New Point(10, 52)
         Label27.Name = "Label27"
         Label27.Size = New Size(130, 21)
         Label27.TabIndex = 1
@@ -888,21 +914,31 @@ Partial Class FrmMain
         ' Label26
         ' 
         Label26.AutoSize = True
-        Label26.Location = New Point(55, 27)
+        Label26.Location = New Point(55, 23)
         Label26.Name = "Label26"
         Label26.Size = New Size(85, 21)
         Label26.TabIndex = 0
         Label26.Text = "# Drawers"
         Label26.TextAlign = ContentAlignment.MiddleRight
         ' 
+        ' BtnDrawDrawerImage
+        ' 
+        BtnDrawDrawerImage.Enabled = False
+        BtnDrawDrawerImage.Location = New Point(168, 439)
+        BtnDrawDrawerImage.Name = "BtnDrawDrawerImage"
+        BtnDrawDrawerImage.Size = New Size(211, 34)
+        BtnDrawDrawerImage.TabIndex = 19
+        BtnDrawDrawerImage.Text = "Drawer Shop Drawings"
+        BtnDrawDrawerImage.UseVisualStyleBackColor = True
+        ' 
         ' PnlResults
         ' 
         PnlResults.BorderStyle = BorderStyle.Fixed3D
         PnlResults.Controls.Add(RtbResults)
         PnlResults.Dock = DockStyle.Bottom
-        PnlResults.Location = New Point(0, 640)
+        PnlResults.Location = New Point(0, 545)
         PnlResults.Name = "PnlResults"
-        PnlResults.Size = New Size(546, 312)
+        PnlResults.Size = New Size(546, 268)
         PnlResults.TabIndex = 18
         ' 
         ' RtbResults
@@ -913,7 +949,7 @@ Partial Class FrmMain
         RtbResults.Name = "RtbResults"
         RtbResults.ReadOnly = True
         RtbResults.ShowSelectionMargin = True
-        RtbResults.Size = New Size(542, 308)
+        RtbResults.Size = New Size(542, 264)
         RtbResults.TabIndex = 5
         RtbResults.Text = ""
         ' 
@@ -931,9 +967,9 @@ Partial Class FrmMain
         GroupBox11.Controls.Add(RbExponential)
         GroupBox11.Controls.Add(RbLogarithmic)
         GroupBox11.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox11.Location = New Point(12, 60)
+        GroupBox11.Location = New Point(12, 51)
         GroupBox11.Name = "GroupBox11"
-        GroupBox11.Size = New Size(523, 367)
+        GroupBox11.Size = New Size(523, 315)
         GroupBox11.TabIndex = 17
         GroupBox11.TabStop = False
         GroupBox11.Text = "Calculation Methods"
@@ -942,7 +978,7 @@ Partial Class FrmMain
         ' 
         RbArithmetic.AutoSize = True
         RbArithmetic.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbArithmetic.Location = New Point(25, 127)
+        RbArithmetic.Location = New Point(25, 109)
         RbArithmetic.Name = "RbArithmetic"
         RbArithmetic.Size = New Size(324, 24)
         RbArithmetic.TabIndex = 9
@@ -954,7 +990,7 @@ Partial Class FrmMain
         ' 
         RbFibonacci.AutoSize = True
         RbFibonacci.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbFibonacci.Location = New Point(25, 94)
+        RbFibonacci.Location = New Point(25, 81)
         RbFibonacci.Name = "RbFibonacci"
         RbFibonacci.Size = New Size(318, 24)
         RbFibonacci.TabIndex = 8
@@ -966,7 +1002,7 @@ Partial Class FrmMain
         ' 
         RbGeometric.AutoSize = True
         RbGeometric.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbGeometric.Location = New Point(25, 61)
+        RbGeometric.Location = New Point(25, 52)
         RbGeometric.Name = "RbGeometric"
         RbGeometric.Size = New Size(319, 24)
         RbGeometric.TabIndex = 7
@@ -979,7 +1015,7 @@ Partial Class FrmMain
         RbHambridge.AutoSize = True
         RbHambridge.Checked = True
         RbHambridge.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbHambridge.Location = New Point(25, 28)
+        RbHambridge.Location = New Point(25, 24)
         RbHambridge.Name = "RbHambridge"
         RbHambridge.Size = New Size(352, 24)
         RbHambridge.TabIndex = 6
@@ -992,7 +1028,7 @@ Partial Class FrmMain
         ' 
         RbGoldenRatio.AutoSize = True
         RbGoldenRatio.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbGoldenRatio.Location = New Point(25, 325)
+        RbGoldenRatio.Location = New Point(25, 279)
         RbGoldenRatio.Name = "RbGoldenRatio"
         RbGoldenRatio.Size = New Size(368, 24)
         RbGoldenRatio.TabIndex = 5
@@ -1005,7 +1041,7 @@ Partial Class FrmMain
         ' 
         RbReverseArithmetic.AutoSize = True
         RbReverseArithmetic.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbReverseArithmetic.Location = New Point(25, 292)
+        RbReverseArithmetic.Location = New Point(25, 250)
         RbReverseArithmetic.Name = "RbReverseArithmetic"
         RbReverseArithmetic.Size = New Size(442, 24)
         RbReverseArithmetic.TabIndex = 4
@@ -1018,7 +1054,7 @@ Partial Class FrmMain
         ' 
         RbUniform.AutoSize = True
         RbUniform.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbUniform.Location = New Point(25, 259)
+        RbUniform.Location = New Point(25, 222)
         RbUniform.Name = "RbUniform"
         RbUniform.Size = New Size(300, 24)
         RbUniform.TabIndex = 3
@@ -1031,7 +1067,7 @@ Partial Class FrmMain
         ' 
         RbCustomRatio.AutoSize = True
         RbCustomRatio.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbCustomRatio.Location = New Point(25, 226)
+        RbCustomRatio.Location = New Point(25, 194)
         RbCustomRatio.Name = "RbCustomRatio"
         RbCustomRatio.Size = New Size(464, 24)
         RbCustomRatio.TabIndex = 2
@@ -1044,7 +1080,7 @@ Partial Class FrmMain
         ' 
         RbExponential.AutoSize = True
         RbExponential.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbExponential.Location = New Point(25, 193)
+        RbExponential.Location = New Point(25, 165)
         RbExponential.Name = "RbExponential"
         RbExponential.Size = New Size(434, 24)
         RbExponential.TabIndex = 1
@@ -1057,7 +1093,7 @@ Partial Class FrmMain
         ' 
         RbLogarithmic.AutoSize = True
         RbLogarithmic.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
-        RbLogarithmic.Location = New Point(25, 160)
+        RbLogarithmic.Location = New Point(25, 137)
         RbLogarithmic.Name = "RbLogarithmic"
         RbLogarithmic.Size = New Size(472, 24)
         RbLogarithmic.TabIndex = 0
@@ -1071,7 +1107,7 @@ Partial Class FrmMain
         Label47.AutoSize = True
         Label47.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label47.ForeColor = Color.Maroon
-        Label47.Location = New Point(210, 583)
+        Label47.Location = New Point(210, 500)
         Label47.Name = "Label47"
         Label47.Size = New Size(139, 38)
         Label47.TabIndex = 16
@@ -1082,7 +1118,7 @@ Partial Class FrmMain
         Label33.AutoSize = True
         Label33.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label33.ForeColor = Color.Maroon
-        Label33.Location = New Point(96, 15)
+        Label33.Location = New Point(96, 13)
         Label33.Name = "Label33"
         Label33.Size = New Size(355, 38)
         Label33.TabIndex = 4
@@ -1090,9 +1126,9 @@ Partial Class FrmMain
         ' 
         ' BtnSaveProject
         ' 
-        BtnSaveProject.Location = New Point(42, 465)
+        BtnSaveProject.Location = New Point(42, 399)
         BtnSaveProject.Name = "BtnSaveProject"
-        BtnSaveProject.Size = New Size(112, 34)
+        BtnSaveProject.Size = New Size(112, 29)
         BtnSaveProject.TabIndex = 7
         BtnSaveProject.Text = "Save Project"
         BtnSaveProject.UseVisualStyleBackColor = True
@@ -1101,29 +1137,64 @@ Partial Class FrmMain
         ' 
         Label34.AutoSize = True
         Label34.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label34.Location = New Point(237, 472)
+        Label34.Location = New Point(237, 405)
         Label34.Name = "Label34"
         Label34.Size = New Size(114, 21)
         Label34.TabIndex = 9
         Label34.Text = "Project Name"
         ' 
-        ' TxtProjectName
+        ' TxtDrawerProjectName
         ' 
-        TxtProjectName.Location = New Point(355, 468)
-        TxtProjectName.Name = "TxtProjectName"
-        TxtProjectName.Size = New Size(150, 29)
-        TxtProjectName.TabIndex = 8
+        TxtDrawerProjectName.Location = New Point(355, 401)
+        TxtDrawerProjectName.Name = "TxtDrawerProjectName"
+        TxtDrawerProjectName.Size = New Size(150, 26)
+        TxtDrawerProjectName.TabIndex = 8
         ' 
         ' TpDoors
         ' 
         TpDoors.BackColor = Color.Gainsboro
         TpDoors.BorderStyle = BorderStyle.Fixed3D
+        TpDoors.Controls.Add(GbSetScale)
         TpDoors.Controls.Add(ScDoors)
-        TpDoors.Location = New Point(4, 34)
+        TpDoors.Location = New Point(4, 27)
         TpDoors.Name = "TpDoors"
-        TpDoors.Size = New Size(1076, 958)
+        TpDoors.Size = New Size(1076, 823)
         TpDoors.TabIndex = 4
         TpDoors.Text = "Doors"
+        ' 
+        ' GbSetScale
+        ' 
+        GbSetScale.BackColor = Color.WhiteSmoke
+        GbSetScale.Controls.Add(RbImperial)
+        GbSetScale.Controls.Add(RbMetric)
+        GbSetScale.Location = New Point(396, 739)
+        GbSetScale.Name = "GbSetScale"
+        GbSetScale.Size = New Size(281, 71)
+        GbSetScale.TabIndex = 23
+        GbSetScale.TabStop = False
+        GbSetScale.Text = "Set Scale"
+        ' 
+        ' RbImperial
+        ' 
+        RbImperial.AutoSize = True
+        RbImperial.Checked = True
+        RbImperial.Location = New Point(39, 25)
+        RbImperial.Name = "RbImperial"
+        RbImperial.Size = New Size(107, 22)
+        RbImperial.TabIndex = 1
+        RbImperial.TabStop = True
+        RbImperial.Text = "Imperial"
+        RbImperial.UseVisualStyleBackColor = True
+        ' 
+        ' RbMetric
+        ' 
+        RbMetric.AutoSize = True
+        RbMetric.Location = New Point(162, 25)
+        RbMetric.Name = "RbMetric"
+        RbMetric.Size = New Size(87, 22)
+        RbMetric.TabIndex = 2
+        RbMetric.Text = "Metric"
+        RbMetric.UseVisualStyleBackColor = True
         ' 
         ' ScDoors
         ' 
@@ -1133,6 +1204,9 @@ Partial Class FrmMain
         ' 
         ' ScDoors.Panel1
         ' 
+        ScDoors.Panel1.Controls.Add(LblTotalMaterialArea)
+        ScDoors.Panel1.Controls.Add(LblDoorWidth)
+        ScDoors.Panel1.Controls.Add(LblDoorHeight)
         ScDoors.Panel1.Controls.Add(BtnDeleteDoorProject)
         ScDoors.Panel1.Controls.Add(BtnLoadDoorProject)
         ScDoors.Panel1.Controls.Add(GroupBox12)
@@ -1147,29 +1221,57 @@ Partial Class FrmMain
         ' 
         ' ScDoors.Panel2
         ' 
+        ScDoors.Panel2.Controls.Add(BtnDrawDoorImage)
         ScDoors.Panel2.Controls.Add(BtnPrintDoorResults)
         ScDoors.Panel2.Controls.Add(BtnExportDoorResults)
         ScDoors.Panel2.Controls.Add(Label50)
         ScDoors.Panel2.Controls.Add(PnlDoorResults)
         ScDoors.Panel2.Controls.Add(Label49)
-        ScDoors.Size = New Size(1072, 709)
+        ScDoors.Size = New Size(1072, 734)
         ScDoors.SplitterDistance = 538
         ScDoors.TabIndex = 22
         ' 
+        ' LblTotalMaterialArea
+        ' 
+        LblTotalMaterialArea.AutoSize = True
+        LblTotalMaterialArea.Location = New Point(31, 687)
+        LblTotalMaterialArea.Name = "LblTotalMaterialArea"
+        LblTotalMaterialArea.Size = New Size(171, 18)
+        LblTotalMaterialArea.TabIndex = 31
+        LblTotalMaterialArea.Text = "Total Material Area"
+        ' 
+        ' LblDoorWidth
+        ' 
+        LblDoorWidth.AutoSize = True
+        LblDoorWidth.Location = New Point(360, 643)
+        LblDoorWidth.Name = "LblDoorWidth"
+        LblDoorWidth.Size = New Size(105, 18)
+        LblDoorWidth.TabIndex = 30
+        LblDoorWidth.Text = "Door Width"
+        ' 
+        ' LblDoorHeight
+        ' 
+        LblDoorHeight.AutoSize = True
+        LblDoorHeight.Location = New Point(53, 639)
+        LblDoorHeight.Name = "LblDoorHeight"
+        LblDoorHeight.Size = New Size(108, 18)
+        LblDoorHeight.TabIndex = 29
+        LblDoorHeight.Text = "Door Height"
+        ' 
         ' BtnDeleteDoorProject
         ' 
-        BtnDeleteDoorProject.Location = New Point(372, 451)
+        BtnDeleteDoorProject.Location = New Point(372, 387)
         BtnDeleteDoorProject.Name = "BtnDeleteDoorProject"
-        BtnDeleteDoorProject.Size = New Size(126, 34)
+        BtnDeleteDoorProject.Size = New Size(126, 29)
         BtnDeleteDoorProject.TabIndex = 28
         BtnDeleteDoorProject.Text = "Delete Project"
         BtnDeleteDoorProject.UseVisualStyleBackColor = True
         ' 
         ' BtnLoadDoorProject
         ' 
-        BtnLoadDoorProject.Location = New Point(372, 411)
+        BtnLoadDoorProject.Location = New Point(372, 352)
         BtnLoadDoorProject.Name = "BtnLoadDoorProject"
-        BtnLoadDoorProject.Size = New Size(126, 34)
+        BtnLoadDoorProject.Size = New Size(126, 29)
         BtnLoadDoorProject.TabIndex = 27
         BtnLoadDoorProject.Text = "Load Project"
         BtnLoadDoorProject.UseVisualStyleBackColor = True
@@ -1177,33 +1279,23 @@ Partial Class FrmMain
         ' GroupBox12
         ' 
         GroupBox12.BackColor = Color.WhiteSmoke
-        GroupBox12.Controls.Add(Button1)
         GroupBox12.Controls.Add(BtnOfficeDoorPreset)
         GroupBox12.Controls.Add(BtnBathroomDoorPreset)
         GroupBox12.Controls.Add(BtnKitchenDoorPreset)
-        GroupBox12.Location = New Point(27, 456)
+        GroupBox12.Location = New Point(27, 417)
         GroupBox12.Name = "GroupBox12"
-        GroupBox12.Size = New Size(300, 103)
+        GroupBox12.Size = New Size(300, 88)
         GroupBox12.TabIndex = 23
         GroupBox12.TabStop = False
         GroupBox12.Text = "Door Presets"
-        ' 
-        ' Button1
-        ' 
-        Button1.Location = New Point(3, 25)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(112, 34)
-        Button1.TabIndex = 3
-        Button1.Text = "Button1"
-        Button1.UseVisualStyleBackColor = True
         ' 
         ' BtnOfficeDoorPreset
         ' 
         BtnOfficeDoorPreset.BackColor = Color.Linen
         BtnOfficeDoorPreset.FlatAppearance.BorderColor = Color.FromArgb(CByte(255), CByte(128), CByte(0))
-        BtnOfficeDoorPreset.Location = New Point(164, 21)
+        BtnOfficeDoorPreset.Location = New Point(164, 18)
         BtnOfficeDoorPreset.Name = "BtnOfficeDoorPreset"
-        BtnOfficeDoorPreset.Size = New Size(112, 34)
+        BtnOfficeDoorPreset.Size = New Size(112, 29)
         BtnOfficeDoorPreset.TabIndex = 2
         BtnOfficeDoorPreset.Text = "Office"
         BtnOfficeDoorPreset.UseVisualStyleBackColor = False
@@ -1212,9 +1304,9 @@ Partial Class FrmMain
         ' 
         BtnBathroomDoorPreset.BackColor = Color.Linen
         BtnBathroomDoorPreset.FlatAppearance.BorderColor = Color.FromArgb(CByte(255), CByte(128), CByte(0))
-        BtnBathroomDoorPreset.Location = New Point(25, 62)
+        BtnBathroomDoorPreset.Location = New Point(25, 53)
         BtnBathroomDoorPreset.Name = "BtnBathroomDoorPreset"
-        BtnBathroomDoorPreset.Size = New Size(112, 34)
+        BtnBathroomDoorPreset.Size = New Size(112, 29)
         BtnBathroomDoorPreset.TabIndex = 1
         BtnBathroomDoorPreset.Text = "Bathroom"
         BtnBathroomDoorPreset.UseVisualStyleBackColor = False
@@ -1223,9 +1315,9 @@ Partial Class FrmMain
         ' 
         BtnKitchenDoorPreset.BackColor = Color.Linen
         BtnKitchenDoorPreset.FlatAppearance.BorderColor = Color.FromArgb(CByte(255), CByte(128), CByte(0))
-        BtnKitchenDoorPreset.Location = New Point(25, 21)
+        BtnKitchenDoorPreset.Location = New Point(25, 18)
         BtnKitchenDoorPreset.Name = "BtnKitchenDoorPreset"
-        BtnKitchenDoorPreset.Size = New Size(112, 34)
+        BtnKitchenDoorPreset.Size = New Size(112, 29)
         BtnKitchenDoorPreset.TabIndex = 0
         BtnKitchenDoorPreset.Text = "Kitchen"
         BtnKitchenDoorPreset.UseVisualStyleBackColor = False
@@ -1235,7 +1327,7 @@ Partial Class FrmMain
         Label48.AutoSize = True
         Label48.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label48.ForeColor = Color.Maroon
-        Label48.Location = New Point(126, 18)
+        Label48.Location = New Point(126, 15)
         Label48.Name = "Label48"
         Label48.Size = New Size(313, 38)
         Label48.TabIndex = 22
@@ -1250,40 +1342,40 @@ Partial Class FrmMain
         Panel6.Controls.Add(Label35)
         Panel6.Controls.Add(Label36)
         Panel6.Controls.Add(Label37)
-        Panel6.Location = New Point(26, 78)
+        Panel6.Location = New Point(26, 67)
         Panel6.Name = "Panel6"
-        Panel6.Size = New Size(487, 75)
+        Panel6.Size = New Size(487, 65)
         Panel6.TabIndex = 16
         ' 
         ' TxtCabinetOpeningHeight
         ' 
-        TxtCabinetOpeningHeight.Location = New Point(336, 31)
+        TxtCabinetOpeningHeight.Location = New Point(336, 27)
         TxtCabinetOpeningHeight.Name = "TxtCabinetOpeningHeight"
-        TxtCabinetOpeningHeight.Size = New Size(117, 29)
+        TxtCabinetOpeningHeight.Size = New Size(117, 26)
         TxtCabinetOpeningHeight.TabIndex = 6
         ' 
         ' TxtCabinetOpeningWidth
         ' 
-        TxtCabinetOpeningWidth.Location = New Point(87, 31)
+        TxtCabinetOpeningWidth.Location = New Point(87, 27)
         TxtCabinetOpeningWidth.Name = "TxtCabinetOpeningWidth"
-        TxtCabinetOpeningWidth.Size = New Size(117, 29)
+        TxtCabinetOpeningWidth.Size = New Size(117, 26)
         TxtCabinetOpeningWidth.TabIndex = 5
         ' 
         ' Label35
         ' 
         Label35.AutoSize = True
-        Label35.Location = New Point(13, 6)
+        Label35.Location = New Point(13, 5)
         Label35.Name = "Label35"
-        Label35.Size = New Size(127, 21)
+        Label35.Size = New Size(146, 18)
         Label35.TabIndex = 4
         Label35.Text = "Cabinet Opening"
         ' 
         ' Label36
         ' 
         Label36.AutoSize = True
-        Label36.Location = New Point(274, 35)
+        Label36.Location = New Point(274, 30)
         Label36.Name = "Label36"
-        Label36.Size = New Size(56, 21)
+        Label36.Size = New Size(64, 18)
         Label36.TabIndex = 1
         Label36.Text = "Height"
         Label36.TextAlign = ContentAlignment.MiddleRight
@@ -1291,9 +1383,9 @@ Partial Class FrmMain
         ' Label37
         ' 
         Label37.AutoSize = True
-        Label37.Location = New Point(29, 35)
+        Label37.Location = New Point(29, 30)
         Label37.Name = "Label37"
-        Label37.Size = New Size(52, 21)
+        Label37.Size = New Size(61, 18)
         Label37.TabIndex = 0
         Label37.Text = "Width"
         Label37.TextAlign = ContentAlignment.MiddleRight
@@ -1306,9 +1398,9 @@ Partial Class FrmMain
         GroupBox10.Controls.Add(Label46)
         GroupBox10.Controls.Add(LblStileLength)
         GroupBox10.Controls.Add(LblRailLength)
-        GroupBox10.Location = New Point(26, 587)
+        GroupBox10.Location = New Point(26, 529)
         GroupBox10.Name = "GroupBox10"
-        GroupBox10.Size = New Size(487, 107)
+        GroupBox10.Size = New Size(487, 92)
         GroupBox10.TabIndex = 15
         GroupBox10.TabStop = False
         GroupBox10.Text = "Rails - Stiles - Panels"
@@ -1316,18 +1408,20 @@ Partial Class FrmMain
         ' LblPanelWidth
         ' 
         LblPanelWidth.AutoSize = True
-        LblPanelWidth.Location = New Point(248, 74)
+        LblPanelWidth.Font = New Font("Georgia", 8F)
+        LblPanelWidth.Location = New Point(248, 63)
         LblPanelWidth.Name = "LblPanelWidth"
-        LblPanelWidth.Size = New Size(52, 21)
+        LblPanelWidth.Size = New Size(51, 18)
         LblPanelWidth.TabIndex = 4
         LblPanelWidth.Text = "Width"
         ' 
         ' LblPanelHeight
         ' 
         LblPanelHeight.AutoSize = True
-        LblPanelHeight.Location = New Point(248, 44)
+        LblPanelHeight.Font = New Font("Georgia", 8F)
+        LblPanelHeight.Location = New Point(248, 38)
         LblPanelHeight.Name = "LblPanelHeight"
-        LblPanelHeight.Size = New Size(56, 21)
+        LblPanelHeight.Size = New Size(55, 18)
         LblPanelHeight.TabIndex = 3
         LblPanelHeight.Text = "Height"
         ' 
@@ -1335,7 +1429,7 @@ Partial Class FrmMain
         ' 
         Label46.AutoSize = True
         Label46.Font = New Font("Segoe UI", 7F, FontStyle.Bold)
-        Label46.Location = New Point(248, 14)
+        Label46.Location = New Point(248, 12)
         Label46.Name = "Label46"
         Label46.Size = New Size(77, 19)
         Label46.TabIndex = 2
@@ -1344,10 +1438,10 @@ Partial Class FrmMain
         ' LblStileLength
         ' 
         LblStileLength.AutoSize = True
-        LblStileLength.Font = New Font("Segoe UI", 7F)
-        LblStileLength.Location = New Point(13, 61)
+        LblStileLength.Font = New Font("Georgia", 8F)
+        LblStileLength.Location = New Point(13, 52)
         LblStileLength.Name = "LblStileLength"
-        LblStileLength.Size = New Size(40, 19)
+        LblStileLength.Size = New Size(46, 18)
         LblStileLength.TabIndex = 1
         LblStileLength.Tag = "{0} mm"
         LblStileLength.Text = "Stiles"
@@ -1356,10 +1450,10 @@ Partial Class FrmMain
         ' LblRailLength
         ' 
         LblRailLength.AutoSize = True
-        LblRailLength.Font = New Font("Segoe UI", 7F)
-        LblRailLength.Location = New Point(13, 27)
+        LblRailLength.Font = New Font("Georgia", 8F)
+        LblRailLength.Location = New Point(13, 23)
         LblRailLength.Name = "LblRailLength"
-        LblRailLength.Size = New Size(36, 19)
+        LblRailLength.Size = New Size(42, 18)
         LblRailLength.TabIndex = 0
         LblRailLength.Tag = "{0} mm"
         LblRailLength.Text = "Rails"
@@ -1368,9 +1462,9 @@ Partial Class FrmMain
         ' BtnCalculateDoors
         ' 
         BtnCalculateDoors.Font = New Font("Segoe UI", 7F, FontStyle.Bold)
-        BtnCalculateDoors.Location = New Point(358, 537)
+        BtnCalculateDoors.Location = New Point(358, 486)
         BtnCalculateDoors.Name = "BtnCalculateDoors"
-        BtnCalculateDoors.Size = New Size(154, 34)
+        BtnCalculateDoors.Size = New Size(154, 29)
         BtnCalculateDoors.TabIndex = 21
         BtnCalculateDoors.Text = "Calculate Doors"
         BtnCalculateDoors.UseVisualStyleBackColor = True
@@ -1379,9 +1473,9 @@ Partial Class FrmMain
         ' 
         BtnSaveDoorProject.Enabled = False
         BtnSaveDoorProject.FlatStyle = FlatStyle.System
-        BtnSaveDoorProject.Location = New Point(372, 371)
+        BtnSaveDoorProject.Location = New Point(372, 318)
         BtnSaveDoorProject.Name = "BtnSaveDoorProject"
-        BtnSaveDoorProject.Size = New Size(126, 34)
+        BtnSaveDoorProject.Size = New Size(126, 29)
         BtnSaveDoorProject.TabIndex = 18
         BtnSaveDoorProject.Text = "Save Project"
         BtnSaveDoorProject.UseVisualStyleBackColor = True
@@ -1401,45 +1495,45 @@ Partial Class FrmMain
         Panel8.Controls.Add(Label44)
         Panel8.Controls.Add(Panel10)
         Panel8.Controls.Add(Label45)
-        Panel8.Location = New Point(26, 159)
+        Panel8.Location = New Point(26, 136)
         Panel8.Name = "Panel8"
-        Panel8.Size = New Size(223, 270)
+        Panel8.Size = New Size(223, 275)
         Panel8.TabIndex = 19
         ' 
         ' TxtDoorOverlay
         ' 
-        TxtDoorOverlay.Location = New Point(114, 130)
+        TxtDoorOverlay.Location = New Point(114, 120)
         TxtDoorOverlay.Name = "TxtDoorOverlay"
-        TxtDoorOverlay.Size = New Size(78, 29)
+        TxtDoorOverlay.Size = New Size(78, 26)
         TxtDoorOverlay.TabIndex = 15
         ' 
         ' TxtGapSize
         ' 
-        TxtGapSize.Location = New Point(114, 226)
+        TxtGapSize.Location = New Point(114, 224)
         TxtGapSize.Name = "TxtGapSize"
-        TxtGapSize.Size = New Size(81, 29)
+        TxtGapSize.Size = New Size(81, 26)
         TxtGapSize.TabIndex = 14
         ' 
         ' TxtRailWidth
         ' 
-        TxtRailWidth.Location = New Point(114, 99)
+        TxtRailWidth.Location = New Point(114, 94)
         TxtRailWidth.Name = "TxtRailWidth"
-        TxtRailWidth.Size = New Size(78, 29)
+        TxtRailWidth.Size = New Size(78, 26)
         TxtRailWidth.TabIndex = 13
         ' 
         ' TxtStileWidth
         ' 
-        TxtStileWidth.Location = New Point(114, 69)
+        TxtStileWidth.Location = New Point(114, 68)
         TxtStileWidth.Name = "TxtStileWidth"
-        TxtStileWidth.Size = New Size(78, 29)
+        TxtStileWidth.Size = New Size(78, 26)
         TxtStileWidth.TabIndex = 12
         ' 
         ' Label41
         ' 
         Label41.AutoSize = True
-        Label41.Location = New Point(16, 103)
+        Label41.Location = New Point(16, 98)
         Label41.Name = "Label41"
-        Label41.Size = New Size(82, 21)
+        Label41.Size = New Size(99, 18)
         Label41.TabIndex = 11
         Label41.Text = "Rail Width"
         Label41.TextAlign = ContentAlignment.MiddleRight
@@ -1448,18 +1542,18 @@ Partial Class FrmMain
         ' 
         Label42.Font = New Font("Segoe UI", 7F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label42.ImageAlign = ContentAlignment.MiddleRight
-        Label42.Location = New Point(8, 224)
+        Label42.Location = New Point(8, 216)
         Label42.Name = "Label42"
-        Label42.Size = New Size(98, 38)
+        Label42.Size = New Size(98, 43)
         Label42.TabIndex = 9
         Label42.Text = "Gap between doors"
         ' 
         ' Label43
         ' 
         Label43.AutoSize = True
-        Label43.Location = New Point(20, 8)
+        Label43.Location = New Point(20, 7)
         Label43.Name = "Label43"
-        Label43.Size = New Size(104, 21)
+        Label43.Size = New Size(118, 18)
         Label43.TabIndex = 0
         Label43.Text = "Door Options"
         ' 
@@ -1469,17 +1563,17 @@ Partial Class FrmMain
         Panel9.AutoSizeMode = AutoSizeMode.GrowAndShrink
         Panel9.Controls.Add(RbInset)
         Panel9.Controls.Add(RbOverlay)
-        Panel9.Location = New Point(32, 31)
+        Panel9.Location = New Point(23, 30)
         Panel9.Name = "Panel9"
-        Panel9.Size = New Size(160, 34)
+        Panel9.Size = New Size(182, 30)
         Panel9.TabIndex = 4
         ' 
         ' RbInset
         ' 
         RbInset.AutoSize = True
-        RbInset.Location = New Point(89, 5)
+        RbInset.Location = New Point(103, 4)
         RbInset.Name = "RbInset"
-        RbInset.Size = New Size(68, 25)
+        RbInset.Size = New Size(76, 22)
         RbInset.TabIndex = 1
         RbInset.Tag = "1"
         RbInset.Text = "Inset"
@@ -1488,9 +1582,9 @@ Partial Class FrmMain
         ' RbOverlay
         ' 
         RbOverlay.AutoSize = True
-        RbOverlay.Location = New Point(8, 6)
+        RbOverlay.Location = New Point(6, 5)
         RbOverlay.Name = "RbOverlay"
-        RbOverlay.Size = New Size(89, 25)
+        RbOverlay.Size = New Size(97, 22)
         RbOverlay.TabIndex = 0
         RbOverlay.Tag = "0"
         RbOverlay.Text = "Overlay"
@@ -1499,9 +1593,9 @@ Partial Class FrmMain
         ' Label44
         ' 
         Label44.AutoSize = True
-        Label44.Location = New Point(13, 73)
+        Label44.Location = New Point(13, 72)
         Label44.Name = "Label44"
-        Label44.Size = New Size(85, 21)
+        Label44.Size = New Size(103, 18)
         Label44.TabIndex = 2
         Label44.Text = "Stile Width"
         Label44.TextAlign = ContentAlignment.MiddleRight
@@ -1512,16 +1606,16 @@ Partial Class FrmMain
         Panel10.AutoSizeMode = AutoSizeMode.GrowAndShrink
         Panel10.Controls.Add(Rb2Door)
         Panel10.Controls.Add(Rb1Door)
-        Panel10.Location = New Point(20, 176)
+        Panel10.Location = New Point(17, 168)
         Panel10.Name = "Panel10"
-        Panel10.Size = New Size(186, 33)
+        Panel10.Size = New Size(186, 32)
         Panel10.TabIndex = 5
         ' 
         ' Rb2Door
         ' 
         Rb2Door.AutoSize = True
         Rb2Door.Font = New Font("Segoe UI", 7.5F)
-        Rb2Door.Location = New Point(97, 6)
+        Rb2Door.Location = New Point(97, 5)
         Rb2Door.Name = "Rb2Door"
         Rb2Door.Size = New Size(86, 24)
         Rb2Door.TabIndex = 1
@@ -1533,7 +1627,7 @@ Partial Class FrmMain
         ' 
         Rb1Door.AutoSize = True
         Rb1Door.Font = New Font("Segoe UI", 7.5F)
-        Rb1Door.Location = New Point(4, 6)
+        Rb1Door.Location = New Point(4, 5)
         Rb1Door.Name = "Rb1Door"
         Rb1Door.Size = New Size(80, 24)
         Rb1Door.TabIndex = 0
@@ -1544,9 +1638,9 @@ Partial Class FrmMain
         ' Label45
         ' 
         Label45.AutoSize = True
-        Label45.Location = New Point(34, 134)
+        Label45.Location = New Point(34, 124)
         Label45.Name = "Label45"
-        Label45.Size = New Size(64, 21)
+        Label45.Size = New Size(72, 18)
         Label45.TabIndex = 3
         Label45.Text = "Overlay"
         Label45.TextAlign = ContentAlignment.MiddleRight
@@ -1555,10 +1649,10 @@ Partial Class FrmMain
         ' 
         TxtDoorProjectName.AutoCompleteMode = AutoCompleteMode.Suggest
         TxtDoorProjectName.AutoCompleteSource = AutoCompleteSource.RecentlyUsedList
-        TxtDoorProjectName.Location = New Point(270, 336)
+        TxtDoorProjectName.Location = New Point(270, 288)
         TxtDoorProjectName.MaxLength = 40
         TxtDoorProjectName.Name = "TxtDoorProjectName"
-        TxtDoorProjectName.Size = New Size(228, 29)
+        TxtDoorProjectName.Size = New Size(228, 26)
         TxtDoorProjectName.TabIndex = 17
         ' 
         ' Panel7
@@ -1570,32 +1664,32 @@ Partial Class FrmMain
         Panel7.Controls.Add(Label38)
         Panel7.Controls.Add(Label39)
         Panel7.Controls.Add(Label40)
-        Panel7.Location = New Point(275, 191)
+        Panel7.Location = New Point(275, 164)
         Panel7.Name = "Panel7"
-        Panel7.Size = New Size(223, 126)
+        Panel7.Size = New Size(223, 108)
         Panel7.TabIndex = 20
         ' 
         ' TxtPanelExpansionGap
         ' 
-        TxtPanelExpansionGap.Location = New Point(139, 81)
+        TxtPanelExpansionGap.Location = New Point(139, 69)
         TxtPanelExpansionGap.Name = "TxtPanelExpansionGap"
-        TxtPanelExpansionGap.Size = New Size(69, 29)
+        TxtPanelExpansionGap.Size = New Size(69, 26)
         TxtPanelExpansionGap.TabIndex = 4
         ' 
         ' TxtPanelGrooveDepth
         ' 
-        TxtPanelGrooveDepth.Location = New Point(139, 35)
+        TxtPanelGrooveDepth.Location = New Point(139, 30)
         TxtPanelGrooveDepth.Name = "TxtPanelGrooveDepth"
-        TxtPanelGrooveDepth.Size = New Size(69, 29)
+        TxtPanelGrooveDepth.Size = New Size(69, 26)
         TxtPanelGrooveDepth.TabIndex = 3
         ' 
         ' Label38
         ' 
         Label38.Font = New Font("Segoe UI", 7.5F)
         Label38.ImageAlign = ContentAlignment.MiddleRight
-        Label38.Location = New Point(16, 71)
+        Label38.Location = New Point(16, 61)
         Label38.Name = "Label38"
-        Label38.Size = New Size(107, 49)
+        Label38.Size = New Size(107, 42)
         Label38.TabIndex = 2
         Label38.Text = "Panel Expansion Gap"
         ' 
@@ -1604,7 +1698,7 @@ Partial Class FrmMain
         Label39.AutoSize = True
         Label39.Font = New Font("Segoe UI", 7.5F)
         Label39.ImageAlign = ContentAlignment.MiddleRight
-        Label39.Location = New Point(16, 39)
+        Label39.Location = New Point(16, 33)
         Label39.Name = "Label39"
         Label39.Size = New Size(102, 20)
         Label39.TabIndex = 1
@@ -1613,26 +1707,36 @@ Partial Class FrmMain
         ' Label40
         ' 
         Label40.AutoSize = True
-        Label40.Location = New Point(14, 8)
+        Label40.Location = New Point(14, 7)
         Label40.Name = "Label40"
-        Label40.Size = New Size(106, 21)
+        Label40.Size = New Size(125, 18)
         Label40.TabIndex = 0
         Label40.Text = "Panel Options"
         ' 
+        ' BtnDrawDoorImage
+        ' 
+        BtnDrawDoorImage.Enabled = False
+        BtnDrawDoorImage.Location = New Point(169, 601)
+        BtnDrawDoorImage.Name = "BtnDrawDoorImage"
+        BtnDrawDoorImage.Size = New Size(190, 34)
+        BtnDrawDoorImage.TabIndex = 28
+        BtnDrawDoorImage.Text = "Draw Door Image"
+        BtnDrawDoorImage.UseVisualStyleBackColor = True
+        ' 
         ' BtnPrintDoorResults
         ' 
-        BtnPrintDoorResults.Location = New Point(54, 639)
+        BtnPrintDoorResults.Location = New Point(54, 548)
         BtnPrintDoorResults.Name = "BtnPrintDoorResults"
-        BtnPrintDoorResults.Size = New Size(191, 34)
+        BtnPrintDoorResults.Size = New Size(191, 29)
         BtnPrintDoorResults.TabIndex = 27
         BtnPrintDoorResults.Text = "Print Door Results"
         BtnPrintDoorResults.UseVisualStyleBackColor = True
         ' 
         ' BtnExportDoorResults
         ' 
-        BtnExportDoorResults.Location = New Point(285, 639)
+        BtnExportDoorResults.Location = New Point(285, 548)
         BtnExportDoorResults.Name = "BtnExportDoorResults"
-        BtnExportDoorResults.Size = New Size(191, 34)
+        BtnExportDoorResults.Size = New Size(191, 29)
         BtnExportDoorResults.TabIndex = 26
         BtnExportDoorResults.Text = "Export Door Results"
         BtnExportDoorResults.UseVisualStyleBackColor = True
@@ -1642,7 +1746,7 @@ Partial Class FrmMain
         Label50.AutoSize = True
         Label50.Font = New Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label50.ForeColor = Color.Maroon
-        Label50.Location = New Point(213, 191)
+        Label50.Location = New Point(213, 164)
         Label50.Name = "Label50"
         Label50.Size = New Size(105, 29)
         Label50.TabIndex = 25
@@ -1653,9 +1757,9 @@ Partial Class FrmMain
         PnlDoorResults.BackColor = Color.WhiteSmoke
         PnlDoorResults.BorderStyle = BorderStyle.Fixed3D
         PnlDoorResults.Controls.Add(RtbDoorResults)
-        PnlDoorResults.Location = New Point(0, 238)
+        PnlDoorResults.Location = New Point(0, 204)
         PnlDoorResults.Name = "PnlDoorResults"
-        PnlDoorResults.Size = New Size(530, 381)
+        PnlDoorResults.Size = New Size(530, 327)
         PnlDoorResults.TabIndex = 24
         ' 
         ' RtbDoorResults
@@ -1663,7 +1767,7 @@ Partial Class FrmMain
         RtbDoorResults.Dock = DockStyle.Fill
         RtbDoorResults.Location = New Point(0, 0)
         RtbDoorResults.Name = "RtbDoorResults"
-        RtbDoorResults.Size = New Size(526, 377)
+        RtbDoorResults.Size = New Size(526, 323)
         RtbDoorResults.TabIndex = 0
         RtbDoorResults.Text = ""
         ' 
@@ -1672,7 +1776,7 @@ Partial Class FrmMain
         Label49.AutoSize = True
         Label49.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label49.ForeColor = Color.Maroon
-        Label49.Location = New Point(122, 18)
+        Label49.Location = New Point(122, 15)
         Label49.Name = "Label49"
         Label49.Size = New Size(313, 38)
         Label49.TabIndex = 23
@@ -1683,10 +1787,10 @@ Partial Class FrmMain
         TpBoardfeet.BackColor = Color.Gainsboro
         TpBoardfeet.BorderStyle = BorderStyle.Fixed3D
         TpBoardfeet.Controls.Add(PnlBoardFeet)
-        TpBoardfeet.Location = New Point(4, 34)
+        TpBoardfeet.Location = New Point(4, 27)
         TpBoardfeet.Name = "TpBoardfeet"
         TpBoardfeet.Padding = New Padding(3)
-        TpBoardfeet.Size = New Size(1076, 958)
+        TpBoardfeet.Size = New Size(1076, 823)
         TpBoardfeet.TabIndex = 0
         TpBoardfeet.Text = "Boardfeet"
         ' 
@@ -1711,33 +1815,33 @@ Partial Class FrmMain
         PnlBoardFeet.Controls.Add(Label1)
         PnlBoardFeet.Controls.Add(lblCalculateBoardfeet)
         PnlBoardFeet.Controls.Add(DgvBoardfeet)
-        PnlBoardFeet.Location = New Point(5, 5)
+        PnlBoardFeet.Location = New Point(5, 4)
         PnlBoardFeet.Name = "PnlBoardFeet"
-        PnlBoardFeet.Size = New Size(1038, 588)
+        PnlBoardFeet.Size = New Size(1038, 505)
         PnlBoardFeet.TabIndex = 0
         ' 
         ' BtnPrtBfProject
         ' 
-        BtnPrtBfProject.Location = New Point(760, 522)
+        BtnPrtBfProject.Location = New Point(760, 447)
         BtnPrtBfProject.Name = "BtnPrtBfProject"
-        BtnPrtBfProject.Size = New Size(144, 34)
+        BtnPrtBfProject.Size = New Size(144, 29)
         BtnPrtBfProject.TabIndex = 16
         BtnPrtBfProject.Text = "Print Project"
         BtnPrtBfProject.UseVisualStyleBackColor = True
         ' 
         ' TxtBfProjectName
         ' 
-        TxtBfProjectName.Location = New Point(406, 525)
+        TxtBfProjectName.Location = New Point(406, 450)
         TxtBfProjectName.Name = "TxtBfProjectName"
-        TxtBfProjectName.Size = New Size(222, 29)
+        TxtBfProjectName.Size = New Size(222, 26)
         TxtBfProjectName.TabIndex = 15
         tTip.SetToolTip(TxtBfProjectName, "Enter project name")
         ' 
         ' BtnSaveBfProject
         ' 
-        BtnSaveBfProject.Location = New Point(130, 522)
+        BtnSaveBfProject.Location = New Point(130, 447)
         BtnSaveBfProject.Name = "BtnSaveBfProject"
-        BtnSaveBfProject.Size = New Size(144, 34)
+        BtnSaveBfProject.Size = New Size(144, 29)
         BtnSaveBfProject.TabIndex = 14
         BtnSaveBfProject.Text = "Save Project"
         BtnSaveBfProject.UseVisualStyleBackColor = True
@@ -1745,9 +1849,9 @@ Partial Class FrmMain
         ' LblBoardFeetCost20
         ' 
         LblBoardFeetCost20.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost20.Location = New Point(767, 470)
+        LblBoardFeetCost20.Location = New Point(790, 396)
         LblBoardFeetCost20.Name = "LblBoardFeetCost20"
-        LblBoardFeetCost20.Size = New Size(175, 32)
+        LblBoardFeetCost20.Size = New Size(175, 28)
         LblBoardFeetCost20.TabIndex = 13
         LblBoardFeetCost20.Text = "$0.00"
         LblBoardFeetCost20.TextAlign = ContentAlignment.MiddleCenter
@@ -1755,9 +1859,10 @@ Partial Class FrmMain
         ' LblTotalBoardFeet20
         ' 
         LblTotalBoardFeet20.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet20.Location = New Point(767, 425)
+        LblTotalBoardFeet20.Font = New Font("Segoe UI", 7.25F)
+        LblTotalBoardFeet20.Location = New Point(774, 357)
         LblTotalBoardFeet20.Name = "LblTotalBoardFeet20"
-        LblTotalBoardFeet20.Size = New Size(175, 32)
+        LblTotalBoardFeet20.Size = New Size(206, 28)
         LblTotalBoardFeet20.TabIndex = 12
         LblTotalBoardFeet20.Text = "0.00"
         LblTotalBoardFeet20.TextAlign = ContentAlignment.MiddleCenter
@@ -1765,9 +1870,9 @@ Partial Class FrmMain
         ' Label12
         ' 
         Label12.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label12.Location = New Point(767, 375)
+        Label12.Location = New Point(790, 321)
         Label12.Name = "Label12"
-        Label12.Size = New Size(175, 32)
+        Label12.Size = New Size(175, 27)
         Label12.TabIndex = 11
         Label12.Text = "Board Feet +20%"
         Label12.TextAlign = ContentAlignment.MiddleCenter
@@ -1775,9 +1880,9 @@ Partial Class FrmMain
         ' LblBoardFeetCost15
         ' 
         LblBoardFeetCost15.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost15.Location = New Point(522, 461)
+        LblBoardFeetCost15.Location = New Point(550, 396)
         LblBoardFeetCost15.Name = "LblBoardFeetCost15"
-        LblBoardFeetCost15.Size = New Size(175, 32)
+        LblBoardFeetCost15.Size = New Size(175, 28)
         LblBoardFeetCost15.TabIndex = 10
         LblBoardFeetCost15.Text = "$0.00"
         LblBoardFeetCost15.TextAlign = ContentAlignment.MiddleCenter
@@ -1785,9 +1890,10 @@ Partial Class FrmMain
         ' LblTotalBoardFeet15
         ' 
         LblTotalBoardFeet15.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet15.Location = New Point(522, 417)
+        LblTotalBoardFeet15.Font = New Font("Segoe UI", 7.25F)
+        LblTotalBoardFeet15.Location = New Point(534, 357)
         LblTotalBoardFeet15.Name = "LblTotalBoardFeet15"
-        LblTotalBoardFeet15.Size = New Size(175, 32)
+        LblTotalBoardFeet15.Size = New Size(206, 28)
         LblTotalBoardFeet15.TabIndex = 9
         LblTotalBoardFeet15.Text = "0.00"
         LblTotalBoardFeet15.TextAlign = ContentAlignment.MiddleCenter
@@ -1795,9 +1901,9 @@ Partial Class FrmMain
         ' Label9
         ' 
         Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label9.Location = New Point(522, 375)
+        Label9.Location = New Point(550, 321)
         Label9.Name = "Label9"
-        Label9.Size = New Size(175, 32)
+        Label9.Size = New Size(175, 27)
         Label9.TabIndex = 8
         Label9.Text = "Board Feet +15%"
         Label9.TextAlign = ContentAlignment.MiddleCenter
@@ -1805,9 +1911,9 @@ Partial Class FrmMain
         ' LblBoardFeetCost10
         ' 
         LblBoardFeetCost10.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost10.Location = New Point(307, 461)
+        LblBoardFeetCost10.Location = New Point(310, 396)
         LblBoardFeetCost10.Name = "LblBoardFeetCost10"
-        LblBoardFeetCost10.Size = New Size(175, 32)
+        LblBoardFeetCost10.Size = New Size(175, 28)
         LblBoardFeetCost10.TabIndex = 7
         LblBoardFeetCost10.Text = "$0.00"
         LblBoardFeetCost10.TextAlign = ContentAlignment.MiddleCenter
@@ -1815,9 +1921,10 @@ Partial Class FrmMain
         ' LblTotalBoardFeet10
         ' 
         LblTotalBoardFeet10.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet10.Location = New Point(307, 417)
+        LblTotalBoardFeet10.Font = New Font("Segoe UI", 7.25F)
+        LblTotalBoardFeet10.Location = New Point(294, 357)
         LblTotalBoardFeet10.Name = "LblTotalBoardFeet10"
-        LblTotalBoardFeet10.Size = New Size(175, 32)
+        LblTotalBoardFeet10.Size = New Size(206, 28)
         LblTotalBoardFeet10.TabIndex = 6
         LblTotalBoardFeet10.Text = "0.00"
         LblTotalBoardFeet10.TextAlign = ContentAlignment.MiddleCenter
@@ -1825,9 +1932,9 @@ Partial Class FrmMain
         ' Label6
         ' 
         Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label6.Location = New Point(307, 375)
+        Label6.Location = New Point(310, 321)
         Label6.Name = "Label6"
-        Label6.Size = New Size(175, 32)
+        Label6.Size = New Size(175, 27)
         Label6.TabIndex = 5
         Label6.Text = "Board Feet +10%"
         Label6.TextAlign = ContentAlignment.MiddleCenter
@@ -1835,9 +1942,9 @@ Partial Class FrmMain
         ' LblBoardFeetCost
         ' 
         LblBoardFeetCost.BorderStyle = BorderStyle.FixedSingle
-        LblBoardFeetCost.Location = New Point(93, 461)
+        LblBoardFeetCost.Location = New Point(70, 396)
         LblBoardFeetCost.Name = "LblBoardFeetCost"
-        LblBoardFeetCost.Size = New Size(175, 32)
+        LblBoardFeetCost.Size = New Size(175, 28)
         LblBoardFeetCost.TabIndex = 4
         LblBoardFeetCost.Text = "$0.00"
         LblBoardFeetCost.TextAlign = ContentAlignment.MiddleCenter
@@ -1845,9 +1952,10 @@ Partial Class FrmMain
         ' LblTotalBoardFeet
         ' 
         LblTotalBoardFeet.BorderStyle = BorderStyle.FixedSingle
-        LblTotalBoardFeet.Location = New Point(93, 417)
+        LblTotalBoardFeet.Font = New Font("Segoe UI", 7.25F)
+        LblTotalBoardFeet.Location = New Point(54, 357)
         LblTotalBoardFeet.Name = "LblTotalBoardFeet"
-        LblTotalBoardFeet.Size = New Size(175, 32)
+        LblTotalBoardFeet.Size = New Size(206, 28)
         LblTotalBoardFeet.TabIndex = 3
         LblTotalBoardFeet.Text = "0.00"
         LblTotalBoardFeet.TextAlign = ContentAlignment.MiddleCenter
@@ -1855,9 +1963,9 @@ Partial Class FrmMain
         ' Label1
         ' 
         Label1.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label1.Location = New Point(93, 375)
+        Label1.Location = New Point(70, 321)
         Label1.Name = "Label1"
-        Label1.Size = New Size(175, 32)
+        Label1.Size = New Size(175, 27)
         Label1.TabIndex = 2
         Label1.Text = "Total Board Feet"
         Label1.TextAlign = ContentAlignment.MiddleCenter
@@ -1866,7 +1974,7 @@ Partial Class FrmMain
         ' 
         lblCalculateBoardfeet.AutoSize = True
         lblCalculateBoardfeet.Font = New Font("Georgia", 16F, FontStyle.Bold)
-        lblCalculateBoardfeet.Location = New Point(364, 28)
+        lblCalculateBoardfeet.Location = New Point(364, 24)
         lblCalculateBoardfeet.Name = "lblCalculateBoardfeet"
         lblCalculateBoardfeet.Size = New Size(341, 38)
         lblCalculateBoardfeet.TabIndex = 1
@@ -1878,11 +1986,11 @@ Partial Class FrmMain
         DgvBoardfeet.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         DgvBoardfeet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DgvBoardfeet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvBoardfeet.Columns.AddRange(New DataGridViewColumn() {bfCol0, bfCol1, bfCol2, bfCol3, bfCol4, bfCol5, bfCol6})
-        DgvBoardfeet.Location = New Point(10, 74)
+        DgvBoardfeet.Columns.AddRange(New DataGridViewColumn() {bfCol0, bfCol1, bfCol2, bfCol3, bfCol4, bfCol5, bfCol6, bfCol7})
+        DgvBoardfeet.Location = New Point(10, 63)
         DgvBoardfeet.Name = "DgvBoardfeet"
         DgvBoardfeet.RowHeadersWidth = 62
-        DgvBoardfeet.Size = New Size(1014, 276)
+        DgvBoardfeet.Size = New Size(1014, 237)
         DgvBoardfeet.TabIndex = 0
         ' 
         ' bfCol0
@@ -1927,18 +2035,25 @@ Partial Class FrmMain
         bfCol6.MinimumWidth = 8
         bfCol6.Name = "bfCol6"
         ' 
+        ' bfCol7
+        ' 
+        bfCol7.HeaderText = "Total Bm"
+        bfCol7.MinimumWidth = 8
+        bfCol7.Name = "bfCol7"
+        ' 
         ' TpCalculations
         ' 
         TpCalculations.BackColor = Color.Gainsboro
+        TpCalculations.BackgroundImageLayout = ImageLayout.None
         TpCalculations.BorderStyle = BorderStyle.Fixed3D
         TpCalculations.Controls.Add(Panel5)
         TpCalculations.Controls.Add(Panel4)
         TpCalculations.Controls.Add(Panel3)
         TpCalculations.Controls.Add(Panel2)
         TpCalculations.Controls.Add(Panel1)
-        TpCalculations.Location = New Point(4, 34)
+        TpCalculations.Location = New Point(4, 27)
         TpCalculations.Name = "TpCalculations"
-        TpCalculations.Size = New Size(1076, 958)
+        TpCalculations.Size = New Size(1076, 823)
         TpCalculations.TabIndex = 2
         TpCalculations.Text = "Calculations"
         ' 
@@ -1960,47 +2075,47 @@ Partial Class FrmMain
         Panel5.Controls.Add(Label18)
         Panel5.Controls.Add(Label15)
         Panel5.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel5.Location = New Point(356, 485)
+        Panel5.Location = New Point(3, 458)
         Panel5.Name = "Panel5"
-        Panel5.Size = New Size(391, 413)
+        Panel5.Size = New Size(391, 355)
         Panel5.TabIndex = 4
         ' 
         ' LblTippingForce
         ' 
         LblTippingForce.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblTippingForce.ForeColor = Color.DodgerBlue
-        LblTippingForce.Location = New Point(5, 317)
+        LblTippingForce.Location = New Point(5, 272)
         LblTippingForce.Name = "LblTippingForce"
-        LblTippingForce.Size = New Size(377, 38)
+        LblTippingForce.Size = New Size(377, 33)
         LblTippingForce.TabIndex = 12
-        LblTippingForce.Tag = "Tipping force required: {0:N2} lbs"
+        LblTippingForce.Tag = "Tipping force: {0:N2} lbs / {1:N2} kgf"
         LblTippingForce.Text = "Tipping force required"
         LblTippingForce.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' TxtTtTableBaseWeight
         ' 
-        TxtTtTableBaseWeight.Location = New Point(106, 268)
+        TxtTtTableBaseWeight.Location = New Point(106, 230)
         TxtTtTableBaseWeight.Name = "TxtTtTableBaseWeight"
         TxtTtTableBaseWeight.Size = New Size(75, 29)
         TxtTtTableBaseWeight.TabIndex = 11
         ' 
         ' TxtTtTableBaselength
         ' 
-        TxtTtTableBaselength.Location = New Point(106, 223)
+        TxtTtTableBaselength.Location = New Point(106, 191)
         TxtTtTableBaselength.Name = "TxtTtTableBaselength"
         TxtTtTableBaselength.Size = New Size(75, 29)
         TxtTtTableBaselength.TabIndex = 10
         ' 
         ' TxtTtTableTopWeight
         ' 
-        TxtTtTableTopWeight.Location = New Point(106, 141)
+        TxtTtTableTopWeight.Location = New Point(106, 121)
         TxtTtTableTopWeight.Name = "TxtTtTableTopWeight"
         TxtTtTableTopWeight.Size = New Size(75, 29)
         TxtTtTableTopWeight.TabIndex = 9
         ' 
         ' TxtTtTableTopLength
         ' 
-        TxtTtTableTopLength.Location = New Point(106, 104)
+        TxtTtTableTopLength.Location = New Point(106, 89)
         TxtTtTableTopLength.Name = "TxtTtTableTopLength"
         TxtTtTableTopLength.Size = New Size(75, 29)
         TxtTtTableTopLength.TabIndex = 8
@@ -2010,7 +2125,7 @@ Partial Class FrmMain
         Label25.AutoSize = True
         Label25.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label25.ForeColor = Color.OrangeRed
-        Label25.Location = New Point(86, 189)
+        Label25.Location = New Point(86, 162)
         Label25.Name = "Label25"
         Label25.Size = New Size(102, 25)
         Label25.TabIndex = 7
@@ -2021,7 +2136,7 @@ Partial Class FrmMain
         Label24.AutoSize = True
         Label24.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label24.ForeColor = Color.OrangeRed
-        Label24.Location = New Point(97, 72)
+        Label24.Location = New Point(97, 62)
         Label24.Name = "Label24"
         Label24.Size = New Size(93, 25)
         Label24.TabIndex = 6
@@ -2030,7 +2145,7 @@ Partial Class FrmMain
         ' Label22
         ' 
         Label22.AutoSize = True
-        Label22.Location = New Point(31, 272)
+        Label22.Location = New Point(31, 233)
         Label22.Name = "Label22"
         Label22.Size = New Size(66, 21)
         Label22.TabIndex = 5
@@ -2040,7 +2155,7 @@ Partial Class FrmMain
         ' Label23
         ' 
         Label23.AutoSize = True
-        Label23.Location = New Point(34, 227)
+        Label23.Location = New Point(34, 195)
         Label23.Name = "Label23"
         Label23.Size = New Size(63, 21)
         Label23.TabIndex = 4
@@ -2050,7 +2165,7 @@ Partial Class FrmMain
         ' Label21
         ' 
         Label21.AutoSize = True
-        Label21.Location = New Point(31, 145)
+        Label21.Location = New Point(31, 124)
         Label21.Name = "Label21"
         Label21.Size = New Size(66, 21)
         Label21.TabIndex = 3
@@ -2060,7 +2175,7 @@ Partial Class FrmMain
         ' Label20
         ' 
         Label20.AutoSize = True
-        Label20.Location = New Point(34, 108)
+        Label20.Location = New Point(34, 93)
         Label20.Name = "Label20"
         Label20.Size = New Size(63, 21)
         Label20.TabIndex = 2
@@ -2070,7 +2185,7 @@ Partial Class FrmMain
         ' Label18
         ' 
         Label18.AutoSize = True
-        Label18.Location = New Point(46, 365)
+        Label18.Location = New Point(46, 313)
         Label18.Name = "Label18"
         Label18.Size = New Size(294, 21)
         Label18.TabIndex = 1
@@ -2081,7 +2196,7 @@ Partial Class FrmMain
         Label15.AutoSize = True
         Label15.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label15.ForeColor = Color.Maroon
-        Label15.Location = New Point(58, 23)
+        Label15.Location = New Point(58, 20)
         Label15.Name = "Label15"
         Label15.Size = New Size(271, 38)
         Label15.TabIndex = 0
@@ -2096,9 +2211,9 @@ Partial Class FrmMain
         Panel4.Controls.Add(GroupBox2)
         Panel4.Controls.Add(GroupBox1)
         Panel4.Controls.Add(Label13)
-        Panel4.Location = New Point(762, 19)
+        Panel4.Location = New Point(762, 16)
         Panel4.Name = "Panel4"
-        Panel4.Size = New Size(300, 568)
+        Panel4.Size = New Size(300, 487)
         Panel4.TabIndex = 3
         ' 
         ' GroupBox4
@@ -2108,9 +2223,9 @@ Partial Class FrmMain
         GroupBox4.Controls.Add(TxtFraction2Decimal)
         GroupBox4.Controls.Add(Label16)
         GroupBox4.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox4.Location = New Point(20, 435)
+        GroupBox4.Location = New Point(20, 373)
         GroupBox4.Name = "GroupBox4"
-        GroupBox4.Size = New Size(257, 115)
+        GroupBox4.Size = New Size(257, 99)
         GroupBox4.TabIndex = 4
         GroupBox4.TabStop = False
         GroupBox4.Tag = "Decimal: {0}"
@@ -2119,7 +2234,7 @@ Partial Class FrmMain
         ' LblFraction2Decimal
         ' 
         LblFraction2Decimal.AutoSize = True
-        LblFraction2Decimal.Location = New Point(20, 67)
+        LblFraction2Decimal.Location = New Point(20, 57)
         LblFraction2Decimal.Name = "LblFraction2Decimal"
         LblFraction2Decimal.Size = New Size(73, 21)
         LblFraction2Decimal.TabIndex = 2
@@ -2128,7 +2243,7 @@ Partial Class FrmMain
         ' 
         ' TxtFraction2Decimal
         ' 
-        TxtFraction2Decimal.Location = New Point(98, 26)
+        TxtFraction2Decimal.Location = New Point(98, 22)
         TxtFraction2Decimal.Name = "TxtFraction2Decimal"
         TxtFraction2Decimal.Size = New Size(81, 29)
         TxtFraction2Decimal.TabIndex = 1
@@ -2136,7 +2251,7 @@ Partial Class FrmMain
         ' Label16
         ' 
         Label16.AutoSize = True
-        Label16.Location = New Point(20, 30)
+        Label16.Location = New Point(20, 26)
         Label16.Name = "Label16"
         Label16.Size = New Size(72, 21)
         Label16.TabIndex = 0
@@ -2149,9 +2264,9 @@ Partial Class FrmMain
         GroupBox3.Controls.Add(TxtDecimal2Fraction)
         GroupBox3.Controls.Add(Label19)
         GroupBox3.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox3.Location = New Point(20, 314)
+        GroupBox3.Location = New Point(20, 269)
         GroupBox3.Name = "GroupBox3"
-        GroupBox3.Size = New Size(257, 115)
+        GroupBox3.Size = New Size(257, 99)
         GroupBox3.TabIndex = 3
         GroupBox3.TabStop = False
         GroupBox3.Text = "Decimal to Fraction"
@@ -2159,7 +2274,7 @@ Partial Class FrmMain
         ' LblDecimal2Fraction
         ' 
         LblDecimal2Fraction.AutoSize = True
-        LblDecimal2Fraction.Location = New Point(20, 67)
+        LblDecimal2Fraction.Location = New Point(20, 57)
         LblDecimal2Fraction.Name = "LblDecimal2Fraction"
         LblDecimal2Fraction.Size = New Size(72, 21)
         LblDecimal2Fraction.TabIndex = 2
@@ -2168,7 +2283,7 @@ Partial Class FrmMain
         ' 
         ' TxtDecimal2Fraction
         ' 
-        TxtDecimal2Fraction.Location = New Point(98, 26)
+        TxtDecimal2Fraction.Location = New Point(98, 22)
         TxtDecimal2Fraction.Name = "TxtDecimal2Fraction"
         TxtDecimal2Fraction.Size = New Size(81, 29)
         TxtDecimal2Fraction.TabIndex = 1
@@ -2176,7 +2291,7 @@ Partial Class FrmMain
         ' Label19
         ' 
         Label19.AutoSize = True
-        Label19.Location = New Point(20, 30)
+        Label19.Location = New Point(20, 26)
         Label19.Name = "Label19"
         Label19.Size = New Size(73, 21)
         Label19.TabIndex = 0
@@ -2189,9 +2304,9 @@ Partial Class FrmMain
         GroupBox2.Controls.Add(TxtMm2Inches)
         GroupBox2.Controls.Add(Label17)
         GroupBox2.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox2.Location = New Point(20, 193)
+        GroupBox2.Location = New Point(20, 165)
         GroupBox2.Name = "GroupBox2"
-        GroupBox2.Size = New Size(257, 115)
+        GroupBox2.Size = New Size(257, 99)
         GroupBox2.TabIndex = 2
         GroupBox2.TabStop = False
         GroupBox2.Text = "MM to Inches"
@@ -2199,7 +2314,7 @@ Partial Class FrmMain
         ' LblMM2Inches
         ' 
         LblMM2Inches.AutoSize = True
-        LblMM2Inches.Location = New Point(20, 67)
+        LblMM2Inches.Location = New Point(20, 57)
         LblMM2Inches.Name = "LblMM2Inches"
         LblMM2Inches.Size = New Size(59, 21)
         LblMM2Inches.TabIndex = 2
@@ -2208,7 +2323,7 @@ Partial Class FrmMain
         ' 
         ' TxtMm2Inches
         ' 
-        TxtMm2Inches.Location = New Point(90, 26)
+        TxtMm2Inches.Location = New Point(90, 22)
         TxtMm2Inches.Name = "TxtMm2Inches"
         TxtMm2Inches.Size = New Size(81, 29)
         TxtMm2Inches.TabIndex = 1
@@ -2216,7 +2331,7 @@ Partial Class FrmMain
         ' Label17
         ' 
         Label17.AutoSize = True
-        Label17.Location = New Point(20, 30)
+        Label17.Location = New Point(20, 26)
         Label17.Name = "Label17"
         Label17.Size = New Size(59, 21)
         Label17.TabIndex = 0
@@ -2229,9 +2344,9 @@ Partial Class FrmMain
         GroupBox1.Controls.Add(TxtInches2Mm)
         GroupBox1.Controls.Add(Label14)
         GroupBox1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        GroupBox1.Location = New Point(20, 72)
+        GroupBox1.Location = New Point(20, 62)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(257, 115)
+        GroupBox1.Size = New Size(257, 99)
         GroupBox1.TabIndex = 1
         GroupBox1.TabStop = False
         GroupBox1.Text = "Inches to MM"
@@ -2239,7 +2354,7 @@ Partial Class FrmMain
         ' LblInches2MM
         ' 
         LblInches2MM.AutoSize = True
-        LblInches2MM.Location = New Point(20, 67)
+        LblInches2MM.Location = New Point(20, 57)
         LblInches2MM.Name = "LblInches2MM"
         LblInches2MM.Size = New Size(97, 21)
         LblInches2MM.TabIndex = 2
@@ -2248,7 +2363,7 @@ Partial Class FrmMain
         ' 
         ' TxtInches2Mm
         ' 
-        TxtInches2Mm.Location = New Point(90, 26)
+        TxtInches2Mm.Location = New Point(90, 22)
         TxtInches2Mm.Name = "TxtInches2Mm"
         TxtInches2Mm.Size = New Size(81, 29)
         TxtInches2Mm.TabIndex = 1
@@ -2256,7 +2371,7 @@ Partial Class FrmMain
         ' Label14
         ' 
         Label14.AutoSize = True
-        Label14.Location = New Point(20, 30)
+        Label14.Location = New Point(20, 26)
         Label14.Name = "Label14"
         Label14.Size = New Size(59, 21)
         Label14.TabIndex = 0
@@ -2267,7 +2382,7 @@ Partial Class FrmMain
         Label13.AutoSize = True
         Label13.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label13.ForeColor = Color.Maroon
-        Label13.Location = New Point(49, 24)
+        Label13.Location = New Point(49, 21)
         Label13.Name = "Label13"
         Label13.Size = New Size(199, 38)
         Label13.TabIndex = 0
@@ -2277,21 +2392,33 @@ Partial Class FrmMain
         ' 
         Panel3.BackColor = Color.WhiteSmoke
         Panel3.BorderStyle = BorderStyle.Fixed3D
+        Panel3.Controls.Add(Label51)
         Panel3.Controls.Add(LblPolygonPieceAngle)
         Panel3.Controls.Add(LblPolygonSideAngle)
         Panel3.Controls.Add(TxtPolygonSides)
         Panel3.Controls.Add(Label11)
         Panel3.Controls.Add(PbPolygon)
         Panel3.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel3.Location = New Point(26, 477)
+        Panel3.Location = New Point(410, 416)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(302, 462)
+        Panel3.Size = New Size(302, 397)
         Panel3.TabIndex = 2
+        ' 
+        ' Label51
+        ' 
+        Label51.AutoSize = True
+        Label51.Font = New Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label51.ForeColor = Color.Maroon
+        Label51.Location = New Point(87, 9)
+        Label51.Name = "Label51"
+        Label51.Size = New Size(124, 29)
+        Label51.TabIndex = 5
+        Label51.Text = "Polygons"
         ' 
         ' LblPolygonPieceAngle
         ' 
         LblPolygonPieceAngle.AutoSize = True
-        LblPolygonPieceAngle.Location = New Point(24, 100)
+        LblPolygonPieceAngle.Location = New Point(24, 113)
         LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
         LblPolygonPieceAngle.Size = New Size(168, 21)
         LblPolygonPieceAngle.TabIndex = 4
@@ -2302,7 +2429,7 @@ Partial Class FrmMain
         ' LblPolygonSideAngle
         ' 
         LblPolygonSideAngle.AutoSize = True
-        LblPolygonSideAngle.Location = New Point(24, 60)
+        LblPolygonSideAngle.Location = New Point(24, 84)
         LblPolygonSideAngle.Name = "LblPolygonSideAngle"
         LblPolygonSideAngle.Size = New Size(130, 21)
         LblPolygonSideAngle.TabIndex = 3
@@ -2312,7 +2439,7 @@ Partial Class FrmMain
         ' 
         ' TxtPolygonSides
         ' 
-        TxtPolygonSides.Location = New Point(146, 15)
+        TxtPolygonSides.Location = New Point(146, 45)
         TxtPolygonSides.MaxLength = 5
         TxtPolygonSides.Name = "TxtPolygonSides"
         TxtPolygonSides.Size = New Size(49, 29)
@@ -2321,7 +2448,7 @@ Partial Class FrmMain
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Location = New Point(24, 19)
+        Label11.Location = New Point(24, 49)
         Label11.Name = "Label11"
         Label11.Size = New Size(115, 21)
         Label11.TabIndex = 1
@@ -2331,9 +2458,9 @@ Partial Class FrmMain
         ' 
         PbPolygon.BackColor = Color.LightGray
         PbPolygon.BorderStyle = BorderStyle.Fixed3D
-        PbPolygon.Location = New Point(21, 144)
+        PbPolygon.Location = New Point(21, 151)
         PbPolygon.Name = "PbPolygon"
-        PbPolygon.Size = New Size(257, 275)
+        PbPolygon.Size = New Size(257, 236)
         PbPolygon.TabIndex = 0
         PbPolygon.TabStop = False
         ' 
@@ -2345,21 +2472,21 @@ Partial Class FrmMain
         Panel2.Controls.Add(RtbFraction2Decimal)
         Panel2.Controls.Add(Label10)
         Panel2.Controls.Add(Label8)
-        Panel2.Location = New Point(282, 19)
+        Panel2.Location = New Point(282, 16)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(465, 449)
+        Panel2.Size = New Size(465, 385)
         Panel2.TabIndex = 1
         ' 
         ' RtbFraction2Mm
         ' 
         RtbFraction2Mm.BackColor = Color.White
         RtbFraction2Mm.DetectUrls = False
-        RtbFraction2Mm.Location = New Point(239, 55)
+        RtbFraction2Mm.Location = New Point(239, 47)
         RtbFraction2Mm.Name = "RtbFraction2Mm"
         RtbFraction2Mm.ReadOnly = True
         RtbFraction2Mm.ScrollBars = RichTextBoxScrollBars.Vertical
         RtbFraction2Mm.ShowSelectionMargin = True
-        RtbFraction2Mm.Size = New Size(209, 374)
+        RtbFraction2Mm.Size = New Size(209, 321)
         RtbFraction2Mm.TabIndex = 3
         RtbFraction2Mm.TabStop = False
         RtbFraction2Mm.Text = ""
@@ -2368,12 +2495,12 @@ Partial Class FrmMain
         ' 
         RtbFraction2Decimal.BackColor = Color.White
         RtbFraction2Decimal.DetectUrls = False
-        RtbFraction2Decimal.Location = New Point(12, 55)
+        RtbFraction2Decimal.Location = New Point(12, 47)
         RtbFraction2Decimal.Name = "RtbFraction2Decimal"
         RtbFraction2Decimal.ReadOnly = True
         RtbFraction2Decimal.ScrollBars = RichTextBoxScrollBars.Vertical
         RtbFraction2Decimal.ShowSelectionMargin = True
-        RtbFraction2Decimal.Size = New Size(209, 374)
+        RtbFraction2Decimal.Size = New Size(209, 321)
         RtbFraction2Decimal.TabIndex = 2
         RtbFraction2Decimal.TabStop = False
         RtbFraction2Decimal.Text = ""
@@ -2383,7 +2510,7 @@ Partial Class FrmMain
         Label10.AutoSize = True
         Label10.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
         Label10.ForeColor = Color.Maroon
-        Label10.Location = New Point(286, 21)
+        Label10.Location = New Point(286, 18)
         Label10.Name = "Label10"
         Label10.Size = New Size(126, 21)
         Label10.TabIndex = 1
@@ -2394,7 +2521,7 @@ Partial Class FrmMain
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
         Label8.ForeColor = Color.Maroon
-        Label8.Location = New Point(43, 21)
+        Label8.Location = New Point(43, 18)
         Label8.Name = "Label8"
         Label8.Size = New Size(159, 21)
         Label8.TabIndex = 0
@@ -2404,6 +2531,9 @@ Partial Class FrmMain
         ' 
         Panel1.BackColor = Color.WhiteSmoke
         Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(CmbEpoxyCost)
+        Panel1.Controls.Add(LblEpoxyCost)
+        Panel1.Controls.Add(LblEpoxyLiters)
         Panel1.Controls.Add(RbEpoxyWaste20)
         Panel1.Controls.Add(RbEpoxyWaste15)
         Panel1.Controls.Add(RbEpoxyWaste10)
@@ -2421,49 +2551,80 @@ Partial Class FrmMain
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(Label2)
         Panel1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel1.Location = New Point(26, 19)
+        Panel1.Location = New Point(26, 16)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(250, 449)
+        Panel1.Size = New Size(250, 436)
         Panel1.TabIndex = 0
+        ' 
+        ' CmbEpoxyCost
+        ' 
+        CmbEpoxyCost.Font = New Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        CmbEpoxyCost.FormattingEnabled = True
+        CmbEpoxyCost.Location = New Point(10, 147)
+        CmbEpoxyCost.Name = "CmbEpoxyCost"
+        CmbEpoxyCost.Size = New Size(226, 27)
+        CmbEpoxyCost.TabIndex = 14
+        ' 
+        ' LblEpoxyCost
+        ' 
+        LblEpoxyCost.AutoSize = True
+        LblEpoxyCost.Location = New Point(55, 179)
+        LblEpoxyCost.Name = "LblEpoxyCost"
+        LblEpoxyCost.Size = New Size(94, 21)
+        LblEpoxyCost.TabIndex = 13
+        LblEpoxyCost.Tag = "Cost: {0}"
+        LblEpoxyCost.Text = "Epoxy Cost"
+        LblEpoxyCost.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' LblEpoxyLiters
+        ' 
+        LblEpoxyLiters.AutoSize = True
+        LblEpoxyLiters.Location = New Point(29, 335)
+        LblEpoxyLiters.Name = "LblEpoxyLiters"
+        LblEpoxyLiters.Size = New Size(120, 21)
+        LblEpoxyLiters.TabIndex = 12
+        LblEpoxyLiters.Tag = "Liters: {0:N2} L"
+        LblEpoxyLiters.Text = "Liters required"
+        LblEpoxyLiters.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' RbEpoxyWaste20
         ' 
         RbEpoxyWaste20.AutoSize = True
-        RbEpoxyWaste20.Location = New Point(140, 408)
+        RbEpoxyWaste20.Location = New Point(184, 395)
         RbEpoxyWaste20.Name = "RbEpoxyWaste20"
-        RbEpoxyWaste20.Size = New Size(67, 25)
+        RbEpoxyWaste20.Size = New Size(53, 25)
         RbEpoxyWaste20.TabIndex = 5
-        RbEpoxyWaste20.Text = "20%"
+        RbEpoxyWaste20.Text = "20"
         RbEpoxyWaste20.UseVisualStyleBackColor = True
         ' 
         ' RbEpoxyWaste15
         ' 
         RbEpoxyWaste15.AutoSize = True
-        RbEpoxyWaste15.Location = New Point(140, 375)
+        RbEpoxyWaste15.Location = New Point(123, 395)
         RbEpoxyWaste15.Name = "RbEpoxyWaste15"
-        RbEpoxyWaste15.Size = New Size(67, 25)
+        RbEpoxyWaste15.Size = New Size(53, 25)
         RbEpoxyWaste15.TabIndex = 3
-        RbEpoxyWaste15.Text = "15%"
+        RbEpoxyWaste15.Text = "15"
         RbEpoxyWaste15.UseVisualStyleBackColor = True
         ' 
         ' RbEpoxyWaste10
         ' 
         RbEpoxyWaste10.AutoSize = True
-        RbEpoxyWaste10.Location = New Point(40, 408)
+        RbEpoxyWaste10.Location = New Point(62, 395)
         RbEpoxyWaste10.Name = "RbEpoxyWaste10"
-        RbEpoxyWaste10.Size = New Size(67, 25)
+        RbEpoxyWaste10.Size = New Size(53, 25)
         RbEpoxyWaste10.TabIndex = 4
-        RbEpoxyWaste10.Text = "10%"
+        RbEpoxyWaste10.Text = "10"
         RbEpoxyWaste10.UseVisualStyleBackColor = True
         ' 
         ' RbEpoxyWaste0
         ' 
         RbEpoxyWaste0.AutoSize = True
-        RbEpoxyWaste0.Location = New Point(40, 375)
+        RbEpoxyWaste0.Location = New Point(10, 395)
         RbEpoxyWaste0.Name = "RbEpoxyWaste0"
-        RbEpoxyWaste0.Size = New Size(58, 25)
+        RbEpoxyWaste0.Size = New Size(44, 25)
         RbEpoxyWaste0.TabIndex = 2
-        RbEpoxyWaste0.Text = "0%"
+        RbEpoxyWaste0.Text = "0"
         RbEpoxyWaste0.UseVisualStyleBackColor = True
         ' 
         ' Label7
@@ -2471,7 +2632,7 @@ Partial Class FrmMain
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label7.ForeColor = Color.Maroon
-        Label7.Location = New Point(41, 338)
+        Label7.Location = New Point(41, 364)
         Label7.Name = "Label7"
         Label7.Size = New Size(164, 25)
         Label7.TabIndex = 11
@@ -2479,21 +2640,21 @@ Partial Class FrmMain
         ' 
         ' TxtEpoxyDepth
         ' 
-        TxtEpoxyDepth.Location = New Point(102, 140)
+        TxtEpoxyDepth.Location = New Point(102, 116)
         TxtEpoxyDepth.Name = "TxtEpoxyDepth"
         TxtEpoxyDepth.Size = New Size(69, 29)
         TxtEpoxyDepth.TabIndex = 2
         ' 
         ' TxtEpoxyWidth
         ' 
-        TxtEpoxyWidth.Location = New Point(102, 100)
+        TxtEpoxyWidth.Location = New Point(102, 81)
         TxtEpoxyWidth.Name = "TxtEpoxyWidth"
         TxtEpoxyWidth.Size = New Size(69, 29)
         TxtEpoxyWidth.TabIndex = 1
         ' 
         ' TxtEpoxyLength
         ' 
-        TxtEpoxyLength.Location = New Point(102, 60)
+        TxtEpoxyLength.Location = New Point(102, 51)
         TxtEpoxyLength.Name = "TxtEpoxyLength"
         TxtEpoxyLength.Size = New Size(69, 29)
         TxtEpoxyLength.TabIndex = 0
@@ -2501,51 +2662,51 @@ Partial Class FrmMain
         ' LblEpoxyPints
         ' 
         LblEpoxyPints.AutoSize = True
-        LblEpoxyPints.Location = New Point(23, 297)
+        LblEpoxyPints.Location = New Point(32, 303)
         LblEpoxyPints.Name = "LblEpoxyPints"
         LblEpoxyPints.Size = New Size(117, 21)
         LblEpoxyPints.TabIndex = 7
-        LblEpoxyPints.Tag = "Pints: {0:N2} pts"
+        LblEpoxyPints.Tag = "Pints: {0:N2} pt"
         LblEpoxyPints.Text = "Pints required"
-        LblEpoxyPints.TextAlign = ContentAlignment.MiddleLeft
+        LblEpoxyPints.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' LblEpoxyQuarts
         ' 
         LblEpoxyQuarts.AutoSize = True
-        LblEpoxyQuarts.Location = New Point(23, 260)
+        LblEpoxyQuarts.Location = New Point(20, 272)
         LblEpoxyQuarts.Name = "LblEpoxyQuarts"
         LblEpoxyQuarts.Size = New Size(129, 21)
         LblEpoxyQuarts.TabIndex = 6
-        LblEpoxyQuarts.Tag = "Quarts {0:N2} qts"
+        LblEpoxyQuarts.Tag = "Quarts: {0:N2} qt"
         LblEpoxyQuarts.Text = "Quarts required"
-        LblEpoxyQuarts.TextAlign = ContentAlignment.MiddleLeft
+        LblEpoxyQuarts.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' LblEpoxyGallons
         ' 
         LblEpoxyGallons.AutoSize = True
-        LblEpoxyGallons.Location = New Point(23, 223)
+        LblEpoxyGallons.Location = New Point(13, 240)
         LblEpoxyGallons.Name = "LblEpoxyGallons"
         LblEpoxyGallons.Size = New Size(136, 21)
         LblEpoxyGallons.TabIndex = 5
         LblEpoxyGallons.Tag = "Gallons: {0:N2} gal"
         LblEpoxyGallons.Text = "Gallons required"
-        LblEpoxyGallons.TextAlign = ContentAlignment.MiddleLeft
+        LblEpoxyGallons.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' LblEpoxyOunces
         ' 
         LblEpoxyOunces.AutoSize = True
-        LblEpoxyOunces.Location = New Point(23, 186)
+        LblEpoxyOunces.Location = New Point(14, 208)
         LblEpoxyOunces.Name = "LblEpoxyOunces"
         LblEpoxyOunces.Size = New Size(135, 21)
         LblEpoxyOunces.TabIndex = 4
         LblEpoxyOunces.Tag = "Ounces: {0:N2} oz"
         LblEpoxyOunces.Text = "Ounces required"
-        LblEpoxyOunces.TextAlign = ContentAlignment.MiddleLeft
+        LblEpoxyOunces.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(37, 144)
+        Label5.Location = New Point(37, 119)
         Label5.Name = "Label5"
         Label5.Size = New Size(57, 21)
         Label5.TabIndex = 3
@@ -2555,7 +2716,7 @@ Partial Class FrmMain
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(37, 104)
+        Label4.Location = New Point(37, 85)
         Label4.Name = "Label4"
         Label4.Size = New Size(57, 21)
         Label4.TabIndex = 2
@@ -2565,7 +2726,7 @@ Partial Class FrmMain
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(31, 64)
+        Label3.Location = New Point(31, 55)
         Label3.Name = "Label3"
         Label3.Size = New Size(63, 21)
         Label3.TabIndex = 1
@@ -2577,78 +2738,32 @@ Partial Class FrmMain
         Label2.AutoSize = True
         Label2.Font = New Font("Georgia", 14F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.Maroon
-        Label2.Location = New Point(26, 13)
+        Label2.Location = New Point(26, 11)
         Label2.Name = "Label2"
         Label2.Size = New Size(195, 32)
         Label2.TabIndex = 0
         Label2.Text = "Epoxy Pours"
         ' 
-        ' TpLogs
+        ' TpDrawings
         ' 
-        TpLogs.BackColor = Color.Gainsboro
-        TpLogs.BorderStyle = BorderStyle.Fixed3D
-        TpLogs.Controls.Add(PngLog)
-        TpLogs.Controls.Add(GbSetScale)
-        TpLogs.Location = New Point(4, 30)
-        TpLogs.Name = "TpLogs"
-        TpLogs.Size = New Size(1076, 962)
-        TpLogs.TabIndex = 3
-        TpLogs.Text = "Logs"
+        TpDrawings.Controls.Add(PbOutputDrawing)
+        TpDrawings.Location = New Point(4, 27)
+        TpDrawings.Name = "TpDrawings"
+        TpDrawings.Size = New Size(1076, 823)
+        TpDrawings.TabIndex = 5
+        TpDrawings.Text = "Drawings"
+        TpDrawings.UseVisualStyleBackColor = True
         ' 
-        ' PngLog
+        ' PbOutputDrawing
         ' 
-        PngLog.BackColor = Color.Silver
-        PngLog.BorderStyle = BorderStyle.Fixed3D
-        PngLog.Controls.Add(RtbLog)
-        PngLog.Location = New Point(4, 198)
-        PngLog.Name = "PngLog"
-        PngLog.Size = New Size(807, 749)
-        PngLog.TabIndex = 4
-        ' 
-        ' RtbLog
-        ' 
-        RtbLog.Dock = DockStyle.Fill
-        RtbLog.Location = New Point(0, 0)
-        RtbLog.Name = "RtbLog"
-        RtbLog.ReadOnly = True
-        RtbLog.ShowSelectionMargin = True
-        RtbLog.Size = New Size(803, 745)
-        RtbLog.TabIndex = 0
-        RtbLog.Text = ""
-        ' 
-        ' GbSetScale
-        ' 
-        GbSetScale.BackColor = Color.WhiteSmoke
-        GbSetScale.Controls.Add(RbImperial)
-        GbSetScale.Controls.Add(RbMetric)
-        GbSetScale.Location = New Point(6, 3)
-        GbSetScale.Name = "GbSetScale"
-        GbSetScale.Size = New Size(281, 83)
-        GbSetScale.TabIndex = 3
-        GbSetScale.TabStop = False
-        GbSetScale.Text = "Set Scale"
-        ' 
-        ' RbImperial
-        ' 
-        RbImperial.AutoSize = True
-        RbImperial.Checked = True
-        RbImperial.Location = New Point(39, 29)
-        RbImperial.Name = "RbImperial"
-        RbImperial.Size = New Size(92, 25)
-        RbImperial.TabIndex = 1
-        RbImperial.TabStop = True
-        RbImperial.Text = "Imperial"
-        RbImperial.UseVisualStyleBackColor = True
-        ' 
-        ' RbMetric
-        ' 
-        RbMetric.AutoSize = True
-        RbMetric.Location = New Point(162, 29)
-        RbMetric.Name = "RbMetric"
-        RbMetric.Size = New Size(79, 25)
-        RbMetric.TabIndex = 2
-        RbMetric.Text = "Metric"
-        RbMetric.UseVisualStyleBackColor = True
+        PbOutputDrawing.BackColor = Color.Silver
+        PbOutputDrawing.BorderStyle = BorderStyle.Fixed3D
+        PbOutputDrawing.Dock = DockStyle.Fill
+        PbOutputDrawing.Location = New Point(0, 0)
+        PbOutputDrawing.Name = "PbOutputDrawing"
+        PbOutputDrawing.Size = New Size(1076, 823)
+        PbOutputDrawing.TabIndex = 0
+        PbOutputDrawing.TabStop = False
         ' 
         ' tTip
         ' 
@@ -2666,16 +2781,21 @@ Partial Class FrmMain
         ' 
         TmrDoorCalculationDelay.Interval = 500
         ' 
+        ' TmrClock
+        ' 
+        TmrClock.Enabled = True
+        TmrClock.Interval = 499
+        ' 
         ' FrmMain
         ' 
-        AutoScaleDimensions = New SizeF(9F, 21F)
+        AutoScaleDimensions = New SizeF(9F, 18F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1084, 1118)
+        ClientSize = New Size(1084, 958)
         Controls.Add(Tc)
         Controls.Add(Ss3)
         Controls.Add(Ss2)
         Controls.Add(Ss1)
-        Font = New Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Font = New Font("Georgia", 8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         FormBorderStyle = FormBorderStyle.Fixed3D
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximizeBox = False
@@ -2688,7 +2808,7 @@ Partial Class FrmMain
         Ss3.ResumeLayout(False)
         Ss3.PerformLayout()
         Tc.ResumeLayout(False)
-        TpDrawersDoors.ResumeLayout(False)
+        TpDrawers.ResumeLayout(False)
         SplitContainer1.Panel1.ResumeLayout(False)
         SplitContainer1.Panel1.PerformLayout()
         SplitContainer1.Panel2.ResumeLayout(False)
@@ -2707,6 +2827,8 @@ Partial Class FrmMain
         GroupBox11.ResumeLayout(False)
         GroupBox11.PerformLayout()
         TpDoors.ResumeLayout(False)
+        GbSetScale.ResumeLayout(False)
+        GbSetScale.PerformLayout()
         ScDoors.Panel1.ResumeLayout(False)
         ScDoors.Panel1.PerformLayout()
         ScDoors.Panel2.ResumeLayout(False)
@@ -2751,10 +2873,8 @@ Partial Class FrmMain
         Panel2.PerformLayout()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        TpLogs.ResumeLayout(False)
-        PngLog.ResumeLayout(False)
-        GbSetScale.ResumeLayout(False)
-        GbSetScale.PerformLayout()
+        TpDrawings.ResumeLayout(False)
+        CType(PbOutputDrawing, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -2764,7 +2884,7 @@ Partial Class FrmMain
     Friend WithEvents Ss3 As StatusStrip
     Friend WithEvents Tc As TabControl
     Friend WithEvents TpBoardfeet As TabPage
-    Friend WithEvents TpDrawersDoors As TabPage
+    Friend WithEvents TpDrawers As TabPage
     Friend WithEvents TsslVersion As ToolStripStatusLabel
     Friend WithEvents TsslCpy As ToolStripStatusLabel
     Friend WithEvents TsslError As ToolStripStatusLabel
@@ -2774,13 +2894,6 @@ Partial Class FrmMain
     Friend WithEvents TpCalculations As TabPage
     Friend WithEvents DgvBoardfeet As DataGridView
     Friend WithEvents lblCalculateBoardfeet As Label
-    Friend WithEvents bfCol0 As DataGridViewTextBoxColumn
-    Friend WithEvents bfCol1 As DataGridViewTextBoxColumn
-    Friend WithEvents bfCol2 As DataGridViewTextBoxColumn
-    Friend WithEvents bfCol3 As DataGridViewTextBoxColumn
-    Friend WithEvents bfCol4 As DataGridViewTextBoxColumn
-    Friend WithEvents bfCol5 As DataGridViewTextBoxColumn
-    Friend WithEvents bfCol6 As DataGridViewTextBoxColumn
     Friend WithEvents LblBoardFeetCost As Label
     Friend WithEvents LblTotalBoardFeet As Label
     Friend WithEvents Label1 As Label
@@ -2889,10 +3002,8 @@ Partial Class FrmMain
     Friend WithEvents GroupBox9 As GroupBox
     Friend WithEvents DgvDrawerHeights As DataGridView
     Friend WithEvents BtnSaveProject As Button
-    Friend WithEvents TxtProjectName As TextBox
+    Friend WithEvents TxtDrawerProjectName As TextBox
     Friend WithEvents Label34 As Label
-    Friend WithEvents TpLogs As TabPage
-    Friend WithEvents RtbLog As RichTextBox
     Friend WithEvents LblStatus As Label
     Friend WithEvents LbltotalDrawerHeightResults As Label
     Friend WithEvents LblTotalHeightResults As Label
@@ -2900,8 +3011,6 @@ Partial Class FrmMain
     Friend WithEvents LblAverageHeightResults As Label
     Friend WithEvents LblTotalMaterialResults As Label
     Friend WithEvents RtbResults As RichTextBox
-    Friend WithEvents RbMetric As RadioButton
-    Friend WithEvents RbImperial As RadioButton
     Friend WithEvents Label47 As Label
     Friend WithEvents TpDoors As TabPage
     Friend WithEvents BtnSaveDoorProject As Button
@@ -2971,13 +3080,34 @@ Partial Class FrmMain
     Friend WithEvents BtnOfficeDoorPreset As Button
     Friend WithEvents BtnBathroomDoorPreset As Button
     Friend WithEvents BtnKitchenDoorPreset As Button
-    Friend WithEvents Button1 As Button
     Friend WithEvents BtnExportDoorResults As Button
     Friend WithEvents BtnLoadDoorProject As Button
     Friend WithEvents BtnDeleteDoorProject As Button
     Friend WithEvents TmrDoorCalculationDelay As Timer
     Friend WithEvents BtnPrintDoorResults As Button
+    Friend WithEvents bfCol0 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol1 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol2 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol3 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol4 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol5 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol6 As DataGridViewTextBoxColumn
+    Friend WithEvents bfCol7 As DataGridViewTextBoxColumn
+    Friend WithEvents LblDoorWidth As Label
+    Friend WithEvents LblDoorHeight As Label
+    Friend WithEvents LblTotalMaterialArea As Label
+    Friend WithEvents LblEpoxyLiters As Label
+    Friend WithEvents LblEpoxyCost As Label
+    Friend WithEvents CmbEpoxyCost As ComboBox
     Friend WithEvents GbSetScale As GroupBox
-    Friend WithEvents PngLog As Panel
+    Friend WithEvents RbImperial As RadioButton
+    Friend WithEvents RbMetric As RadioButton
+    Friend WithEvents Label51 As Label
+    Friend WithEvents TpDrawings As TabPage
+    Friend WithEvents PbOutputDrawing As PictureBox
+    Friend WithEvents BtnDrawDrawerImage As Button
+    Friend WithEvents BtnDrawDoorImage As Button
+    Friend WithEvents TsslToggleDoorExploded As ToolStripStatusLabel
+    Friend WithEvents TmrClock As Timer
 
 End Class

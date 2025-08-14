@@ -93,7 +93,7 @@
             ' Clear data grid
             If DgvDrawerHeights IsNot Nothing Then DgvDrawerHeights.Rows.Clear()
         Catch ex As Exception
-            RtbLog?.AppendText($"{Now:hh:mm:ss} - Error clearing results: {ex.Message}{vbCrLf}")
+            MessageBox.Show($"Error clearing results: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -115,7 +115,7 @@
 
             _calculatorInitialized = True
         Catch ex As Exception
-            RtbLog?.AppendText($"{Now:hh:mm:ss} - Error initializing calculator: {ex.Message}{vbCrLf}")
+            MessageBox.Show($"Error initializing calculator: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -145,7 +145,7 @@
             DgvDrawerHeights.AllowUserToAddRows = False
             DgvDrawerHeights.AllowUserToDeleteRows = False
         Catch ex As Exception
-            RtbLog?.AppendText($"{Now:hh:mm:ss} - Error setting up DataGridView: {ex.Message}{vbCrLf}")
+            MessageBox.Show($"Error setting up DataGridView: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -161,7 +161,7 @@
             If LblAverageHeightResults IsNot Nothing Then LblAverageHeightResults.Tag = "Average Height: {0}"
             If LblHeightRatioResults IsNot Nothing Then LblHeightRatioResults.Tag = "Height Ratio: {0}"
         Catch ex As Exception
-            RtbLog?.AppendText($"{Now:hh:mm:ss} - Error setting up label tags: {ex.Message}{vbCrLf}")
+            MessageBox.Show($"Error setting up label tags: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

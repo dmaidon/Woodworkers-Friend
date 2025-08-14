@@ -54,10 +54,10 @@ Public Class ProjectManager
                 .CalculationMethod = GetSelectedMethod(form),
                 .Scale = If(form.RbImperial IsNot Nothing AndAlso form.RbImperial.Checked, MeasurementScale.Imperial, MeasurementScale.Metric),
                 .SavedDate = DateTime.Now,
-                .Notes = ControlUtility.GetControlText(form.TxtProjectName)
+                .Notes = ControlUtility.GetControlText(form.TxtDrawerProjectName)
             }
 
-            Dim fileName As String = $"{SanitizeFileName(projectName)}.json"
+            Dim fileName As String = $"draw_{SanitizeFileName(projectName)}-{Now:MMMdyy}.json"
             Dim filePath As String = Path.Combine(_projectsFolder, fileName)
 
             'Dim jsonString As String = JsonSerializer.Serialize(project, New JsonSerializerOptions() With {
@@ -150,7 +150,7 @@ Public Class ProjectManager
             If .TxtFirstDrawerHeight IsNot Nothing Then .TxtFirstDrawerHeight.Text = project.FirstDrawerHeight.ToString("F3")
             If .TxtMultiplier IsNot Nothing Then .TxtMultiplier.Text = project.Multiplier.ToString("F3")
             If .TxtArithmeticIncrement IsNot Nothing Then .TxtArithmeticIncrement.Text = project.ArithmeticIncrement.ToString("F3")
-            If .TxtProjectName IsNot Nothing Then .TxtProjectName.Text = project.ProjectName
+            If .TxtDrawerProjectName IsNot Nothing Then .TxtDrawerProjectName.Text = project.ProjectName
 
             ' Set calculation method - NOW INCLUDES ALL METHODS
             Select Case project.CalculationMethod

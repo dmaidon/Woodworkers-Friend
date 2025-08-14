@@ -9,8 +9,8 @@
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>25.8.12.215</AssemblyVersion>
-	<FileVersion>25.8.12.215</FileVersion>
+	<AssemblyVersion>25.8.14.268</AssemblyVersion>
+	<FileVersion>25.8.14.268</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
@@ -19,6 +19,10 @@
 	  <Copyright>©2025 PAROLE Software - All rigthts reserved.</Copyright>
 	  <PackageIcon>wood_128.png</PackageIcon>
 	  <ApplicationIcon>wood.ico</ApplicationIcon>
+	  <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	  <IncludeSymbols>True</IncludeSymbols>
+	  <Company>PAROLE Software</Company>
+	  <Authors>Dennis N Maidon</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -86,6 +90,9 @@
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
 	<None Update="Settings\BoardFeetCost.txt">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Settings\epoxyCost.csv">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
   </ItemGroup>

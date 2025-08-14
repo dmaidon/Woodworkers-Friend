@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.Intrinsics
+﻿Imports System.IO
+Imports System.Runtime.Intrinsics
 
 Partial Public Class FrmMain
 
@@ -8,6 +9,8 @@ Partial Public Class FrmMain
 #Region "Table Tip Force"
 
     Private Sub TableTipInputs_TextChanged(sender As Object, e As EventArgs) Handles TxtTtTableTopLength.TextChanged, TxtTtTableTopWeight.TextChanged, TxtTtTableBaselength.TextChanged, TxtTtTableBaseWeight.TextChanged
+        ArgumentNullException.ThrowIfNull(sender)
+        ArgumentNullException.ThrowIfNull(e)
         Dim topLength, topWeight, baseLength, baseWeight As Double
 
         If Double.TryParse(TxtTtTableTopLength.Text, topLength) AndAlso
@@ -20,7 +23,34 @@ Partial Public Class FrmMain
             ' This assumes the force is applied at the edge of the table top, and the pivot is at the edge of the base.
             Dim force As Double = (topWeight * (topLength / 2)) / (baseLength / 2)
 
-            LblTippingForce.Text = String.Format(CStr(LblTippingForce.Tag), Math.Round(force, 2))
+            ' Calculate both imperial and metric forces
+            Dim imperialForce As Double
+            Dim metricForce As Double
+
+            ' Check if we're currently in metric mode (inputs are in mm and kg)
+            If RbMetric.Checked Then
+                ' Convert metric inputs to imperial for calculation, then display both
+                Dim topLengthInches As Double = topLength / 25.4 ' mm to inches
+                Dim baseLengthInches As Double = baseLength / 25.4 ' mm to inches
+                Dim topWeightLbs As Double = topWeight * 2.20462 ' kg to lbs
+
+                ' Calculate imperial force
+                imperialForce = (topWeightLbs * (topLengthInches / 2)) / (baseLengthInches / 2)
+
+                ' Use original metric calculation
+                metricForce = force ' This is already in kgf since inputs were kg and mm
+            Else
+                ' Imperial inputs - use direct calculation
+                imperialForce = force ' This is in lbs force
+
+                ' Convert to metric for display
+                metricForce = force * 0.453592 ' lbs force to kgf
+            End If
+
+            ' Display both imperial (lbs) and metric (kgf) forces
+            LblTippingForce.Text = String.Format(CStr(LblTippingForce.Tag),
+                                               Math.Round(imperialForce, 2),
+                                               Math.Round(metricForce, 2))
         Else
             LblTippingForce.Text = "Invalid input"
         End If
@@ -31,6 +61,8 @@ Partial Public Class FrmMain
 #Region "Conversions"
 
     Private Sub TxtInches2Mm_TextChanged(sender As Object, e As EventArgs) Handles TxtInches2Mm.TextChanged
+        ArgumentNullException.ThrowIfNull(sender)
+        ArgumentNullException.ThrowIfNull(e)
         Dim inches As Double
         If Double.TryParse(TxtInches2Mm.Text, inches) Then
             Dim mm As Double = inches * 25.4
@@ -41,6 +73,8 @@ Partial Public Class FrmMain
     End Sub
 
     Private Sub TxtMm2Inches_TextChanged(sender As Object, e As EventArgs) Handles TxtMm2Inches.TextChanged
+        ArgumentNullException.ThrowIfNull(sender)
+        ArgumentNullException.ThrowIfNull(e)
         Dim mm As Double
         If Double.TryParse(TxtMm2Inches.Text, mm) Then
             Dim inches As Double = mm / 25.4
@@ -51,6 +85,8 @@ Partial Public Class FrmMain
     End Sub
 
     Private Sub TxtDecimal2Fraction_TextChanged(sender As Object, e As EventArgs) Handles TxtDecimal2Fraction.TextChanged
+        ArgumentNullException.ThrowIfNull(sender)
+        ArgumentNullException.ThrowIfNull(e)
         Dim decimalValue As Double
         If Double.TryParse(TxtDecimal2Fraction.Text, decimalValue) Then
             ' Convert decimal to fraction with denominator up to 64
@@ -64,6 +100,8 @@ Partial Public Class FrmMain
     End Sub
 
     Private Sub TxtFraction2Decimal_TextChanged(sender As Object, e As EventArgs) Handles TxtFraction2Decimal.TextChanged
+        ArgumentNullException.ThrowIfNull(sender)
+        ArgumentNullException.ThrowIfNull(e)
         Dim input As String = TxtFraction2Decimal.Text.Trim()
         Dim parts() As String = input.Split("/"c)
         If parts.Length = 2 Then
@@ -84,6 +122,8 @@ Partial Public Class FrmMain
 #Region "Populate Fraction boxes"
 
     Private Sub TpCalculations_Enter(sender As Object, e As EventArgs) Handles TpCalculations.Enter
+        ArgumentNullException.ThrowIfNull(sender)
+        ArgumentNullException.ThrowIfNull(e)
         RtbFraction2Decimal.Clear()
         RtbFraction2Mm.Clear()
 
@@ -98,6 +138,9 @@ Partial Public Class FrmMain
             RtbFraction2Decimal.AppendText($"{reducedFraction} = {decimalValue}" & Environment.NewLine)
             RtbFraction2Mm.AppendText($"{reducedFraction} = {mmValue} mm" & Environment.NewLine)
         Next
+
+        ' Load epoxy cost data
+        LoadEpoxyCostData()
     End Sub
 
     ' Helper function to reduce a fraction
@@ -144,6 +187,52 @@ Partial Public Class FrmMain
         UpdateEpoxyResults()
     End Sub
 
+    ' Handle epoxy cost selection change
+    Private Sub CmbEpoxyCost_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbEpoxyCost.SelectedIndexChanged
+        UpdateEpoxyResults()
+    End Sub
+
+    ' Load epoxy cost data from CSV file
+    Private Sub LoadEpoxyCostData()
+        Try
+            CmbEpoxyCost.Items.Clear()
+
+            Dim csvPath As String = Path.Combine(Application.StartupPath, "Settings", "epoxyCost.csv")
+            If File.Exists(csvPath) Then
+                Dim lines() As String = File.ReadAllLines(csvPath)
+
+                For Each line In lines
+                    If Not String.IsNullOrWhiteSpace(line) Then
+                        Dim parts() As String = line.Split(","c)
+                        If parts.Length >= 3 Then
+                            ' Create display text: "Brand Type - $XX.XX"
+                            Dim brand As String = parts(0).Trim()
+                            Dim type As String = parts(1).Trim()
+                            Dim costText As String = parts(2).Trim()
+
+                            ' Clean up cost text (remove $ if present)
+                            If costText.StartsWith("$"c) Then
+                                costText = costText.Substring(1)
+                            End If
+
+                            If Double.TryParse(costText, Nothing) Then
+                                Dim displayText As String = $"{brand} {type} - ${costText}/gal"
+                                CmbEpoxyCost.Items.Add(New EpoxyCostItem(brand, type, Double.Parse(costText), displayText))
+                            End If
+                        End If
+                    End If
+                Next
+
+                If CmbEpoxyCost.Items.Count > 0 Then
+                    CmbEpoxyCost.SelectedIndex = 0
+                End If
+            End If
+        Catch ex As Exception
+            ' Handle file reading errors gracefully
+            CmbEpoxyCost.Items.Add("Error loading epoxy costs")
+        End Try
+    End Sub
+
     Private Sub UpdateEpoxyResults()
         Dim wastePercent As Double = 0
         If RbEpoxyWaste10.Checked Then
@@ -156,15 +245,65 @@ Partial Public Class FrmMain
 
         Dim totalOunces = EpoxyBaseOunces * (1 + wastePercent)
 
-        LblEpoxyOunces.Text = String.Format(CStr(LblEpoxyOunces.Tag), Math.Round(totalOunces, 2))
+        ' Imperial calculations only
         Dim gallons = totalOunces / 128.0
-        LblEpoxyGallons.Text = String.Format(CStr(LblEpoxyGallons.Tag), Math.Round(gallons, 2))
         Dim quarts = totalOunces / 32.0
-        LblEpoxyQuarts.Text = String.Format(CStr(LblEpoxyQuarts.Tag), Math.Round(quarts, 2))
         Dim pints = totalOunces / 16.0
+
+        ' Metric calculation (convert ounces to liters)
+        Dim ouncesToLiters As Double = 0.0295735 ' 1 fluid ounce = 0.0295735 liters
+        Dim totalLiters = totalOunces * ouncesToLiters
+
+        ' Update labels - imperial only for the first four labels
+        LblEpoxyOunces.Text = String.Format(CStr(LblEpoxyOunces.Tag), Math.Round(totalOunces, 2))
+        LblEpoxyGallons.Text = String.Format(CStr(LblEpoxyGallons.Tag), Math.Round(gallons, 2))
+        LblEpoxyQuarts.Text = String.Format(CStr(LblEpoxyQuarts.Tag), Math.Round(quarts, 2))
         LblEpoxyPints.Text = String.Format(CStr(LblEpoxyPints.Tag), Math.Round(pints, 2))
+
+        ' Update the dedicated liters label
+        LblEpoxyLiters.Text = String.Format(CStr(LblEpoxyLiters.Tag), Math.Round(totalLiters, 2))
+
+        ' Calculate and update cost
+        UpdateEpoxyCost(gallons)
+    End Sub
+
+    Private Sub UpdateEpoxyCost(gallons As Double)
+        Try
+            If TypeOf CmbEpoxyCost.SelectedItem Is EpoxyCostItem Then
+                Dim selectedItem As EpoxyCostItem = CType(CmbEpoxyCost.SelectedItem, EpoxyCostItem)
+                Dim totalCost As Double = gallons * selectedItem.CostPerGallon
+                LblEpoxyCost.Text = String.Format(CStr(LblEpoxyCost.Tag), totalCost.ToString("C2"))
+            Else
+                LblEpoxyCost.Text = String.Format(CStr(LblEpoxyCost.Tag), "$0.00")
+            End If
+        Catch ex As Exception
+            LblEpoxyCost.Text = String.Format(CStr(LblEpoxyCost.Tag), "$0.00")
+        End Try
     End Sub
 
 #End Region
+
+End Class
+
+' Helper class to store epoxy cost data
+Public Class EpoxyCostItem
+    Public Property Brand As String
+    Public Property Type As String
+    Public Property CostPerGallon As Double
+    Public Property DisplayText As String
+
+    Public Sub New(brand As String, type As String, costPerGallon As Double, displayText As String)
+        ArgumentException.ThrowIfNullOrEmpty(brand)
+        ArgumentException.ThrowIfNullOrEmpty(type)
+        ArgumentException.ThrowIfNullOrEmpty(displayText)
+        Me.Brand = brand
+        Me.Type = type
+        Me.CostPerGallon = costPerGallon
+        Me.DisplayText = displayText
+    End Sub
+
+    Public Overrides Function ToString() As String
+        Return DisplayText
+    End Function
 
 End Class

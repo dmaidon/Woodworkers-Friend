@@ -23,6 +23,11 @@ Partial Public Class FrmMain
 
 #Region "Board Foot Calculations"
 
+    ' Add fields to store both scales
+    Private TotalBoardFeetImperial As Double = 0
+
+    Private TotalBoardFeetMetric As Double = 0
+
     Private Sub TpBoardfeet_Enter(sender As Object, e As EventArgs) Handles TpBoardfeet.Enter
         ArgumentNullException.ThrowIfNull(sender)
         ArgumentNullException.ThrowIfNull(e)
@@ -100,6 +105,17 @@ Partial Public Class FrmMain
         }
             .Columns.Add(colTotalBF)
             .ColumnHeadersDefaultCellStyle.Font = New Font(.Font, FontStyle.Bold)
+
+            ' Total Board Feet (read-only)
+            Dim colTotalBM As New DataGridViewTextBoxColumn With {
+            .Name = "TotalBoardMeters",
+            .HeaderText = "Total Board Meters",
+            .ValueType = GetType(Double),
+            .ReadOnly = True,
+            .DefaultCellStyle = New DataGridViewCellStyle With {.Format = "N2", .BackColor = Color.LightGray}
+        }
+            .Columns.Add(colTotalBM)
+            .ColumnHeadersDefaultCellStyle.Font = New Font(.Font, FontStyle.Bold)
         End With
 
     End Sub
@@ -138,7 +154,6 @@ Partial Public Class FrmMain
             End If
         End If
 
-        '------------------
         Dim length As Double, width As Double, thickness As Double
         Dim quantity As Integer
 
@@ -147,12 +162,32 @@ Partial Public Class FrmMain
         If Not TryGetCellValue(row, "Thickness", thickness) Then thickness = 0
         If Not TryGetCellValue(row, "Quantity", quantity) Then quantity = 0
 
-        Dim boardFeet As Double = 0
+        Dim boardFeetImperial As Double = 0
+        Dim boardFeetMetric As Double = 0
+
+        ' Use ScaleManager to convert and calculate both scales
         If length > 0 AndAlso width > 0 AndAlso thickness > 0 AndAlso quantity > 0 Then
-            boardFeet = length * width * thickness / 144.0 * quantity
+            If _scaleManager.CurrentScale = ScaleManager.ScaleType.Imperial Then
+                boardFeetImperial = length * width * thickness / 144.0 * quantity
+                ' Convert all dimensions to millimeters for metric calculation
+                Dim lengthMM = ScaleManager.ToMetricInches(length)
+                Dim widthMM = ScaleManager.ToMetricInches(width)
+                Dim thicknessMM = ScaleManager.ToMetricInches(thickness)
+                ' Cubic millimeters to cubic meters, then to board meters (1 board meter = 1m x 1m x 25.4mm)
+                boardFeetMetric = (lengthMM * widthMM * thicknessMM * quantity) / (1000 * 1000 * 25.4)
+            Else
+                ' Metric input
+                boardFeetMetric = length * width * thickness * quantity / (1000 * 1000 * 25.4)
+                ' Convert all dimensions to inches for imperial calculation
+                Dim lengthIn = ScaleManager.ToImperialMillimeters(length)
+                Dim widthIn = ScaleManager.ToImperialMillimeters(width)
+                Dim thicknessIn = ScaleManager.ToImperialMillimeters(thickness)
+                boardFeetImperial = lengthIn * widthIn * thicknessIn / 144.0 * quantity
+            End If
         End If
 
-        row.Cells("TotalBoardFeet").Value = Math.Round(boardFeet, 2)
+        row.Cells("TotalBoardFeet").Value = Math.Round(boardFeetImperial, 2)
+        row.Cells("TotalBoardMeters").Value = Math.Round(boardFeetMetric, 2) ' If you add a metric column
 
         UpdateTotalBoardFeetLabel()
         UpdateTotalBoardFeetCostLabels()
@@ -253,51 +288,54 @@ Partial Public Class FrmMain
 
     ' Sums the TotalBoardFeet column and updates the label
     Friend Sub UpdateTotalBoardFeetLabel()
-
-        Dim total As Double = 0
+        ' Sum both scales
+        TotalBoardFeetImperial = 0
+        TotalBoardFeetMetric = 0
         For Each row As DataGridViewRow In DgvBoardfeet.Rows
             If Not row.IsNewRow Then
                 Dim valObj = row.Cells("TotalBoardFeet").Value
-                Dim val As Double
-                If valObj IsNot Nothing AndAlso Double.TryParse(valObj.ToString(), val) Then
-                    total += val
+                Dim valImp As Double
+                If valObj IsNot Nothing AndAlso Double.TryParse(valObj.ToString(), valImp) Then
+                    TotalBoardFeetImperial += valImp
+                End If
+                Dim valMetObj = row.Cells("TotalBoardMeters").Value
+                Dim valMet As Double
+                If valMetObj IsNot Nothing AndAlso Double.TryParse(valMetObj.ToString(), valMet) Then
+                    TotalBoardFeetMetric += valMet
                 End If
             End If
         Next
-        LblTotalBoardFeet.Text = $"{total:N2}"
-        LblTotalBoardFeet10.Text = $"{total * 1.1:N2}"
-        LblTotalBoardFeet15.Text = $"{total * 1.15:N2}"
-        LblTotalBoardFeet20.Text = $"{total * 1.2:N2}"
-
+        LblTotalBoardFeet.Text = $"{TotalBoardFeetImperial:N2} bf ({TotalBoardFeetMetric:N2} bm)"
+        LblTotalBoardFeet10.Text = $"{TotalBoardFeetImperial * 1.1:N2} bf ({TotalBoardFeetMetric * 1.1:N2} bm)"
+        LblTotalBoardFeet15.Text = $"{TotalBoardFeetImperial * 1.15:N2} bf ({TotalBoardFeetMetric * 1.15:N2} bm)"
+        LblTotalBoardFeet20.Text = $"{TotalBoardFeetImperial * 1.2:N2} bf ({TotalBoardFeetMetric * 1.2:N2} bm)"
     End Sub
 
     Friend Sub UpdateTotalBoardFeetCostLabels()
-        Dim totalCost As Double = 0
-        Dim totalCost10 As Double = 0
-        Dim totalCost15 As Double = 0
-        Dim totalCost20 As Double = 0
+        Dim totalCostImp As Double = 0
+        Dim totalCost10Imp As Double = 0
+        Dim totalCost15Imp As Double = 0
+        Dim totalCost20Imp As Double = 0
 
         For Each row As DataGridViewRow In DgvBoardfeet.Rows
             If row.IsNewRow Then Continue For
 
-            Dim boardFeet As Double = 0
+            Dim boardFeetImp As Double = 0
             Dim costPerBf As Double = 0
 
-            'Double.TryParse(Convert.ToString(row.Cells("TotalBoardFeet").Value), boardFeet)
-            'Double.TryParse(Convert.ToString(row.Cells("CostPerBoardFoot").Value), costPerBf)
-            TryGetCellValue(row, "TotalBoardFeet", boardFeet)
+            TryGetCellValue(row, "TotalBoardFeet", boardFeetImp)
             TryGetCellValue(row, "CostPerBoardFoot", costPerBf)
 
-            totalCost += boardFeet * costPerBf
-            totalCost10 += boardFeet * 1.1 * costPerBf
-            totalCost15 += boardFeet * 1.15 * costPerBf
-            totalCost20 += boardFeet * 1.2 * costPerBf
+            totalCostImp += boardFeetImp * costPerBf
+            totalCost10Imp += boardFeetImp * 1.1 * costPerBf
+            totalCost15Imp += boardFeetImp * 1.15 * costPerBf
+            totalCost20Imp += boardFeetImp * 1.2 * costPerBf
         Next
 
-        LblBoardFeetCost.Text = totalCost.ToString("C2")
-        LblBoardFeetCost10.Text = totalCost10.ToString("C2")
-        LblBoardFeetCost15.Text = totalCost15.ToString("C2")
-        LblBoardFeetCost20.Text = totalCost20.ToString("C2")
+        LblBoardFeetCost.Text = $"{totalCostImp:C2}"
+        LblBoardFeetCost10.Text = $"{totalCost10Imp:C2}"
+        LblBoardFeetCost15.Text = $"{totalCost15Imp:C2}"
+        LblBoardFeetCost20.Text = $"{totalCost20Imp:C2}"
     End Sub
 
     ' Helper to safely get cell value as Double/Integer

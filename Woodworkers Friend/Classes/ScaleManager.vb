@@ -22,6 +22,14 @@
         Return mm / InchToMillimeter
     End Function
 
+    Private Shared Function InchesToMillimeters(inches As Double) As Double
+        Return inches * 25.4
+    End Function
+
+    Private Shared Function MillimetersToInches(mm As Double) As Double
+        Return mm / 25.4
+    End Function
+
     ' Add more conversion methods as needed...
 
     ' Set scale and notify

@@ -30,7 +30,7 @@ Public Class DrawerCalculationParameters
     Public Property ArithmeticIncrement As Double
     Public Property LogarithmicBase As Double = Math.E
     Public Property ExponentialBase As Double = 2.0
-    Public Property CustomRatios As Double() ' <-- Fixed property name (was CustomRatio)
+    Public Property CustomRatios As Double()
     Public Property CalculationMethod As DrawerCalculationMethod
     Public Property Scale As MeasurementScale
 End Class
@@ -39,15 +39,45 @@ End Class
 Public Class DrawerCalculationResult
     Public Property IsValid As Boolean = True
     Public Property ErrorMessage As String = ""
-    Public Property DrawerHeights As Double()
-    Public Property TotalDrawerHeight As Double
-    Public Property TotalHeight As Double
-    Public Property AverageDrawerHeight As Double
+
+    ' Heights for each drawer in both units
+    Public Property DrawerHeightsImperial As Double()
+
+    Public Property DrawerHeightsMetric As Double()
+
+    ' Total heights in both units
+    Public Property TotalDrawerHeightImperial As Double
+
+    Public Property TotalDrawerHeightMetric As Double
+
+    ' Overall heights in both units
+    Public Property TotalHeightImperial As Double
+
+    Public Property TotalHeightMetric As Double
+
+    ' Average drawer heights in both units
+    Public Property AverageDrawerHeightImperial As Double
+
+    Public Property AverageDrawerHeightMetric As Double
+
+    ' Height ratio (unitless)
     Public Property HeightRatio As Double
-    Public Property TotalMaterialArea As Double
-    Public Property Unit As String
-    Public Property AreaUnit As String
+
+    ' Total material area in both units
+    Public Property TotalMaterialAreaImperial As Double
+
+    Public Property TotalMaterialAreaMetric As Double
+
+    ' Unit labels (e.g., "in", "mm")
+    Public Property UnitImperial As String = "in"
+
+    Public Property UnitMetric As String = "mm"
+    Public Property AreaUnitImperial As String = "in²"
+    Public Property AreaUnitMetric As String = "mm²"
+
+    ' Details or formatted output
     Public Property Details As String
+
 End Class
 
 ' Enhanced validation result with warnings and suggestions
