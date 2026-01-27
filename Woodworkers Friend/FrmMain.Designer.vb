@@ -280,6 +280,31 @@ Partial Class FrmMain
         TxtPolygonSides = New TextBox()
         Label11 = New Label()
         PbPolygon = New PictureBox()
+        TpJoinery = New TabPage()
+        GbJoineryTypes = New GroupBox()
+        RtbJoineryNotes = New RichTextBox()
+        LblJoineryTitle = New Label()
+        TpWoodMovement = New TabPage()
+        GbWoodMovementCalc = New GroupBox()
+        LblMovementResult = New Label()
+        TxtWoodWidth = New TextBox()
+        TxtMoistureChange = New TextBox()
+        LblWoodWidth = New Label()
+        LblMoistureChange = New Label()
+        RtbWoodMovementInfo = New RichTextBox()
+        LblWoodMovementTitle = New Label()
+        TpCutList = New TabPage()
+        GbCutListOptions = New GroupBox()
+        BtnExportCutList = New Button()
+        BtnGenerateCutList = New Button()
+        DgvCutList = New DataGridView()
+        ColComponent = New DataGridViewTextBoxColumn()
+        ColQuantity = New DataGridViewTextBoxColumn()
+        ColLength = New DataGridViewTextBoxColumn()
+        ColWidth = New DataGridViewTextBoxColumn()
+        ColThickness = New DataGridViewTextBoxColumn()
+        ColMaterial = New DataGridViewTextBoxColumn()
+        LblCutListTitle = New Label()
         TpDrawings = New TabPage()
         PbOutputDrawing = New PictureBox()
         tTip = New ToolTip(components)
@@ -338,6 +363,13 @@ Partial Class FrmMain
         Panel5.SuspendLayout()
         Panel3.SuspendLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
+        TpJoinery.SuspendLayout()
+        GbJoineryTypes.SuspendLayout()
+        TpWoodMovement.SuspendLayout()
+        GbWoodMovementCalc.SuspendLayout()
+        TpCutList.SuspendLayout()
+        GbCutListOptions.SuspendLayout()
+        CType(DgvCutList, ComponentModel.ISupportInitialize).BeginInit()
         TpDrawings.SuspendLayout()
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -2096,6 +2128,9 @@ Partial Class FrmMain
         TcCalculattions.Controls.Add(TpEpoxy)
         TcCalculattions.Controls.Add(TpConversions)
         TcCalculattions.Controls.Add(TpCalculators)
+        TcCalculattions.Controls.Add(TpJoinery)
+        TcCalculattions.Controls.Add(TpWoodMovement)
+        TcCalculattions.Controls.Add(TpCutList)
         TcCalculattions.Dock = DockStyle.Fill
         TcCalculattions.Location = New Point(0, 0)
         TcCalculattions.Multiline = True
@@ -3145,6 +3180,253 @@ Partial Class FrmMain
         TmrClock.Enabled = True
         TmrClock.Interval = 499
         ' 
+        ' TpJoinery
+        ' 
+        TpJoinery.BackColor = Color.Gainsboro
+        TpJoinery.BorderStyle = BorderStyle.Fixed3D
+        TpJoinery.Controls.Add(GbJoineryTypes)
+        TpJoinery.Controls.Add(RtbJoineryNotes)
+        TpJoinery.Controls.Add(LblJoineryTitle)
+        TpJoinery.Location = New Point(4, 4)
+        TpJoinery.Name = "TpJoinery"
+        TpJoinery.Padding = New Padding(3)
+        TpJoinery.Size = New Size(1034, 811)
+        TpJoinery.TabIndex = 3
+        TpJoinery.Text = "Joinery"
+        ' 
+        ' GbJoineryTypes
+        ' 
+        GbJoineryTypes.BackColor = Color.WhiteSmoke
+        GbJoineryTypes.Location = New Point(20, 80)
+        GbJoineryTypes.Name = "GbJoineryTypes"
+        GbJoineryTypes.Size = New Size(480, 400)
+        GbJoineryTypes.TabIndex = 0
+        GbJoineryTypes.TabStop = False
+        GbJoineryTypes.Text = "Joinery Types"
+        ' 
+        ' RtbJoineryNotes
+        ' 
+        RtbJoineryNotes.BackColor = Color.White
+        RtbJoineryNotes.Location = New Point(520, 80)
+        RtbJoineryNotes.Name = "RtbJoineryNotes"
+        RtbJoineryNotes.ReadOnly = True
+        RtbJoineryNotes.Size = New Size(480, 400)
+        RtbJoineryNotes.TabIndex = 1
+        RtbJoineryNotes.Text = "Select a joinery type to view information and best practices."
+        ' 
+        ' LblJoineryTitle
+        ' 
+        LblJoineryTitle.AutoSize = True
+        LblJoineryTitle.Font = New Font("Segoe UI", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblJoineryTitle.ForeColor = Color.DarkGreen
+        LblJoineryTitle.Location = New Point(20, 20)
+        LblJoineryTitle.Name = "LblJoineryTitle"
+        LblJoineryTitle.Size = New Size(300, 38)
+        LblJoineryTitle.TabIndex = 2
+        LblJoineryTitle.Text = "Joinery Calculator"
+        ' 
+        ' TpWoodMovement
+        ' 
+        TpWoodMovement.BackColor = Color.Gainsboro
+        TpWoodMovement.BorderStyle = BorderStyle.Fixed3D
+        TpWoodMovement.Controls.Add(GbWoodMovementCalc)
+        TpWoodMovement.Controls.Add(RtbWoodMovementInfo)
+        TpWoodMovement.Controls.Add(LblWoodMovementTitle)
+        TpWoodMovement.Location = New Point(4, 4)
+        TpWoodMovement.Name = "TpWoodMovement"
+        TpWoodMovement.Padding = New Padding(3)
+        TpWoodMovement.Size = New Size(1034, 811)
+        TpWoodMovement.TabIndex = 4
+        TpWoodMovement.Text = "Wood Movement"
+        ' 
+        ' GbWoodMovementCalc
+        ' 
+        GbWoodMovementCalc.BackColor = Color.WhiteSmoke
+        GbWoodMovementCalc.Controls.Add(LblMovementResult)
+        GbWoodMovementCalc.Controls.Add(TxtWoodWidth)
+        GbWoodMovementCalc.Controls.Add(TxtMoistureChange)
+        GbWoodMovementCalc.Controls.Add(LblWoodWidth)
+        GbWoodMovementCalc.Controls.Add(LblMoistureChange)
+        GbWoodMovementCalc.Location = New Point(20, 80)
+        GbWoodMovementCalc.Name = "GbWoodMovementCalc"
+        GbWoodMovementCalc.Size = New Size(480, 300)
+        GbWoodMovementCalc.TabIndex = 0
+        GbWoodMovementCalc.TabStop = False
+        GbWoodMovementCalc.Text = "Movement Calculator"
+        ' 
+        ' LblMovementResult
+        ' 
+        LblMovementResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblMovementResult.ForeColor = Color.DarkBlue
+        LblMovementResult.Location = New Point(20, 200)
+        LblMovementResult.Name = "LblMovementResult"
+        LblMovementResult.Size = New Size(440, 80)
+        LblMovementResult.TabIndex = 4
+        LblMovementResult.Text = "Expected Movement: --"
+        LblMovementResult.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' TxtWoodWidth
+        ' 
+        TxtWoodWidth.Location = New Point(200, 50)
+        TxtWoodWidth.Name = "TxtWoodWidth"
+        TxtWoodWidth.Size = New Size(150, 29)
+        TxtWoodWidth.TabIndex = 0
+        ' 
+        ' TxtMoistureChange
+        ' 
+        TxtMoistureChange.Location = New Point(200, 100)
+        TxtMoistureChange.Name = "TxtMoistureChange"
+        TxtMoistureChange.Size = New Size(150, 29)
+        TxtMoistureChange.TabIndex = 1
+        ' 
+        ' LblWoodWidth
+        ' 
+        LblWoodWidth.AutoSize = True
+        LblWoodWidth.Location = New Point(20, 53)
+        LblWoodWidth.Name = "LblWoodWidth"
+        LblWoodWidth.Size = New Size(150, 22)
+        LblWoodWidth.TabIndex = 2
+        LblWoodWidth.Text = "Wood Width (in):"
+        ' 
+        ' LblMoistureChange
+        ' 
+        LblMoistureChange.AutoSize = True
+        LblMoistureChange.Location = New Point(20, 103)
+        LblMoistureChange.Name = "LblMoistureChange"
+        LblMoistureChange.Size = New Size(170, 22)
+        LblMoistureChange.TabIndex = 3
+        LblMoistureChange.Text = "Moisture Change (%):"
+        ' 
+        ' RtbWoodMovementInfo
+        ' 
+        RtbWoodMovementInfo.BackColor = Color.White
+        RtbWoodMovementInfo.Location = New Point(520, 80)
+        RtbWoodMovementInfo.Name = "RtbWoodMovementInfo"
+        RtbWoodMovementInfo.ReadOnly = True
+        RtbWoodMovementInfo.Size = New Size(480, 400)
+        RtbWoodMovementInfo.TabIndex = 1
+        RtbWoodMovementInfo.Text = "Wood movement occurs as moisture content changes. This calculator helps estimate movement across the grain."
+        ' 
+        ' LblWoodMovementTitle
+        ' 
+        LblWoodMovementTitle.AutoSize = True
+        LblWoodMovementTitle.Font = New Font("Segoe UI", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblWoodMovementTitle.ForeColor = Color.DarkGreen
+        LblWoodMovementTitle.Location = New Point(20, 20)
+        LblWoodMovementTitle.Name = "LblWoodMovementTitle"
+        LblWoodMovementTitle.Size = New Size(350, 38)
+        LblWoodMovementTitle.TabIndex = 2
+        LblWoodMovementTitle.Text = "Wood Movement Calculator"
+        ' 
+        ' TpCutList
+        ' 
+        TpCutList.BackColor = Color.Gainsboro
+        TpCutList.BorderStyle = BorderStyle.Fixed3D
+        TpCutList.Controls.Add(GbCutListOptions)
+        TpCutList.Controls.Add(DgvCutList)
+        TpCutList.Controls.Add(LblCutListTitle)
+        TpCutList.Location = New Point(4, 4)
+        TpCutList.Name = "TpCutList"
+        TpCutList.Padding = New Padding(3)
+        TpCutList.Size = New Size(1034, 811)
+        TpCutList.TabIndex = 5
+        TpCutList.Text = "Cut List"
+        ' 
+        ' GbCutListOptions
+        ' 
+        GbCutListOptions.BackColor = Color.WhiteSmoke
+        GbCutListOptions.Controls.Add(BtnExportCutList)
+        GbCutListOptions.Controls.Add(BtnGenerateCutList)
+        GbCutListOptions.Location = New Point(20, 650)
+        GbCutListOptions.Name = "GbCutListOptions"
+        GbCutListOptions.Size = New Size(980, 80)
+        GbCutListOptions.TabIndex = 2
+        GbCutListOptions.TabStop = False
+        GbCutListOptions.Text = "Options"
+        ' 
+        ' BtnExportCutList
+        ' 
+        BtnExportCutList.BackColor = Color.LightSteelBlue
+        BtnExportCutList.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        BtnExportCutList.Location = New Point(250, 25)
+        BtnExportCutList.Name = "BtnExportCutList"
+        BtnExportCutList.Size = New Size(200, 40)
+        BtnExportCutList.TabIndex = 1
+        BtnExportCutList.Text = "Export Cut List"
+        BtnExportCutList.UseVisualStyleBackColor = False
+        ' 
+        ' BtnGenerateCutList
+        ' 
+        BtnGenerateCutList.BackColor = Color.LightGreen
+        BtnGenerateCutList.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        BtnGenerateCutList.Location = New Point(20, 25)
+        BtnGenerateCutList.Name = "BtnGenerateCutList"
+        BtnGenerateCutList.Size = New Size(200, 40)
+        BtnGenerateCutList.TabIndex = 0
+        BtnGenerateCutList.Text = "Generate Cut List"
+        BtnGenerateCutList.UseVisualStyleBackColor = False
+        ' 
+        ' DgvCutList
+        ' 
+        DgvCutList.AllowUserToAddRows = False
+        DgvCutList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DgvCutList.BackgroundColor = Color.White
+        DgvCutList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvCutList.Columns.AddRange(New DataGridViewColumn() {ColComponent, ColQuantity, ColLength, ColWidth, ColThickness, ColMaterial})
+        DgvCutList.Location = New Point(20, 80)
+        DgvCutList.Name = "DgvCutList"
+        DgvCutList.RowHeadersVisible = False
+        DgvCutList.RowHeadersWidth = 62
+        DgvCutList.Size = New Size(980, 550)
+        DgvCutList.TabIndex = 1
+        ' 
+        ' ColComponent
+        ' 
+        ColComponent.HeaderText = "Component"
+        ColComponent.MinimumWidth = 8
+        ColComponent.Name = "ColComponent"
+        ' 
+        ' ColQuantity
+        ' 
+        ColQuantity.HeaderText = "Quantity"
+        ColQuantity.MinimumWidth = 8
+        ColQuantity.Name = "ColQuantity"
+        ' 
+        ' ColLength
+        ' 
+        ColLength.HeaderText = "Length"
+        ColLength.MinimumWidth = 8
+        ColLength.Name = "ColLength"
+        ' 
+        ' ColWidth
+        ' 
+        ColWidth.HeaderText = "Width"
+        ColWidth.MinimumWidth = 8
+        ColWidth.Name = "ColWidth"
+        ' 
+        ' ColThickness
+        ' 
+        ColThickness.HeaderText = "Thickness"
+        ColThickness.MinimumWidth = 8
+        ColThickness.Name = "ColThickness"
+        ' 
+        ' ColMaterial
+        ' 
+        ColMaterial.HeaderText = "Material"
+        ColMaterial.MinimumWidth = 8
+        ColMaterial.Name = "ColMaterial"
+        ' 
+        ' LblCutListTitle
+        ' 
+        LblCutListTitle.AutoSize = True
+        LblCutListTitle.Font = New Font("Segoe UI", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblCutListTitle.ForeColor = Color.DarkGreen
+        LblCutListTitle.Location = New Point(20, 20)
+        LblCutListTitle.Name = "LblCutListTitle"
+        LblCutListTitle.Size = New Size(250, 38)
+        LblCutListTitle.TabIndex = 0
+        LblCutListTitle.Text = "Cut List Generator"
+        ' 
         ' TpHelp
         ' 
         TpHelp.BackColor = Color.LightGray
@@ -3251,6 +3533,17 @@ Partial Class FrmMain
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
+        TpJoinery.ResumeLayout(False)
+        TpJoinery.PerformLayout()
+        GbJoineryTypes.ResumeLayout(False)
+        TpWoodMovement.ResumeLayout(False)
+        TpWoodMovement.PerformLayout()
+        GbWoodMovementCalc.ResumeLayout(False)
+        GbWoodMovementCalc.PerformLayout()
+        TpCutList.ResumeLayout(False)
+        TpCutList.PerformLayout()
+        GbCutListOptions.ResumeLayout(False)
+        CType(DgvCutList, ComponentModel.ISupportInitialize).EndInit()
         TpDrawings.ResumeLayout(False)
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -3516,6 +3809,31 @@ Partial Class FrmMain
     Friend WithEvents RbAreaTopcoat As RadioButton
     Friend WithEvents RbAreaPour As RadioButton
     Friend WithEvents LblEpoxyMilliliters As Label
+    Friend WithEvents TpJoinery As TabPage
+    Friend WithEvents GbJoineryTypes As GroupBox
+    Friend WithEvents RtbJoineryNotes As RichTextBox
+    Friend WithEvents LblJoineryTitle As Label
+    Friend WithEvents TpWoodMovement As TabPage
+    Friend WithEvents GbWoodMovementCalc As GroupBox
+    Friend WithEvents LblMovementResult As Label
+    Friend WithEvents TxtWoodWidth As TextBox
+    Friend WithEvents TxtMoistureChange As TextBox
+    Friend WithEvents LblWoodWidth As Label
+    Friend WithEvents LblMoistureChange As Label
+    Friend WithEvents RtbWoodMovementInfo As RichTextBox
+    Friend WithEvents LblWoodMovementTitle As Label
+    Friend WithEvents TpCutList As TabPage
+    Friend WithEvents GbCutListOptions As GroupBox
+    Friend WithEvents BtnExportCutList As Button
+    Friend WithEvents BtnGenerateCutList As Button
+    Friend WithEvents DgvCutList As DataGridView
+    Friend WithEvents ColComponent As DataGridViewTextBoxColumn
+    Friend WithEvents ColQuantity As DataGridViewTextBoxColumn
+    Friend WithEvents ColLength As DataGridViewTextBoxColumn
+    Friend WithEvents ColWidth As DataGridViewTextBoxColumn
+    Friend WithEvents ColThickness As DataGridViewTextBoxColumn
+    Friend WithEvents ColMaterial As DataGridViewTextBoxColumn
+    Friend WithEvents LblCutListTitle As Label
     Friend WithEvents TpHelp As TabPage
 
 End Class
