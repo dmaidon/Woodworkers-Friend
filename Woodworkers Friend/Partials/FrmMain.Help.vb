@@ -1,5 +1,5 @@
 ' ============================================================================
-' Last Updated: {Current Date}
+' Last Updated: January 27, 2026
 ' Changes: Initial creation of comprehensive help system with navigation,
 '          color-coded sections, and detailed instructions for all features
 ' ============================================================================
@@ -352,10 +352,10 @@ Partial Public Class FrmMain
     Private Sub ShowBoardFeetHelp(rtb As RichTextBox)
         AddHelpTitle(rtb, "?? Board Feet Calculator", Color.DarkBlue)
 
-        AddHelpSection(rtb, "What is a Board Foot?", "A board foot is a unit of measurement for lumber. One board foot equals 144 cubic inches (1"" × 12"" × 12"").", Color.DarkGreen)
+        AddHelpSection(rtb, "What is a Board Foot?", "A board foot is a unit of measurement for lumber. One board foot equals 144 cubic inches (1"" Ã— 12"" Ã— 12"").", Color.DarkGreen)
 
         AddHelpSubtitle(rtb, "Formula", Color.DarkOliveGreen)
-        AddHelpFormula(rtb, "Board Feet = (Thickness × Width × Length) ÷ 144")
+        AddHelpFormula(rtb, "Board Feet = (Thickness Ã— Width Ã— Length) Ã· 144")
         AddHelpText(rtb, "Where all dimensions are in inches")
 
         AddHelpNewLine(rtb)
@@ -383,8 +383,8 @@ Partial Public Class FrmMain
         AddHelpSection(rtb, "Purpose", "Calculate the exact amount of epoxy resin needed for river tables, bar tops, and other epoxy projects.", Color.DarkGreen)
 
         AddHelpSubtitle(rtb, "Calculation Methods", Color.DarkOliveGreen)
-        AddHelpMethodBox(rtb, "Rectangular Pour", "For straight-sided projects (Length × Width × Depth)", Color.FromArgb(230, 230, 250))
-        AddHelpMethodBox(rtb, "Circular Pour", "For round projects (? × Radius² × Depth)", Color.FromArgb(240, 255, 240))
+        AddHelpMethodBox(rtb, "Rectangular Pour", "For straight-sided projects (Length Ã— Width Ã— Depth)", Color.FromArgb(230, 230, 250))
+        AddHelpMethodBox(rtb, "Circular Pour", "For round projects (? Ã— RadiusÂ² Ã— Depth)", Color.FromArgb(240, 255, 240))
         AddHelpMethodBox(rtb, "Custom Area", "Enter your own calculated area", Color.FromArgb(255, 250, 205))
 
         AddHelpNewLine(rtb)
@@ -773,51 +773,51 @@ Partial Public Class FrmMain
 
         AddHelpProblemSolution(rtb,
             "Problem: ""Invalid Input"" error",
-            "• Check that all required fields are filled in" & vbCrLf &
-            "• Verify values are within valid ranges (hover for tooltip)" & vbCrLf &
-            "• Ensure you're using numbers, not text" & vbCrLf &
-            "• Check for extra spaces or special characters")
+            "â€¢ Check that all required fields are filled in" & vbCrLf &
+            "â€¢ Verify values are within valid ranges (hover for tooltip)" & vbCrLf &
+            "â€¢ Ensure you're using numbers, not text" & vbCrLf &
+            "â€¢ Check for extra spaces or special characters")
 
         AddHelpProblemSolution(rtb,
             "Problem: Results seem incorrect",
-            "• Verify you're using consistent units (all inches or all mm)" & vbCrLf &
-            "• Double-check input values for typos" & vbCrLf &
-            "• Ensure correct calculation method is selected" & vbCrLf &
-            "• Try a preset to verify calculator is working")
+            "â€¢ Verify you're using consistent units (all inches or all mm)" & vbCrLf &
+            "â€¢ Double-check input values for typos" & vbCrLf &
+            "â€¢ Ensure correct calculation method is selected" & vbCrLf &
+            "â€¢ Try a preset to verify calculator is working")
 
         AddHelpProblemSolution(rtb,
             "Problem: Can't see all results",
-            "• Scroll down in the results panel" & vbCrLf &
-            "• Resize the window or splitter" & vbCrLf &
-            "• Export results to view in external program" & vbCrLf &
-            "• Check if results panel is collapsed")
+            "â€¢ Scroll down in the results panel" & vbCrLf &
+            "â€¢ Resize the window or splitter" & vbCrLf &
+            "â€¢ Export results to view in external program" & vbCrLf &
+            "â€¢ Check if results panel is collapsed")
 
         AddHelpNewLine(rtb)
         AddHelpSubtitle(rtb, "Display Issues", Color.DarkOliveGreen)
 
         AddHelpProblemSolution(rtb,
             "Problem: Text is too small/large",
-            "• Use Windows display scaling settings" & vbCrLf &
-            "• Adjust Windows text size" & vbCrLf &
-            "• Try different theme (Light/Dark)" & vbCrLf &
-            "• Maximize window for more space")
+            "â€¢ Use Windows display scaling settings" & vbCrLf &
+            "â€¢ Adjust Windows text size" & vbCrLf &
+            "â€¢ Try different theme (Light/Dark)" & vbCrLf &
+            "â€¢ Maximize window for more space")
 
         AddHelpProblemSolution(rtb,
             "Problem: Colors look wrong",
-            "• Toggle between Light and Dark themes" & vbCrLf &
-            "• Check Windows high contrast settings" & vbCrLf &
-            "• Verify graphics drivers are updated" & vbCrLf &
-            "• Restart application")
+            "â€¢ Toggle between Light and Dark themes" & vbCrLf &
+            "â€¢ Check Windows high contrast settings" & vbCrLf &
+            "â€¢ Verify graphics drivers are updated" & vbCrLf &
+            "â€¢ Restart application")
 
         AddHelpNewLine(rtb)
         AddHelpSubtitle(rtb, "Performance Issues", Color.DarkOliveGreen)
 
         AddHelpProblemSolution(rtb,
             "Problem: Application runs slowly",
-            "• Close unused tabs" & vbCrLf &
-            "• Clear old results before new calculations" & vbCrLf &
-            "• Restart application if running for extended period" & vbCrLf &
-            "• Check system resources (RAM, CPU)")
+            "â€¢ Close unused tabs" & vbCrLf &
+            "â€¢ Clear old results before new calculations" & vbCrLf &
+            "â€¢ Restart application if running for extended period" & vbCrLf &
+            "â€¢ Check system resources (RAM, CPU)")
 
         AddHelpNewLine(rtb)
         AddHelpSubtitle(rtb, "Getting Help", Color.DarkOliveGreen)
@@ -1038,7 +1038,7 @@ Partial Public Class FrmMain
     Private Sub AddHelpBullet(rtb As RichTextBox, text As String)
         rtb.SelectionFont = New Font("Segoe UI", 10, FontStyle.Regular)
         rtb.SelectionColor = Color.Black
-        rtb.AppendText("  • " & text & vbCrLf)
+        rtb.AppendText("  â€¢ " & text & vbCrLf)
     End Sub
 
     ''' <summary>
