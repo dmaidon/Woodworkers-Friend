@@ -294,7 +294,7 @@ Partial Class FrmMain
         LblTenonWidth = New Label()
         LblTenonThickness = New Label()
         LblTenonLength = New Label()
-        LblMortiseTenонResults1 = New Label()
+        LblMortiseTenonResults1 = New Label()
         LblMortiseTenonResults2 = New Label()
         LblMortiseTenonResults3 = New Label()
         GbxDovetail = New GroupBox()
