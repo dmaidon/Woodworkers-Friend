@@ -2,15 +2,15 @@
 
   <PropertyGroup>
 	<OutputType>WinExe</OutputType>
-	<TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+	<TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
 	<RootNamespace>WwFriend</RootNamespace>
 	<StartupObject>WwFriend.FrmMain</StartupObject>
 	<UseWindowsForms>true</UseWindowsForms>
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>25.8.14.268</AssemblyVersion>
-	<FileVersion>25.8.14.268</FileVersion>
+	<AssemblyVersion>26.1.27.329</AssemblyVersion>
+	<FileVersion>26.1.27.329</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
@@ -35,7 +35,7 @@
 	<AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
 	<InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
 	<PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
-	<OutputPath>C:\VB17\Release\WwFriend</OutputPath>
+	<OutputPath>C:\VB18\Release\WwFriend</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -48,7 +48,7 @@
 	<AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
 	<InheritWinAppVersionFrom>AssemblyVersion</InheritWinAppVersionFrom>
 	<PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
-	<OutputPath>C:\VB17\Release\WwFriend</OutputPath>
+	<OutputPath>C:\VB18\Release\WwFriend</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -66,6 +66,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <None Include="C:\VB18\WwFriend\Woodworkers Friend\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -103,6 +104,10 @@
 	  <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
 	  <LastGenOutput>Resources.Designer.vb</LastGenOutput>
 	</EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\VB18\WwFriend\Woodworkers Friend\.editorconfig" />
   </ItemGroup>
 
 </Project>

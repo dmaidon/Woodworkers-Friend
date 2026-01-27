@@ -198,8 +198,8 @@
 
         If nSides < MIN_POLYGON_SIDES Then Return
 
-        ' Only draw if TpCalculations is the selected tab
-        If Tc.SelectedTab IsNot TpCalculations Then
+        ' Only draw if TpCalcs is the selected tab
+        If Tc.SelectedTab IsNot TpCalcs Then
             If PbPolygon.Image IsNot Nothing Then
                 PbPolygon.Image.Dispose()
                 PbPolygon.Image = Nothing

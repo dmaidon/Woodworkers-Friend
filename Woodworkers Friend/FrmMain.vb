@@ -38,14 +38,6 @@ Public Class FrmMain
 
     End Sub
 
-    Private Sub FrmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        ''
-    End Sub
-
-    Private Sub FrmMain_Closed(sender As Object, e As EventArgs) Handles Me.Closed
-        ''
-    End Sub
-
     Private Sub InitializeSystem()
         CreateprogramFolders()
         ' LogRoutines.InitializeLogging()
@@ -267,6 +259,10 @@ Public Class FrmMain
 
     Private Sub TmrClock_Tick(sender As Object, e As EventArgs) Handles TmrClock.Tick
         TsslClock.Text = Now.ToLongTimeString
+    End Sub
+
+    Private Sub LblEpoxyPints_Click(sender As Object, e As EventArgs) Handles LblEpoxyPints.Click
+
     End Sub
 
 #End Region

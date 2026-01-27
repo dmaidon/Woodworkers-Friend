@@ -4,6 +4,27 @@
 * text=auto
 
 ###############################################################################
+# Visual Basic .NET specific files - always use CRLF (Windows standard)
+###############################################################################
+*.vb text eol=crlf
+*.vbproj text eol=crlf
+*.Designer.vb text eol=crlf
+
+###############################################################################
+# Solution and project files
+###############################################################################
+*.sln text eol=crlf
+*.resx text eol=crlf
+*.config text eol=crlf
+*.settings text eol=crlf
+
+###############################################################################
+# Documentation files
+###############################################################################
+*.md text eol=crlf
+*.txt text eol=crlf
+
+###############################################################################
 # Set default behavior for command prompt diff.
 #
 # This is need for earlier builds of msysgit that does not have it on by
