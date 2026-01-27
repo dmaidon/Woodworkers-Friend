@@ -1,7 +1,7 @@
 ﻿Partial Public Class FrmMain
 
     ' ================== CONFIGURABLE DRAW AREA BEHAVIOR ==================
-    ' Zoom factor for door drawings (1 = fit). When != 1 we enlarge / shrink
+    ' Zoom factor for door drawings (1 = fit). When <> 1 we enlarge / shrink
     Private _doorZoom As Single = 1.0F
 
     Private Const DoorZoomMin As Single = 0.35F

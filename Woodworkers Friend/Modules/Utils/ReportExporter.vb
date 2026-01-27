@@ -20,8 +20,7 @@ Public Class ReportExporter
             Dim csv As New StringBuilder()
 
             ' Add column headers
-            Dim headers = data.Columns.Cast(Of DataColumn)().
-                              Select(Function(col) EscapeCsvValue(col.ColumnName))
+            Dim headers = data.Columns.Cast(Of DataColumn)().Select(Function(col) EscapeCsvValue(col.ColumnName))
             csv.AppendLine(String.Join(",", headers))
 
             ' Add rows
@@ -99,9 +98,7 @@ Public Class ReportExporter
             Dim csv As New StringBuilder()
 
             ' Add headers
-            Dim headers = dgv.Columns.Cast(Of DataGridViewColumn)().
-                             Where(Function(col) col.Visible).
-                             Select(Function(col) EscapeCsvValue(col.HeaderText))
+            Dim headers = dgv.Columns.Cast(Of DataGridViewColumn)().Where(Function(col) col.Visible).Select(Function(col) EscapeCsvValue(col.HeaderText))
             csv.AppendLine(String.Join(",", headers))
 
             ' Add rows
