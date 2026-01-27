@@ -280,6 +280,98 @@ Partial Class FrmMain
         TxtPolygonSides = New TextBox()
         Label11 = New Label()
         PbPolygon = New PictureBox()
+        TpJoinery = New TabPage()
+        GbxMortiseTenon = New GroupBox()
+        TxtMortiseWidth = New TextBox()
+        TxtMortiseDepth = New TextBox()
+        TxtMortiseLength = New TextBox()
+        TxtTenonWidth = New TextBox()
+        TxtTenonThickness = New TextBox()
+        TxtTenonLength = New TextBox()
+        LblMortiseWidth = New Label()
+        LblMortiseDepth = New Label()
+        LblMortiseLength = New Label()
+        LblTenonWidth = New Label()
+        LblTenonThickness = New Label()
+        LblTenonLength = New Label()
+        LblMortiseTenонResults1 = New Label()
+        LblMortiseTenonResults2 = New Label()
+        LblMortiseTenonResults3 = New Label()
+        GbxDovetail = New GroupBox()
+        TxtPinCount = New TextBox()
+        TxtPinWidth = New TextBox()
+        TxtSocketWidth = New TextBox()
+        TxtDtBoardThickness = New TextBox()
+        TxtDtBoardWidth = New TextBox()
+        ChkHalfBlind = New CheckBox()
+        LblPinCount = New Label()
+        LblPinWidth = New Label()
+        LblSocketWidth = New Label()
+        LblDtBoardThickness = New Label()
+        LblDtBoardWidth = New Label()
+        LblDovetailResults1 = New Label()
+        LblDovetailResults2 = New Label()
+        LblDovetailResults3 = New Label()
+        GbxBoxJoint = New GroupBox()
+        TxtBjPinWidth = New TextBox()
+        TxtBjBoardThickness = New TextBox()
+        TxtBjPinCount = New TextBox()
+        LblBjPinWidth = New Label()
+        LblBjBoardThickness = New Label()
+        LblBjPinCount = New Label()
+        LblBoxJointResults1 = New Label()
+        LblBoxJointResults2 = New Label()
+        GbxDadoGroove = New GroupBox()
+        TxtDadoWidth = New TextBox()
+        TxtDadoDepth = New TextBox()
+        TxtDadoLength = New TextBox()
+        LblDadoWidth = New Label()
+        LblDadoDepth = New Label()
+        LblDadoLength = New Label()
+        LblDadoResults1 = New Label()
+        LblDadoResults2 = New Label()
+        BtnCalculateJoinery = New Button()
+        PbJoineryDiagram = New PictureBox()
+        TpWoodMovement = New TabPage()
+        GbxWoodMovementInputs = New GroupBox()
+        CmbWoodSpecies = New ComboBox()
+        TxtBoardWidth = New TextBox()
+        TxtInitialHumidity = New TextBox()
+        TxtFinalHumidity = New TextBox()
+        RbRadial = New RadioButton()
+        RbTangential = New RadioButton()
+        LblWoodSpecies = New Label()
+        LblBoardWidth = New Label()
+        LblInitialHumidity = New Label()
+        LblFinalHumidity = New Label()
+        LblGrainDirection = New Label()
+        GbxWoodMovementResults = New GroupBox()
+        LblMovement = New Label()
+        LblPanelGap = New Label()
+        LblWarning = New Label()
+        BtnCalculateMovement = New Button()
+        TpCutList = New TabPage()
+        GbxCutPieces = New GroupBox()
+        DgvCutList = New DataGridView()
+        ColPieceName = New DataGridViewTextBoxColumn()
+        ColLength = New DataGridViewTextBoxColumn()
+        ColWidth = New DataGridViewTextBoxColumn()
+        ColQuantity = New DataGridViewTextBoxColumn()
+        GbxStockSettings = New GroupBox()
+        CmbStockSize = New ComboBox()
+        TxtKerf = New TextBox()
+        LblStockSize = New Label()
+        LblKerf = New Label()
+        GbxCutListResults = New GroupBox()
+        LblBoardsNeeded = New Label()
+        LblTotalCost = New Label()
+        LblWastePercent = New Label()
+        LblEfficiency = New Label()
+        BtnCalculateCutList = New Button()
+        BtnOptimize = New Button()
+        PbCuttingDiagram = New PictureBox()
+        BtnPrevDiagram = New Button()
+        BtnNextDiagram = New Button()
         TpDrawings = New TabPage()
         PbOutputDrawing = New PictureBox()
         tTip = New ToolTip(components)
@@ -338,6 +430,21 @@ Partial Class FrmMain
         Panel5.SuspendLayout()
         Panel3.SuspendLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
+        TpJoinery.SuspendLayout()
+        GbxMortiseTenon.SuspendLayout()
+        GbxDovetail.SuspendLayout()
+        GbxBoxJoint.SuspendLayout()
+        GbxDadoGroove.SuspendLayout()
+        CType(PbJoineryDiagram, ComponentModel.ISupportInitialize).BeginInit()
+        TpWoodMovement.SuspendLayout()
+        GbxWoodMovementInputs.SuspendLayout()
+        GbxWoodMovementResults.SuspendLayout()
+        TpCutList.SuspendLayout()
+        GbxCutPieces.SuspendLayout()
+        CType(DgvCutList, ComponentModel.ISupportInitialize).BeginInit()
+        GbxStockSettings.SuspendLayout()
+        GbxCutListResults.SuspendLayout()
+        CType(PbCuttingDiagram, ComponentModel.ISupportInitialize).BeginInit()
         TpDrawings.SuspendLayout()
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -2096,6 +2203,9 @@ Partial Class FrmMain
         TcCalculattions.Controls.Add(TpEpoxy)
         TcCalculattions.Controls.Add(TpConversions)
         TcCalculattions.Controls.Add(TpCalculators)
+        TcCalculattions.Controls.Add(TpJoinery)
+        TcCalculattions.Controls.Add(TpWoodMovement)
+        TcCalculattions.Controls.Add(TpCutList)
         TcCalculattions.Dock = DockStyle.Fill
         TcCalculattions.Location = New Point(0, 0)
         TcCalculattions.Multiline = True
@@ -3103,6 +3213,920 @@ Partial Class FrmMain
         PbPolygon.TabIndex = 0
         PbPolygon.TabStop = False
         ' 
+        ' TpJoinery
+        ' 
+        TpJoinery.BackColor = Color.Gainsboro
+        TpJoinery.BorderStyle = BorderStyle.Fixed3D
+        TpJoinery.Controls.Add(GbxMortiseTenon)
+        TpJoinery.Controls.Add(GbxDovetail)
+        TpJoinery.Controls.Add(GbxBoxJoint)
+        TpJoinery.Controls.Add(GbxDadoGroove)
+        TpJoinery.Controls.Add(BtnCalculateJoinery)
+        TpJoinery.Controls.Add(PbJoineryDiagram)
+        TpJoinery.Location = New Point(4, 4)
+        TpJoinery.Name = "TpJoinery"
+        TpJoinery.Padding = New Padding(3)
+        TpJoinery.Size = New Size(1040, 811)
+        TpJoinery.TabIndex = 3
+        TpJoinery.Text = "Joinery"
+        ' 
+        ' GbxMortiseTenon
+        ' 
+        GbxMortiseTenon.BackColor = Color.WhiteSmoke
+        GbxMortiseTenon.Controls.Add(TxtMortiseWidth)
+        GbxMortiseTenon.Controls.Add(TxtMortiseDepth)
+        GbxMortiseTenon.Controls.Add(TxtMortiseLength)
+        GbxMortiseTenon.Controls.Add(TxtTenonWidth)
+        GbxMortiseTenon.Controls.Add(TxtTenonThickness)
+        GbxMortiseTenon.Controls.Add(TxtTenonLength)
+        GbxMortiseTenon.Controls.Add(LblMortiseWidth)
+        GbxMortiseTenon.Controls.Add(LblMortiseDepth)
+        GbxMortiseTenon.Controls.Add(LblMortiseLength)
+        GbxMortiseTenon.Controls.Add(LblTenonWidth)
+        GbxMortiseTenon.Controls.Add(LblTenonThickness)
+        GbxMortiseTenon.Controls.Add(LblTenonLength)
+        GbxMortiseTenon.Controls.Add(LblMortiseTenonResults1)
+        GbxMortiseTenon.Controls.Add(LblMortiseTenonResults2)
+        GbxMortiseTenon.Controls.Add(LblMortiseTenonResults3)
+        GbxMortiseTenon.Location = New Point(10, 10)
+        GbxMortiseTenon.Name = "GbxMortiseTenon"
+        GbxMortiseTenon.Size = New Size(480, 300)
+        GbxMortiseTenon.TabIndex = 0
+        GbxMortiseTenon.TabStop = False
+        GbxMortiseTenon.Text = "Mortise && Tenon"
+        ' 
+        ' TxtMortiseWidth
+        ' 
+        TxtMortiseWidth.Location = New Point(150, 30)
+        TxtMortiseWidth.Name = "TxtMortiseWidth"
+        TxtMortiseWidth.Size = New Size(100, 31)
+        TxtMortiseWidth.TabIndex = 0
+        ' 
+        ' TxtMortiseDepth
+        ' 
+        TxtMortiseDepth.Location = New Point(150, 65)
+        TxtMortiseDepth.Name = "TxtMortiseDepth"
+        TxtMortiseDepth.Size = New Size(100, 31)
+        TxtMortiseDepth.TabIndex = 1
+        ' 
+        ' TxtMortiseLength
+        ' 
+        TxtMortiseLength.Location = New Point(150, 100)
+        TxtMortiseLength.Name = "TxtMortiseLength"
+        TxtMortiseLength.Size = New Size(100, 31)
+        TxtMortiseLength.TabIndex = 2
+        ' 
+        ' TxtTenonWidth
+        ' 
+        TxtTenonWidth.Location = New Point(370, 30)
+        TxtTenonWidth.Name = "TxtTenonWidth"
+        TxtTenonWidth.Size = New Size(100, 31)
+        TxtTenonWidth.TabIndex = 3
+        ' 
+        ' TxtTenonThickness
+        ' 
+        TxtTenonThickness.Location = New Point(370, 65)
+        TxtTenonThickness.Name = "TxtTenonThickness"
+        TxtTenonThickness.Size = New Size(100, 31)
+        TxtTenonThickness.TabIndex = 4
+        ' 
+        ' TxtTenonLength
+        ' 
+        TxtTenonLength.Location = New Point(370, 100)
+        TxtTenonLength.Name = "TxtTenonLength"
+        TxtTenonLength.Size = New Size(100, 31)
+        TxtTenonLength.TabIndex = 5
+        ' 
+        ' LblMortiseWidth
+        ' 
+        LblMortiseWidth.AutoSize = True
+        LblMortiseWidth.Location = New Point(20, 33)
+        LblMortiseWidth.Name = "LblMortiseWidth"
+        LblMortiseWidth.Size = New Size(124, 25)
+        LblMortiseWidth.TabIndex = 6
+        LblMortiseWidth.Text = "Mortise Width:"
+        ' 
+        ' LblMortiseDepth
+        ' 
+        LblMortiseDepth.AutoSize = True
+        LblMortiseDepth.Location = New Point(20, 68)
+        LblMortiseDepth.Name = "LblMortiseDepth"
+        LblMortiseDepth.Size = New Size(128, 25)
+        LblMortiseDepth.TabIndex = 7
+        LblMortiseDepth.Text = "Mortise Depth:"
+        ' 
+        ' LblMortiseLength
+        ' 
+        LblMortiseLength.AutoSize = True
+        LblMortiseLength.Location = New Point(20, 103)
+        LblMortiseLength.Name = "LblMortiseLength"
+        LblMortiseLength.Size = New Size(136, 25)
+        LblMortiseLength.TabIndex = 8
+        LblMortiseLength.Text = "Mortise Length:"
+        ' 
+        ' LblTenonWidth
+        ' 
+        LblTenonWidth.AutoSize = True
+        LblTenonWidth.Location = New Point(260, 33)
+        LblTenonWidth.Name = "LblTenonWidth"
+        LblTenonWidth.Size = New Size(115, 25)
+        LblTenonWidth.TabIndex = 9
+        LblTenonWidth.Text = "Tenon Width:"
+        ' 
+        ' LblTenonThickness
+        ' 
+        LblTenonThickness.AutoSize = True
+        LblTenonThickness.Location = New Point(260, 68)
+        LblTenonThickness.Name = "LblTenonThickness"
+        LblTenonThickness.Size = New Size(146, 25)
+        LblTenonThickness.TabIndex = 10
+        LblTenonThickness.Text = "Tenon Thickness:"
+        ' 
+        ' LblTenonLength
+        ' 
+        LblTenonLength.AutoSize = True
+        LblTenonLength.Location = New Point(260, 103)
+        LblTenonLength.Name = "LblTenonLength"
+        LblTenonLength.Size = New Size(127, 25)
+        LblTenonLength.TabIndex = 11
+        LblTenonLength.Text = "Tenon Length:"
+        ' 
+        ' LblMortiseTenonResults1
+        ' 
+        LblMortiseTenonResults1.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblMortiseTenonResults1.ForeColor = Color.DodgerBlue
+        LblMortiseTenonResults1.Location = New Point(20, 150)
+        LblMortiseTenonResults1.Name = "LblMortiseTenonResults1"
+        LblMortiseTenonResults1.Size = New Size(450, 30)
+        LblMortiseTenonResults1.TabIndex = 12
+        LblMortiseTenonResults1.Text = "Fit: "
+        ' 
+        ' LblMortiseTenonResults2
+        ' 
+        LblMortiseTenonResults2.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblMortiseTenonResults2.ForeColor = Color.DodgerBlue
+        LblMortiseTenonResults2.Location = New Point(20, 190)
+        LblMortiseTenonResults2.Name = "LblMortiseTenonResults2"
+        LblMortiseTenonResults2.Size = New Size(450, 30)
+        LblMortiseTenonResults2.TabIndex = 13
+        LblMortiseTenonResults2.Text = "Clearance: "
+        ' 
+        ' LblMortiseTenonResults3
+        ' 
+        LblMortiseTenonResults3.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblMortiseTenonResults3.ForeColor = Color.DodgerBlue
+        LblMortiseTenonResults3.Location = New Point(20, 230)
+        LblMortiseTenonResults3.Name = "LblMortiseTenonResults3"
+        LblMortiseTenonResults3.Size = New Size(450, 30)
+        LblMortiseTenonResults3.TabIndex = 14
+        LblMortiseTenonResults3.Text = "Strength: "
+        ' 
+        ' GbxDovetail
+        ' 
+        GbxDovetail.BackColor = Color.WhiteSmoke
+        GbxDovetail.Controls.Add(TxtPinCount)
+        GbxDovetail.Controls.Add(TxtPinWidth)
+        GbxDovetail.Controls.Add(TxtSocketWidth)
+        GbxDovetail.Controls.Add(TxtDtBoardThickness)
+        GbxDovetail.Controls.Add(TxtDtBoardWidth)
+        GbxDovetail.Controls.Add(ChkHalfBlind)
+        GbxDovetail.Controls.Add(LblPinCount)
+        GbxDovetail.Controls.Add(LblPinWidth)
+        GbxDovetail.Controls.Add(LblSocketWidth)
+        GbxDovetail.Controls.Add(LblDtBoardThickness)
+        GbxDovetail.Controls.Add(LblDtBoardWidth)
+        GbxDovetail.Controls.Add(LblDovetailResults1)
+        GbxDovetail.Controls.Add(LblDovetailResults2)
+        GbxDovetail.Controls.Add(LblDovetailResults3)
+        GbxDovetail.Location = New Point(500, 10)
+        GbxDovetail.Name = "GbxDovetail"
+        GbxDovetail.Size = New Size(520, 300)
+        GbxDovetail.TabIndex = 1
+        GbxDovetail.TabStop = False
+        GbxDovetail.Text = "Dovetail Joint"
+        ' 
+        ' TxtPinCount
+        ' 
+        TxtPinCount.Location = New Point(150, 30)
+        TxtPinCount.Name = "TxtPinCount"
+        TxtPinCount.Size = New Size(100, 31)
+        TxtPinCount.TabIndex = 0
+        ' 
+        ' TxtPinWidth
+        ' 
+        TxtPinWidth.Location = New Point(150, 65)
+        TxtPinWidth.Name = "TxtPinWidth"
+        TxtPinWidth.Size = New Size(100, 31)
+        TxtPinWidth.TabIndex = 1
+        ' 
+        ' TxtSocketWidth
+        ' 
+        TxtSocketWidth.Location = New Point(150, 100)
+        TxtSocketWidth.Name = "TxtSocketWidth"
+        TxtSocketWidth.Size = New Size(100, 31)
+        TxtSocketWidth.TabIndex = 2
+        ' 
+        ' TxtDtBoardThickness
+        ' 
+        TxtDtBoardThickness.Location = New Point(400, 30)
+        TxtDtBoardThickness.Name = "TxtDtBoardThickness"
+        TxtDtBoardThickness.Size = New Size(100, 31)
+        TxtDtBoardThickness.TabIndex = 3
+        ' 
+        ' TxtDtBoardWidth
+        ' 
+        TxtDtBoardWidth.Location = New Point(400, 65)
+        TxtDtBoardWidth.Name = "TxtDtBoardWidth"
+        TxtDtBoardWidth.Size = New Size(100, 31)
+        TxtDtBoardWidth.TabIndex = 4
+        ' 
+        ' ChkHalfBlind
+        ' 
+        ChkHalfBlind.AutoSize = True
+        ChkHalfBlind.Location = New Point(280, 105)
+        ChkHalfBlind.Name = "ChkHalfBlind"
+        ChkHalfBlind.Size = New Size(119, 29)
+        ChkHalfBlind.TabIndex = 5
+        ChkHalfBlind.Text = "Half Blind"
+        ChkHalfBlind.UseVisualStyleBackColor = True
+        ' 
+        ' LblPinCount
+        ' 
+        LblPinCount.AutoSize = True
+        LblPinCount.Location = New Point(20, 33)
+        LblPinCount.Name = "LblPinCount"
+        LblPinCount.Size = New Size(96, 25)
+        LblPinCount.TabIndex = 6
+        LblPinCount.Text = "Pin Count:"
+        ' 
+        ' LblPinWidth
+        ' 
+        LblPinWidth.AutoSize = True
+        LblPinWidth.Location = New Point(20, 68)
+        LblPinWidth.Name = "LblPinWidth"
+        LblPinWidth.Size = New Size(92, 25)
+        LblPinWidth.TabIndex = 7
+        LblPinWidth.Text = "Pin Width:"
+        ' 
+        ' LblSocketWidth
+        ' 
+        LblSocketWidth.AutoSize = True
+        LblSocketWidth.Location = New Point(20, 103)
+        LblSocketWidth.Name = "LblSocketWidth"
+        LblSocketWidth.Size = New Size(118, 25)
+        LblSocketWidth.TabIndex = 8
+        LblSocketWidth.Text = "Socket Width:"
+        ' 
+        ' LblDtBoardThickness
+        ' 
+        LblDtBoardThickness.AutoSize = True
+        LblDtBoardThickness.Location = New Point(270, 33)
+        LblDtBoardThickness.Name = "LblDtBoardThickness"
+        LblDtBoardThickness.Size = New Size(139, 25)
+        LblDtBoardThickness.TabIndex = 9
+        LblDtBoardThickness.Text = "Board Thickness:"
+        ' 
+        ' LblDtBoardWidth
+        ' 
+        LblDtBoardWidth.AutoSize = True
+        LblDtBoardWidth.Location = New Point(270, 68)
+        LblDtBoardWidth.Name = "LblDtBoardWidth"
+        LblDtBoardWidth.Size = New Size(115, 25)
+        LblDtBoardWidth.TabIndex = 10
+        LblDtBoardWidth.Text = "Board Width:"
+        ' 
+        ' LblDovetailResults1
+        ' 
+        LblDovetailResults1.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblDovetailResults1.ForeColor = Color.DodgerBlue
+        LblDovetailResults1.Location = New Point(20, 150)
+        LblDovetailResults1.Name = "LblDovetailResults1"
+        LblDovetailResults1.Size = New Size(480, 30)
+        LblDovetailResults1.TabIndex = 11
+        LblDovetailResults1.Text = "Pin Spacing: "
+        ' 
+        ' LblDovetailResults2
+        ' 
+        LblDovetailResults2.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblDovetailResults2.ForeColor = Color.DodgerBlue
+        LblDovetailResults2.Location = New Point(20, 190)
+        LblDovetailResults2.Name = "LblDovetailResults2"
+        LblDovetailResults2.Size = New Size(480, 30)
+        LblDovetailResults2.TabIndex = 12
+        LblDovetailResults2.Text = "Angle: "
+        ' 
+        ' LblDovetailResults3
+        ' 
+        LblDovetailResults3.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblDovetailResults3.ForeColor = Color.DodgerBlue
+        LblDovetailResults3.Location = New Point(20, 230)
+        LblDovetailResults3.Name = "LblDovetailResults3"
+        LblDovetailResults3.Size = New Size(480, 30)
+        LblDovetailResults3.TabIndex = 13
+        LblDovetailResults3.Text = "Total Width: "
+        ' 
+        ' GbxBoxJoint
+        ' 
+        GbxBoxJoint.BackColor = Color.WhiteSmoke
+        GbxBoxJoint.Controls.Add(TxtBjPinWidth)
+        GbxBoxJoint.Controls.Add(TxtBjBoardThickness)
+        GbxBoxJoint.Controls.Add(TxtBjPinCount)
+        GbxBoxJoint.Controls.Add(LblBjPinWidth)
+        GbxBoxJoint.Controls.Add(LblBjBoardThickness)
+        GbxBoxJoint.Controls.Add(LblBjPinCount)
+        GbxBoxJoint.Controls.Add(LblBoxJointResults1)
+        GbxBoxJoint.Controls.Add(LblBoxJointResults2)
+        GbxBoxJoint.Location = New Point(10, 320)
+        GbxBoxJoint.Name = "GbxBoxJoint"
+        GbxBoxJoint.Size = New Size(480, 240)
+        GbxBoxJoint.TabIndex = 2
+        GbxBoxJoint.TabStop = False
+        GbxBoxJoint.Text = "Box Joint"
+        ' 
+        ' TxtBjPinWidth
+        ' 
+        TxtBjPinWidth.Location = New Point(200, 30)
+        TxtBjPinWidth.Name = "TxtBjPinWidth"
+        TxtBjPinWidth.Size = New Size(100, 31)
+        TxtBjPinWidth.TabIndex = 0
+        ' 
+        ' TxtBjBoardThickness
+        ' 
+        TxtBjBoardThickness.Location = New Point(200, 65)
+        TxtBjBoardThickness.Name = "TxtBjBoardThickness"
+        TxtBjBoardThickness.Size = New Size(100, 31)
+        TxtBjBoardThickness.TabIndex = 1
+        ' 
+        ' TxtBjPinCount
+        ' 
+        TxtBjPinCount.Location = New Point(200, 100)
+        TxtBjPinCount.Name = "TxtBjPinCount"
+        TxtBjPinCount.Size = New Size(100, 31)
+        TxtBjPinCount.TabIndex = 2
+        ' 
+        ' LblBjPinWidth
+        ' 
+        LblBjPinWidth.AutoSize = True
+        LblBjPinWidth.Location = New Point(20, 33)
+        LblBjPinWidth.Name = "LblBjPinWidth"
+        LblBjPinWidth.Size = New Size(92, 25)
+        LblBjPinWidth.TabIndex = 3
+        LblBjPinWidth.Text = "Pin Width:"
+        ' 
+        ' LblBjBoardThickness
+        ' 
+        LblBjBoardThickness.AutoSize = True
+        LblBjBoardThickness.Location = New Point(20, 68)
+        LblBjBoardThickness.Name = "LblBjBoardThickness"
+        LblBjBoardThickness.Size = New Size(139, 25)
+        LblBjBoardThickness.TabIndex = 4
+        LblBjBoardThickness.Text = "Board Thickness:"
+        ' 
+        ' LblBjPinCount
+        ' 
+        LblBjPinCount.AutoSize = True
+        LblBjPinCount.Location = New Point(20, 103)
+        LblBjPinCount.Name = "LblBjPinCount"
+        LblBjPinCount.Size = New Size(131, 25)
+        LblBjPinCount.TabIndex = 5
+        LblBjPinCount.Text = "Number of Pins:"
+        ' 
+        ' LblBoxJointResults1
+        ' 
+        LblBoxJointResults1.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblBoxJointResults1.ForeColor = Color.DodgerBlue
+        LblBoxJointResults1.Location = New Point(20, 150)
+        LblBoxJointResults1.Name = "LblBoxJointResults1"
+        LblBoxJointResults1.Size = New Size(450, 30)
+        LblBoxJointResults1.TabIndex = 6
+        LblBoxJointResults1.Text = "Total Width: "
+        ' 
+        ' LblBoxJointResults2
+        ' 
+        LblBoxJointResults2.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblBoxJointResults2.ForeColor = Color.DodgerBlue
+        LblBoxJointResults2.Location = New Point(20, 190)
+        LblBoxJointResults2.Name = "LblBoxJointResults2"
+        LblBoxJointResults2.Size = New Size(450, 30)
+        LblBoxJointResults2.TabIndex = 7
+        LblBoxJointResults2.Text = "Recommended: "
+        ' 
+        ' GbxDadoGroove
+        ' 
+        GbxDadoGroove.BackColor = Color.WhiteSmoke
+        GbxDadoGroove.Controls.Add(TxtDadoWidth)
+        GbxDadoGroove.Controls.Add(TxtDadoDepth)
+        GbxDadoGroove.Controls.Add(TxtDadoLength)
+        GbxDadoGroove.Controls.Add(LblDadoWidth)
+        GbxDadoGroove.Controls.Add(LblDadoDepth)
+        GbxDadoGroove.Controls.Add(LblDadoLength)
+        GbxDadoGroove.Controls.Add(LblDadoResults1)
+        GbxDadoGroove.Controls.Add(LblDadoResults2)
+        GbxDadoGroove.Location = New Point(500, 320)
+        GbxDadoGroove.Name = "GbxDadoGroove"
+        GbxDadoGroove.Size = New Size(520, 240)
+        GbxDadoGroove.TabIndex = 3
+        GbxDadoGroove.TabStop = False
+        GbxDadoGroove.Text = "Dado/Groove"
+        ' 
+        ' TxtDadoWidth
+        ' 
+        TxtDadoWidth.Location = New Point(150, 30)
+        TxtDadoWidth.Name = "TxtDadoWidth"
+        TxtDadoWidth.Size = New Size(100, 31)
+        TxtDadoWidth.TabIndex = 0
+        ' 
+        ' TxtDadoDepth
+        ' 
+        TxtDadoDepth.Location = New Point(150, 65)
+        TxtDadoDepth.Name = "TxtDadoDepth"
+        TxtDadoDepth.Size = New Size(100, 31)
+        TxtDadoDepth.TabIndex = 1
+        ' 
+        ' TxtDadoLength
+        ' 
+        TxtDadoLength.Location = New Point(150, 100)
+        TxtDadoLength.Name = "TxtDadoLength"
+        TxtDadoLength.Size = New Size(100, 31)
+        TxtDadoLength.TabIndex = 2
+        ' 
+        ' LblDadoWidth
+        ' 
+        LblDadoWidth.AutoSize = True
+        LblDadoWidth.Location = New Point(20, 33)
+        LblDadoWidth.Name = "LblDadoWidth"
+        LblDadoWidth.Size = New Size(107, 25)
+        LblDadoWidth.TabIndex = 3
+        LblDadoWidth.Text = "Dado Width:"
+        ' 
+        ' LblDadoDepth
+        ' 
+        LblDadoDepth.AutoSize = True
+        LblDadoDepth.Location = New Point(20, 68)
+        LblDadoDepth.Name = "LblDadoDepth"
+        LblDadoDepth.Size = New Size(111, 25)
+        LblDadoDepth.TabIndex = 4
+        LblDadoDepth.Text = "Dado Depth:"
+        ' 
+        ' LblDadoLength
+        ' 
+        LblDadoLength.AutoSize = True
+        LblDadoLength.Location = New Point(20, 103)
+        LblDadoLength.Name = "LblDadoLength"
+        LblDadoLength.Size = New Size(119, 25)
+        LblDadoLength.TabIndex = 5
+        LblDadoLength.Text = "Dado Length:"
+        ' 
+        ' LblDadoResults1
+        ' 
+        LblDadoResults1.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblDadoResults1.ForeColor = Color.DodgerBlue
+        LblDadoResults1.Location = New Point(20, 150)
+        LblDadoResults1.Name = "LblDadoResults1"
+        LblDadoResults1.Size = New Size(480, 30)
+        LblDadoResults1.TabIndex = 6
+        LblDadoResults1.Text = "Material Removed: "
+        ' 
+        ' LblDadoResults2
+        ' 
+        LblDadoResults2.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblDadoResults2.ForeColor = Color.DodgerBlue
+        LblDadoResults2.Location = New Point(20, 190)
+        LblDadoResults2.Name = "LblDadoResults2"
+        LblDadoResults2.Size = New Size(480, 30)
+        LblDadoResults2.TabIndex = 7
+        LblDadoResults2.Text = "Recommended Depth: "
+        ' 
+        ' BtnCalculateJoinery
+        ' 
+        BtnCalculateJoinery.BackColor = Color.LimeGreen
+        BtnCalculateJoinery.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        BtnCalculateJoinery.Location = New Point(10, 570)
+        BtnCalculateJoinery.Name = "BtnCalculateJoinery"
+        BtnCalculateJoinery.Size = New Size(200, 50)
+        BtnCalculateJoinery.TabIndex = 4
+        BtnCalculateJoinery.Text = "Calculate Joinery"
+        BtnCalculateJoinery.UseVisualStyleBackColor = False
+        ' 
+        ' PbJoineryDiagram
+        ' 
+        PbJoineryDiagram.BackColor = Color.White
+        PbJoineryDiagram.BorderStyle = BorderStyle.FixedSingle
+        PbJoineryDiagram.Location = New Point(10, 630)
+        PbJoineryDiagram.Name = "PbJoineryDiagram"
+        PbJoineryDiagram.Size = New Size(1010, 170)
+        PbJoineryDiagram.TabIndex = 5
+        PbJoineryDiagram.TabStop = False
+        ' 
+        ' TpWoodMovement
+        ' 
+        TpWoodMovement.BackColor = Color.Gainsboro
+        TpWoodMovement.BorderStyle = BorderStyle.Fixed3D
+        TpWoodMovement.Controls.Add(GbxWoodMovementInputs)
+        TpWoodMovement.Controls.Add(GbxWoodMovementResults)
+        TpWoodMovement.Controls.Add(BtnCalculateMovement)
+        TpWoodMovement.Location = New Point(4, 4)
+        TpWoodMovement.Name = "TpWoodMovement"
+        TpWoodMovement.Padding = New Padding(3)
+        TpWoodMovement.Size = New Size(1040, 811)
+        TpWoodMovement.TabIndex = 4
+        TpWoodMovement.Text = "Wood Movement"
+        ' 
+        ' GbxWoodMovementInputs
+        ' 
+        GbxWoodMovementInputs.BackColor = Color.WhiteSmoke
+        GbxWoodMovementInputs.Controls.Add(CmbWoodSpecies)
+        GbxWoodMovementInputs.Controls.Add(TxtBoardWidth)
+        GbxWoodMovementInputs.Controls.Add(TxtInitialHumidity)
+        GbxWoodMovementInputs.Controls.Add(TxtFinalHumidity)
+        GbxWoodMovementInputs.Controls.Add(RbRadial)
+        GbxWoodMovementInputs.Controls.Add(RbTangential)
+        GbxWoodMovementInputs.Controls.Add(LblWoodSpecies)
+        GbxWoodMovementInputs.Controls.Add(LblBoardWidth)
+        GbxWoodMovementInputs.Controls.Add(LblInitialHumidity)
+        GbxWoodMovementInputs.Controls.Add(LblFinalHumidity)
+        GbxWoodMovementInputs.Controls.Add(LblGrainDirection)
+        GbxWoodMovementInputs.Location = New Point(20, 20)
+        GbxWoodMovementInputs.Name = "GbxWoodMovementInputs"
+        GbxWoodMovementInputs.Size = New Size(500, 350)
+        GbxWoodMovementInputs.TabIndex = 0
+        GbxWoodMovementInputs.TabStop = False
+        GbxWoodMovementInputs.Text = "Wood Movement Parameters"
+        ' 
+        ' CmbWoodSpecies
+        ' 
+        CmbWoodSpecies.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbWoodSpecies.FormattingEnabled = True
+        CmbWoodSpecies.Items.AddRange(New Object() {"Oak", "Maple", "Cherry", "Walnut", "Pine", "Birch", "Ash", "Mahogany", "Teak", "Cedar", "Poplar", "Beech", "Hickory", "Alder", "Basswood", "Butternut", "Cypress", "Elm"})
+        CmbWoodSpecies.Location = New Point(200, 40)
+        CmbWoodSpecies.Name = "CmbWoodSpecies"
+        CmbWoodSpecies.Size = New Size(250, 33)
+        CmbWoodSpecies.TabIndex = 0
+        ' 
+        ' TxtBoardWidth
+        ' 
+        TxtBoardWidth.Location = New Point(200, 90)
+        TxtBoardWidth.Name = "TxtBoardWidth"
+        TxtBoardWidth.Size = New Size(150, 31)
+        TxtBoardWidth.TabIndex = 1
+        ' 
+        ' TxtInitialHumidity
+        ' 
+        TxtInitialHumidity.Location = New Point(200, 140)
+        TxtInitialHumidity.Name = "TxtInitialHumidity"
+        TxtInitialHumidity.Size = New Size(150, 31)
+        TxtInitialHumidity.TabIndex = 2
+        ' 
+        ' TxtFinalHumidity
+        ' 
+        TxtFinalHumidity.Location = New Point(200, 190)
+        TxtFinalHumidity.Name = "TxtFinalHumidity"
+        TxtFinalHumidity.Size = New Size(150, 31)
+        TxtFinalHumidity.TabIndex = 3
+        ' 
+        ' RbRadial
+        ' 
+        RbRadial.AutoSize = True
+        RbRadial.Location = New Point(200, 250)
+        RbRadial.Name = "RbRadial"
+        RbRadial.Size = New Size(83, 29)
+        RbRadial.TabIndex = 4
+        RbRadial.Text = "Radial"
+        RbRadial.UseVisualStyleBackColor = True
+        ' 
+        ' RbTangential
+        ' 
+        RbTangential.AutoSize = True
+        RbTangential.Checked = True
+        RbTangential.Location = New Point(290, 250)
+        RbTangential.Name = "RbTangential"
+        RbTangential.Size = New Size(119, 29)
+        RbTangential.TabIndex = 5
+        RbTangential.TabStop = True
+        RbTangential.Text = "Tangential"
+        RbTangential.UseVisualStyleBackColor = True
+        ' 
+        ' LblWoodSpecies
+        ' 
+        LblWoodSpecies.AutoSize = True
+        LblWoodSpecies.Location = New Point(20, 43)
+        LblWoodSpecies.Name = "LblWoodSpecies"
+        LblWoodSpecies.Size = New Size(124, 25)
+        LblWoodSpecies.TabIndex = 6
+        LblWoodSpecies.Text = "Wood Species:"
+        ' 
+        ' LblBoardWidth
+        ' 
+        LblBoardWidth.AutoSize = True
+        LblBoardWidth.Location = New Point(20, 93)
+        LblBoardWidth.Name = "LblBoardWidth"
+        LblBoardWidth.Size = New Size(171, 25)
+        LblBoardWidth.TabIndex = 7
+        LblBoardWidth.Text = "Board Width (inches):"
+        ' 
+        ' LblInitialHumidity
+        ' 
+        LblInitialHumidity.AutoSize = True
+        LblInitialHumidity.Location = New Point(20, 143)
+        LblInitialHumidity.Name = "LblInitialHumidity"
+        LblInitialHumidity.Size = New Size(161, 25)
+        LblInitialHumidity.TabIndex = 8
+        LblInitialHumidity.Text = "Initial Humidity (%): "
+        ' 
+        ' LblFinalHumidity
+        ' 
+        LblFinalHumidity.AutoSize = True
+        LblFinalHumidity.Location = New Point(20, 193)
+        LblFinalHumidity.Name = "LblFinalHumidity"
+        LblFinalHumidity.Size = New Size(155, 25)
+        LblFinalHumidity.TabIndex = 9
+        LblFinalHumidity.Text = "Final Humidity (%): "
+        ' 
+        ' LblGrainDirection
+        ' 
+        LblGrainDirection.AutoSize = True
+        LblGrainDirection.Location = New Point(20, 252)
+        LblGrainDirection.Name = "LblGrainDirection"
+        LblGrainDirection.Size = New Size(130, 25)
+        LblGrainDirection.TabIndex = 10
+        LblGrainDirection.Text = "Grain Direction:"
+        ' 
+        ' GbxWoodMovementResults
+        ' 
+        GbxWoodMovementResults.BackColor = Color.WhiteSmoke
+        GbxWoodMovementResults.Controls.Add(LblMovement)
+        GbxWoodMovementResults.Controls.Add(LblPanelGap)
+        GbxWoodMovementResults.Controls.Add(LblWarning)
+        GbxWoodMovementResults.Location = New Point(550, 20)
+        GbxWoodMovementResults.Name = "GbxWoodMovementResults"
+        GbxWoodMovementResults.Size = New Size(470, 350)
+        GbxWoodMovementResults.TabIndex = 1
+        GbxWoodMovementResults.TabStop = False
+        GbxWoodMovementResults.Text = "Movement Calculation Results"
+        ' 
+        ' LblMovement
+        ' 
+        LblMovement.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        LblMovement.ForeColor = Color.DodgerBlue
+        LblMovement.Location = New Point(20, 40)
+        LblMovement.Name = "LblMovement"
+        LblMovement.Size = New Size(430, 80)
+        LblMovement.TabIndex = 0
+        LblMovement.Text = "Expected Movement: "
+        ' 
+        ' LblPanelGap
+        ' 
+        LblPanelGap.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        LblPanelGap.ForeColor = Color.Green
+        LblPanelGap.Location = New Point(20, 140)
+        LblPanelGap.Name = "LblPanelGap"
+        LblPanelGap.Size = New Size(430, 80)
+        LblPanelGap.TabIndex = 1
+        LblPanelGap.Text = "Recommended Panel Gap: "
+        ' 
+        ' LblWarning
+        ' 
+        LblWarning.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblWarning.ForeColor = Color.OrangeRed
+        LblWarning.Location = New Point(20, 240)
+        LblWarning.Name = "LblWarning"
+        LblWarning.Size = New Size(430, 80)
+        LblWarning.TabIndex = 2
+        LblWarning.Text = ""
+        ' 
+        ' BtnCalculateMovement
+        ' 
+        BtnCalculateMovement.BackColor = Color.LimeGreen
+        BtnCalculateMovement.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        BtnCalculateMovement.Location = New Point(20, 390)
+        BtnCalculateMovement.Name = "BtnCalculateMovement"
+        BtnCalculateMovement.Size = New Size(250, 60)
+        BtnCalculateMovement.TabIndex = 2
+        BtnCalculateMovement.Text = "Calculate Movement"
+        BtnCalculateMovement.UseVisualStyleBackColor = False
+        ' 
+        ' TpCutList
+        ' 
+        TpCutList.BackColor = Color.Gainsboro
+        TpCutList.BorderStyle = BorderStyle.Fixed3D
+        TpCutList.Controls.Add(GbxCutPieces)
+        TpCutList.Controls.Add(GbxStockSettings)
+        TpCutList.Controls.Add(GbxCutListResults)
+        TpCutList.Controls.Add(BtnCalculateCutList)
+        TpCutList.Controls.Add(BtnOptimize)
+        TpCutList.Controls.Add(PbCuttingDiagram)
+        TpCutList.Controls.Add(BtnPrevDiagram)
+        TpCutList.Controls.Add(BtnNextDiagram)
+        TpCutList.Location = New Point(4, 4)
+        TpCutList.Name = "TpCutList"
+        TpCutList.Padding = New Padding(3)
+        TpCutList.Size = New Size(1040, 811)
+        TpCutList.TabIndex = 5
+        TpCutList.Text = "Cut List"
+        ' 
+        ' GbxCutPieces
+        ' 
+        GbxCutPieces.BackColor = Color.WhiteSmoke
+        GbxCutPieces.Controls.Add(DgvCutList)
+        GbxCutPieces.Location = New Point(20, 20)
+        GbxCutPieces.Name = "GbxCutPieces"
+        GbxCutPieces.Size = New Size(600, 400)
+        GbxCutPieces.TabIndex = 0
+        GbxCutPieces.TabStop = False
+        GbxCutPieces.Text = "Cut Pieces"
+        ' 
+        ' DgvCutList
+        ' 
+        DgvCutList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DgvCutList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvCutList.Columns.AddRange(New DataGridViewColumn() {ColPieceName, ColLength, ColWidth, ColQuantity})
+        DgvCutList.Dock = DockStyle.Fill
+        DgvCutList.Location = New Point(3, 27)
+        DgvCutList.Name = "DgvCutList"
+        DgvCutList.RowHeadersWidth = 62
+        DgvCutList.Size = New Size(594, 370)
+        DgvCutList.TabIndex = 0
+        ' 
+        ' ColPieceName
+        ' 
+        ColPieceName.HeaderText = "Piece Name"
+        ColPieceName.MinimumWidth = 8
+        ColPieceName.Name = "ColPieceName"
+        ' 
+        ' ColLength
+        ' 
+        ColLength.HeaderText = "Length"
+        ColLength.MinimumWidth = 8
+        ColLength.Name = "ColLength"
+        ' 
+        ' ColWidth
+        ' 
+        ColWidth.HeaderText = "Width"
+        ColWidth.MinimumWidth = 8
+        ColWidth.Name = "ColWidth"
+        ' 
+        ' ColQuantity
+        ' 
+        ColQuantity.HeaderText = "Quantity"
+        ColQuantity.MinimumWidth = 8
+        ColQuantity.Name = "ColQuantity"
+        ' 
+        ' GbxStockSettings
+        ' 
+        GbxStockSettings.BackColor = Color.WhiteSmoke
+        GbxStockSettings.Controls.Add(CmbStockSize)
+        GbxStockSettings.Controls.Add(TxtKerf)
+        GbxStockSettings.Controls.Add(LblStockSize)
+        GbxStockSettings.Controls.Add(LblKerf)
+        GbxStockSettings.Location = New Point(640, 20)
+        GbxStockSettings.Name = "GbxStockSettings"
+        GbxStockSettings.Size = New Size(380, 180)
+        GbxStockSettings.TabIndex = 1
+        GbxStockSettings.TabStop = False
+        GbxStockSettings.Text = "Stock && Settings"
+        ' 
+        ' CmbStockSize
+        ' 
+        CmbStockSize.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbStockSize.FormattingEnabled = True
+        CmbStockSize.Items.AddRange(New Object() {"4' x 8'", "4' x 4'", "2' x 4'", "2' x 8'", "Custom"})
+        CmbStockSize.Location = New Point(180, 40)
+        CmbStockSize.Name = "CmbStockSize"
+        CmbStockSize.Size = New Size(180, 33)
+        CmbStockSize.TabIndex = 0
+        ' 
+        ' TxtKerf
+        ' 
+        TxtKerf.Location = New Point(180, 90)
+        TxtKerf.Name = "TxtKerf"
+        TxtKerf.Size = New Size(180, 31)
+        TxtKerf.TabIndex = 1
+        TxtKerf.Text = "0.125"
+        ' 
+        ' LblStockSize
+        ' 
+        LblStockSize.AutoSize = True
+        LblStockSize.Location = New Point(20, 43)
+        LblStockSize.Name = "LblStockSize"
+        LblStockSize.Size = New Size(94, 25)
+        LblStockSize.TabIndex = 2
+        LblStockSize.Text = "Stock Size:"
+        ' 
+        ' LblKerf
+        ' 
+        LblKerf.AutoSize = True
+        LblKerf.Location = New Point(20, 93)
+        LblKerf.Name = "LblKerf"
+        LblKerf.Size = New Size(157, 25)
+        LblKerf.TabIndex = 3
+        LblKerf.Text = "Kerf Width (inches):"
+        ' 
+        ' GbxCutListResults
+        ' 
+        GbxCutListResults.BackColor = Color.WhiteSmoke
+        GbxCutListResults.Controls.Add(LblBoardsNeeded)
+        GbxCutListResults.Controls.Add(LblTotalCost)
+        GbxCutListResults.Controls.Add(LblWastePercent)
+        GbxCutListResults.Controls.Add(LblEfficiency)
+        GbxCutListResults.Location = New Point(640, 220)
+        GbxCutListResults.Name = "GbxCutListResults"
+        GbxCutListResults.Size = New Size(380, 200)
+        GbxCutListResults.TabIndex = 2
+        GbxCutListResults.TabStop = False
+        GbxCutListResults.Text = "Results"
+        ' 
+        ' LblBoardsNeeded
+        ' 
+        LblBoardsNeeded.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblBoardsNeeded.ForeColor = Color.DodgerBlue
+        LblBoardsNeeded.Location = New Point(20, 30)
+        LblBoardsNeeded.Name = "LblBoardsNeeded"
+        LblBoardsNeeded.Size = New Size(350, 30)
+        LblBoardsNeeded.TabIndex = 0
+        LblBoardsNeeded.Text = "Boards Needed: "
+        ' 
+        ' LblTotalCost
+        ' 
+        LblTotalCost.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblTotalCost.ForeColor = Color.Green
+        LblTotalCost.Location = New Point(20, 70)
+        LblTotalCost.Name = "LblTotalCost"
+        LblTotalCost.Size = New Size(350, 30)
+        LblTotalCost.TabIndex = 1
+        LblTotalCost.Text = "Total Cost: "
+        ' 
+        ' LblWastePercent
+        ' 
+        LblWastePercent.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblWastePercent.ForeColor = Color.OrangeRed
+        LblWastePercent.Location = New Point(20, 110)
+        LblWastePercent.Name = "LblWastePercent"
+        LblWastePercent.Size = New Size(350, 30)
+        LblWastePercent.TabIndex = 2
+        LblWastePercent.Text = "Waste: "
+        ' 
+        ' LblEfficiency
+        ' 
+        LblEfficiency.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        LblEfficiency.ForeColor = Color.Purple
+        LblEfficiency.Location = New Point(20, 150)
+        LblEfficiency.Name = "LblEfficiency"
+        LblEfficiency.Size = New Size(350, 30)
+        LblEfficiency.TabIndex = 3
+        LblEfficiency.Text = "Efficiency: "
+        ' 
+        ' BtnCalculateCutList
+        ' 
+        BtnCalculateCutList.BackColor = Color.LimeGreen
+        BtnCalculateCutList.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        BtnCalculateCutList.Location = New Point(20, 440)
+        BtnCalculateCutList.Name = "BtnCalculateCutList"
+        BtnCalculateCutList.Size = New Size(200, 50)
+        BtnCalculateCutList.TabIndex = 3
+        BtnCalculateCutList.Text = "Calculate"
+        BtnCalculateCutList.UseVisualStyleBackColor = False
+        ' 
+        ' BtnOptimize
+        ' 
+        BtnOptimize.BackColor = Color.Gold
+        BtnOptimize.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        BtnOptimize.Location = New Point(240, 440)
+        BtnOptimize.Name = "BtnOptimize"
+        BtnOptimize.Size = New Size(200, 50)
+        BtnOptimize.TabIndex = 4
+        BtnOptimize.Text = "Optimize Layout"
+        BtnOptimize.UseVisualStyleBackColor = False
+        ' 
+        ' PbCuttingDiagram
+        ' 
+        PbCuttingDiagram.BackColor = Color.White
+        PbCuttingDiagram.BorderStyle = BorderStyle.FixedSingle
+        PbCuttingDiagram.Location = New Point(20, 510)
+        PbCuttingDiagram.Name = "PbCuttingDiagram"
+        PbCuttingDiagram.Size = New Size(800, 280)
+        PbCuttingDiagram.TabIndex = 5
+        PbCuttingDiagram.TabStop = False
+        ' 
+        ' BtnPrevDiagram
+        ' 
+        BtnPrevDiagram.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        BtnPrevDiagram.Location = New Point(840, 600)
+        BtnPrevDiagram.Name = "BtnPrevDiagram"
+        BtnPrevDiagram.Size = New Size(80, 40)
+        BtnPrevDiagram.TabIndex = 6
+        BtnPrevDiagram.Text = "< Prev"
+        BtnPrevDiagram.UseVisualStyleBackColor = True
+        ' 
+        ' BtnNextDiagram
+        ' 
+        BtnNextDiagram.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        BtnNextDiagram.Location = New Point(940, 600)
+        BtnNextDiagram.Name = "BtnNextDiagram"
+        BtnNextDiagram.Size = New Size(80, 40)
+        BtnNextDiagram.TabIndex = 7
+        BtnNextDiagram.Text = "Next >"
+        BtnNextDiagram.UseVisualStyleBackColor = True
+        ' 
         ' TpDrawings
         ' 
         TpDrawings.Controls.Add(PbOutputDrawing)
@@ -3251,6 +4275,27 @@ Partial Class FrmMain
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
+        TpJoinery.ResumeLayout(False)
+        GbxMortiseTenon.ResumeLayout(False)
+        GbxMortiseTenon.PerformLayout()
+        GbxDovetail.ResumeLayout(False)
+        GbxDovetail.PerformLayout()
+        GbxBoxJoint.ResumeLayout(False)
+        GbxBoxJoint.PerformLayout()
+        GbxDadoGroove.ResumeLayout(False)
+        GbxDadoGroove.PerformLayout()
+        CType(PbJoineryDiagram, ComponentModel.ISupportInitialize).EndInit()
+        TpWoodMovement.ResumeLayout(False)
+        GbxWoodMovementInputs.ResumeLayout(False)
+        GbxWoodMovementInputs.PerformLayout()
+        GbxWoodMovementResults.ResumeLayout(False)
+        TpCutList.ResumeLayout(False)
+        GbxCutPieces.ResumeLayout(False)
+        CType(DgvCutList, ComponentModel.ISupportInitialize).EndInit()
+        GbxStockSettings.ResumeLayout(False)
+        GbxStockSettings.PerformLayout()
+        GbxCutListResults.ResumeLayout(False)
+        CType(PbCuttingDiagram, ComponentModel.ISupportInitialize).EndInit()
         TpDrawings.ResumeLayout(False)
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -3517,5 +4562,97 @@ Partial Class FrmMain
     Friend WithEvents RbAreaPour As RadioButton
     Friend WithEvents LblEpoxyMilliliters As Label
     Friend WithEvents TpHelp As TabPage
+    Friend WithEvents TpJoinery As TabPage
+    Friend WithEvents GbxMortiseTenon As GroupBox
+    Friend WithEvents TxtMortiseWidth As TextBox
+    Friend WithEvents TxtMortiseDepth As TextBox
+    Friend WithEvents TxtMortiseLength As TextBox
+    Friend WithEvents TxtTenonWidth As TextBox
+    Friend WithEvents TxtTenonThickness As TextBox
+    Friend WithEvents TxtTenonLength As TextBox
+    Friend WithEvents LblMortiseWidth As Label
+    Friend WithEvents LblMortiseDepth As Label
+    Friend WithEvents LblMortiseLength As Label
+    Friend WithEvents LblTenonWidth As Label
+    Friend WithEvents LblTenonThickness As Label
+    Friend WithEvents LblTenonLength As Label
+    Friend WithEvents LblMortiseTenonResults1 As Label
+    Friend WithEvents LblMortiseTenonResults2 As Label
+    Friend WithEvents LblMortiseTenonResults3 As Label
+    Friend WithEvents GbxDovetail As GroupBox
+    Friend WithEvents TxtPinCount As TextBox
+    Friend WithEvents TxtPinWidth As TextBox
+    Friend WithEvents TxtSocketWidth As TextBox
+    Friend WithEvents TxtDtBoardThickness As TextBox
+    Friend WithEvents TxtDtBoardWidth As TextBox
+    Friend WithEvents ChkHalfBlind As CheckBox
+    Friend WithEvents LblPinCount As Label
+    Friend WithEvents LblPinWidth As Label
+    Friend WithEvents LblSocketWidth As Label
+    Friend WithEvents LblDtBoardThickness As Label
+    Friend WithEvents LblDtBoardWidth As Label
+    Friend WithEvents LblDovetailResults1 As Label
+    Friend WithEvents LblDovetailResults2 As Label
+    Friend WithEvents LblDovetailResults3 As Label
+    Friend WithEvents GbxBoxJoint As GroupBox
+    Friend WithEvents TxtBjPinWidth As TextBox
+    Friend WithEvents TxtBjBoardThickness As TextBox
+    Friend WithEvents TxtBjPinCount As TextBox
+    Friend WithEvents LblBjPinWidth As Label
+    Friend WithEvents LblBjBoardThickness As Label
+    Friend WithEvents LblBjPinCount As Label
+    Friend WithEvents LblBoxJointResults1 As Label
+    Friend WithEvents LblBoxJointResults2 As Label
+    Friend WithEvents GbxDadoGroove As GroupBox
+    Friend WithEvents TxtDadoWidth As TextBox
+    Friend WithEvents TxtDadoDepth As TextBox
+    Friend WithEvents TxtDadoLength As TextBox
+    Friend WithEvents LblDadoWidth As Label
+    Friend WithEvents LblDadoDepth As Label
+    Friend WithEvents LblDadoLength As Label
+    Friend WithEvents LblDadoResults1 As Label
+    Friend WithEvents LblDadoResults2 As Label
+    Friend WithEvents BtnCalculateJoinery As Button
+    Friend WithEvents PbJoineryDiagram As PictureBox
+    Friend WithEvents TpWoodMovement As TabPage
+    Friend WithEvents GbxWoodMovementInputs As GroupBox
+    Friend WithEvents CmbWoodSpecies As ComboBox
+    Friend WithEvents TxtBoardWidth As TextBox
+    Friend WithEvents TxtInitialHumidity As TextBox
+    Friend WithEvents TxtFinalHumidity As TextBox
+    Friend WithEvents RbRadial As RadioButton
+    Friend WithEvents RbTangential As RadioButton
+    Friend WithEvents LblWoodSpecies As Label
+    Friend WithEvents LblBoardWidth As Label
+    Friend WithEvents LblInitialHumidity As Label
+    Friend WithEvents LblFinalHumidity As Label
+    Friend WithEvents LblGrainDirection As Label
+    Friend WithEvents GbxWoodMovementResults As GroupBox
+    Friend WithEvents LblMovement As Label
+    Friend WithEvents LblPanelGap As Label
+    Friend WithEvents LblWarning As Label
+    Friend WithEvents BtnCalculateMovement As Button
+    Friend WithEvents TpCutList As TabPage
+    Friend WithEvents GbxCutPieces As GroupBox
+    Friend WithEvents DgvCutList As DataGridView
+    Friend WithEvents ColPieceName As DataGridViewTextBoxColumn
+    Friend WithEvents ColLength As DataGridViewTextBoxColumn
+    Friend WithEvents ColWidth As DataGridViewTextBoxColumn
+    Friend WithEvents ColQuantity As DataGridViewTextBoxColumn
+    Friend WithEvents GbxStockSettings As GroupBox
+    Friend WithEvents CmbStockSize As ComboBox
+    Friend WithEvents TxtKerf As TextBox
+    Friend WithEvents LblStockSize As Label
+    Friend WithEvents LblKerf As Label
+    Friend WithEvents GbxCutListResults As GroupBox
+    Friend WithEvents LblBoardsNeeded As Label
+    Friend WithEvents LblTotalCost As Label
+    Friend WithEvents LblWastePercent As Label
+    Friend WithEvents LblEfficiency As Label
+    Friend WithEvents BtnCalculateCutList As Button
+    Friend WithEvents BtnOptimize As Button
+    Friend WithEvents PbCuttingDiagram As PictureBox
+    Friend WithEvents BtnPrevDiagram As Button
+    Friend WithEvents BtnNextDiagram As Button
 
 End Class
