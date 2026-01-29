@@ -16,13 +16,14 @@
 	  <NeutralLanguage>en-US</NeutralLanguage>
 	  <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 	  <ImportedNamespaces>System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Woodworkers Friend=True</ImportedNamespaces>
-	  <Copyright>©2025 PAROLE Software - All rigthts reserved.</Copyright>
+	  <Copyright>©2025 PAROLE Software - All rights reserved.</Copyright>
 	  <PackageIcon>wood_128.png</PackageIcon>
 	  <ApplicationIcon>wood.ico</ApplicationIcon>
 	  <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	  <IncludeSymbols>True</IncludeSymbols>
 	  <Company>PAROLE Software</Company>
 	  <Authors>Dennis N Maidon</Authors>
+	  <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -104,6 +105,7 @@
 	  <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
 	  <LastGenOutput>Resources.Designer.vb</LastGenOutput>
 	</EmbeddedResource>
+	<EmbeddedResource Include="Resources\Help\*.md" />
   </ItemGroup>
 
   <ItemGroup>
