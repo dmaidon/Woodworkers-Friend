@@ -140,53 +140,34 @@ Partial Public Class FrmMain
     Private Sub ShowHelpContent(topic As String, rtb As RichTextBox)
         rtb.Clear()
 
+        ' Map topic names to markdown file names
+        Dim topicFileName As String = MapTopicToFileName(topic)
+
+        ' Try to load from embedded markdown resource first
+        Dim markdownContent As String = HelpContentManager.LoadHelpTopic(topicFileName)
+
+        ' Format and display the markdown content
+        MarkdownFormatter.FormatMarkdown(rtb, markdownContent)
+    End Sub
+
+    ''' <summary>
+    ''' Maps topic names to markdown file names
+    ''' </summary>
+    Private Function MapTopicToFileName(topic As String) As String
         Select Case topic.ToLower()
             Case "getting_started", "overview"
-                ShowGettingStartedHelp(rtb)
-            Case "interface"
-                ShowInterfaceHelp(rtb)
-            Case "quick_start"
-                ShowQuickStartHelp(rtb)
+                Return "GettingStarted"
             Case "drawers"
-                ShowDrawerCalculatorHelp(rtb)
-            Case "doors"
-                ShowDoorCalculatorHelp(rtb)
-            Case "boardfeet"
-                ShowBoardFeetHelp(rtb)
-            Case "epoxy"
-                ShowEpoxyHelp(rtb)
-            Case "polygon"
-                ShowPolygonHelp(rtb)
-            Case "units"
-                ShowUnitConversionsHelp(rtb)
-            Case "fractions"
-                ShowFractionsHelp(rtb)
-            Case "table_tip"
-                ShowTableTipHelp(rtb)
-            Case "export"
-                ShowExportHelp(rtb)
-            Case "presets"
-                ShowPresetsHelp(rtb)
-            Case "validation"
-                ShowValidationHelp(rtb)
-            Case "themes"
-                ShowThemesHelp(rtb)
-            Case "shortcuts"
-                ShowShortcutsHelp(rtb)
-            Case "best_practices"
-                ShowBestPracticesHelp(rtb)
-            Case "troubleshooting"
-                ShowTroubleshootingHelp(rtb)
-            Case "version"
-                ShowVersionHelp(rtb)
-            Case "updates"
-                ShowUpdatesHelp(rtb)
-            Case "credits"
-                ShowCreditsHelp(rtb)
+                Return "DrawerCalculator"
+            Case "wood_movement"
+                Return "WoodMovement"
+            Case "shelf_sag"
+                Return "ShelfSag"
             Case Else
-                ShowGettingStartedHelp(rtb)
+                ' Default to GettingStarted for unknown topics
+                Return "GettingStarted"
         End Select
-    End Sub
+    End Function
 
 #Region "Help Content Methods"
 

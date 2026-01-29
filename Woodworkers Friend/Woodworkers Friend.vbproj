@@ -23,6 +23,7 @@
 	  <IncludeSymbols>True</IncludeSymbols>
 	  <Company>PAROLE Software</Company>
 	  <Authors>Dennis N Maidon</Authors>
+	  <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -104,6 +105,7 @@
 	  <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
 	  <LastGenOutput>Resources.Designer.vb</LastGenOutput>
 	</EmbeddedResource>
+	<EmbeddedResource Include="Resources\Help\*.md" />
   </ItemGroup>
 
   <ItemGroup>
