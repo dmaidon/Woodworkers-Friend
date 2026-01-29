@@ -18,6 +18,10 @@ Public Class FrmMain
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
+            ' Initialize logging system - must be first
+            ErrorHandler.CleanupOldLogs()  ' Clean up old log files
+            ErrorHandler.LogStartup()      ' Log application startup
+
             ' Show splash screen
             Using splash As New FrmSplash()
                 splash.Opacity = 1
@@ -69,7 +73,9 @@ Public Class FrmMain
         InitializeJoineryCalculator()
         InitializeWoodMovementCalculator()
         InitializeWoodMovementEvents()
+        InitializeShelfSagCalculator()
         InitializeCutListOptimizer()
+        InitializeWoodPropertiesReference()
 
         TmrRotation.Interval = CInt(1000 / 60) ' 60 FPS
         TmrRotation.Start()

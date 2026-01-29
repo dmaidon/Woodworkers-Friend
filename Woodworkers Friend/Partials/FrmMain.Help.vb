@@ -31,19 +31,22 @@ Partial Public Class FrmMain
             ' Create main split container
             Dim mainSplit As New SplitContainer With {
                 .Dock = DockStyle.Fill,
-                .SplitterDistance = 200,
-                .SplitterWidth = 4,
+                .BorderStyle = BorderStyle.Fixed3D,
+                .SplitterWidth = 6,
                 .BackColor = Color.LightGray
             }
 
             ' Create navigation panel (left side)
             CreateHelpNavigation(mainSplit.Panel1)
+            mainSplit.Panel1.Padding = New Padding(5)
+            mainSplit.Panel1.BackColor = Color.FromArgb(250, 250, 250)
 
             ' Create content panel (right side)
             CreateHelpContent(mainSplit.Panel2)
 
-            ' Add split container to help tab
+            ' Add split container to help tab, then set splitter distance
             TpHelp.Controls.Add(mainSplit)
+            mainSplit.SplitterDistance = 250
         Catch ex As Exception
             ErrorHandler.HandleError(ex, "InitializeHelpSystem", showToUser:=True)
         End Try
@@ -61,38 +64,30 @@ Partial Public Class FrmMain
         }
 
         ' Add main categories
-        Dim nodeGettingStarted = treeView.Nodes.Add("getting_started", "?? Getting Started")
-        nodeGettingStarted.Nodes.Add("overview", "Application Overview")
-        nodeGettingStarted.Nodes.Add("interface", "Understanding the Interface")
-        nodeGettingStarted.Nodes.Add("quick_start", "Quick Start Guide")
+        Dim nodeGettingStarted = treeView.Nodes.Add("GettingStarted", "Getting Started")
 
-        Dim nodeCalculators = treeView.Nodes.Add("calculators", "?? Calculators")
-        nodeCalculators.Nodes.Add("drawers", "Drawer Calculator")
+        Dim nodeCalculators = treeView.Nodes.Add("calculators", "Calculators")
+        nodeCalculators.Nodes.Add("DrawerCalculator", "Drawer Calculator")
         nodeCalculators.Nodes.Add("doors", "Door Calculator")
         nodeCalculators.Nodes.Add("boardfeet", "Board Feet Calculator")
         nodeCalculators.Nodes.Add("epoxy", "Epoxy Pour Calculator")
         nodeCalculators.Nodes.Add("polygon", "Polygon Calculator")
 
-        Dim nodeConversions = treeView.Nodes.Add("conversions", "?? Conversions")
+        Dim nodeJoinery = treeView.Nodes.Add("joinery_main", "Joinery & Structure")
+        nodeJoinery.Nodes.Add("joinery", "Joinery Calculator")
+        nodeJoinery.Nodes.Add("WoodMovement", "Wood Movement Calculator")
+        nodeJoinery.Nodes.Add("ShelfSag", "Shelf Sag Calculator")
+
+        Dim nodeOptimization = treeView.Nodes.Add("optimization", "Optimization")
+        nodeOptimization.Nodes.Add("cut_list", "Cut List Optimizer")
+
+        Dim nodeConversions = treeView.Nodes.Add("conversions", "Conversions")
         nodeConversions.Nodes.Add("units", "Unit Conversions")
         nodeConversions.Nodes.Add("fractions", "Fraction to Decimal")
         nodeConversions.Nodes.Add("table_tip", "Table Tipping Force")
 
-        Dim nodeFeatures = treeView.Nodes.Add("features", "? Features")
-        nodeFeatures.Nodes.Add("export", "Exporting Results")
-        nodeFeatures.Nodes.Add("presets", "Using Presets")
-        nodeFeatures.Nodes.Add("validation", "Input Validation")
-        nodeFeatures.Nodes.Add("themes", "Dark/Light Themes")
-
-        Dim nodeTips = treeView.Nodes.Add("tips", "?? Tips & Tricks")
-        nodeTips.Nodes.Add("shortcuts", "Keyboard Shortcuts")
-        nodeTips.Nodes.Add("best_practices", "Best Practices")
-        nodeTips.Nodes.Add("troubleshooting", "Troubleshooting")
-
-        Dim nodeAbout = treeView.Nodes.Add("about", "?? About")
+        Dim nodeAbout = treeView.Nodes.Add("about", "About")
         nodeAbout.Nodes.Add("version", "Version Information")
-        nodeAbout.Nodes.Add("updates", "Recent Updates")
-        nodeAbout.Nodes.Add("credits", "Credits")
 
         ' Expand all top-level nodes
         For Each node As TreeNode In treeView.Nodes
@@ -116,13 +111,14 @@ Partial Public Class FrmMain
             .ReadOnly = True,
             .Name = "rtbHelpContent",
             .BorderStyle = BorderStyle.None,
-            .Padding = New Padding(10)
+            .Padding = New Padding(10),
+            .ShowSelectionMargin = True
         }
 
         panel.Controls.Add(rtbHelp)
 
-        ' Show default content
-        ShowHelpContent("getting_started", rtbHelp)
+        ' Show default content using new resource system
+        ShowHelpContent("GettingStarted", rtbHelp)
     End Sub
 
     ''' <summary>
@@ -138,57 +134,78 @@ Partial Public Class FrmMain
     ''' Displays help content based on selected topic
     ''' </summary>
     Private Sub ShowHelpContent(topic As String, rtb As RichTextBox)
-        rtb.Clear()
+        ' Try to load from Markdown resources first
+        Dim markdownLoaded = HelpContentManager.TryLoadHelpTopic(rtb, topic)
 
-        Select Case topic.ToLower()
-            Case "getting_started", "overview"
-                ShowGettingStartedHelp(rtb)
-            Case "interface"
-                ShowInterfaceHelp(rtb)
-            Case "quick_start"
-                ShowQuickStartHelp(rtb)
-            Case "drawers"
-                ShowDrawerCalculatorHelp(rtb)
-            Case "doors"
-                ShowDoorCalculatorHelp(rtb)
-            Case "boardfeet"
-                ShowBoardFeetHelp(rtb)
-            Case "epoxy"
-                ShowEpoxyHelp(rtb)
-            Case "polygon"
-                ShowPolygonHelp(rtb)
-            Case "units"
-                ShowUnitConversionsHelp(rtb)
-            Case "fractions"
-                ShowFractionsHelp(rtb)
-            Case "table_tip"
-                ShowTableTipHelp(rtb)
-            Case "export"
-                ShowExportHelp(rtb)
-            Case "presets"
-                ShowPresetsHelp(rtb)
-            Case "validation"
-                ShowValidationHelp(rtb)
-            Case "themes"
-                ShowThemesHelp(rtb)
-            Case "shortcuts"
-                ShowShortcutsHelp(rtb)
-            Case "best_practices"
-                ShowBestPracticesHelp(rtb)
-            Case "troubleshooting"
-                ShowTroubleshootingHelp(rtb)
-            Case "version"
-                ShowVersionHelp(rtb)
-            Case "updates"
-                ShowUpdatesHelp(rtb)
-            Case "credits"
-                ShowCreditsHelp(rtb)
-            Case Else
-                ShowGettingStartedHelp(rtb)
-        End Select
+        ' If markdown not found, use fallback methods
+        If Not markdownLoaded Then
+            rtb.Clear()
+
+            Select Case topic
+                Case "GettingStarted"
+                    ShowGettingStartedHelp(rtb)
+                Case "interface"
+                    ShowInterfaceHelp(rtb)
+                Case "quick_start"
+                    ShowQuickStartHelp(rtb)
+                Case "DrawerCalculator"
+                    ShowDrawerCalculatorHelp(rtb)
+                Case "doors"
+                    ShowDoorCalculatorHelp(rtb)
+                Case "boardfeet"
+                    ShowBoardFeetHelp(rtb)
+                Case "epoxy"
+                    ShowEpoxyHelp(rtb)
+                Case "polygon"
+                    ShowPolygonHelp(rtb)
+                Case "units"
+                    ShowUnitConversionsHelp(rtb)
+                Case "fractions"
+                    ShowFractionsHelp(rtb)
+                Case "table_tip"
+                    ShowTableTipHelp(rtb)
+                Case "joinery"
+                    ShowJoineryHelp(rtb)
+                Case "WoodMovement"
+                    ShowWoodMovementHelp(rtb)
+                Case "ShelfSag"
+                    ShowShelfSagHelp(rtb)
+                Case "cut_list"
+                    ShowCutListHelp(rtb)
+                Case "export"
+                    ShowExportHelp(rtb)
+                Case "presets"
+                    ShowPresetsHelp(rtb)
+                Case "validation"
+                    ShowValidationHelp(rtb)
+                Case "themes"
+                    ShowThemesHelp(rtb)
+                Case "shortcuts"
+                    ShowShortcutsHelp(rtb)
+                Case "best_practices"
+                    ShowBestPracticesHelp(rtb)
+                Case "troubleshooting"
+                    ShowTroubleshootingHelp(rtb)
+                Case "version"
+                    ShowVersionHelp(rtb)
+                Case Else
+                    ' Show a default message for unknown topics
+                    ShowUnknownTopicHelp(rtb, topic)
+            End Select
+        End If
     End Sub
 
-#Region "Help Content Methods"
+    ''' <summary>
+    ''' Shows message for unknown help topics
+    ''' </summary>
+    Private Sub ShowUnknownTopicHelp(rtb As RichTextBox, topic As String)
+        AddHelpTitle(rtb, "⚠ Help Topic Not Available", Color.DarkRed)
+        AddHelpText(rtb, $"The help topic '{topic}' is not yet available.")
+        AddHelpNewLine(rtb)
+        AddHelpText(rtb, "Please select a different topic from the navigation tree on the left.")
+    End Sub
+
+#Region "Help Content Methods - DEPRECATED (kept for fallback)"
 
     ''' <summary>
     ''' Shows getting started help
@@ -203,6 +220,9 @@ Partial Public Class FrmMain
         AddHelpBullet(rtb, "Calculate board feet for material estimation")
         AddHelpBullet(rtb, "Determine epoxy pour volumes for river tables and projects")
         AddHelpBullet(rtb, "Calculate polygon dimensions and angles")
+        AddHelpBullet(rtb, "Design mortise & tenon, dovetail, box, and dado joints")
+        AddHelpBullet(rtb, "Predict wood movement and plan for expansion gaps")
+        AddHelpBullet(rtb, "Optimize cut lists to minimize material waste")
         AddHelpBullet(rtb, "Convert between imperial and metric units")
         AddHelpBullet(rtb, "Convert fractions to decimals and vice versa")
 
@@ -231,6 +251,9 @@ Partial Public Class FrmMain
         AddHelpBullet(rtb, "Epoxy Tab - Calculate epoxy pour volumes")
         AddHelpBullet(rtb, "Conversions Tab - Quick unit conversions")
         AddHelpBullet(rtb, "Calculators Tab - Polygon and geometric calculations")
+        AddHelpBullet(rtb, "Joinery Tab - Mortise & tenon, dovetails, box joints, dados")
+        AddHelpBullet(rtb, "Wood Movement Tab - Calculate wood expansion/contraction")
+        AddHelpBullet(rtb, "Cut List Tab - Optimize board cutting patterns")
         AddHelpBullet(rtb, "Drawings Tab - Visual representations of calculations")
         AddHelpBullet(rtb, "Help Tab - This help system")
 
@@ -532,6 +555,268 @@ Partial Public Class FrmMain
         AddHelpBullet(rtb, "Add weight to the base")
         AddHelpBullet(rtb, "Reduce table top overhang")
         AddHelpBullet(rtb, "Consider attaching to wall for very tall pieces")
+    End Sub
+
+    ''' <summary>
+    ''' Shows joinery calculator help
+    ''' </summary>
+    Private Sub ShowJoineryHelp(rtb As RichTextBox)
+        AddHelpTitle(rtb, "?? Joinery Calculator", Color.DarkBlue)
+
+        AddHelpSection(rtb, "Purpose", "Calculate precise dimensions for traditional woodworking joints including mortise & tenon, dovetails, box joints, and dados. Ensures strong, accurate joints every time.", Color.DarkGreen)
+
+        AddHelpSubtitle(rtb, "Available Joint Types", Color.DarkOliveGreen)
+
+        AddHelpMethodBox(rtb, "Mortise & Tenon", "Traditional frame joint - strong and versatile (Standard, Haunched, Through)", Color.FromArgb(230, 230, 250))
+        AddHelpMethodBox(rtb, "Dovetails", "Beautiful, interlocking drawer joint for hardwood and softwood", Color.FromArgb(240, 255, 240))
+        AddHelpMethodBox(rtb, "Box Joints", "Finger joints for boxes - easier than dovetails, very strong", Color.FromArgb(255, 250, 205))
+        AddHelpMethodBox(rtb, "Dado & Groove", "Housed joints for shelves and panels", Color.FromArgb(255, 228, 225))
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Mortise & Tenon", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Input your stock dimensions and the calculator determines:")
+        AddHelpBullet(rtb, "Tenon thickness (typically 1/3 of stock thickness)")
+        AddHelpBullet(rtb, "Tenon length (typically 1"" to 2"")")
+        AddHelpBullet(rtb, "Tenon width (typically 2/3 of stock width)")
+        AddHelpBullet(rtb, "Mortise depth (tenon length + 1/16"")")
+        AddHelpBullet(rtb, "Shoulder offsets for aesthetic balance")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Joint Types", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Standard - Traditional through mortise & tenon")
+        AddHelpBullet(rtb, "Haunched - Top rail with haunch for panel groove")
+        AddHelpBullet(rtb, "Through - Tenon goes through entire mortise (visible)")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Dovetails", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Perfect for drawer fronts and backs. Calculator provides:")
+        AddHelpBullet(rtb, "Dovetail angle (1:6 for softwood, 1:8 for hardwood)")
+        AddHelpBullet(rtb, "Pin width (typically half-pin at corners)")
+        AddHelpBullet(rtb, "Tail width (proportional to pin spacing)")
+        AddHelpBullet(rtb, "Number of tails needed for board width")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Box Joints", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Simple, strong corner joints for boxes and drawers:")
+        AddHelpBullet(rtb, "Pin width matches stock thickness")
+        AddHelpBullet(rtb, "Alternating pins and sockets")
+        AddHelpBullet(rtb, "Perfect for router table jig")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Dados & Grooves", Color.DarkOliveGreen)
+        AddHelpText(rtb, "For shelf housing and panel installations:")
+        AddHelpBullet(rtb, "Dado depth (typically 1/3 to 1/2 of stock thickness)")
+        AddHelpBullet(rtb, "Dado width (matches shelf thickness + slight clearance)")
+        AddHelpBullet(rtb, "Stopped or through dados")
+
+        AddHelpNewLine(rtb)
+        AddHelpNote(rtb, "?? Tip: Visual diagrams show you exactly how to cut each joint!")
+        AddHelpWarning(rtb, "?? Always test joints with scrap wood before cutting your final pieces!")
+    End Sub
+
+    ''' <summary>
+    ''' Shows wood movement calculator help
+    ''' </summary>
+    Private Sub ShowWoodMovementHelp(rtb As RichTextBox)
+        AddHelpTitle(rtb, "?? Wood Movement Calculator", Color.DarkBlue)
+
+        AddHelpSection(rtb, "Purpose", "Predict how much wood will expand or contract with changes in humidity. Critical for avoiding cracked panels, stuck drawers, and failed joints.", Color.DarkGreen)
+
+        AddHelpSubtitle(rtb, "Why Wood Moves", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Wood absorbs and releases moisture with changing humidity. This causes:")
+        AddHelpBullet(rtb, "Width changes (significant across the grain)")
+        AddHelpBullet(rtb, "Minimal length changes (along the grain)")
+        AddHelpBullet(rtb, "Seasonal expansion and contraction cycles")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Calculation Inputs", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Wood Species (50+ species in database)")
+        AddHelpBullet(rtb, "Board Width (inches)")
+        AddHelpBullet(rtb, "Initial Humidity % (where wood is now)")
+        AddHelpBullet(rtb, "Final Humidity % (where it will be)")
+        AddHelpBullet(rtb, "Grain Direction (Tangential/Radial)")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Humidity Presets", Color.DarkOliveGreen)
+        AddHelpMethodBox(rtb, "Indoor Winter", "6-8% RH - Dry heated air", Color.FromArgb(230, 240, 255))
+        AddHelpMethodBox(rtb, "Indoor Summer", "10-12% RH - Higher humidity", Color.FromArgb(255, 250, 230))
+        AddHelpMethodBox(rtb, "Shop Storage", "8-10% RH - Typical workshop", Color.FromArgb(240, 255, 240))
+        AddHelpMethodBox(rtb, "Kiln Dried", "6-8% RH - Fresh from kiln", Color.FromArgb(255, 240, 240))
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Grain Direction", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Movement depends on how the board was cut:")
+        AddHelpBullet(rtb, "Tangential (Flatsawn) - More movement, 2x radial")
+        AddHelpBullet(rtb, "Radial (Quartersawn) - Less movement, more stable")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Results Provided", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Total movement in inches and fractions")
+        AddHelpBullet(rtb, "Direction (expansion or contraction)")
+        AddHelpBullet(rtb, "Recommended panel gaps (min/max)")
+        AddHelpBullet(rtb, "Wood properties (density, movement coefficient)")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Design Guidelines", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Allow 1/16"" gap per 12"" of width for panel doors")
+        AddHelpBullet(rtb, "Use elongated screw holes for table tops")
+        AddHelpBullet(rtb, "Never glue wide boards edge-to-edge across grain")
+        AddHelpBullet(rtb, "Account for movement in all cross-grain joints")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Common Wood Species", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Database includes movement coefficients for:")
+        AddHelpBullet(rtb, "Oak, Maple, Cherry, Walnut (common hardwoods)")
+        AddHelpBullet(rtb, "Pine, Cedar, Fir (common softwoods)")
+        AddHelpBullet(rtb, "Mahogany, Teak (exotic hardwoods)")
+        AddHelpBullet(rtb, "And 40+ more species")
+
+        AddHelpNewLine(rtb)
+        AddHelpWarning(rtb, "?? CRITICAL: Failure to account for wood movement is the #1 cause of failed projects!")
+        AddHelpNote(rtb, "?? Tip: Always use quartersawn lumber for the most stable projects!")
+    End Sub
+
+    ''' <summary>
+    ''' Shows shelf sag calculator help
+    ''' </summary>
+    Private Sub ShowShelfSagHelp(rtb As RichTextBox)
+        AddHelpTitle(rtb, "?? Shelf Sag Calculator", Color.DarkBlue)
+
+        AddHelpSection(rtb, "Purpose", "Calculate shelf deflection (sag) and load capacity to design safe, sturdy shelves. Accounts for material properties, dimensions, and optional edge stiffeners.", Color.DarkGreen)
+
+        AddHelpSubtitle(rtb, "Why This Matters", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Shelves that sag too much are:")
+        AddHelpBullet(rtb, "Aesthetically unpleasing - visible droop looks unprofessional")
+        AddHelpBullet(rtb, "Functionally poor - items slide to center, doors don't close")
+        AddHelpBullet(rtb, "Potentially unsafe - risk of failure under heavy loads")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Industry Standard", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Maximum acceptable sag is 1/360 of span")
+        AddHelpText(rtb, "Example: For a 36"" shelf, maximum sag = 0.10""")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Shelf Material Options", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Choose from 14 material types with different stiffness:")
+        AddHelpBullet(rtb, "Engineered: Plywood, MDF, Particleboard, Melamine, OSB")
+        AddHelpBullet(rtb, "Softwoods: SYP, White Pine")
+        AddHelpBullet(rtb, "Hardwoods: Oak, Maple, Walnut, Cherry, Mahogany")
+        AddHelpBullet(rtb, "Other: Bamboo")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Key Inputs", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Span - Distance between supports (typical: 36"")")
+        AddHelpBullet(rtb, "Thickness - Shelf material thickness (typical: 0.75"")")
+        AddHelpBullet(rtb, "Width - Shelf depth front to back (typical: 10-12"")")
+        AddHelpBullet(rtb, "Load - Total weight on shelf (lbs)")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Edge Stiffeners", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Add stiffeners to reduce sag:")
+        AddHelpBullet(rtb, "Front edge band - solid wood strip glued to front edge")
+        AddHelpBullet(rtb, "Back edge band - additional support at rear")
+        AddHelpBullet(rtb, "Significantly increases stiffness without changing shelf thickness")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Results Provided", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Deflection (sag) in inches")
+        AddHelpBullet(rtb, "Deflection as fraction of span")
+        AddHelpBullet(rtb, "Pass/Fail vs. 1/360 standard")
+        AddHelpBullet(rtb, "Safe load capacity")
+        AddHelpBullet(rtb, "Improvement with stiffeners")
+
+        AddHelpNewLine(rtb)
+        AddHelpWarning(rtb, "?? Always test shelves with actual weight before use!")
+        AddHelpNote(rtb, "?? Tip: Doubling thickness increases stiffness by 8x!")
+    End Sub
+
+    ''' <summary>
+    ''' Shows cut list optimizer help
+    ''' </summary>
+    Private Sub ShowCutListHelp(rtb As RichTextBox)
+        AddHelpTitle(rtb, "?? Cut List Optimizer", Color.DarkBlue)
+
+        AddHelpSection(rtb, "Purpose", "Optimize how you cut parts from sheet goods or boards to minimize waste and save money. Generates cutting diagrams showing exactly where to make each cut.", Color.DarkGreen)
+
+        AddHelpSubtitle(rtb, "How It Works", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Enter all the pieces you need, and the optimizer:")
+        AddHelpBullet(rtb, "Arranges pieces to minimize waste")
+        AddHelpBullet(rtb, "Accounts for saw kerf (blade width)")
+        AddHelpBullet(rtb, "Calculates total boards needed")
+        AddHelpBullet(rtb, "Shows material cost")
+        AddHelpBullet(rtb, "Displays cutting patterns visually")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Adding Pieces", Color.DarkOliveGreen)
+        AddHelpNumbered(rtb, 1, "Enter a label/name for each piece (e.g., ""Shelf A"")")
+        AddHelpNumbered(rtb, 2, "Enter length in inches")
+        AddHelpNumbered(rtb, 3, "Enter width in inches")
+        AddHelpNumbered(rtb, 4, "Enter quantity needed")
+        AddHelpNumbered(rtb, 5, "Click 'Add Row' for additional pieces")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Stock Board Selection", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Choose from standard sheet sizes:")
+        AddHelpBullet(rtb, "4×8 Sheet (48"" × 96"") - Standard plywood")
+        AddHelpBullet(rtb, "4×4 Sheet (48"" × 48"") - Half sheet")
+        AddHelpBullet(rtb, "4×10 Sheet (48"" × 120"") - Oversized")
+        AddHelpBullet(rtb, "2×4 Board (24"" × 96"") - Common lumber")
+        AddHelpBullet(rtb, "Custom sizes supported")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Kerf Width", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Set your saw blade width (kerf) for accurate calculations:")
+        AddHelpBullet(rtb, "Table saw: 1/8"" (0.125"")")
+        AddHelpBullet(rtb, "Circular saw: 3/32"" to 1/8""")
+        AddHelpBullet(rtb, "Track saw: 1/16"" to 3/32""")
+        AddHelpBullet(rtb, "Hand saw: 1/16"" to 1/8""")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Optimization Results", Color.DarkOliveGreen)
+        AddHelpText(rtb, "After clicking 'Optimize', you'll see:")
+        AddHelpBullet(rtb, "Boards Needed - Total sheets/boards required")
+        AddHelpBullet(rtb, "Total Cost - Based on board price")
+        AddHelpBullet(rtb, "Waste % - Percentage of material wasted")
+        AddHelpBullet(rtb, "Efficiency % - How well pieces were packed")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Cutting Diagram", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Visual representation shows:")
+        AddHelpBullet(rtb, "Exact position of each piece on the board")
+        AddHelpBullet(rtb, "Color-coded pieces for easy identification")
+        AddHelpBullet(rtb, "Piece labels matching your cut list")
+        AddHelpBullet(rtb, "Kerf spacing between pieces")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Multiple Boards", Color.DarkOliveGreen)
+        AddHelpText(rtb, "If pieces don't fit on one board:")
+        AddHelpBullet(rtb, "Use 'Next' and 'Previous' buttons to view each board")
+        AddHelpBullet(rtb, "Each pattern shows which pieces go on that board")
+        AddHelpBullet(rtb, "Pattern counter shows current/total boards")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Exporting Cut Lists", Color.DarkOliveGreen)
+        AddHelpText(rtb, "Export your optimized cut list to:")
+        AddHelpBullet(rtb, "CSV - Open in Excel or print")
+        AddHelpBullet(rtb, "Text - Simple format for shop reference")
+        AddHelpBullet(rtb, "HTML - Share with clients or post online")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Optimization Tips", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "Group pieces by material thickness")
+        AddHelpBullet(rtb, "Consider grain direction for visible pieces")
+        AddHelpBullet(rtb, "Add 1-2 extra pieces for mistakes")
+        AddHelpBullet(rtb, "Label pieces clearly for shop efficiency")
+
+        AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Limitations", Color.DarkOliveGreen)
+        AddHelpWarning(rtb, "?? Optimizer uses simple shelf packing - does not guarantee absolute minimum waste")
+        AddHelpText(rtb, "For complex projects with many pieces, manual adjustment may improve efficiency.")
+        AddHelpText(rtb, "Pieces larger than selected board will be flagged as unable to fit.")
+
+        AddHelpNewLine(rtb)
+        AddHelpNote(rtb, "?? Tip: Print cutting diagrams and tape them to your boards in the shop!")
+        AddHelpNote(rtb, "?? Tip: Account for planer/jointer passes when calculating piece sizes!")
     End Sub
 
     ''' <summary>
@@ -922,13 +1207,18 @@ Partial Public Class FrmMain
         AddHelpBullet(rtb, "Improved startup time")
 
         AddHelpNewLine(rtb)
+        AddHelpSubtitle(rtb, "Recently Added Features", Color.DarkOliveGreen)
+        AddHelpBullet(rtb, "?? Joinery Calculator - Mortise & tenon, dovetails, box joints, dados")
+        AddHelpBullet(rtb, "?? Wood Movement Calculator - Predict wood expansion/contraction")
+        AddHelpBullet(rtb, "?? Cut List Optimizer - Minimize waste with smart cutting patterns")
+
+        AddHelpNewLine(rtb)
         AddHelpSubtitle(rtb, "Coming Soon", Color.DarkOliveGreen)
         AddHelpBullet(rtb, "?? Undo/Redo UI implementation")
         AddHelpBullet(rtb, "?? Project save/load functionality")
         AddHelpBullet(rtb, "?? PDF export")
         AddHelpBullet(rtb, "?? More calculation presets")
         AddHelpBullet(rtb, "?? Cloud sync (optional)")
-        AddHelpBullet(rtb, "?? Cut list generator")
         AddHelpBullet(rtb, "?? Material cost calculator")
 
         AddHelpNewLine(rtb)

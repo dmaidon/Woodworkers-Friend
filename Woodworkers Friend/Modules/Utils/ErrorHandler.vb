@@ -1,7 +1,7 @@
 ' ============================================================================
-' Last Updated: January 27, 2026
-' Changes: Initial creation - Centralized error handling and logging system
-'          with file-based logging, user notifications, and warning support
+' Last Updated: January 29, 2026
+' Changes: Updated log file format to MMMd (e.g., Jan29), added startup logging,
+'          and automatic cleanup of log files older than 10 days
 ' ============================================================================
 
 Imports System.IO
@@ -11,7 +11,8 @@ Imports System.IO
 ''' </summary>
 Public Class ErrorHandler
 
-    Private Shared ReadOnly _logFilePath As String = Path.Combine(LogDir, $"errors_{DateTime.Now:yyyy-MM-dd}.log")
+    Private Shared ReadOnly _logFilePath As String = Path.Combine(LogDir, $"errors_{DateTime.Now:MMMd}.log")
+    Private Const MaxLogAgeInDays As Integer = 10
 
     ''' <summary>
     ''' Handles an exception with optional user notification
@@ -88,5 +89,77 @@ Public Class ErrorHandler
             ' Silently fail if warning logging fails
         End Try
     End Sub
+
+    ''' <summary>
+    ''' Logs application startup to the current log file
+    ''' </summary>
+    Public Shared Sub LogStartup()
+        Try
+            ' Ensure log directory exists
+            Dim logDir As String = Path.GetDirectoryName(_logFilePath)
+            If Not Directory.Exists(logDir) Then
+                Directory.CreateDirectory(logDir)
+            End If
+
+            ' Create startup log entry
+            Dim logEntry As String = $"Log Started: {DateTime.Now:yyyy-MM-dd HH:mm:ss}{Environment.NewLine}"
+            File.AppendAllText(_logFilePath, logEntry)
+        Catch
+            ' Silently fail if startup logging fails
+            Debug.WriteLine("Failed to log application startup")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Cleans up log files older than the specified number of days
+    ''' </summary>
+    Public Shared Sub CleanupOldLogs()
+        Try
+            ' Ensure log directory exists
+            If Not Directory.Exists(LogDir) Then
+                Return
+            End If
+
+            ' Get all log files in the log directory
+            Dim logFiles As String() = Directory.GetFiles(LogDir, "errors_*.log")
+
+            ' Calculate cutoff date
+            Dim cutoffDate As DateTime = DateTime.Now.AddDays(-MaxLogAgeInDays)
+
+            ' Delete old log files
+            Dim deletedCount As Integer = 0
+            For Each logFile As String In logFiles
+                Dim fileInfo As New FileInfo(logFile)
+
+                ' Delete if file is older than cutoff date
+                If fileInfo.LastWriteTime < cutoffDate Then
+                    Try
+                        File.Delete(logFile)
+                        deletedCount += 1
+                    Catch deleteEx As Exception
+                        ' Continue if we can't delete a specific file
+                        Debug.WriteLine($"Could not delete log file {fileInfo.Name}: {deleteEx.Message}")
+                    End Try
+                End If
+            Next
+
+            ' Log cleanup activity if any files were deleted
+            If deletedCount > 0 Then
+                LogWarning("LogCleanup", $"Deleted {deletedCount} log file(s) older than {MaxLogAgeInDays} days")
+            End If
+        Catch ex As Exception
+            ' Silently fail if cleanup fails
+            Debug.WriteLine($"Failed to cleanup old logs: {ex.Message}")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Gets the current log file path
+    ''' </summary>
+    Public Shared ReadOnly Property CurrentLogFilePath As String
+        Get
+            Return _logFilePath
+        End Get
+    End Property
 
 End Class

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<OutputType>WinExe</OutputType>
@@ -9,8 +9,8 @@
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.1.28.344</AssemblyVersion>
-	<FileVersion>26.1.28.344</FileVersion>
+	<AssemblyVersion>26.1.29.420</AssemblyVersion>
+	<FileVersion>26.1.29.420</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
@@ -108,6 +108,10 @@
 
   <ItemGroup>
     <EditorConfigFiles Remove="C:\VB18\WwFriend\Woodworkers Friend\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\*.md" />
   </ItemGroup>
 
 </Project>

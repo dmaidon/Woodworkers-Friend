@@ -17,6 +17,19 @@ Partial Class FrmMain
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
+    ' Context menu for RtbLog
+    Friend WithEvents CmsLog As ContextMenuStrip
+    Friend WithEvents CmsLogSelectAll As ToolStripMenuItem
+    Friend WithEvents CmsLogCopy As ToolStripMenuItem
+    Friend WithEvents CmsLogCopyAll As ToolStripMenuItem
+    Friend WithEvents CmsLogSeparator1 As ToolStripSeparator
+    Friend WithEvents CmsLogFind As ToolStripMenuItem
+    Friend WithEvents CmsLogSeparator2 As ToolStripSeparator
+    Friend WithEvents CmsLogClear As ToolStripMenuItem
+    Friend WithEvents CmsLogRefresh As ToolStripMenuItem
+    Friend WithEvents CmsLogSeparator3 As ToolStripSeparator
+    Friend WithEvents CmsLogSaveAs As ToolStripMenuItem
+
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
@@ -27,6 +40,17 @@ Partial Class FrmMain
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
+        CmsLog = New ContextMenuStrip(components)
+        CmsLogSelectAll = New ToolStripMenuItem()
+        CmsLogCopy = New ToolStripMenuItem()
+        CmsLogCopyAll = New ToolStripMenuItem()
+        CmsLogSeparator1 = New ToolStripSeparator()
+        CmsLogFind = New ToolStripMenuItem()
+        CmsLogSeparator2 = New ToolStripSeparator()
+        CmsLogClear = New ToolStripMenuItem()
+        CmsLogRefresh = New ToolStripMenuItem()
+        CmsLogSeparator3 = New ToolStripSeparator()
+        CmsLogSaveAs = New ToolStripMenuItem()
         Ss1 = New StatusStrip()
         TsslVersion = New ToolStripStatusLabel()
         TsslCpy = New ToolStripStatusLabel()
@@ -331,7 +355,22 @@ Partial Class FrmMain
         LblBoxJointPinWidth = New Label()
         LblBoxJointCount = New Label()
         TpWoodMovement = New TabPage()
-        ScWoodMovement = New SplitContainer()
+        TcWoodMovement = New TabControl()
+        TpWmWoodMovement = New TabPage()
+        GbxWoodMovementResults = New GroupBox()
+        LblMovementResult = New Label()
+        LblMovementDirection = New Label()
+        LblMovementFraction = New Label()
+        GbxPanelGaps = New GroupBox()
+        LblPanelGapMin = New Label()
+        LblPanelGapMax = New Label()
+        BtnCalculateMovement = New Button()
+        GbxGrainDirection = New GroupBox()
+        RbTangential = New RadioButton()
+        RbRadial = New RadioButton()
+        GbxWoodProperties = New GroupBox()
+        LblWoodDensity = New Label()
+        LblWoodType = New Label()
         GbxWoodMovementInput = New GroupBox()
         LblWoodSpecies = New Label()
         CmbWoodSpecies = New ComboBox()
@@ -343,20 +382,53 @@ Partial Class FrmMain
         TxtFinalHumidity = New TextBox()
         LblHumidityPreset = New Label()
         CmbHumidityPreset = New ComboBox()
-        GbxGrainDirection = New GroupBox()
-        RbTangential = New RadioButton()
-        RbRadial = New RadioButton()
-        BtnCalculateMovement = New Button()
-        GbxWoodMovementResults = New GroupBox()
-        LblMovementResult = New Label()
-        LblMovementDirection = New Label()
-        LblMovementFraction = New Label()
-        GbxPanelGaps = New GroupBox()
-        LblPanelGapMin = New Label()
-        LblPanelGapMax = New Label()
-        GbxWoodProperties = New GroupBox()
-        LblWoodDensity = New Label()
-        LblWoodType = New Label()
+        TpWmShelfSag = New TabPage()
+        GbShelfSupportType = New GroupBox()
+        LblPinWidthUnits = New Label()
+        TxtPinWidth = New TextBox()
+        LblPinWidth = New Label()
+        RbSupportPin = New RadioButton()
+        LblBracketWidthUnits = New Label()
+        TxtshelfBracketWidth = New TextBox()
+        LblShelfBracketWidth = New Label()
+        LblSupportTypeInfo = New Label()
+        LblDadoDepthUnit = New Label()
+        TxtDadoDepth1 = New TextBox()
+        LblDadoDepth1 = New Label()
+        RbSupportDado = New RadioButton()
+        RbSupportBracket = New RadioButton()
+        GbxShelfSagInput = New GroupBox()
+        GbxStiffener = New GroupBox()
+        TxtStiffenerThickness = New TextBox()
+        TxtStiffenerheight = New TextBox()
+        CmbStiffenerMaterial = New ComboBox()
+        LblStiffenerMaterial = New Label()
+        LblStiffenerThickness = New Label()
+        LblStiffenerHeight = New Label()
+        ChkBackStiffener = New CheckBox()
+        ChkFrontStiffener = New CheckBox()
+        TxtShelfLoad = New TextBox()
+        LblShelfLoad = New Label()
+        TxtShelfWidth = New TextBox()
+        LblShelfWidth = New Label()
+        TxtShelfThickness = New TextBox()
+        LblShelfThickness = New Label()
+        TxtShelfSpan = New TextBox()
+        LblShelfSpan = New Label()
+        CmbShelfMaterial = New ComboBox()
+        LblShelfMaterial = New Label()
+        BtnCalculateShelf = New Button()
+        GbxShelfSagResults = New GroupBox()
+        PbShelfDiagram = New PictureBox()
+        LblShelfRecommendations = New Label()
+        LblShelfWarning = New Label()
+        LblShelfMaterialInfo = New Label()
+        LblShelfMaxSpan = New Label()
+        LblShelfSafetyStatus = New Label()
+        LblShelfMaxLoad = New Label()
+        LblShelfSafeLoad = New Label()
+        LblShelfSagFraction = New Label()
+        LblShelfSagInches = New Label()
         TpCutList = New TabPage()
         ScCutList = New SplitContainer()
         GbxCutListInput = New GroupBox()
@@ -382,7 +454,32 @@ Partial Class FrmMain
         BtnPrevPattern = New Button()
         LblPatternInfo = New Label()
         BtnNextPattern = New Button()
+        TpReferences = New TabPage()
+        TcReferences = New TabControl()
+        TpWoodProperties = New TabPage()
+        PnlWoodDetails = New Panel()
+        BtnPrintWoodData = New Button()
+        BtnExportWoodData = New Button()
+        BtnCompareWoods = New Button()
+        RtbWoodDetails = New RichTextBox()
+        LblWoodDetailsHeader = New Label()
+        PnlWoodProperties = New Panel()
+        LblWoodSearch = New Label()
+        BtnWoodClearSearch = New Button()
+        TxtWoodSearch = New TextBox()
+        RbWoodSoftwoods = New RadioButton()
+        RbWoodHardwoods = New RadioButton()
+        RbWoodAll = New RadioButton()
+        LblWoodPropertiesReference = New Label()
+        DgvWoodProperties = New DataGridView()
+        TabPage2 = New TabPage()
         TpHelp = New TabPage()
+        TpAbout = New TabPage()
+        GbxAbout = New GroupBox()
+        TxtAppAbout = New TextBox()
+        LbLogFiles = New ListBox()
+        LblClickLoadLogFile = New Label()
+        RtbLog = New RichTextBox()
         Label55 = New Label()
         Label56 = New Label()
         Label60 = New Label()
@@ -394,6 +491,7 @@ Partial Class FrmMain
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
         TmrClock = New Timer(components)
+        CmsLog.SuspendLayout()
         Ss1.SuspendLayout()
         Ss3.SuspendLayout()
         Tc.SuspendLayout()
@@ -461,15 +559,19 @@ Partial Class FrmMain
         GbxDadoResults.SuspendLayout()
         GbxBoxJointResults.SuspendLayout()
         TpWoodMovement.SuspendLayout()
-        CType(ScWoodMovement, ComponentModel.ISupportInitialize).BeginInit()
-        ScWoodMovement.Panel1.SuspendLayout()
-        ScWoodMovement.Panel2.SuspendLayout()
-        ScWoodMovement.SuspendLayout()
-        GbxWoodMovementInput.SuspendLayout()
-        GbxGrainDirection.SuspendLayout()
+        TcWoodMovement.SuspendLayout()
+        TpWmWoodMovement.SuspendLayout()
         GbxWoodMovementResults.SuspendLayout()
         GbxPanelGaps.SuspendLayout()
+        GbxGrainDirection.SuspendLayout()
         GbxWoodProperties.SuspendLayout()
+        GbxWoodMovementInput.SuspendLayout()
+        TpWmShelfSag.SuspendLayout()
+        GbShelfSupportType.SuspendLayout()
+        GbxShelfSagInput.SuspendLayout()
+        GbxStiffener.SuspendLayout()
+        GbxShelfSagResults.SuspendLayout()
+        CType(PbShelfDiagram, ComponentModel.ISupportInitialize).BeginInit()
         TpCutList.SuspendLayout()
         CType(ScCutList, ComponentModel.ISupportInitialize).BeginInit()
         ScCutList.Panel1.SuspendLayout()
@@ -483,7 +585,83 @@ Partial Class FrmMain
         GbCuttingDiagram.SuspendLayout()
         CType(PbCuttingDiagram, ComponentModel.ISupportInitialize).BeginInit()
         PnlDiagramNav.SuspendLayout()
+        TpReferences.SuspendLayout()
+        TcReferences.SuspendLayout()
+        TpWoodProperties.SuspendLayout()
+        PnlWoodDetails.SuspendLayout()
+        PnlWoodProperties.SuspendLayout()
+        CType(DgvWoodProperties, ComponentModel.ISupportInitialize).BeginInit()
+        TpAbout.SuspendLayout()
+        GbxAbout.SuspendLayout()
         SuspendLayout()
+        ' 
+        ' CmsLog
+        ' 
+        CmsLog.ImageScalingSize = New Size(24, 24)
+        CmsLog.Items.AddRange(New ToolStripItem() {CmsLogSelectAll, CmsLogCopy, CmsLogCopyAll, CmsLogSeparator1, CmsLogFind, CmsLogSeparator2, CmsLogClear, CmsLogRefresh, CmsLogSeparator3, CmsLogSaveAs})
+        CmsLog.Name = "CmsLog"
+        CmsLog.Size = New Size(219, 246)
+        ' 
+        ' CmsLogSelectAll
+        ' 
+        CmsLogSelectAll.Name = "CmsLogSelectAll"
+        CmsLogSelectAll.ShortcutKeys = Keys.Control Or Keys.A
+        CmsLogSelectAll.Size = New Size(218, 32)
+        CmsLogSelectAll.Text = "Select &All"
+        ' 
+        ' CmsLogCopy
+        ' 
+        CmsLogCopy.Name = "CmsLogCopy"
+        CmsLogCopy.ShortcutKeys = Keys.Control Or Keys.C
+        CmsLogCopy.Size = New Size(218, 32)
+        CmsLogCopy.Text = "&Copy"
+        ' 
+        ' CmsLogCopyAll
+        ' 
+        CmsLogCopyAll.Name = "CmsLogCopyAll"
+        CmsLogCopyAll.Size = New Size(218, 32)
+        CmsLogCopyAll.Text = "Copy A&ll"
+        ' 
+        ' CmsLogSeparator1
+        ' 
+        CmsLogSeparator1.Name = "CmsLogSeparator1"
+        CmsLogSeparator1.Size = New Size(215, 6)
+        ' 
+        ' CmsLogFind
+        ' 
+        CmsLogFind.Name = "CmsLogFind"
+        CmsLogFind.ShortcutKeys = Keys.Control Or Keys.F
+        CmsLogFind.Size = New Size(218, 32)
+        CmsLogFind.Text = "&Find..."
+        ' 
+        ' CmsLogSeparator2
+        ' 
+        CmsLogSeparator2.Name = "CmsLogSeparator2"
+        CmsLogSeparator2.Size = New Size(215, 6)
+        ' 
+        ' CmsLogClear
+        ' 
+        CmsLogClear.Name = "CmsLogClear"
+        CmsLogClear.Size = New Size(218, 32)
+        CmsLogClear.Text = "C&lear"
+        ' 
+        ' CmsLogRefresh
+        ' 
+        CmsLogRefresh.Name = "CmsLogRefresh"
+        CmsLogRefresh.ShortcutKeys = Keys.F5
+        CmsLogRefresh.Size = New Size(218, 32)
+        CmsLogRefresh.Text = "&Refresh"
+        ' 
+        ' CmsLogSeparator3
+        ' 
+        CmsLogSeparator3.Name = "CmsLogSeparator3"
+        CmsLogSeparator3.Size = New Size(215, 6)
+        ' 
+        ' CmsLogSaveAs
+        ' 
+        CmsLogSaveAs.Name = "CmsLogSaveAs"
+        CmsLogSaveAs.Size = New Size(218, 32)
+        CmsLogSaveAs.Text = "&Save As..."
         ' 
         ' Ss1
         ' 
@@ -598,7 +776,9 @@ Partial Class FrmMain
         Tc.Controls.Add(TpJoinery)
         Tc.Controls.Add(TpWoodMovement)
         Tc.Controls.Add(TpCutList)
+        Tc.Controls.Add(TpReferences)
         Tc.Controls.Add(TpHelp)
+        Tc.Controls.Add(TpAbout)
         Tc.Dock = DockStyle.Top
         Tc.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Tc.Location = New Point(0, 0)
@@ -3794,34 +3974,185 @@ Partial Class FrmMain
         ' 
         TpWoodMovement.BackColor = Color.Gainsboro
         TpWoodMovement.BorderStyle = BorderStyle.Fixed3D
-        TpWoodMovement.Controls.Add(ScWoodMovement)
+        TpWoodMovement.Controls.Add(TcWoodMovement)
         TpWoodMovement.Location = New Point(4, 27)
         TpWoodMovement.Name = "TpWoodMovement"
         TpWoodMovement.Size = New Size(1170, 823)
         TpWoodMovement.TabIndex = 9
         TpWoodMovement.Text = "Wood Movement"
         ' 
-        ' ScWoodMovement
+        ' TcWoodMovement
         ' 
-        ScWoodMovement.Dock = DockStyle.Fill
-        ScWoodMovement.Location = New Point(0, 0)
-        ScWoodMovement.Name = "ScWoodMovement"
+        TcWoodMovement.Alignment = TabAlignment.Right
+        TcWoodMovement.Controls.Add(TpWmWoodMovement)
+        TcWoodMovement.Controls.Add(TpWmShelfSag)
+        TcWoodMovement.Dock = DockStyle.Fill
+        TcWoodMovement.Location = New Point(0, 0)
+        TcWoodMovement.Multiline = True
+        TcWoodMovement.Name = "TcWoodMovement"
+        TcWoodMovement.SelectedIndex = 0
+        TcWoodMovement.Size = New Size(1166, 819)
+        TcWoodMovement.TabIndex = 1
         ' 
-        ' ScWoodMovement.Panel1
+        ' TpWmWoodMovement
         ' 
-        ScWoodMovement.Panel1.Controls.Add(GbxWoodMovementInput)
-        ScWoodMovement.Panel1.Controls.Add(GbxGrainDirection)
-        ScWoodMovement.Panel1.Controls.Add(BtnCalculateMovement)
+        TpWmWoodMovement.BackColor = Color.Gainsboro
+        TpWmWoodMovement.BorderStyle = BorderStyle.Fixed3D
+        TpWmWoodMovement.Controls.Add(GbxWoodMovementResults)
+        TpWmWoodMovement.Controls.Add(GbxPanelGaps)
+        TpWmWoodMovement.Controls.Add(BtnCalculateMovement)
+        TpWmWoodMovement.Controls.Add(GbxGrainDirection)
+        TpWmWoodMovement.Controls.Add(GbxWoodProperties)
+        TpWmWoodMovement.Controls.Add(GbxWoodMovementInput)
+        TpWmWoodMovement.Location = New Point(4, 4)
+        TpWmWoodMovement.Name = "TpWmWoodMovement"
+        TpWmWoodMovement.Padding = New Padding(3)
+        TpWmWoodMovement.Size = New Size(1134, 811)
+        TpWmWoodMovement.TabIndex = 0
+        TpWmWoodMovement.Text = "Wood Movement"
         ' 
-        ' ScWoodMovement.Panel2
+        ' GbxWoodMovementResults
         ' 
-        ScWoodMovement.Panel2.Controls.Add(GbxWoodMovementResults)
-        ScWoodMovement.Panel2.Controls.Add(GbxPanelGaps)
-        ScWoodMovement.Panel2.Controls.Add(GbxWoodProperties)
-        ScWoodMovement.Size = New Size(1166, 819)
-        ScWoodMovement.SplitterDistance = 468
-        ScWoodMovement.SplitterWidth = 8
-        ScWoodMovement.TabIndex = 0
+        GbxWoodMovementResults.BackColor = Color.WhiteSmoke
+        GbxWoodMovementResults.Controls.Add(LblMovementResult)
+        GbxWoodMovementResults.Controls.Add(LblMovementDirection)
+        GbxWoodMovementResults.Controls.Add(LblMovementFraction)
+        GbxWoodMovementResults.Location = New Point(542, 17)
+        GbxWoodMovementResults.Name = "GbxWoodMovementResults"
+        GbxWoodMovementResults.Size = New Size(434, 150)
+        GbxWoodMovementResults.TabIndex = 0
+        GbxWoodMovementResults.TabStop = False
+        GbxWoodMovementResults.Text = "Movement Results"
+        ' 
+        ' LblMovementResult
+        ' 
+        LblMovementResult.AutoSize = True
+        LblMovementResult.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        LblMovementResult.Location = New Point(15, 30)
+        LblMovementResult.Name = "LblMovementResult"
+        LblMovementResult.Size = New Size(141, 28)
+        LblMovementResult.TabIndex = 0
+        LblMovementResult.Text = "Movement: --"
+        ' 
+        ' LblMovementDirection
+        ' 
+        LblMovementDirection.AutoSize = True
+        LblMovementDirection.Location = New Point(15, 73)
+        LblMovementDirection.Name = "LblMovementDirection"
+        LblMovementDirection.Size = New Size(110, 18)
+        LblMovementDirection.TabIndex = 1
+        LblMovementDirection.Text = "Direction: --"
+        ' 
+        ' LblMovementFraction
+        ' 
+        LblMovementFraction.AutoSize = True
+        LblMovementFraction.Location = New Point(15, 106)
+        LblMovementFraction.Name = "LblMovementFraction"
+        LblMovementFraction.Size = New Size(128, 18)
+        LblMovementFraction.TabIndex = 2
+        LblMovementFraction.Text = "As Fraction: --"
+        ' 
+        ' GbxPanelGaps
+        ' 
+        GbxPanelGaps.BackColor = Color.WhiteSmoke
+        GbxPanelGaps.Controls.Add(LblPanelGapMin)
+        GbxPanelGaps.Controls.Add(LblPanelGapMax)
+        GbxPanelGaps.Location = New Point(542, 177)
+        GbxPanelGaps.Name = "GbxPanelGaps"
+        GbxPanelGaps.Size = New Size(434, 100)
+        GbxPanelGaps.TabIndex = 1
+        GbxPanelGaps.TabStop = False
+        GbxPanelGaps.Text = "Recommended Panel Gaps"
+        ' 
+        ' LblPanelGapMin
+        ' 
+        LblPanelGapMin.AutoSize = True
+        LblPanelGapMin.Location = New Point(15, 30)
+        LblPanelGapMin.Name = "LblPanelGapMin"
+        LblPanelGapMin.Size = New Size(151, 18)
+        LblPanelGapMin.TabIndex = 0
+        LblPanelGapMin.Text = "Minimum Gap: --"
+        ' 
+        ' LblPanelGapMax
+        ' 
+        LblPanelGapMax.AutoSize = True
+        LblPanelGapMax.Location = New Point(15, 60)
+        LblPanelGapMax.Name = "LblPanelGapMax"
+        LblPanelGapMax.Size = New Size(154, 18)
+        LblPanelGapMax.TabIndex = 1
+        LblPanelGapMax.Text = "Maximum Gap: --"
+        ' 
+        ' BtnCalculateMovement
+        ' 
+        BtnCalculateMovement.BackColor = Color.MistyRose
+        BtnCalculateMovement.Location = New Point(794, 514)
+        BtnCalculateMovement.Name = "BtnCalculateMovement"
+        BtnCalculateMovement.Size = New Size(208, 40)
+        BtnCalculateMovement.TabIndex = 11
+        BtnCalculateMovement.Text = "Calculate Movement"
+        BtnCalculateMovement.UseVisualStyleBackColor = False
+        ' 
+        ' GbxGrainDirection
+        ' 
+        GbxGrainDirection.BackColor = Color.Silver
+        GbxGrainDirection.Controls.Add(RbTangential)
+        GbxGrainDirection.Controls.Add(RbRadial)
+        GbxGrainDirection.Location = New Point(6, 337)
+        GbxGrainDirection.Name = "GbxGrainDirection"
+        GbxGrainDirection.Size = New Size(425, 100)
+        GbxGrainDirection.TabIndex = 10
+        GbxGrainDirection.TabStop = False
+        GbxGrainDirection.Text = "Grain Direction"
+        ' 
+        ' RbTangential
+        ' 
+        RbTangential.AutoSize = True
+        RbTangential.Checked = True
+        RbTangential.Location = New Point(15, 25)
+        RbTangential.Name = "RbTangential"
+        RbTangential.Size = New Size(226, 22)
+        RbTangential.TabIndex = 0
+        RbTangential.TabStop = True
+        RbTangential.Text = "Tangential (Flat Sawn)"
+        ' 
+        ' RbRadial
+        ' 
+        RbRadial.AutoSize = True
+        RbRadial.Location = New Point(15, 58)
+        RbRadial.Name = "RbRadial"
+        RbRadial.Size = New Size(222, 22)
+        RbRadial.TabIndex = 1
+        RbRadial.Text = "Radial (Quarter Sawn)"
+        ' 
+        ' GbxWoodProperties
+        ' 
+        GbxWoodProperties.BackColor = Color.WhiteSmoke
+        GbxWoodProperties.Controls.Add(LblWoodDensity)
+        GbxWoodProperties.Controls.Add(LblWoodType)
+        GbxWoodProperties.Location = New Point(542, 287)
+        GbxWoodProperties.Name = "GbxWoodProperties"
+        GbxWoodProperties.Size = New Size(434, 100)
+        GbxWoodProperties.TabIndex = 2
+        GbxWoodProperties.TabStop = False
+        GbxWoodProperties.Text = "Wood Properties"
+        ' 
+        ' LblWoodDensity
+        ' 
+        LblWoodDensity.AutoSize = True
+        LblWoodDensity.Location = New Point(15, 30)
+        LblWoodDensity.Name = "LblWoodDensity"
+        LblWoodDensity.Size = New Size(94, 18)
+        LblWoodDensity.TabIndex = 0
+        LblWoodDensity.Text = "Density: --"
+        ' 
+        ' LblWoodType
+        ' 
+        LblWoodType.AutoSize = True
+        LblWoodType.Location = New Point(15, 60)
+        LblWoodType.Name = "LblWoodType"
+        LblWoodType.Size = New Size(73, 18)
+        LblWoodType.TabIndex = 1
+        LblWoodType.Text = "Type: --"
         ' 
         ' GbxWoodMovementInput
         ' 
@@ -3836,7 +4167,7 @@ Partial Class FrmMain
         GbxWoodMovementInput.Controls.Add(TxtFinalHumidity)
         GbxWoodMovementInput.Controls.Add(LblHumidityPreset)
         GbxWoodMovementInput.Controls.Add(CmbHumidityPreset)
-        GbxWoodMovementInput.Location = New Point(10, 14)
+        GbxWoodMovementInput.Location = New Point(6, 17)
         GbxWoodMovementInput.Name = "GbxWoodMovementInput"
         GbxWoodMovementInput.Size = New Size(425, 314)
         GbxWoodMovementInput.TabIndex = 0
@@ -3924,148 +4255,467 @@ Partial Class FrmMain
         CmbHumidityPreset.Size = New Size(200, 26)
         CmbHumidityPreset.TabIndex = 9
         ' 
-        ' GbxGrainDirection
+        ' TpWmShelfSag
         ' 
-        GbxGrainDirection.BackColor = Color.Silver
-        GbxGrainDirection.Controls.Add(RbTangential)
-        GbxGrainDirection.Controls.Add(RbRadial)
-        GbxGrainDirection.Location = New Point(10, 344)
-        GbxGrainDirection.Name = "GbxGrainDirection"
-        GbxGrainDirection.Size = New Size(425, 96)
-        GbxGrainDirection.TabIndex = 10
-        GbxGrainDirection.TabStop = False
-        GbxGrainDirection.Text = "Grain Direction"
+        TpWmShelfSag.BackColor = Color.Gainsboro
+        TpWmShelfSag.BorderStyle = BorderStyle.Fixed3D
+        TpWmShelfSag.Controls.Add(GbShelfSupportType)
+        TpWmShelfSag.Controls.Add(GbxShelfSagInput)
+        TpWmShelfSag.Controls.Add(BtnCalculateShelf)
+        TpWmShelfSag.Controls.Add(GbxShelfSagResults)
+        TpWmShelfSag.Location = New Point(4, 4)
+        TpWmShelfSag.Name = "TpWmShelfSag"
+        TpWmShelfSag.Padding = New Padding(3)
+        TpWmShelfSag.Size = New Size(1128, 811)
+        TpWmShelfSag.TabIndex = 1
+        TpWmShelfSag.Text = "Shelf Sag"
         ' 
-        ' RbTangential
+        ' GbShelfSupportType
         ' 
-        RbTangential.AutoSize = True
-        RbTangential.Checked = True
-        RbTangential.Location = New Point(15, 25)
-        RbTangential.Name = "RbTangential"
-        RbTangential.Size = New Size(226, 22)
-        RbTangential.TabIndex = 0
-        RbTangential.TabStop = True
-        RbTangential.Text = "Tangential (Flat Sawn)"
+        GbShelfSupportType.BackColor = Color.Silver
+        GbShelfSupportType.Controls.Add(LblPinWidthUnits)
+        GbShelfSupportType.Controls.Add(TxtPinWidth)
+        GbShelfSupportType.Controls.Add(LblPinWidth)
+        GbShelfSupportType.Controls.Add(RbSupportPin)
+        GbShelfSupportType.Controls.Add(LblBracketWidthUnits)
+        GbShelfSupportType.Controls.Add(TxtshelfBracketWidth)
+        GbShelfSupportType.Controls.Add(LblShelfBracketWidth)
+        GbShelfSupportType.Controls.Add(LblSupportTypeInfo)
+        GbShelfSupportType.Controls.Add(LblDadoDepthUnit)
+        GbShelfSupportType.Controls.Add(TxtDadoDepth1)
+        GbShelfSupportType.Controls.Add(LblDadoDepth1)
+        GbShelfSupportType.Controls.Add(RbSupportDado)
+        GbShelfSupportType.Controls.Add(RbSupportBracket)
+        GbShelfSupportType.Location = New Point(23, 355)
+        GbShelfSupportType.Name = "GbShelfSupportType"
+        GbShelfSupportType.Size = New Size(425, 248)
+        GbShelfSupportType.TabIndex = 13
+        GbShelfSupportType.TabStop = False
+        GbShelfSupportType.Text = "Shelf Support Type"
         ' 
-        ' RbRadial
+        ' LblPinWidthUnits
         ' 
-        RbRadial.AutoSize = True
-        RbRadial.Location = New Point(15, 58)
-        RbRadial.Name = "RbRadial"
-        RbRadial.Size = New Size(222, 22)
-        RbRadial.TabIndex = 1
-        RbRadial.Text = "Radial (Quarter Sawn)"
+        LblPinWidthUnits.AutoSize = True
+        LblPinWidthUnits.Location = New Point(219, 127)
+        LblPinWidthUnits.Name = "LblPinWidthUnits"
+        LblPinWidthUnits.Size = New Size(62, 18)
+        LblPinWidthUnits.TabIndex = 12
+        LblPinWidthUnits.Text = "inches"
         ' 
-        ' BtnCalculateMovement
+        ' TxtPinWidth
         ' 
-        BtnCalculateMovement.BackColor = Color.MistyRose
-        BtnCalculateMovement.Location = New Point(95, 456)
-        BtnCalculateMovement.Name = "BtnCalculateMovement"
-        BtnCalculateMovement.Size = New Size(208, 40)
-        BtnCalculateMovement.TabIndex = 11
-        BtnCalculateMovement.Text = "Calculate Movement"
-        BtnCalculateMovement.UseVisualStyleBackColor = False
+        TxtPinWidth.Location = New Point(126, 123)
+        TxtPinWidth.Name = "TxtPinWidth"
+        TxtPinWidth.Size = New Size(93, 26)
+        TxtPinWidth.TabIndex = 11
         ' 
-        ' GbxWoodMovementResults
+        ' LblPinWidth
         ' 
-        GbxWoodMovementResults.BackColor = Color.WhiteSmoke
-        GbxWoodMovementResults.Controls.Add(LblMovementResult)
-        GbxWoodMovementResults.Controls.Add(LblMovementDirection)
-        GbxWoodMovementResults.Controls.Add(LblMovementFraction)
-        GbxWoodMovementResults.Location = New Point(10, 10)
-        GbxWoodMovementResults.Name = "GbxWoodMovementResults"
-        GbxWoodMovementResults.Size = New Size(434, 150)
-        GbxWoodMovementResults.TabIndex = 0
-        GbxWoodMovementResults.TabStop = False
-        GbxWoodMovementResults.Text = "Movement Results"
+        LblPinWidth.AutoSize = True
+        LblPinWidth.Location = New Point(23, 127)
+        LblPinWidth.Name = "LblPinWidth"
+        LblPinWidth.Size = New Size(103, 18)
+        LblPinWidth.TabIndex = 10
+        LblPinWidth.Text = "Pin Width: "
         ' 
-        ' LblMovementResult
+        ' RbSupportPin
         ' 
-        LblMovementResult.AutoSize = True
-        LblMovementResult.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
-        LblMovementResult.Location = New Point(15, 30)
-        LblMovementResult.Name = "LblMovementResult"
-        LblMovementResult.Size = New Size(141, 28)
-        LblMovementResult.TabIndex = 0
-        LblMovementResult.Text = "Movement: --"
+        RbSupportPin.AutoSize = True
+        RbSupportPin.Location = New Point(234, 24)
+        RbSupportPin.Name = "RbSupportPin"
+        RbSupportPin.Size = New Size(61, 22)
+        RbSupportPin.TabIndex = 9
+        RbSupportPin.TabStop = True
+        RbSupportPin.Text = "Pin"
+        RbSupportPin.UseVisualStyleBackColor = True
         ' 
-        ' LblMovementDirection
+        ' LblBracketWidthUnits
         ' 
-        LblMovementDirection.AutoSize = True
-        LblMovementDirection.Location = New Point(15, 73)
-        LblMovementDirection.Name = "LblMovementDirection"
-        LblMovementDirection.Size = New Size(110, 18)
-        LblMovementDirection.TabIndex = 1
-        LblMovementDirection.Text = "Direction: --"
+        LblBracketWidthUnits.AutoSize = True
+        LblBracketWidthUnits.Location = New Point(247, 96)
+        LblBracketWidthUnits.Name = "LblBracketWidthUnits"
+        LblBracketWidthUnits.Size = New Size(62, 18)
+        LblBracketWidthUnits.TabIndex = 8
+        LblBracketWidthUnits.Text = "inches"
         ' 
-        ' LblMovementFraction
+        ' TxtshelfBracketWidth
         ' 
-        LblMovementFraction.AutoSize = True
-        LblMovementFraction.Location = New Point(15, 106)
-        LblMovementFraction.Name = "LblMovementFraction"
-        LblMovementFraction.Size = New Size(128, 18)
-        LblMovementFraction.TabIndex = 2
-        LblMovementFraction.Text = "As Fraction: --"
+        TxtshelfBracketWidth.Location = New Point(154, 92)
+        TxtshelfBracketWidth.Name = "TxtshelfBracketWidth"
+        TxtshelfBracketWidth.Size = New Size(93, 26)
+        TxtshelfBracketWidth.TabIndex = 7
         ' 
-        ' GbxPanelGaps
+        ' LblShelfBracketWidth
         ' 
-        GbxPanelGaps.BackColor = Color.WhiteSmoke
-        GbxPanelGaps.Controls.Add(LblPanelGapMin)
-        GbxPanelGaps.Controls.Add(LblPanelGapMax)
-        GbxPanelGaps.Location = New Point(10, 170)
-        GbxPanelGaps.Name = "GbxPanelGaps"
-        GbxPanelGaps.Size = New Size(434, 100)
-        GbxPanelGaps.TabIndex = 1
-        GbxPanelGaps.TabStop = False
-        GbxPanelGaps.Text = "Recommended Panel Gaps"
+        LblShelfBracketWidth.AutoSize = True
+        LblShelfBracketWidth.Location = New Point(15, 96)
+        LblShelfBracketWidth.Name = "LblShelfBracketWidth"
+        LblShelfBracketWidth.Size = New Size(139, 18)
+        LblShelfBracketWidth.TabIndex = 6
+        LblShelfBracketWidth.Text = "Bracket Width: "
         ' 
-        ' LblPanelGapMin
+        ' LblSupportTypeInfo
         ' 
-        LblPanelGapMin.AutoSize = True
-        LblPanelGapMin.Location = New Point(15, 30)
-        LblPanelGapMin.Name = "LblPanelGapMin"
-        LblPanelGapMin.Size = New Size(151, 18)
-        LblPanelGapMin.TabIndex = 0
-        LblPanelGapMin.Text = "Minimum Gap: --"
+        LblSupportTypeInfo.Location = New Point(15, 163)
+        LblSupportTypeInfo.Name = "LblSupportTypeInfo"
+        LblSupportTypeInfo.Size = New Size(392, 57)
+        LblSupportTypeInfo.TabIndex = 5
+        LblSupportTypeInfo.Text = "Explanation:"
         ' 
-        ' LblPanelGapMax
+        ' LblDadoDepthUnit
         ' 
-        LblPanelGapMax.AutoSize = True
-        LblPanelGapMax.Location = New Point(15, 60)
-        LblPanelGapMax.Name = "LblPanelGapMax"
-        LblPanelGapMax.Size = New Size(154, 18)
-        LblPanelGapMax.TabIndex = 1
-        LblPanelGapMax.Text = "Maximum Gap: --"
+        LblDadoDepthUnit.AutoSize = True
+        LblDadoDepthUnit.Location = New Point(219, 60)
+        LblDadoDepthUnit.Name = "LblDadoDepthUnit"
+        LblDadoDepthUnit.Size = New Size(62, 18)
+        LblDadoDepthUnit.TabIndex = 4
+        LblDadoDepthUnit.Text = "inches"
         ' 
-        ' GbxWoodProperties
+        ' TxtDadoDepth1
         ' 
-        GbxWoodProperties.BackColor = Color.WhiteSmoke
-        GbxWoodProperties.Controls.Add(LblWoodDensity)
-        GbxWoodProperties.Controls.Add(LblWoodType)
-        GbxWoodProperties.Location = New Point(10, 280)
-        GbxWoodProperties.Name = "GbxWoodProperties"
-        GbxWoodProperties.Size = New Size(434, 100)
-        GbxWoodProperties.TabIndex = 2
-        GbxWoodProperties.TabStop = False
-        GbxWoodProperties.Text = "Wood Properties"
+        TxtDadoDepth1.Location = New Point(126, 56)
+        TxtDadoDepth1.Name = "TxtDadoDepth1"
+        TxtDadoDepth1.Size = New Size(93, 26)
+        TxtDadoDepth1.TabIndex = 3
         ' 
-        ' LblWoodDensity
+        ' LblDadoDepth1
         ' 
-        LblWoodDensity.AutoSize = True
-        LblWoodDensity.Location = New Point(15, 30)
-        LblWoodDensity.Name = "LblWoodDensity"
-        LblWoodDensity.Size = New Size(94, 18)
-        LblWoodDensity.TabIndex = 0
-        LblWoodDensity.Text = "Density: --"
+        LblDadoDepth1.AutoSize = True
+        LblDadoDepth1.Location = New Point(15, 60)
+        LblDadoDepth1.Name = "LblDadoDepth1"
+        LblDadoDepth1.Size = New Size(111, 18)
+        LblDadoDepth1.TabIndex = 2
+        LblDadoDepth1.Text = "Dado Depth:"
         ' 
-        ' LblWoodType
+        ' RbSupportDado
         ' 
-        LblWoodType.AutoSize = True
-        LblWoodType.Location = New Point(15, 60)
-        LblWoodType.Name = "LblWoodType"
-        LblWoodType.Size = New Size(73, 18)
-        LblWoodType.TabIndex = 1
-        LblWoodType.Text = "Type: --"
+        RbSupportDado.AutoSize = True
+        RbSupportDado.Location = New Point(135, 24)
+        RbSupportDado.Name = "RbSupportDado"
+        RbSupportDado.Size = New Size(76, 22)
+        RbSupportDado.TabIndex = 1
+        RbSupportDado.TabStop = True
+        RbSupportDado.Text = "Dado"
+        RbSupportDado.UseVisualStyleBackColor = True
+        ' 
+        ' RbSupportBracket
+        ' 
+        RbSupportBracket.AutoSize = True
+        RbSupportBracket.Location = New Point(15, 24)
+        RbSupportBracket.Name = "RbSupportBracket"
+        RbSupportBracket.Size = New Size(97, 22)
+        RbSupportBracket.TabIndex = 0
+        RbSupportBracket.TabStop = True
+        RbSupportBracket.Text = "Bracket"
+        RbSupportBracket.UseVisualStyleBackColor = True
+        ' 
+        ' GbxShelfSagInput
+        ' 
+        GbxShelfSagInput.BackColor = Color.Silver
+        GbxShelfSagInput.Controls.Add(GbxStiffener)
+        GbxShelfSagInput.Controls.Add(TxtShelfLoad)
+        GbxShelfSagInput.Controls.Add(LblShelfLoad)
+        GbxShelfSagInput.Controls.Add(TxtShelfWidth)
+        GbxShelfSagInput.Controls.Add(LblShelfWidth)
+        GbxShelfSagInput.Controls.Add(TxtShelfThickness)
+        GbxShelfSagInput.Controls.Add(LblShelfThickness)
+        GbxShelfSagInput.Controls.Add(TxtShelfSpan)
+        GbxShelfSagInput.Controls.Add(LblShelfSpan)
+        GbxShelfSagInput.Controls.Add(CmbShelfMaterial)
+        GbxShelfSagInput.Controls.Add(LblShelfMaterial)
+        GbxShelfSagInput.Location = New Point(23, 10)
+        GbxShelfSagInput.Name = "GbxShelfSagInput"
+        GbxShelfSagInput.Size = New Size(425, 345)
+        GbxShelfSagInput.TabIndex = 12
+        GbxShelfSagInput.TabStop = False
+        GbxShelfSagInput.Text = "Shelf Sag Input"
+        ' 
+        ' GbxStiffener
+        ' 
+        GbxStiffener.Controls.Add(TxtStiffenerThickness)
+        GbxStiffener.Controls.Add(TxtStiffenerheight)
+        GbxStiffener.Controls.Add(CmbStiffenerMaterial)
+        GbxStiffener.Controls.Add(LblStiffenerMaterial)
+        GbxStiffener.Controls.Add(LblStiffenerThickness)
+        GbxStiffener.Controls.Add(LblStiffenerHeight)
+        GbxStiffener.Controls.Add(ChkBackStiffener)
+        GbxStiffener.Controls.Add(ChkFrontStiffener)
+        GbxStiffener.Dock = DockStyle.Bottom
+        GbxStiffener.Location = New Point(3, 137)
+        GbxStiffener.Name = "GbxStiffener"
+        GbxStiffener.Size = New Size(419, 205)
+        GbxStiffener.TabIndex = 13
+        GbxStiffener.TabStop = False
+        GbxStiffener.Text = "Edge Stiffeners"
+        ' 
+        ' TxtStiffenerThickness
+        ' 
+        TxtStiffenerThickness.Location = New Point(194, 134)
+        TxtStiffenerThickness.Name = "TxtStiffenerThickness"
+        TxtStiffenerThickness.Size = New Size(150, 26)
+        TxtStiffenerThickness.TabIndex = 7
+        ' 
+        ' TxtStiffenerheight
+        ' 
+        TxtStiffenerheight.Location = New Point(194, 101)
+        TxtStiffenerheight.Name = "TxtStiffenerheight"
+        TxtStiffenerheight.Size = New Size(150, 26)
+        TxtStiffenerheight.TabIndex = 6
+        ' 
+        ' CmbStiffenerMaterial
+        ' 
+        CmbStiffenerMaterial.FormattingEnabled = True
+        CmbStiffenerMaterial.Location = New Point(104, 167)
+        CmbStiffenerMaterial.Name = "CmbStiffenerMaterial"
+        CmbStiffenerMaterial.Size = New Size(251, 26)
+        CmbStiffenerMaterial.TabIndex = 5
+        ' 
+        ' LblStiffenerMaterial
+        ' 
+        LblStiffenerMaterial.AutoSize = True
+        LblStiffenerMaterial.Location = New Point(15, 171)
+        LblStiffenerMaterial.Name = "LblStiffenerMaterial"
+        LblStiffenerMaterial.Size = New Size(89, 18)
+        LblStiffenerMaterial.TabIndex = 4
+        LblStiffenerMaterial.Text = "Material: "
+        ' 
+        ' LblStiffenerThickness
+        ' 
+        LblStiffenerThickness.AutoSize = True
+        LblStiffenerThickness.Location = New Point(16, 138)
+        LblStiffenerThickness.Name = "LblStiffenerThickness"
+        LblStiffenerThickness.Size = New Size(178, 18)
+        LblStiffenerThickness.TabIndex = 3
+        LblStiffenerThickness.Text = "Stiffener Thickness: "
+        ' 
+        ' LblStiffenerHeight
+        ' 
+        LblStiffenerHeight.AutoSize = True
+        LblStiffenerHeight.Location = New Point(44, 105)
+        LblStiffenerHeight.Name = "LblStiffenerHeight"
+        LblStiffenerHeight.Size = New Size(150, 18)
+        LblStiffenerHeight.TabIndex = 2
+        LblStiffenerHeight.Text = "Stiffener Height: "
+        ' 
+        ' ChkBackStiffener
+        ' 
+        ChkBackStiffener.AutoSize = True
+        ChkBackStiffener.Location = New Point(16, 68)
+        ChkBackStiffener.Name = "ChkBackStiffener"
+        ChkBackStiffener.Size = New Size(194, 22)
+        ChkBackStiffener.TabIndex = 1
+        ChkBackStiffener.Text = "Back Edge Stiffener"
+        ChkBackStiffener.UseVisualStyleBackColor = True
+        ' 
+        ' ChkFrontStiffener
+        ' 
+        ChkFrontStiffener.AutoSize = True
+        ChkFrontStiffener.Location = New Point(16, 31)
+        ChkFrontStiffener.Name = "ChkFrontStiffener"
+        ChkFrontStiffener.Size = New Size(201, 22)
+        ChkFrontStiffener.TabIndex = 0
+        ChkFrontStiffener.Text = "Front Edge Stiffener"
+        ChkFrontStiffener.UseVisualStyleBackColor = True
+        ' 
+        ' TxtShelfLoad
+        ' 
+        TxtShelfLoad.Location = New Point(310, 63)
+        TxtShelfLoad.Name = "TxtShelfLoad"
+        TxtShelfLoad.Size = New Size(85, 26)
+        TxtShelfLoad.TabIndex = 9
+        ' 
+        ' LblShelfLoad
+        ' 
+        LblShelfLoad.AutoSize = True
+        LblShelfLoad.Location = New Point(250, 67)
+        LblShelfLoad.Name = "LblShelfLoad"
+        LblShelfLoad.Size = New Size(60, 18)
+        LblShelfLoad.TabIndex = 8
+        LblShelfLoad.Text = "Load: "
+        ' 
+        ' TxtShelfWidth
+        ' 
+        TxtShelfWidth.Location = New Point(310, 98)
+        TxtShelfWidth.Name = "TxtShelfWidth"
+        TxtShelfWidth.Size = New Size(85, 26)
+        TxtShelfWidth.TabIndex = 7
+        ' 
+        ' LblShelfWidth
+        ' 
+        LblShelfWidth.AutoSize = True
+        LblShelfWidth.Location = New Point(239, 102)
+        LblShelfWidth.Name = "LblShelfWidth"
+        LblShelfWidth.Size = New Size(71, 18)
+        LblShelfWidth.TabIndex = 6
+        LblShelfWidth.Text = "Width: "
+        ' 
+        ' TxtShelfThickness
+        ' 
+        TxtShelfThickness.Location = New Point(121, 98)
+        TxtShelfThickness.Name = "TxtShelfThickness"
+        TxtShelfThickness.Size = New Size(85, 26)
+        TxtShelfThickness.TabIndex = 5
+        ' 
+        ' LblShelfThickness
+        ' 
+        LblShelfThickness.AutoSize = True
+        LblShelfThickness.Location = New Point(15, 102)
+        LblShelfThickness.Name = "LblShelfThickness"
+        LblShelfThickness.Size = New Size(102, 18)
+        LblShelfThickness.TabIndex = 4
+        LblShelfThickness.Text = "Thickness: "
+        ' 
+        ' TxtShelfSpan
+        ' 
+        TxtShelfSpan.Location = New Point(121, 63)
+        TxtShelfSpan.Name = "TxtShelfSpan"
+        TxtShelfSpan.Size = New Size(85, 26)
+        TxtShelfSpan.TabIndex = 3
+        ' 
+        ' LblShelfSpan
+        ' 
+        LblShelfSpan.AutoSize = True
+        LblShelfSpan.Location = New Point(15, 67)
+        LblShelfSpan.Name = "LblShelfSpan"
+        LblShelfSpan.Size = New Size(106, 18)
+        LblShelfSpan.TabIndex = 2
+        LblShelfSpan.Text = "Shelf Span: "
+        ' 
+        ' CmbShelfMaterial
+        ' 
+        CmbShelfMaterial.FormattingEnabled = True
+        CmbShelfMaterial.Location = New Point(151, 28)
+        CmbShelfMaterial.Name = "CmbShelfMaterial"
+        CmbShelfMaterial.Size = New Size(244, 26)
+        CmbShelfMaterial.TabIndex = 1
+        ' 
+        ' LblShelfMaterial
+        ' 
+        LblShelfMaterial.AutoSize = True
+        LblShelfMaterial.Location = New Point(16, 32)
+        LblShelfMaterial.Name = "LblShelfMaterial"
+        LblShelfMaterial.Size = New Size(135, 18)
+        LblShelfMaterial.TabIndex = 0
+        LblShelfMaterial.Text = "Shelf Material: "
+        ' 
+        ' BtnCalculateShelf
+        ' 
+        BtnCalculateShelf.BackColor = Color.MistyRose
+        BtnCalculateShelf.Location = New Point(131, 620)
+        BtnCalculateShelf.Name = "BtnCalculateShelf"
+        BtnCalculateShelf.Size = New Size(208, 40)
+        BtnCalculateShelf.TabIndex = 12
+        BtnCalculateShelf.Text = "Calculate Shelf Sag"
+        BtnCalculateShelf.UseVisualStyleBackColor = False
+        ' 
+        ' GbxShelfSagResults
+        ' 
+        GbxShelfSagResults.BackColor = Color.WhiteSmoke
+        GbxShelfSagResults.Controls.Add(PbShelfDiagram)
+        GbxShelfSagResults.Controls.Add(LblShelfRecommendations)
+        GbxShelfSagResults.Controls.Add(LblShelfWarning)
+        GbxShelfSagResults.Controls.Add(LblShelfMaterialInfo)
+        GbxShelfSagResults.Controls.Add(LblShelfMaxSpan)
+        GbxShelfSagResults.Controls.Add(LblShelfSafetyStatus)
+        GbxShelfSagResults.Controls.Add(LblShelfMaxLoad)
+        GbxShelfSagResults.Controls.Add(LblShelfSafeLoad)
+        GbxShelfSagResults.Controls.Add(LblShelfSagFraction)
+        GbxShelfSagResults.Controls.Add(LblShelfSagInches)
+        GbxShelfSagResults.Location = New Point(638, 10)
+        GbxShelfSagResults.Name = "GbxShelfSagResults"
+        GbxShelfSagResults.Size = New Size(434, 551)
+        GbxShelfSagResults.TabIndex = 3
+        GbxShelfSagResults.TabStop = False
+        GbxShelfSagResults.Text = "Shelf Sag Results"
+        ' 
+        ' PbShelfDiagram
+        ' 
+        PbShelfDiagram.BorderStyle = BorderStyle.FixedSingle
+        PbShelfDiagram.Location = New Point(11, 300)
+        PbShelfDiagram.Name = "PbShelfDiagram"
+        PbShelfDiagram.Size = New Size(413, 227)
+        PbShelfDiagram.TabIndex = 10
+        PbShelfDiagram.TabStop = False
+        ' 
+        ' LblShelfRecommendations
+        ' 
+        LblShelfRecommendations.Location = New Point(13, 235)
+        LblShelfRecommendations.Name = "LblShelfRecommendations"
+        LblShelfRecommendations.Size = New Size(401, 48)
+        LblShelfRecommendations.TabIndex = 9
+        LblShelfRecommendations.Text = "Reccomendations:"
+        ' 
+        ' LblShelfWarning
+        ' 
+        LblShelfWarning.Location = New Point(13, 177)
+        LblShelfWarning.Name = "LblShelfWarning"
+        LblShelfWarning.Size = New Size(401, 48)
+        LblShelfWarning.TabIndex = 8
+        LblShelfWarning.Text = "Warning: "
+        ' 
+        ' LblShelfMaterialInfo
+        ' 
+        LblShelfMaterialInfo.AutoSize = True
+        LblShelfMaterialInfo.Location = New Point(13, 208)
+        LblShelfMaterialInfo.Name = "LblShelfMaterialInfo"
+        LblShelfMaterialInfo.Size = New Size(128, 18)
+        LblShelfMaterialInfo.TabIndex = 7
+        LblShelfMaterialInfo.Text = "Material Info: "
+        ' 
+        ' LblShelfMaxSpan
+        ' 
+        LblShelfMaxSpan.AutoSize = True
+        LblShelfMaxSpan.Location = New Point(13, 153)
+        LblShelfMaxSpan.Name = "LblShelfMaxSpan"
+        LblShelfMaxSpan.Size = New Size(99, 18)
+        LblShelfMaxSpan.TabIndex = 6
+        LblShelfMaxSpan.Text = "Max Span: "
+        ' 
+        ' LblShelfSafetyStatus
+        ' 
+        LblShelfSafetyStatus.AutoSize = True
+        LblShelfSafetyStatus.Location = New Point(13, 127)
+        LblShelfSafetyStatus.Name = "LblShelfSafetyStatus"
+        LblShelfSafetyStatus.Size = New Size(122, 18)
+        LblShelfSafetyStatus.TabIndex = 5
+        LblShelfSafetyStatus.Text = "Safety Status:"
+        ' 
+        ' LblShelfMaxLoad
+        ' 
+        LblShelfMaxLoad.AutoSize = True
+        LblShelfMaxLoad.Location = New Point(13, 101)
+        LblShelfMaxLoad.Name = "LblShelfMaxLoad"
+        LblShelfMaxLoad.Size = New Size(95, 18)
+        LblShelfMaxLoad.TabIndex = 4
+        LblShelfMaxLoad.Text = "Max Load:"
+        ' 
+        ' LblShelfSafeLoad
+        ' 
+        LblShelfSafeLoad.AutoSize = True
+        LblShelfSafeLoad.Location = New Point(13, 75)
+        LblShelfSafeLoad.Name = "LblShelfSafeLoad"
+        LblShelfSafeLoad.Size = New Size(99, 18)
+        LblShelfSafeLoad.TabIndex = 3
+        LblShelfSafeLoad.Text = "Safe Load: "
+        ' 
+        ' LblShelfSagFraction
+        ' 
+        LblShelfSagFraction.AutoSize = True
+        LblShelfSagFraction.Location = New Point(13, 50)
+        LblShelfSagFraction.Name = "LblShelfSagFraction"
+        LblShelfSagFraction.Size = New Size(123, 18)
+        LblShelfSagFraction.TabIndex = 2
+        LblShelfSagFraction.Text = "Sag Fraction: "
+        ' 
+        ' LblShelfSagInches
+        ' 
+        LblShelfSagInches.AutoSize = True
+        LblShelfSagInches.Location = New Point(13, 26)
+        LblShelfSagInches.Name = "LblShelfSagInches"
+        LblShelfSagInches.Size = New Size(107, 18)
+        LblShelfSagInches.TabIndex = 0
+        LblShelfSagInches.Tag = "Expected sag: {0:N2} in. ({1:N0} mm)"
+        LblShelfSagInches.Text = "Sag Inches: "
         ' 
         ' TpCutList
         ' 
@@ -4325,6 +4975,211 @@ Partial Class FrmMain
         BtnNextPattern.Text = "Next >"
         BtnNextPattern.UseVisualStyleBackColor = True
         ' 
+        ' TpReferences
+        ' 
+        TpReferences.BackColor = Color.Gainsboro
+        TpReferences.BorderStyle = BorderStyle.Fixed3D
+        TpReferences.Controls.Add(TcReferences)
+        TpReferences.Location = New Point(4, 27)
+        TpReferences.Name = "TpReferences"
+        TpReferences.Size = New Size(1170, 823)
+        TpReferences.TabIndex = 12
+        TpReferences.Text = "References"
+        ' 
+        ' TcReferences
+        ' 
+        TcReferences.Alignment = TabAlignment.Right
+        TcReferences.Controls.Add(TpWoodProperties)
+        TcReferences.Controls.Add(TabPage2)
+        TcReferences.Dock = DockStyle.Fill
+        TcReferences.Location = New Point(0, 0)
+        TcReferences.Multiline = True
+        TcReferences.Name = "TcReferences"
+        TcReferences.SelectedIndex = 0
+        TcReferences.Size = New Size(1166, 819)
+        TcReferences.TabIndex = 0
+        ' 
+        ' TpWoodProperties
+        ' 
+        TpWoodProperties.Controls.Add(PnlWoodDetails)
+        TpWoodProperties.Controls.Add(PnlWoodProperties)
+        TpWoodProperties.Controls.Add(DgvWoodProperties)
+        TpWoodProperties.Location = New Point(4, 4)
+        TpWoodProperties.Name = "TpWoodProperties"
+        TpWoodProperties.Padding = New Padding(3)
+        TpWoodProperties.Size = New Size(1134, 811)
+        TpWoodProperties.TabIndex = 0
+        TpWoodProperties.Text = "Wood Properties"
+        TpWoodProperties.UseVisualStyleBackColor = True
+        ' 
+        ' PnlWoodDetails
+        ' 
+        PnlWoodDetails.BackColor = Color.LightGray
+        PnlWoodDetails.BorderStyle = BorderStyle.Fixed3D
+        PnlWoodDetails.Controls.Add(BtnPrintWoodData)
+        PnlWoodDetails.Controls.Add(BtnExportWoodData)
+        PnlWoodDetails.Controls.Add(BtnCompareWoods)
+        PnlWoodDetails.Controls.Add(RtbWoodDetails)
+        PnlWoodDetails.Controls.Add(LblWoodDetailsHeader)
+        PnlWoodDetails.Dock = DockStyle.Bottom
+        PnlWoodDetails.Location = New Point(3, 429)
+        PnlWoodDetails.Name = "PnlWoodDetails"
+        PnlWoodDetails.Size = New Size(1128, 379)
+        PnlWoodDetails.TabIndex = 2
+        ' 
+        ' BtnPrintWoodData
+        ' 
+        BtnPrintWoodData.BackColor = Color.MistyRose
+        BtnPrintWoodData.Location = New Point(806, 323)
+        BtnPrintWoodData.Name = "BtnPrintWoodData"
+        BtnPrintWoodData.Size = New Size(198, 34)
+        BtnPrintWoodData.TabIndex = 4
+        BtnPrintWoodData.Text = "Print"
+        BtnPrintWoodData.UseVisualStyleBackColor = False
+        ' 
+        ' BtnExportWoodData
+        ' 
+        BtnExportWoodData.BackColor = Color.MistyRose
+        BtnExportWoodData.Location = New Point(460, 323)
+        BtnExportWoodData.Name = "BtnExportWoodData"
+        BtnExportWoodData.Size = New Size(198, 34)
+        BtnExportWoodData.TabIndex = 3
+        BtnExportWoodData.Text = "Export to CSV"
+        BtnExportWoodData.UseVisualStyleBackColor = False
+        ' 
+        ' BtnCompareWoods
+        ' 
+        BtnCompareWoods.BackColor = Color.MistyRose
+        BtnCompareWoods.Location = New Point(114, 323)
+        BtnCompareWoods.Name = "BtnCompareWoods"
+        BtnCompareWoods.Size = New Size(198, 34)
+        BtnCompareWoods.TabIndex = 2
+        BtnCompareWoods.Text = "Compare Selected"
+        BtnCompareWoods.UseVisualStyleBackColor = False
+        ' 
+        ' RtbWoodDetails
+        ' 
+        RtbWoodDetails.Location = New Point(24, 60)
+        RtbWoodDetails.Name = "RtbWoodDetails"
+        RtbWoodDetails.Size = New Size(1058, 251)
+        RtbWoodDetails.TabIndex = 1
+        RtbWoodDetails.Text = ""
+        ' 
+        ' LblWoodDetailsHeader
+        ' 
+        LblWoodDetailsHeader.AutoSize = True
+        LblWoodDetailsHeader.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblWoodDetailsHeader.Location = New Point(16, 10)
+        LblWoodDetailsHeader.Name = "LblWoodDetailsHeader"
+        LblWoodDetailsHeader.Size = New Size(130, 24)
+        LblWoodDetailsHeader.TabIndex = 0
+        LblWoodDetailsHeader.Text = "Details for: "
+        ' 
+        ' PnlWoodProperties
+        ' 
+        PnlWoodProperties.BackColor = Color.LightGray
+        PnlWoodProperties.BorderStyle = BorderStyle.Fixed3D
+        PnlWoodProperties.Controls.Add(LblWoodSearch)
+        PnlWoodProperties.Controls.Add(BtnWoodClearSearch)
+        PnlWoodProperties.Controls.Add(TxtWoodSearch)
+        PnlWoodProperties.Controls.Add(RbWoodSoftwoods)
+        PnlWoodProperties.Controls.Add(RbWoodHardwoods)
+        PnlWoodProperties.Controls.Add(RbWoodAll)
+        PnlWoodProperties.Controls.Add(LblWoodPropertiesReference)
+        PnlWoodProperties.Dock = DockStyle.Top
+        PnlWoodProperties.Location = New Point(3, 3)
+        PnlWoodProperties.Name = "PnlWoodProperties"
+        PnlWoodProperties.Size = New Size(1128, 112)
+        PnlWoodProperties.TabIndex = 1
+        ' 
+        ' LblWoodSearch
+        ' 
+        LblWoodSearch.AutoSize = True
+        LblWoodSearch.Location = New Point(604, 59)
+        LblWoodSearch.Name = "LblWoodSearch"
+        LblWoodSearch.Size = New Size(75, 18)
+        LblWoodSearch.TabIndex = 6
+        LblWoodSearch.Text = "Search: "
+        ' 
+        ' BtnWoodClearSearch
+        ' 
+        BtnWoodClearSearch.BackColor = Color.MistyRose
+        BtnWoodClearSearch.Location = New Point(952, 51)
+        BtnWoodClearSearch.Name = "BtnWoodClearSearch"
+        BtnWoodClearSearch.Size = New Size(130, 34)
+        BtnWoodClearSearch.TabIndex = 5
+        BtnWoodClearSearch.Text = "Clear Search"
+        BtnWoodClearSearch.UseVisualStyleBackColor = False
+        ' 
+        ' TxtWoodSearch
+        ' 
+        TxtWoodSearch.Location = New Point(679, 55)
+        TxtWoodSearch.Name = "TxtWoodSearch"
+        TxtWoodSearch.Size = New Size(216, 26)
+        TxtWoodSearch.TabIndex = 4
+        ' 
+        ' RbWoodSoftwoods
+        ' 
+        RbWoodSoftwoods.AutoSize = True
+        RbWoodSoftwoods.Location = New Point(305, 57)
+        RbWoodSoftwoods.Name = "RbWoodSoftwoods"
+        RbWoodSoftwoods.Size = New Size(118, 22)
+        RbWoodSoftwoods.TabIndex = 3
+        RbWoodSoftwoods.TabStop = True
+        RbWoodSoftwoods.Text = "Softwoods"
+        RbWoodSoftwoods.UseVisualStyleBackColor = True
+        ' 
+        ' RbWoodHardwoods
+        ' 
+        RbWoodHardwoods.AutoSize = True
+        RbWoodHardwoods.Location = New Point(126, 57)
+        RbWoodHardwoods.Name = "RbWoodHardwoods"
+        RbWoodHardwoods.Size = New Size(128, 22)
+        RbWoodHardwoods.TabIndex = 2
+        RbWoodHardwoods.TabStop = True
+        RbWoodHardwoods.Text = "Hardwoods"
+        RbWoodHardwoods.UseVisualStyleBackColor = True
+        ' 
+        ' RbWoodAll
+        ' 
+        RbWoodAll.AutoSize = True
+        RbWoodAll.Location = New Point(18, 57)
+        RbWoodAll.Name = "RbWoodAll"
+        RbWoodAll.Size = New Size(57, 22)
+        RbWoodAll.TabIndex = 1
+        RbWoodAll.TabStop = True
+        RbWoodAll.Text = "All"
+        RbWoodAll.UseVisualStyleBackColor = True
+        ' 
+        ' LblWoodPropertiesReference
+        ' 
+        LblWoodPropertiesReference.AutoSize = True
+        LblWoodPropertiesReference.Font = New Font("Georgia", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblWoodPropertiesReference.Location = New Point(17, 9)
+        LblWoodPropertiesReference.Name = "LblWoodPropertiesReference"
+        LblWoodPropertiesReference.Size = New Size(354, 29)
+        LblWoodPropertiesReference.TabIndex = 0
+        LblWoodPropertiesReference.Text = "Wood Properties Reference"
+        ' 
+        ' DgvWoodProperties
+        ' 
+        DgvWoodProperties.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvWoodProperties.Location = New Point(4, 114)
+        DgvWoodProperties.Name = "DgvWoodProperties"
+        DgvWoodProperties.RowHeadersWidth = 62
+        DgvWoodProperties.Size = New Size(1122, 310)
+        DgvWoodProperties.TabIndex = 0
+        ' 
+        ' TabPage2
+        ' 
+        TabPage2.Location = New Point(4, 4)
+        TabPage2.Name = "TabPage2"
+        TabPage2.Padding = New Padding(3)
+        TabPage2.Size = New Size(1128, 811)
+        TabPage2.TabIndex = 1
+        TabPage2.Text = "TabPage2"
+        TabPage2.UseVisualStyleBackColor = True
+        ' 
         ' TpHelp
         ' 
         TpHelp.BackColor = Color.LightGray
@@ -4334,6 +5189,76 @@ Partial Class FrmMain
         TpHelp.Size = New Size(1170, 823)
         TpHelp.TabIndex = 7
         TpHelp.Text = "Help"
+        ' 
+        ' TpAbout
+        ' 
+        TpAbout.BackColor = Color.Gray
+        TpAbout.BorderStyle = BorderStyle.Fixed3D
+        TpAbout.Controls.Add(GbxAbout)
+        TpAbout.Controls.Add(LbLogFiles)
+        TpAbout.Controls.Add(LblClickLoadLogFile)
+        TpAbout.Controls.Add(RtbLog)
+        TpAbout.Location = New Point(4, 27)
+        TpAbout.Name = "TpAbout"
+        TpAbout.Size = New Size(1170, 823)
+        TpAbout.TabIndex = 11
+        TpAbout.Text = "About"
+        ' 
+        ' GbxAbout
+        ' 
+        GbxAbout.Controls.Add(TxtAppAbout)
+        GbxAbout.ForeColor = SystemColors.ButtonHighlight
+        GbxAbout.Location = New Point(6, 3)
+        GbxAbout.Name = "GbxAbout"
+        GbxAbout.Size = New Size(655, 339)
+        GbxAbout.TabIndex = 3
+        GbxAbout.TabStop = False
+        GbxAbout.Text = "Application Information"
+        ' 
+        ' TxtAppAbout
+        ' 
+        TxtAppAbout.BackColor = Color.WhiteSmoke
+        TxtAppAbout.Dock = DockStyle.Fill
+        TxtAppAbout.Font = New Font("Consolas", 9.0F)
+        TxtAppAbout.ForeColor = Color.Black
+        TxtAppAbout.Location = New Point(3, 22)
+        TxtAppAbout.Multiline = True
+        TxtAppAbout.Name = "TxtAppAbout"
+        TxtAppAbout.ReadOnly = True
+        TxtAppAbout.ScrollBars = ScrollBars.Vertical
+        TxtAppAbout.Size = New Size(649, 314)
+        TxtAppAbout.TabIndex = 0
+        TxtAppAbout.WordWrap = False
+        ' 
+        ' LbLogFiles
+        ' 
+        LbLogFiles.FormattingEnabled = True
+        LbLogFiles.Location = New Point(53, 479)
+        LbLogFiles.Name = "LbLogFiles"
+        LbLogFiles.Size = New Size(221, 274)
+        LbLogFiles.TabIndex = 2
+        ' 
+        ' LblClickLoadLogFile
+        ' 
+        LblClickLoadLogFile.AutoSize = True
+        LblClickLoadLogFile.ForeColor = SystemColors.ButtonFace
+        LblClickLoadLogFile.Location = New Point(84, 447)
+        LblClickLoadLogFile.Name = "LblClickLoadLogFile"
+        LblClickLoadLogFile.Size = New Size(159, 18)
+        LblClickLoadLogFile.TabIndex = 1
+        LblClickLoadLogFile.Text = "Click to Load File:"
+        ' 
+        ' RtbLog
+        ' 
+        RtbLog.BackColor = SystemColors.Info
+        RtbLog.ContextMenuStrip = CmsLog
+        RtbLog.Location = New Point(317, 399)
+        RtbLog.Name = "RtbLog"
+        RtbLog.ReadOnly = True
+        RtbLog.ShowSelectionMargin = True
+        RtbLog.Size = New Size(832, 397)
+        RtbLog.TabIndex = 0
+        RtbLog.Text = ""
         ' 
         ' Label55
         ' 
@@ -4442,7 +5367,8 @@ Partial Class FrmMain
         Name = "FrmMain"
         SizeGripStyle = SizeGripStyle.Hide
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Form1"
+        Text = "-"
+        CmsLog.ResumeLayout(False)
         Ss1.ResumeLayout(False)
         Ss1.PerformLayout()
         Ss3.ResumeLayout(False)
@@ -4545,20 +5471,28 @@ Partial Class FrmMain
         GbxBoxJointResults.ResumeLayout(False)
         GbxBoxJointResults.PerformLayout()
         TpWoodMovement.ResumeLayout(False)
-        ScWoodMovement.Panel1.ResumeLayout(False)
-        ScWoodMovement.Panel2.ResumeLayout(False)
-        CType(ScWoodMovement, ComponentModel.ISupportInitialize).EndInit()
-        ScWoodMovement.ResumeLayout(False)
-        GbxWoodMovementInput.ResumeLayout(False)
-        GbxWoodMovementInput.PerformLayout()
-        GbxGrainDirection.ResumeLayout(False)
-        GbxGrainDirection.PerformLayout()
+        TcWoodMovement.ResumeLayout(False)
+        TpWmWoodMovement.ResumeLayout(False)
         GbxWoodMovementResults.ResumeLayout(False)
         GbxWoodMovementResults.PerformLayout()
         GbxPanelGaps.ResumeLayout(False)
         GbxPanelGaps.PerformLayout()
+        GbxGrainDirection.ResumeLayout(False)
+        GbxGrainDirection.PerformLayout()
         GbxWoodProperties.ResumeLayout(False)
         GbxWoodProperties.PerformLayout()
+        GbxWoodMovementInput.ResumeLayout(False)
+        GbxWoodMovementInput.PerformLayout()
+        TpWmShelfSag.ResumeLayout(False)
+        GbShelfSupportType.ResumeLayout(False)
+        GbShelfSupportType.PerformLayout()
+        GbxShelfSagInput.ResumeLayout(False)
+        GbxShelfSagInput.PerformLayout()
+        GbxStiffener.ResumeLayout(False)
+        GbxStiffener.PerformLayout()
+        GbxShelfSagResults.ResumeLayout(False)
+        GbxShelfSagResults.PerformLayout()
+        CType(PbShelfDiagram, ComponentModel.ISupportInitialize).EndInit()
         TpCutList.ResumeLayout(False)
         ScCutList.Panel1.ResumeLayout(False)
         ScCutList.Panel2.ResumeLayout(False)
@@ -4574,6 +5508,18 @@ Partial Class FrmMain
         GbCuttingDiagram.ResumeLayout(False)
         CType(PbCuttingDiagram, ComponentModel.ISupportInitialize).EndInit()
         PnlDiagramNav.ResumeLayout(False)
+        TpReferences.ResumeLayout(False)
+        TcReferences.ResumeLayout(False)
+        TpWoodProperties.ResumeLayout(False)
+        PnlWoodDetails.ResumeLayout(False)
+        PnlWoodDetails.PerformLayout()
+        PnlWoodProperties.ResumeLayout(False)
+        PnlWoodProperties.PerformLayout()
+        CType(DgvWoodProperties, ComponentModel.ISupportInitialize).EndInit()
+        TpAbout.ResumeLayout(False)
+        TpAbout.PerformLayout()
+        GbxAbout.ResumeLayout(False)
+        GbxAbout.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -4601,6 +5547,7 @@ Partial Class FrmMain
     Friend WithEvents TpHelp As TabPage
     Friend WithEvents TpJoinery As TabPage
     Friend WithEvents TpWoodMovement As TabPage
+    Friend WithEvents TpShelfSag As TabPage
     Friend WithEvents TpCutList As TabPage
 
     ' Drawers Tab Controls
@@ -4912,7 +5859,6 @@ Partial Class FrmMain
     Friend WithEvents LblDadoDepth As Label
     Friend WithEvents LblDadoWidth As Label
     Friend WithEvents BtnCalculateJoinery As Button
-    Friend WithEvents ScWoodMovement As SplitContainer
     Friend WithEvents GbxWoodMovementInput As GroupBox
     Friend WithEvents LblWoodSpecies As Label
     Friend WithEvents CmbWoodSpecies As ComboBox
@@ -4967,4 +5913,81 @@ Partial Class FrmMain
     Friend WithEvents BtnNextPattern As Button
     Friend WithEvents LblPatternInfo As Label
     Friend WithEvents ScJoinery As SplitContainer
+
+    ' Shelf Sag Calculator (on Wood Movement Tab)
+    Friend WithEvents GbxShelfSagInput As GroupBox
+    Friend WithEvents LblShelfMaterial As Label
+    Friend WithEvents CmbShelfMaterial As ComboBox
+    Friend WithEvents LblShelfSpan As Label
+    Friend WithEvents TxtShelfSpan As TextBox
+    Friend WithEvents LblShelfThickness As Label
+    Friend WithEvents TxtShelfThickness As TextBox
+    Friend WithEvents LblShelfWidth As Label
+    Friend WithEvents TxtShelfWidth As TextBox
+    Friend WithEvents LblShelfLoad As Label
+    Friend WithEvents TxtShelfLoad As TextBox
+    Friend WithEvents BtnCalculateShelf As Button
+    Friend WithEvents GbxShelfSagResults As GroupBox
+    Friend WithEvents LblShelfSagInches As Label
+    Friend WithEvents LblShelfSagFraction As Label
+    Friend WithEvents LblShelfSafeLoad As Label
+    Friend WithEvents LblShelfMaxLoad As Label
+    Friend WithEvents LblShelfSafetyStatus As Label
+    Friend WithEvents LblShelfMaxSpan As Label
+    Friend WithEvents LblShelfMaterialInfo As Label
+    Friend WithEvents LblShelfWarning As Label
+    Friend WithEvents LblShelfRecommendations As Label
+    Friend WithEvents PbShelfDiagram As PictureBox
+    Friend WithEvents GbxStiffener As GroupBox
+    Friend WithEvents LblStiffenerThickness As Label
+    Friend WithEvents LblStiffenerHeight As Label
+    Friend WithEvents ChkBackStiffener As CheckBox
+    Friend WithEvents ChkFrontStiffener As CheckBox
+    Friend WithEvents CmbStiffenerMaterial As ComboBox
+    Friend WithEvents LblStiffenerMaterial As Label
+    Friend WithEvents TxtStiffenerThickness As TextBox
+    Friend WithEvents TxtStiffenerheight As TextBox
+    Friend WithEvents TcWoodMovement As TabControl
+    Friend WithEvents TpWmWoodMovement As TabPage
+    Friend WithEvents TpWmShelfSag As TabPage
+    Friend WithEvents TpAbout As TabPage
+    Friend WithEvents RtbLog As RichTextBox
+    Friend WithEvents LbLogFile As ListBox
+    Friend WithEvents LbLogFiles As ListBox
+    Friend WithEvents LblClickLoadLogFile As Label
+    Friend WithEvents GbxAbout As GroupBox
+    Friend WithEvents TxtAppAbout As TextBox
+    Friend WithEvents GbShelfSupportType As GroupBox
+    Friend WithEvents TxtDadoDepth1 As TextBox
+    Friend WithEvents LblDadoDepth1 As Label
+    Friend WithEvents RbSupportDado As RadioButton
+    Friend WithEvents RbSupportBracket As RadioButton
+    Friend WithEvents LblBracketWidthUnits As Label
+    Friend WithEvents TxtshelfBracketWidth As TextBox
+    Friend WithEvents LblShelfBracketWidth As Label
+    Friend WithEvents LblSupportTypeInfo As Label
+    Friend WithEvents LblDadoDepthUnit As Label
+    Friend WithEvents RbSupportPin As RadioButton
+    Friend WithEvents TxtPinWidth As TextBox
+    Friend WithEvents LblPinWidth As Label
+    Friend WithEvents LblPinWidthUnits As Label
+    Friend WithEvents TpReferences As TabPage
+    Friend WithEvents TcReferences As TabControl
+    Friend WithEvents TpWoodProperties As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents DgvWoodProperties As DataGridView
+    Friend WithEvents PnlWoodProperties As Panel
+    Friend WithEvents LblWoodSearch As Label
+    Friend WithEvents BtnWoodClearSearch As Button
+    Friend WithEvents TxtWoodSearch As TextBox
+    Friend WithEvents RbWoodSoftwoods As RadioButton
+    Friend WithEvents RbWoodHardwoods As RadioButton
+    Friend WithEvents RbWoodAll As RadioButton
+    Friend WithEvents LblWoodPropertiesReference As Label
+    Friend WithEvents PnlWoodDetails As Panel
+    Friend WithEvents RtbWoodDetails As RichTextBox
+    Friend WithEvents LblWoodDetailsHeader As Label
+    Friend WithEvents BtnPrintWoodData As Button
+    Friend WithEvents BtnExportWoodData As Button
+    Friend WithEvents BtnCompareWoods As Button
 End Class
