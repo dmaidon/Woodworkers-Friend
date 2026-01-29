@@ -51,14 +51,15 @@ Public Class HelpContentManager
     Private Shared Function LoadFromEmbeddedResource(topic As String) As String
         Try
             Dim assembly As Assembly = Assembly.GetExecutingAssembly()
-            Dim resourceName As String = $"WwFriend.Resources.Help.{topic}.md"
+            ' SDK-style projects embed resources with simplified namespace
+            Dim resourceName As String = $"WwFriend.{topic}.md"
 
             ' Try to get the resource stream
             Using stream As Stream = assembly.GetManifestResourceStream(resourceName)
                 If stream Is Nothing Then
                     ' List available resources for debugging
                     Dim availableResources As String() = assembly.GetManifestResourceNames()
-                    Dim resourceList As String = String.Join(vbCrLf, availableResources.Where(Function(r) r.Contains("Help")))
+                    Dim resourceList As String = String.Join(vbCrLf, availableResources.Where(Function(r) r.EndsWith(".md")))
 
                     Return $"## Resource Not Found{vbCrLf}{vbCrLf}" &
                            $"Could not find resource: {resourceName}{vbCrLf}{vbCrLf}" &
