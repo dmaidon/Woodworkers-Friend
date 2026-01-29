@@ -58,13 +58,26 @@ Public Class HelpContentManager
             Using stream As Stream = assembly.GetManifestResourceStream(resourceName)
                 If stream Is Nothing Then
                     ' List available resources for debugging
-                    Dim availableResources As String() = assembly.GetManifestResourceNames()
-                    Dim resourceList As String = String.Join(vbCrLf, availableResources.Where(Function(r) r.EndsWith(".md")))
+                    Try
+                        Dim availableResources As String() = assembly.GetManifestResourceNames()
+                        If availableResources IsNot Nothing AndAlso availableResources.Length > 0 Then
+                            Dim helpResources = availableResources.Where(Function(r) r.EndsWith(".md"))
+                            Dim resourceList As String = String.Join(vbCrLf, helpResources)
 
-                    Return $"## Resource Not Found{vbCrLf}{vbCrLf}" &
-                           $"Could not find resource: {resourceName}{vbCrLf}{vbCrLf}" &
-                           $"Available Help resources:{vbCrLf}{resourceList}{vbCrLf}{vbCrLf}" &
-                           $"Please ensure the markdown file is embedded in the project."
+                            Return $"## Resource Not Found{vbCrLf}{vbCrLf}" &
+                                   $"Could not find resource: {resourceName}{vbCrLf}{vbCrLf}" &
+                                   $"Available Help resources:{vbCrLf}{resourceList}{vbCrLf}{vbCrLf}" &
+                                   $"Please ensure the markdown file is embedded in the project."
+                        Else
+                            Return $"## Resource Not Found{vbCrLf}{vbCrLf}" &
+                                   $"Could not find resource: {resourceName}{vbCrLf}{vbCrLf}" &
+                                   $"No embedded resources found in assembly."
+                        End If
+                    Catch ex As Exception
+                        Return $"## Resource Not Found{vbCrLf}{vbCrLf}" &
+                               $"Could not find resource: {resourceName}{vbCrLf}{vbCrLf}" &
+                               $"Error listing resources: {ex.Message}"
+                    End Try
                 End If
 
                 Using reader As New StreamReader(stream, Encoding.UTF8)
