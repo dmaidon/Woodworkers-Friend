@@ -1,4 +1,4 @@
-﻿Imports System.ComponentModel
+Imports System.ComponentModel
 
 Public Class FrmMain
 
@@ -17,25 +17,28 @@ Public Class FrmMain
     'Private _scaleManager As New ScaleManager()
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Try
+            ' Show splash screen
+            Using splash As New FrmSplash()
+                splash.Opacity = 1
+                splash.Show()
+                Application.DoEvents()
+                Threading.Thread.Sleep(2500) ' Show splash for 1.8 seconds
+                splash.FadeOut(1000)          ' Fade out over 0.8 seconds
+                splash.Close()
+            End Using
 
-        ' Show splash screen
-        Using splash As New FrmSplash()
-            splash.Opacity = 1
-            splash.Show()
-            Application.DoEvents()
-            Threading.Thread.Sleep(2500) ' Show splash for 1.8 seconds
-            splash.FadeOut(1000)          ' Fade out over 0.8 seconds
-            splash.Close()
-        End Using
+            AttachSelectAllHandlerToTextBoxes(Me)
+            InitializeSystem()
+            InitializeManagers()
+            InitializeUI()
+            ApplyTheme(CurrentTheme)
 
-        AttachSelectAllHandlerToTextBoxes(Me)
-        InitializeSystem()
-        InitializeManagers()
-        InitializeUI()
-        ApplyTheme(CurrentTheme)
-
-        ' RtfParser.ParseRtfTableToCsv("c:\temp\hardwood.pdf.rtf", "c:\temp\hardwood.csv")
-
+            ' RtfParser.ParseRtfTableToCsv("c:\temp\hardwood.pdf.rtf", "c:\temp\hardwood.csv")
+        Catch ex As Exception
+            MessageBox.Show($"Error during form load: {ex.Message}{vbCrLf}{vbCrLf}Stack trace:{vbCrLf}{ex.StackTrace}",
+                          "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub InitializeSystem()
@@ -63,6 +66,10 @@ Public Class FrmMain
 #End Region
 
         InitializeDoorControls()
+        InitializeJoineryCalculator()
+        InitializeWoodMovementCalculator()
+        InitializeWoodMovementEvents()
+        InitializeCutListOptimizer()
 
         TmrRotation.Interval = CInt(1000 / 60) ' 60 FPS
         TmrRotation.Start()
@@ -164,7 +171,7 @@ Public Class FrmMain
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub TmrRotation_Tick(sender As Object, e As EventArgs) Handles TmrRotation.Tick
+    Private Sub TmrRotation_Tick(sender As Object, e As EventArgs)
         ArgumentNullException.ThrowIfNull(sender)
         ArgumentNullException.ThrowIfNull(e)
         TmrRotation_Tick()
@@ -257,12 +264,8 @@ Public Class FrmMain
         TsslToggleDoorExploded.Visible = False
     End Sub
 
-    Private Sub TmrClock_Tick(sender As Object, e As EventArgs) Handles TmrClock.Tick
+    Private Sub TmrClock_Tick(sender As Object, e As EventArgs)
         TsslClock.Text = Now.ToLongTimeString
-    End Sub
-
-    Private Sub LblEpoxyPints_Click(sender As Object, e As EventArgs) Handles LblEpoxyPints.Click
-
     End Sub
 
 #End Region

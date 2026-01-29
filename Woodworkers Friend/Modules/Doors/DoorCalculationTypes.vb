@@ -37,16 +37,16 @@ Public Class DoorCalculationResult
     Public Property TotalMaterialNeeded As Double
 
     Public Property AreaUnit As String
-    Public Property CutList As List(Of CutListItem)
+    Public Property CutList As List(Of DoorCutListItem)
     Public Property HingePositions As List(Of Double)
     Public Property HandlePosition As DoorHandlePosition
     Public Property WeightEstimate As Double
 End Class
 
 ''' <summary>
-''' Cut list item for material requirements
+''' Cut list item for door material requirements
 ''' </summary>
-Public Class CutListItem
+Public Class DoorCutListItem
     Public Property ComponentName As String
     Public Property Quantity As Integer
     Public Property Length As Double
