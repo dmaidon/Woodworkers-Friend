@@ -194,10 +194,32 @@ Partial Public Class FrmMain
     End Sub
 
     Friend Sub LoadWoodCosts()
+        ' Phase 7.3: Load from database with CSV fallback
+        WoodCostList.Clear()
+
+        Try
+            ' Try database first
+            Dim dbCosts = DatabaseManager.Instance.GetAllWoodCosts()
+
+            If dbCosts.Count > 0 Then
+                ' Convert WoodCost to WoodCostInfo
+                For Each cost In dbCosts
+                    WoodCostList.Add(New WoodCostInfo With {
+                        .Name = cost.WoodName,
+                        .Thickness = cost.Thickness,
+                        .CostPerBoardFoot = cost.CostPerBoardFoot
+                    })
+                Next
+                ErrorHandler.LogError(New Exception($"Loaded {WoodCostList.Count} wood costs from database"), "LoadWoodCosts")
+                Return
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "LoadWoodCosts - Database failed, trying CSV fallback")
+        End Try
+
+        ' Fallback to CSV if database empty or fails
         Dim filePath As String = Path.Combine(SetDir, "bfCost.csv")
         If Not File.Exists(filePath) Then Return
-
-        WoodCostList.Clear()
 
         Try
             For Each line In File.ReadAllLines(filePath)
@@ -209,8 +231,9 @@ Partial Public Class FrmMain
                     ' Clean the thickness field (remove quotes and extra characters)
                     Dim thickness = parts(0).Replace("""", "").Trim()
 
-                    ' Clean the name field
+                    ' Clean the name field and convert to Title Case
                     Dim name = parts(1).Replace("""", "").Trim()
+                    name = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower())
 
                     ' Clean the cost field (remove $ and parse as double)
                     Dim costString = parts(2).Replace("$", "").Replace("""", "").Trim()

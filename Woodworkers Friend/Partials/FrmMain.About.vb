@@ -445,6 +445,36 @@ Partial Public Class FrmMain
         CmsLogSaveAs.Enabled = hasText
     End Sub
 
+    ''' <summary>
+    ''' Opens the Manage Costs form for editing wood and epoxy cost data
+    ''' Phase 7.3 - Cost Management
+    ''' </summary>
+    Private Sub BtnManageCosts_Click(sender As Object, e As EventArgs) Handles BtnManageCosts.Click
+        Try
+            Using frm As New FrmManageCosts()
+                frm.ShowDialog(Me)
+            End Using
+
+            ' Reload cost lists after form closes
+            ' This ensures any changes made in the management form are reflected immediately
+            Try
+                LoadWoodCosts()
+            Catch ex As Exception
+                ErrorHandler.LogError(ex, "BtnManageCosts_Click - LoadWoodCosts")
+            End Try
+
+            Try
+                LoadEpoxyCostData()
+            Catch ex As Exception
+                ErrorHandler.LogError(ex, "BtnManageCosts_Click - LoadEpoxyCostData")
+            End Try
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "BtnManageCosts_Click")
+            MessageBox.Show($"Error opening cost management: {ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
 #End Region
 
 End Class

@@ -153,6 +153,29 @@ Public Class DataMigration
             If hardwareCount > 0 Then
                 ErrorHandler.LogError(New Exception($"Hardware standards seeded: {hardwareCount} items"), "PerformInitialMigration")
             End If
+
+            ' Phase 7.3: Migrate cost data from CSV files
+            If Not IsWoodCostsMigrated() Then
+                ErrorHandler.LogError(New Exception("Wood costs not found - migrating from CSV"), "PerformInitialMigration")
+                Dim woodCostCount = MigrateWoodCosts()
+                If woodCostCount > 0 Then
+                    ErrorHandler.LogError(New Exception($"Wood costs migrated: {woodCostCount} items"), "PerformInitialMigration")
+                End If
+            Else
+                ' One-time conversion: Convert existing UPPERCASE names to Title Case
+                Dim convertedCount = ConvertWoodCostsToTitleCase()
+                If convertedCount > 0 Then
+                    ErrorHandler.LogError(New Exception($"Converted {convertedCount} wood cost names to Title Case"), "PerformInitialMigration")
+                End If
+            End If
+
+            If Not IsEpoxyCostsMigrated() Then
+                ErrorHandler.LogError(New Exception("Epoxy costs not found - migrating from CSV"), "PerformInitialMigration")
+                Dim epoxyCostCount = MigrateEpoxyCosts()
+                If epoxyCostCount > 0 Then
+                    ErrorHandler.LogError(New Exception($"Epoxy costs migrated: {epoxyCostCount} items"), "PerformInitialMigration")
+                End If
+            End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "PerformInitialMigration")
         End Try
@@ -1441,5 +1464,217 @@ Public Class DataMigration
             Return 0
         End Try
     End Function
+
+#Region "Cost Data Migration (Phase 7.3)"
+
+    ''' <summary>
+    ''' Migrates wood cost data from bfCost.csv to database
+    ''' </summary>
+    Public Shared Function MigrateWoodCosts() As Integer
+        Try
+            ErrorHandler.LogError(New Exception("Starting wood costs migration from CSV..."), "MigrateWoodCosts")
+
+            Dim csvPath As String = IO.Path.Combine(SetDir, "bfCost.csv")
+            If Not IO.File.Exists(csvPath) Then
+                ErrorHandler.LogError(New Exception($"CSV file not found: {csvPath}"), "MigrateWoodCosts")
+                Return 0
+            End If
+
+            Dim woodCosts As New List(Of WoodCost)()
+            Dim lines = IO.File.ReadAllLines(csvPath)
+
+            ' Parse CSV
+            For Each line In lines
+                If String.IsNullOrWhiteSpace(line) Then Continue For
+
+                Try
+                    ' Parse CSV line with quoted fields
+                    Dim parts = ParseCsvLine(line)
+                    If parts.Length >= 3 Then
+                        Dim thickness = parts(0).Replace("""", "").Trim()
+                        Dim woodName = parts(1).Replace("""", "").Trim()
+                        ' Convert wood name to Title Case (CamelCase)
+                        woodName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(woodName.ToLower())
+                        Dim costString = parts(2).Replace("$", "").Replace("""", "").Trim()
+
+                        Dim cost As Double
+                        If Double.TryParse(costString, cost) Then
+                            woodCosts.Add(New WoodCost With {
+                                .Thickness = thickness,
+                                .WoodName = woodName,
+                                .CostPerBoardFoot = cost,
+                                .Active = True,
+                                .IsUserAdded = False
+                            })
+                        End If
+                    End If
+                Catch ex As Exception
+                    ErrorHandler.LogError(ex, $"MigrateWoodCosts - Failed to parse line: {line}")
+                End Try
+            Next
+
+            ' Insert into database
+            Dim inserted = 0
+            For Each woodCost In woodCosts
+                If DatabaseManager.Instance.AddWoodCost(woodCost) Then
+                    inserted += 1
+                End If
+            Next
+
+            ErrorHandler.LogError(New Exception($"Wood costs migration complete: {inserted}/{woodCosts.Count} items inserted"), "MigrateWoodCosts")
+            Return inserted
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "MigrateWoodCosts")
+            Return 0
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Migrates epoxy cost data from epoxyCost.csv to database
+    ''' </summary>
+    Public Shared Function MigrateEpoxyCosts() As Integer
+        Try
+            ErrorHandler.LogError(New Exception("Starting epoxy costs migration from CSV..."), "MigrateEpoxyCosts")
+
+            Dim csvPath As String = IO.Path.Combine(SetDir, "epoxyCost.csv")
+            If Not IO.File.Exists(csvPath) Then
+                ErrorHandler.LogError(New Exception($"CSV file not found: {csvPath}"), "MigrateEpoxyCosts")
+                Return 0
+            End If
+
+            Dim epoxyCosts As New List(Of EpoxyCost)()
+            Dim lines = IO.File.ReadAllLines(csvPath)
+
+            ' Parse CSV
+            For Each line In lines
+                If String.IsNullOrWhiteSpace(line) Then Continue For
+
+                Try
+                    Dim parts = line.Split(","c)
+                    If parts.Length >= 3 Then
+                        Dim brand = parts(0).Trim()
+                        Dim type = parts(1).Trim()
+                        Dim costString = parts(2).Replace("$", "").Trim()
+
+                        Dim cost As Double
+                        If Double.TryParse(costString, cost) Then
+                            Dim displayText = $"{brand} {type} - ${cost:F2}/gal"
+                            epoxyCosts.Add(New EpoxyCost With {
+                                .Brand = brand,
+                                .Type = type,
+                                .CostPerGallon = cost,
+                                .DisplayText = displayText,
+                                .Active = True,
+                                .IsUserAdded = False
+                            })
+                        End If
+                    End If
+                Catch ex As Exception
+                    ErrorHandler.LogError(ex, $"MigrateEpoxyCosts - Failed to parse line: {line}")
+                End Try
+            Next
+
+            ' Insert into database
+            Dim inserted = 0
+            For Each epoxyCost In epoxyCosts
+                If DatabaseManager.Instance.AddEpoxyCost(epoxyCost) Then
+                    inserted += 1
+                End If
+            Next
+
+            ErrorHandler.LogError(New Exception($"Epoxy costs migration complete: {inserted}/{epoxyCosts.Count} items inserted"), "MigrateEpoxyCosts")
+            Return inserted
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "MigrateEpoxyCosts")
+            Return 0
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Helper method to parse CSV lines with quoted fields
+    ''' </summary>
+    Private Shared Function ParseCsvLine(line As String) As String()
+        Dim result As New List(Of String)
+        Dim currentField As New Text.StringBuilder()
+        Dim inQuotes As Boolean = False
+
+        For i As Integer = 0 To line.Length - 1
+            Dim c = line(i)
+
+            If c = """"c Then
+                inQuotes = Not inQuotes
+            ElseIf c = ","c AndAlso Not inQuotes Then
+                result.Add(currentField.ToString())
+                currentField.Clear()
+            Else
+                currentField.Append(c)
+            End If
+        Next
+
+        ' Add the last field
+        result.Add(currentField.ToString())
+
+        Return result.ToArray()
+    End Function
+
+    ''' <summary>
+    ''' Checks if wood costs have been migrated to database
+    ''' </summary>
+    Public Shared Function IsWoodCostsMigrated() As Boolean
+        Try
+            Dim costs = DatabaseManager.Instance.GetAllWoodCosts()
+            Return costs.Count > 0
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "IsWoodCostsMigrated")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Checks if epoxy costs have been migrated to database
+    ''' </summary>
+    Public Shared Function IsEpoxyCostsMigrated() As Boolean
+        Try
+            Dim costs = DatabaseManager.Instance.GetAllEpoxyCosts()
+            Return costs.Count > 0
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "IsEpoxyCostsMigrated")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Converts all existing wood cost names from UPPERCASE to Title Case
+    ''' Phase 7.3 - One-time conversion utility
+    ''' </summary>
+    Public Shared Function ConvertWoodCostsToTitleCase() As Integer
+        Try
+            ErrorHandler.LogError(New Exception("Converting wood cost names to Title Case..."), "ConvertWoodCostsToTitleCase")
+
+            Dim allCosts = DatabaseManager.Instance.GetAllWoodCosts()
+            Dim convertedCount = 0
+
+            For Each cost In allCosts
+                ' Check if name is all uppercase or has multiple uppercase letters
+                If cost.WoodName = cost.WoodName.ToUpper() OrElse cost.WoodName.Count(Function(c) Char.IsUpper(c)) > 1 Then
+                    ' Convert to Title Case
+                    cost.WoodName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cost.WoodName.ToLower())
+
+                    ' Update in database
+                    If DatabaseManager.Instance.UpdateWoodCost(cost) Then
+                        convertedCount += 1
+                    End If
+                End If
+            Next
+
+            ErrorHandler.LogError(New Exception($"Wood cost name conversion complete: {convertedCount}/{allCosts.Count} items converted"), "ConvertWoodCostsToTitleCase")
+            Return convertedCount
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "ConvertWoodCostsToTitleCase")
+            Return 0
+        End Try
+    End Function
+
+#End Region
 
 End Class

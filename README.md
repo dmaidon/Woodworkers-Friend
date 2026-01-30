@@ -137,6 +137,17 @@
 - Weight capacity ratings
 - Installation notes and tips
 
+#### **Cost Management System** 🆕
+- **Database-backed cost tracking** for wood and epoxy
+- **66 wood species** with thickness and cost per board foot
+- **8 epoxy products** with brand, type, and cost per gallon
+- User-friendly CRUD interface with sortable grids
+- Soft delete pattern (mark inactive, preserve history)
+- Seamless integration with Board Feet and Epoxy calculators
+- CSV fallback for reliability
+- Track user-added vs system entries
+- Audit trail with date tracking
+
 ### **🛠️ Utilities**
 
 - **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals

@@ -260,6 +260,51 @@ Public Class DatabaseManager
                     cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_hardware_type ON HardwareStandards(Type);"
                     cmd.ExecuteNonQuery()
 
+                    ' WoodCosts table (Phase 7.3 - CSV Migration)
+                    cmd.CommandText = "
+                        CREATE TABLE IF NOT EXISTS WoodCosts (
+                            WoodCostID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Thickness TEXT NOT NULL,
+                            WoodName TEXT NOT NULL,
+                            CostPerBoardFoot REAL NOT NULL,
+                            Active BOOLEAN DEFAULT 1,
+                            IsUserAdded BOOLEAN DEFAULT 0,
+                            DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            LastModified DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            UNIQUE(Thickness, WoodName)
+                        );"
+                    cmd.ExecuteNonQuery()
+
+                    ' Indexes for WoodCosts
+                    cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_woodcost_active ON WoodCosts(Active);"
+                    cmd.ExecuteNonQuery()
+
+                    cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_woodcost_name ON WoodCosts(WoodName);"
+                    cmd.ExecuteNonQuery()
+
+                    ' EpoxyCosts table (Phase 7.3 - CSV Migration)
+                    cmd.CommandText = "
+                        CREATE TABLE IF NOT EXISTS EpoxyCosts (
+                            EpoxyCostID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Brand TEXT NOT NULL,
+                            Type TEXT NOT NULL,
+                            CostPerGallon REAL NOT NULL,
+                            DisplayText TEXT,
+                            Active BOOLEAN DEFAULT 1,
+                            IsUserAdded BOOLEAN DEFAULT 0,
+                            DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            LastModified DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            UNIQUE(Brand, Type)
+                        );"
+                    cmd.ExecuteNonQuery()
+
+                    ' Indexes for EpoxyCosts
+                    cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_epoxycost_active ON EpoxyCosts(Active);"
+                    cmd.ExecuteNonQuery()
+
+                    cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_epoxycost_brand ON EpoxyCosts(Brand);"
+                    cmd.ExecuteNonQuery()
+
                     ' Record database version
                     cmd.CommandText = $"INSERT INTO DatabaseVersion (Version, Description) VALUES ({DB_VERSION}, 'Initial schema creation');"
                     cmd.ExecuteNonQuery()
@@ -304,9 +349,17 @@ Public Class DatabaseManager
                 cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='HardwareStandards'"
                 Dim hardwareTableExists = cmd.ExecuteScalar() IsNot Nothing
 
+                ' Check if WoodCosts table exists (Phase 7.3)
+                cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='WoodCosts'"
+                Dim woodCostsTableExists = cmd.ExecuteScalar() IsNot Nothing
+
+                ' Check if EpoxyCosts table exists (Phase 7.3)
+                cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='EpoxyCosts'"
+                Dim epoxyCostsTableExists = cmd.ExecuteScalar() IsNot Nothing
+
                 ' If tables are missing, add them
-                If Not joineryTableExists OrElse Not hardwareTableExists Then
-                    ErrorHandler.LogError(New Exception($"Missing reference tables - Joinery:{Not joineryTableExists}, Hardware:{Not hardwareTableExists}"), "CheckAndUpgradeSchema")
+                If Not joineryTableExists OrElse Not hardwareTableExists OrElse Not woodCostsTableExists OrElse Not epoxyCostsTableExists Then
+                    ErrorHandler.LogError(New Exception($"Missing tables - Joinery:{Not joineryTableExists}, Hardware:{Not hardwareTableExists}, WoodCosts:{Not woodCostsTableExists}, EpoxyCosts:{Not epoxyCostsTableExists}"), "CheckAndUpgradeSchema")
 
                     Using transaction = conn.BeginTransaction()
                         Try
@@ -371,6 +424,57 @@ Public Class DatabaseManager
                                 cmd.ExecuteNonQuery()
 
                                 ErrorHandler.LogError(New Exception("HardwareStandards table created"), "CheckAndUpgradeSchema")
+                            End If
+
+                            If Not woodCostsTableExists Then
+                                ' Create WoodCosts table
+                                cmd.CommandText = "
+                                    CREATE TABLE IF NOT EXISTS WoodCosts (
+                                        WoodCostID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        Thickness TEXT NOT NULL,
+                                        WoodName TEXT NOT NULL,
+                                        CostPerBoardFoot REAL NOT NULL,
+                                        Active BOOLEAN DEFAULT 1,
+                                        IsUserAdded BOOLEAN DEFAULT 0,
+                                        DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                        LastModified DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                        UNIQUE(Thickness, WoodName)
+                                    );"
+                                cmd.ExecuteNonQuery()
+
+                                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_woodcost_active ON WoodCosts(Active);"
+                                cmd.ExecuteNonQuery()
+
+                                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_woodcost_name ON WoodCosts(WoodName);"
+                                cmd.ExecuteNonQuery()
+
+                                ErrorHandler.LogError(New Exception("WoodCosts table created"), "CheckAndUpgradeSchema")
+                            End If
+
+                            If Not epoxyCostsTableExists Then
+                                ' Create EpoxyCosts table
+                                cmd.CommandText = "
+                                    CREATE TABLE IF NOT EXISTS EpoxyCosts (
+                                        EpoxyCostID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        Brand TEXT NOT NULL,
+                                        Type TEXT NOT NULL,
+                                        CostPerGallon REAL NOT NULL,
+                                        DisplayText TEXT,
+                                        Active BOOLEAN DEFAULT 1,
+                                        IsUserAdded BOOLEAN DEFAULT 0,
+                                        DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                        LastModified DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                        UNIQUE(Brand, Type)
+                                    );"
+                                cmd.ExecuteNonQuery()
+
+                                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_epoxycost_active ON EpoxyCosts(Active);"
+                                cmd.ExecuteNonQuery()
+
+                                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_epoxycost_brand ON EpoxyCosts(Brand);"
+                                cmd.ExecuteNonQuery()
+
+                                ErrorHandler.LogError(New Exception("EpoxyCosts table created"), "CheckAndUpgradeSchema")
                             End If
 
                             transaction.Commit()
@@ -1340,6 +1444,236 @@ Public Class DatabaseManager
             .PurchaseLink = If(IsDBNull(reader("PurchaseLink")), "", reader("PurchaseLink").ToString()),
             .IsUserAdded = Convert.ToBoolean(reader("IsUserAdded")),
             .DateAdded = Convert.ToDateTime(reader("DateAdded"))
+        }
+    End Function
+
+#End Region
+
+#Region "WoodCosts CRUD Methods (Phase 7.3)"
+
+    ''' <summary>
+    ''' Gets all active wood costs from database
+    ''' </summary>
+    Public Function GetAllWoodCosts() As List(Of WoodCost)
+        Dim woodCosts As New List(Of WoodCost)()
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("SELECT * FROM WoodCosts WHERE Active = 1 ORDER BY WoodName, Thickness", conn)
+                    Using reader = cmd.ExecuteReader()
+                        While reader.Read()
+                            woodCosts.Add(MapReaderToWoodCost(reader))
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "GetAllWoodCosts")
+        End Try
+        Return woodCosts
+    End Function
+
+    ''' <summary>
+    ''' Adds a new wood cost entry
+    ''' </summary>
+    Public Function AddWoodCost(woodCost As WoodCost) As Boolean
+        ArgumentNullException.ThrowIfNull(woodCost)
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("INSERT INTO WoodCosts (Thickness, WoodName, CostPerBoardFoot, Active, IsUserAdded) 
+                                               VALUES (@Thickness, @WoodName, @CostPerBoardFoot, @Active, @IsUserAdded)", conn)
+                    cmd.Parameters.AddWithValue("@Thickness", woodCost.Thickness)
+                    cmd.Parameters.AddWithValue("@WoodName", woodCost.WoodName)
+                    cmd.Parameters.AddWithValue("@CostPerBoardFoot", woodCost.CostPerBoardFoot)
+                    cmd.Parameters.AddWithValue("@Active", woodCost.Active)
+                    cmd.Parameters.AddWithValue("@IsUserAdded", woodCost.IsUserAdded)
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddWoodCost")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Updates an existing wood cost entry
+    ''' </summary>
+    Public Function UpdateWoodCost(woodCost As WoodCost) As Boolean
+        ArgumentNullException.ThrowIfNull(woodCost)
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("UPDATE WoodCosts SET Thickness = @Thickness, WoodName = @WoodName, 
+                                               CostPerBoardFoot = @CostPerBoardFoot, Active = @Active, 
+                                               LastModified = CURRENT_TIMESTAMP WHERE WoodCostID = @WoodCostID", conn)
+                    cmd.Parameters.AddWithValue("@WoodCostID", woodCost.WoodCostID)
+                    cmd.Parameters.AddWithValue("@Thickness", woodCost.Thickness)
+                    cmd.Parameters.AddWithValue("@WoodName", woodCost.WoodName)
+                    cmd.Parameters.AddWithValue("@CostPerBoardFoot", woodCost.CostPerBoardFoot)
+                    cmd.Parameters.AddWithValue("@Active", woodCost.Active)
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "UpdateWoodCost")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Soft deletes a wood cost entry (sets Active = 0)
+    ''' </summary>
+    Public Function DeleteWoodCost(woodCostID As Integer) As Boolean
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("UPDATE WoodCosts SET Active = 0, LastModified = CURRENT_TIMESTAMP 
+                                               WHERE WoodCostID = @WoodCostID", conn)
+                    cmd.Parameters.AddWithValue("@WoodCostID", woodCostID)
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "DeleteWoodCost")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Maps SQLite reader to WoodCost object
+    ''' </summary>
+    Private Shared Function MapReaderToWoodCost(reader As SQLiteDataReader) As WoodCost
+        Return New WoodCost With {
+            .WoodCostID = Convert.ToInt32(reader("WoodCostID")),
+            .Thickness = reader("Thickness").ToString(),
+            .WoodName = reader("WoodName").ToString(),
+            .CostPerBoardFoot = Convert.ToDouble(reader("CostPerBoardFoot")),
+            .Active = Convert.ToBoolean(reader("Active")),
+            .IsUserAdded = Convert.ToBoolean(reader("IsUserAdded")),
+            .DateAdded = Convert.ToDateTime(reader("DateAdded")),
+            .LastModified = Convert.ToDateTime(reader("LastModified"))
+        }
+    End Function
+
+#End Region
+
+#Region "EpoxyCosts CRUD Methods (Phase 7.3)"
+
+    ''' <summary>
+    ''' Gets all active epoxy costs from database
+    ''' </summary>
+    Public Function GetAllEpoxyCosts() As List(Of EpoxyCost)
+        Dim epoxyCosts As New List(Of EpoxyCost)()
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("SELECT * FROM EpoxyCosts WHERE Active = 1 ORDER BY Brand, Type", conn)
+                    Using reader = cmd.ExecuteReader()
+                        While reader.Read()
+                            epoxyCosts.Add(MapReaderToEpoxyCost(reader))
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "GetAllEpoxyCosts")
+        End Try
+        Return epoxyCosts
+    End Function
+
+    ''' <summary>
+    ''' Adds a new epoxy cost entry
+    ''' </summary>
+    Public Function AddEpoxyCost(epoxyCost As EpoxyCost) As Boolean
+        ArgumentNullException.ThrowIfNull(epoxyCost)
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("INSERT INTO EpoxyCosts (Brand, Type, CostPerGallon, DisplayText, Active, IsUserAdded) 
+                                               VALUES (@Brand, @Type, @CostPerGallon, @DisplayText, @Active, @IsUserAdded)", conn)
+                    cmd.Parameters.AddWithValue("@Brand", epoxyCost.Brand)
+                    cmd.Parameters.AddWithValue("@Type", epoxyCost.Type)
+                    cmd.Parameters.AddWithValue("@CostPerGallon", epoxyCost.CostPerGallon)
+                    cmd.Parameters.AddWithValue("@DisplayText", If(epoxyCost.DisplayText, CObj(DBNull.Value)))
+                    cmd.Parameters.AddWithValue("@Active", epoxyCost.Active)
+                    cmd.Parameters.AddWithValue("@IsUserAdded", epoxyCost.IsUserAdded)
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddEpoxyCost")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Updates an existing epoxy cost entry
+    ''' </summary>
+    Public Function UpdateEpoxyCost(epoxyCost As EpoxyCost) As Boolean
+        ArgumentNullException.ThrowIfNull(epoxyCost)
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("UPDATE EpoxyCosts SET Brand = @Brand, Type = @Type, 
+                                               CostPerGallon = @CostPerGallon, DisplayText = @DisplayText, 
+                                               Active = @Active, LastModified = CURRENT_TIMESTAMP 
+                                               WHERE EpoxyCostID = @EpoxyCostID", conn)
+                    cmd.Parameters.AddWithValue("@EpoxyCostID", epoxyCost.EpoxyCostID)
+                    cmd.Parameters.AddWithValue("@Brand", epoxyCost.Brand)
+                    cmd.Parameters.AddWithValue("@Type", epoxyCost.Type)
+                    cmd.Parameters.AddWithValue("@CostPerGallon", epoxyCost.CostPerGallon)
+                    cmd.Parameters.AddWithValue("@DisplayText", If(epoxyCost.DisplayText, CObj(DBNull.Value)))
+                    cmd.Parameters.AddWithValue("@Active", epoxyCost.Active)
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "UpdateEpoxyCost")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Soft deletes an epoxy cost entry (sets Active = 0)
+    ''' </summary>
+    Public Function DeleteEpoxyCost(epoxyCostID As Integer) As Boolean
+        Try
+            Using conn = GetConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("UPDATE EpoxyCosts SET Active = 0, LastModified = CURRENT_TIMESTAMP 
+                                               WHERE EpoxyCostID = @EpoxyCostID", conn)
+                    cmd.Parameters.AddWithValue("@EpoxyCostID", epoxyCostID)
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "DeleteEpoxyCost")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Maps SQLite reader to EpoxyCost object
+    ''' </summary>
+    Private Shared Function MapReaderToEpoxyCost(reader As SQLiteDataReader) As EpoxyCost
+        Return New EpoxyCost With {
+            .EpoxyCostID = Convert.ToInt32(reader("EpoxyCostID")),
+            .Brand = reader("Brand").ToString(),
+            .Type = reader("Type").ToString(),
+            .CostPerGallon = Convert.ToDouble(reader("CostPerGallon")),
+            .DisplayText = If(IsDBNull(reader("DisplayText")), "", reader("DisplayText").ToString()),
+            .Active = Convert.ToBoolean(reader("Active")),
+            .IsUserAdded = Convert.ToBoolean(reader("IsUserAdded")),
+            .DateAdded = Convert.ToDateTime(reader("DateAdded")),
+            .LastModified = Convert.ToDateTime(reader("LastModified"))
         }
     End Function
 

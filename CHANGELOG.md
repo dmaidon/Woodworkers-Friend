@@ -19,7 +19,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2026-01-30
 
-### Added - Phase 7: Reference System Complete
+### Added - Phase 7: Reference & Cost Management System Complete
+
+- **Cost Management System** (Phase 7.3) 🆕
+  - Database-backed wood and epoxy cost management
+  - User-friendly CRUD interface (FrmManageCosts)
+  - 66 wood species costs migrated from CSV
+  - 8 epoxy products migrated from CSV
+  - Sortable data grids with visual indicators
+  - Soft delete pattern (mark inactive)
+  - Tracks user-added vs system entries
+  - Date tracking for audit trail
+  - Seamless integration with Board Feet and Epoxy calculators
+  - CSV fallback for reliability
+  - Automatic Title Case conversion for wood names
+  - Access via About tab → [Manage Costs] button
+
 - **Joinery Reference Database** (Phase 7.1)
   - 12 traditional and modern joint types
   - Detailed specifications with historical context

@@ -140,11 +140,32 @@ Partial Public Class FrmMain
         UpdateEpoxyResults()
     End Sub
 
-    ' Load epoxy cost data from CSV file
+    ' Load epoxy cost data from database with CSV fallback
+    ' Phase 7.3: Database migration
     Private Sub LoadEpoxyCostData()
         Try
             CmbEpoxyCost.Items.Clear()
 
+            ' Try database first
+            Dim dbCosts = DatabaseManager.Instance.GetAllEpoxyCosts()
+
+            If dbCosts.Count > 0 Then
+                For Each cost In dbCosts
+                    Dim item As New EpoxyCostItem(cost.Brand, cost.Type, cost.CostPerGallon, cost.DisplayName)
+                    CmbEpoxyCost.Items.Add(item)
+                Next
+
+                If CmbEpoxyCost.Items.Count > 0 Then
+                    CmbEpoxyCost.SelectedIndex = 0
+                End If
+                Return
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "LoadEpoxyCostData - Database failed, trying CSV fallback")
+        End Try
+
+        ' Fallback to CSV if database empty or fails
+        Try
             Dim csvPath As String = Path.Combine(Application.StartupPath, "Settings", "epoxyCost.csv")
             If File.Exists(csvPath) Then
                 Dim lines() As String = File.ReadAllLines(csvPath)
