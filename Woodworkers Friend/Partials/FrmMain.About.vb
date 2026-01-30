@@ -197,7 +197,7 @@ Partial Public Class FrmMain
 
             ' Add log files to listbox with formatted display
             For Each fileInfo In logFiles
-                Dim displayText = $"{Path.GetFileNameWithoutExtension(fileInfo.Name)} - {fileInfo.LastWriteTime:MMM d, yyyy h:mm tt}"
+                Dim displayText = fileInfo.Name
                 LbLogFiles.Items.Add(displayText)
                 LbLogFiles.Tag = If(LbLogFiles.Tag, New List(Of String))
                 CType(LbLogFiles.Tag, List(Of String)).Add(fileInfo.FullName)

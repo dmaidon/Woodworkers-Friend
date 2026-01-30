@@ -18,9 +18,22 @@ Public Class FrmMain
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-            ' Initialize logging system - must be first
+            ' CRITICAL: Initialize database FIRST - required for TimesRun
+            CreateProgramFolders()
+
+            Try
+                Dim dbManager = DatabaseManager.Instance
+                TimesRun = dbManager.GetTimesRun()  ' Get current value
+                TimesRun += 1                        ' Increment it
+                dbManager.SavePreference("TimesRun", TimesRun.ToString(), "Integer", "System")  ' Save as Integer, not Long
+            Catch ex As Exception
+                TimesRun = 0
+            End Try
+
+            ' Initialize logging system - uses TimesRun in filename
             ErrorHandler.CleanupOldLogs()  ' Clean up old log files
             ErrorHandler.LogStartup()      ' Log application startup
+            ErrorHandler.LogError(New Exception($"Application started - Run #{TimesRun}"), "FrmMain_Load")
 
             ' Show splash screen
             Using splash As New FrmSplash()
@@ -33,7 +46,7 @@ Public Class FrmMain
             End Using
 
             AttachSelectAllHandlerToTextBoxes(Me)
-            InitializeSystem()
+            CompleteSystemInitialization()
             InitializeManagers()
             InitializeUI()
             LoadUserPreferences()
@@ -46,8 +59,21 @@ Public Class FrmMain
         End Try
     End Sub
 
+    Private Sub CompleteSystemInitialization()
+        ' Complete remaining database initialization (migrations, etc.)
+        Try
+            ' Perform initial data migration on first run
+            DataMigration.PerformInitialMigration()
+
+            ErrorHandler.LogError(New Exception($"Database initialized at: {DatabaseManager.Instance.DatabasePath}"), "CompleteSystemInitialization")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CompleteSystemInitialization - Database migration failed")
+            ' Continue anyway - app can still function with in-code data
+        End Try
+    End Sub
+
     Private Sub InitializeSystem()
-        CreateprogramFolders()
+        CreateProgramFolders()
 
         ' Initialize database (SQLite) - Phase 1 of unified database migration
         Try
@@ -105,6 +131,7 @@ Public Class FrmMain
         Me.Text = $"{AppName} - {Version}"
         TsslCpy.Text = GetCopyrightNotice()
         TsslVersion.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
+        TsslTimesRun.Text = TimesRun.ToString
         Show()
 
     End Sub

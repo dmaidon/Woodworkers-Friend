@@ -1656,7 +1656,7 @@ Public Class DataMigration
 
             For Each cost In allCosts
                 ' Check if name is all uppercase or has multiple uppercase letters
-                If cost.WoodName = cost.WoodName.ToUpper() OrElse cost.WoodName.Count(Function(c) Char.IsUpper(c)) > 1 Then
+                If cost.WoodName.Equals(cost.WoodName, StringComparison.CurrentCultureIgnoreCase) OrElse cost.WoodName.Count(Function(c) Char.IsUpper(c)) > 1 Then
                     ' Convert to Title Case
                     cost.WoodName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cost.WoodName.ToLower())
 

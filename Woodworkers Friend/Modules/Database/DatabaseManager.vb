@@ -988,6 +988,35 @@ Public Class DatabaseManager
         End Try
     End Function
 
+    ''' <summary>
+    ''' Gets the TimesRun counter from database
+    ''' </summary>
+    Public Function GetTimesRun() As Integer
+        Try
+            Dim raw = GetPreference("TimesRun", "0")
+            Dim result As Integer
+            Return If(Integer.TryParse(raw, result), result, 0)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "GetTimesRun")
+            Return 0
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Increments and saves the TimesRun counter
+    ''' </summary>
+    Public Function IncrementTimesRun() As Integer
+        Try
+            Dim currentCount = GetTimesRun()
+            currentCount += 1
+            SavePreference("TimesRun", currentCount.ToString(), "Integer", "System")
+            Return currentCount
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "IncrementTimesRun")
+            Return 0
+        End Try
+    End Function
+
 #End Region
 
 #Region "Calculation History Methods"

@@ -11,8 +11,14 @@ Imports System.IO
 ''' </summary>
 Public Class ErrorHandler
 
-    Private Shared ReadOnly _logFilePath As String = Path.Combine(LogDir, $"errors_{DateTime.Now:MMMd}.log")
     Private Const MaxLogAgeInDays As Integer = 10
+
+    ''' <summary>
+    ''' Gets the current log file path using the current TimesRun value
+    ''' </summary>
+    Private Shared Function GetLogFilePath() As String
+        Return Path.Combine(LogDir, $"errors_{DateTime.Now:MMMd}-{TimesRun}.log")
+    End Function
 
     ''' <summary>
     ''' Handles an exception with optional user notification
@@ -37,8 +43,11 @@ Public Class ErrorHandler
     ''' </summary>
     Public Shared Sub LogError(ex As Exception, context As String)
         Try
+            ' Get current log file path
+            Dim logFilePath = GetLogFilePath()
+
             ' Ensure log directory exists
-            Dim logDir As String = Path.GetDirectoryName(_logFilePath)
+            Dim logDir As String = Path.GetDirectoryName(logFilePath)
             If Not Directory.Exists(logDir) Then
                 Directory.CreateDirectory(logDir)
             End If
@@ -57,7 +66,7 @@ Public Class ErrorHandler
             logEntry.AppendLine(New String("-"c, 80))
 
             ' Write to log file
-            File.AppendAllText(_logFilePath, logEntry.ToString())
+            File.AppendAllText(logFilePath, logEntry.ToString())
         Catch logEx As Exception
             ' If logging fails, try to show a message box as last resort
             Debug.WriteLine($"Failed to log error: {logEx.Message}")
@@ -77,14 +86,17 @@ Public Class ErrorHandler
     ''' </summary>
     Public Shared Sub LogWarning(context As String, message As String)
         Try
-            Dim logDir As String = Path.GetDirectoryName(_logFilePath)
+            ' Get current log file path
+            Dim logFilePath = GetLogFilePath()
+
+            Dim logDir As String = Path.GetDirectoryName(logFilePath)
             If Not Directory.Exists(logDir) Then
                 Directory.CreateDirectory(logDir)
             End If
 
             Dim logEntry As String = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] WARNING in {context}: {message}" &
                                     Environment.NewLine
-            File.AppendAllText(_logFilePath, logEntry)
+            File.AppendAllText(logFilePath, logEntry)
         Catch
             ' Silently fail if warning logging fails
         End Try
@@ -95,15 +107,18 @@ Public Class ErrorHandler
     ''' </summary>
     Public Shared Sub LogStartup()
         Try
+            ' Get current log file path
+            Dim logFilePath = GetLogFilePath()
+
             ' Ensure log directory exists
-            Dim logDir As String = Path.GetDirectoryName(_logFilePath)
+            Dim logDir As String = Path.GetDirectoryName(logFilePath)
             If Not Directory.Exists(logDir) Then
                 Directory.CreateDirectory(logDir)
             End If
 
             ' Create startup log entry
             Dim logEntry As String = $"Log Started: {DateTime.Now:yyyy-MM-dd HH:mm:ss}{Environment.NewLine}"
-            File.AppendAllText(_logFilePath, logEntry)
+            File.AppendAllText(logFilePath, logEntry)
         Catch
             ' Silently fail if startup logging fails
             Debug.WriteLine("Failed to log application startup")
@@ -158,7 +173,7 @@ Public Class ErrorHandler
     ''' </summary>
     Public Shared ReadOnly Property CurrentLogFilePath As String
         Get
-            Return _logFilePath
+            Return GetLogFilePath()
         End Get
     End Property
 

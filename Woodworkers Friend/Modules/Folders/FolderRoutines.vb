@@ -1,6 +1,6 @@
-﻿Friend Module FolderRoutines
+Friend Module FolderRoutines
 
-    Friend Sub CreateprogramFolders()
+    Friend Sub CreateProgramFolders()
 
         Dim FolderList As New List(Of String) From {
             LogDir,
