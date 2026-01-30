@@ -1,13 +1,22 @@
 ' ============================================================================
-' Last Updated: January 29, 2026
-' Changes: Initial creation - Wood properties reference database
+' Last Updated: January 30, 2026
+' Changes: DEPRECATED - Data now loaded from SQLite database (Phase 2 complete)
+'          This file kept for reference only. Will be removed in future version.
+'          Use DatabaseManager.Instance.GetAllWoodSpecies() instead.
 ' ============================================================================
+
+' *** OBSOLETE - DO NOT USE ***
+' This class is deprecated as of Phase 2 migration to SQLite database.
+' All wood species data now stored in WoodworkersFriend.db
+' Use: DatabaseManager.Instance.GetAllWoodSpecies()
 
 Imports System.ComponentModel
 
 ''' <summary>
 ''' Provides wood species properties data
+''' **OBSOLETE: Use DatabaseManager.Instance.GetAllWoodSpecies() instead**
 ''' </summary>
+<Obsolete("This class is deprecated. Use DatabaseManager.Instance.GetAllWoodSpecies() instead.")>
 Public Class WoodPropertiesDatabase
 
     ''' <summary>
@@ -338,6 +347,34 @@ Public Class WoodPropertiesDatabase
 .TypicalUses = "Plywood, furniture, cabinets, turned objects, toothpicks, interior trim. Often used as a paint-grade wood. Less expensive than yellow birch but with similar working properties.",
 .Workability = "Easy to moderate. Machines, glues, and finishes well. Can be blotchy when stained - use conditioner. Good for turning. Takes paint excellently. Softer than yellow birch.",
 .Cautions = "High shrinkage - expect significant movement. Not suitable for outdoor use. Can be difficult to stain evenly. Sapwood may contain mineral streaks. Not as strong as yellow birch."
+},
+            New WoodPropertiesData With {
+.CommonName = "Sapele",
+.ScientificName = "Entandrophragma cylindricum",
+.JankaHardness = 1410,
+.SpecificGravity = 0.62,
+.MoistureContent = 0.12,
+.Density = 42,
+.ShrinkageRadial = 0.048,
+.ShrinkageTangential = 0.072,
+.WoodType = "Hardwood",
+.TypicalUses = "Fine furniture, cabinetry, boat building, musical instruments (guitars), veneer, interior trim, flooring. Popular mahogany substitute with beautiful ribbon figure. Excellent for high-end applications.",
+.Workability = "Moderate difficulty. Interlocked grain can be challenging to plane - may cause tearout. Machines reasonably well with sharp tools. Glues and finishes well. Beautiful ribbon stripe figure when quartersawn.",
+.Cautions = "Interlocked grain requires care when planing - work at slight angle. Can cause respiratory irritation and skin sensitization. Blunts tools moderately. Ribbon figure beautiful but tricky to work. Check CITES regulations."
+},
+            New WoodPropertiesData With {
+.CommonName = "Wenge",
+.ScientificName = "Millettia laurentii",
+.JankaHardness = 1630,
+.SpecificGravity = 0.88,
+.MoistureContent = 0.12,
+.Density = 58,
+.ShrinkageRadial = 0.038,
+.ShrinkageTangential = 0.067,
+.WoodType = "Hardwood",
+.TypicalUses = "Flooring, furniture, knife handles, musical instruments, decorative veneer, turned objects, accent pieces. Prized for its very dark color with black veining. Popular for contemporary furniture and contrasts.",
+.Workability = "Difficult to work. Very dense and hard. Dulls cutting tools quickly. Splinters easily - wear gloves. Can be difficult to glue. Pre-drilling essential. Takes excellent finish despite open grain. Good dimensional stability.",
+.Cautions = "TOXIC DUST - wear respirator! Can cause severe respiratory issues and skin sensitization. Very splintery - handle with care. Extremely hard on tools - use carbide. Check CITES - may be restricted. Expensive and limited availability."
 }
         }
 

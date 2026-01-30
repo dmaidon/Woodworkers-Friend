@@ -1,7 +1,10 @@
 ' ============================================================================
-' Last Updated: January 27, 2026
-' Changes: Initial creation of comprehensive help system with navigation,
-'          color-coded sections, and detailed instructions for all features
+' Last Updated: January 30, 2026
+' Changes: Phase 4 - Migrated help system to unified SQLite database.
+'          Help content now loaded from HelpContent table via DatabaseManager.
+'          Added search box with real-time search results.
+'          Hardcoded Show*Help() methods kept as fallback only.
+'          HelpContentManager handles database → markup → RTF rendering.
 ' ============================================================================
 
 Partial Public Class FrmMain
@@ -21,12 +24,51 @@ Partial Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Initializes the complete help system with navigation and content
+    ''' Initializes the complete help system with search, navigation, and content
     ''' </summary>
     Private Sub InitializeHelpSystem()
         Try
             ' Clear existing controls
             TpHelp.Controls.Clear()
+
+            ' Create search panel at top
+            Dim searchPanel As New Panel With {
+                .Dock = DockStyle.Top,
+                .Height = 36,
+                .BackColor = Color.FromArgb(240, 240, 245),
+                .Padding = New Padding(5, 5, 5, 3)
+            }
+
+            Dim searchLabel As New Label With {
+                .Text = "Search Help:",
+                .AutoSize = True,
+                .Location = New Point(8, 9),
+                .Font = New Font("Segoe UI", 9, FontStyle.Regular)
+            }
+
+            Dim searchBox As New TextBox With {
+                .Name = "TxtHelpSearch",
+                .Location = New Point(90, 5),
+                .Width = 250,
+                .Font = New Font("Segoe UI", 10, FontStyle.Regular),
+                .PlaceholderText = "Type to search help topics..."
+            }
+            AddHandler searchBox.TextChanged, AddressOf HelpSearch_TextChanged
+
+            Dim clearBtn As New Button With {
+                .Text = "Clear",
+                .Location = New Point(350, 5),
+                .Width = 55,
+                .Height = 26,
+                .Font = New Font("Segoe UI", 8, FontStyle.Regular),
+                .FlatStyle = FlatStyle.Flat
+            }
+            AddHandler clearBtn.Click, Sub(s, ev)
+                                           searchBox.Text = ""
+                                           searchBox.Focus()
+                                       End Sub
+
+            searchPanel.Controls.AddRange({searchLabel, searchBox, clearBtn})
 
             ' Create main split container
             Dim mainSplit As New SplitContainer With {
@@ -44,11 +86,56 @@ Partial Public Class FrmMain
             ' Create content panel (right side)
             CreateHelpContent(mainSplit.Panel2)
 
-            ' Add split container to help tab, then set splitter distance
+            ' Add controls: search panel on top, split below
             TpHelp.Controls.Add(mainSplit)
+            TpHelp.Controls.Add(searchPanel)
             mainSplit.SplitterDistance = 250
         Catch ex As Exception
             ErrorHandler.HandleError(ex, "InitializeHelpSystem", showToUser:=True)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Handles search box text changes - filters help navigation tree
+    ''' </summary>
+    Private Sub HelpSearch_TextChanged(sender As Object, e As EventArgs)
+        Try
+            Dim searchBox = CType(sender, TextBox)
+            Dim searchTerm = searchBox.Text.Trim()
+
+            ' Find the tree view
+            Dim mainSplit = TpHelp.Controls.OfType(Of SplitContainer)().FirstOrDefault()
+            If mainSplit Is Nothing Then Return
+
+            Dim treeView = mainSplit.Panel1.Controls.OfType(Of TreeView)().FirstOrDefault()
+            If treeView Is Nothing Then Return
+
+            If String.IsNullOrEmpty(searchTerm) Then
+                ' Restore full navigation tree
+                treeView.Nodes.Clear()
+                BuildHelpNavigationTree(treeView)
+                Return
+            End If
+
+            ' Search database for matching topics
+            Dim results = HelpContentManager.SearchHelp(searchTerm)
+
+            treeView.Nodes.Clear()
+
+            If results.Count = 0 Then
+                Dim noResults = treeView.Nodes.Add("no_results", $"No results for ""{searchTerm}""")
+                noResults.ForeColor = Color.Gray
+            Else
+                Dim searchNode = treeView.Nodes.Add("search_results", $"Search Results ({results.Count})")
+                searchNode.NodeFont = New Font(treeView.Font, FontStyle.Bold)
+                For Each result In results
+                    searchNode.Nodes.Add(result.ModuleName, result.Title)
+                Next
+                searchNode.Expand()
+            End If
+
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "HelpSearch_TextChanged")
         End Try
     End Sub
 
@@ -62,6 +149,20 @@ Partial Public Class FrmMain
             .BackColor = Color.FromArgb(240, 240, 240),
             .Name = "tvHelpNav"
         }
+
+        BuildHelpNavigationTree(treeView)
+
+        ' Handle node selection
+        AddHandler treeView.AfterSelect, AddressOf HelpNav_AfterSelect
+
+        panel.Controls.Add(treeView)
+    End Sub
+
+    ''' <summary>
+    ''' Builds the help navigation tree nodes (called on init and after search clear)
+    ''' </summary>
+    Private Sub BuildHelpNavigationTree(treeView As TreeView)
+        treeView.Nodes.Clear()
 
         ' Add main categories
         Dim nodeGettingStarted = treeView.Nodes.Add("GettingStarted", "Getting Started")
@@ -86,6 +187,17 @@ Partial Public Class FrmMain
         nodeConversions.Nodes.Add("fractions", "Fraction to Decimal")
         nodeConversions.Nodes.Add("table_tip", "Table Tipping Force")
 
+        Dim nodeFeatures = treeView.Nodes.Add("features", "Features")
+        nodeFeatures.Nodes.Add("shortcuts", "Keyboard Shortcuts")
+        nodeFeatures.Nodes.Add("themes", "Dark & Light Themes")
+        nodeFeatures.Nodes.Add("export", "Exporting Results")
+        nodeFeatures.Nodes.Add("presets", "Using Presets")
+        nodeFeatures.Nodes.Add("validation", "Input Validation")
+        nodeFeatures.Nodes.Add("best_practices", "Best Practices")
+
+        Dim nodeSupport = treeView.Nodes.Add("support", "Support")
+        nodeSupport.Nodes.Add("troubleshooting", "Troubleshooting")
+
         Dim nodeAbout = treeView.Nodes.Add("about", "About")
         nodeAbout.Nodes.Add("version", "Version Information")
 
@@ -93,11 +205,6 @@ Partial Public Class FrmMain
         For Each node As TreeNode In treeView.Nodes
             node.Expand()
         Next
-
-        ' Handle node selection
-        AddHandler treeView.AfterSelect, AddressOf HelpNav_AfterSelect
-
-        panel.Controls.Add(treeView)
     End Sub
 
     ''' <summary>
@@ -205,7 +312,7 @@ Partial Public Class FrmMain
         AddHelpText(rtb, "Please select a different topic from the navigation tree on the left.")
     End Sub
 
-#Region "Help Content Methods - DEPRECATED (kept for fallback)"
+#Region "Help Content Methods - OBSOLETE (Phase 4: Content now in database, these are fallback only)"
 
     ''' <summary>
     ''' Shows getting started help

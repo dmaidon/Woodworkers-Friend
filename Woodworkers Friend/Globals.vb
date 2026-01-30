@@ -24,9 +24,7 @@ Public Module Globals
     Public ReadOnly DataDir As String = Path.Combine(Application.StartupPath, "Data")
     Public ReadOnly TempDir As String = Path.Combine(Application.StartupPath, "$tmp")
 
-    Public Enum AppTheme
-        Light
-        Dark
-    End Enum
+    ' AppTheme enum is defined in ThemeManager.vb (Light, Dark, System)
+    ' Removed duplicate from here in Phase 5
 
 End Module

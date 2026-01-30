@@ -1,11 +1,15 @@
 ' ============================================================================
-' Last Updated: January 27, 2026
-' Changes: Initial creation - Wood species database with shrinkage properties
-'          for calculating wood movement across grain
+' Last Updated: January 30, 2026
+' Changes: OBSOLETE - Wood Movement now uses unified SQLite database via
+'          DatabaseManager.Instance.GetAllWoodSpecies(). This file is kept
+'          as a reference and for the WoodSpecies class used by
+'          WoodMovementCalculator. Do NOT add new species here.
 ' ============================================================================
 
 ''' <summary>
-''' Represents a wood species with its movement characteristics
+''' Represents a wood species with its movement characteristics.
+''' Used by WoodMovementCalculator for calculations.
+''' Species data now loaded from unified database (see DatabaseManager).
 ''' </summary>
 Public Class WoodSpecies
     Public Property Name As String
@@ -16,8 +20,11 @@ Public Class WoodSpecies
 End Class
 
 ''' <summary>
-''' Database of common wood species and their properties
+''' OBSOLETE: Database of common wood species and their properties.
+''' Wood Movement now loads species from unified SQLite database via DatabaseManager.
+''' This module is kept as fallback only. Do NOT add new species here.
 ''' </summary>
+<Obsolete("Use DatabaseManager.Instance.GetAllWoodSpecies() instead")>
 Public Module WoodSpeciesDatabase
     
     Private _species As List(Of WoodSpecies)

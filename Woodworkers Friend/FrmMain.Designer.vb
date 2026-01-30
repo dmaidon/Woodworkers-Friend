@@ -184,6 +184,9 @@ Partial Class FrmMain
         Label49 = New Label()
         TpBoardfeet = New TabPage()
         PnlBoardFeet = New Panel()
+        BtnLoadBoardFeetHistory = New Button()
+        BtnSaveBoardFeetHistory = New Button()
+        LblBfProjectName = New Label()
         BtnPrtBfProject = New Button()
         TxtBfProjectName = New TextBox()
         BtnSaveBfProject = New Button()
@@ -458,6 +461,7 @@ Partial Class FrmMain
         TcReferences = New TabControl()
         TpWoodProperties = New TabPage()
         PnlWoodDetails = New Panel()
+        BtnAddWoodSpecies = New Button()
         BtnPrintWoodData = New Button()
         BtnExportWoodData = New Button()
         BtnCompareWoods = New Button()
@@ -472,7 +476,62 @@ Partial Class FrmMain
         RbWoodAll = New RadioButton()
         LblWoodPropertiesReference = New Label()
         DgvWoodProperties = New DataGridView()
-        TabPage2 = New TabPage()
+        TpJoineryReference = New TabPage()
+        Panel11 = New Panel()
+        Label67 = New Label()
+        TxtJoineryHistory = New TextBox()
+        Label66 = New Label()
+        Label65 = New Label()
+        Label64 = New Label()
+        Label63 = New Label()
+        TxtJoineryReinforcement = New TextBox()
+        TxtJoineryStrengthChar = New TextBox()
+        TxtJoineryTools = New TextBox()
+        TxtJoineryUses = New TextBox()
+        TxtJoineryDescription = New TextBox()
+        Label62 = New Label()
+        Panel1 = New Panel()
+        LblJoineryGlue = New Label()
+        LblJoineryStrength = New Label()
+        LblJoineryDifficulty = New Label()
+        LblJoineryCategory = New Label()
+        LblJoineryName = New Label()
+        LblSummary = New Label()
+        GbxJoineryFilter = New GroupBox()
+        LblJoineryCount = New Label()
+        RbJoineryBeginner = New RadioButton()
+        RbJoineryEdge = New RadioButton()
+        RbJoineryBox = New RadioButton()
+        RbJoineryFrame = New RadioButton()
+        RbJoineryAll = New RadioButton()
+        DgvJoineryTypes = New DataGridView()
+        TpHardwareStandards = New TabPage()
+        GbxHardwareFilter = New GroupBox()
+        Label73 = New Label()
+        RbHardwareFasteners = New RadioButton()
+        RbHardwareSlides = New RadioButton()
+        LblHardwareCount = New Label()
+        RbHardwareHinges = New RadioButton()
+        RbHardwareAll = New RadioButton()
+        RbHardwareShelf = New RadioButton()
+        ScHardwareMain = New SplitContainer()
+        DgvHardware = New DataGridView()
+        Label72 = New Label()
+        Label71 = New Label()
+        Label70 = New Label()
+        Label69 = New Label()
+        Label68 = New Label()
+        PnlHardwareSummaryInfo = New Panel()
+        LblHardwareWeight = New Label()
+        LblHardwareDimensions = New Label()
+        LblhardwareBrand = New Label()
+        LblHardwareCategory = New Label()
+        LblHardwareType = New Label()
+        TxtHardwarePartNumber = New TextBox()
+        TxtHardwareInstallation = New TextBox()
+        TxtHardwareMounting = New TextBox()
+        TxtHardwareUses = New TextBox()
+        TxtHardwareDescription = New TextBox()
         TpHelp = New TabPage()
         TpAbout = New TabPage()
         GbxAbout = New GroupBox()
@@ -591,6 +650,19 @@ Partial Class FrmMain
         PnlWoodDetails.SuspendLayout()
         PnlWoodProperties.SuspendLayout()
         CType(DgvWoodProperties, ComponentModel.ISupportInitialize).BeginInit()
+        TpJoineryReference.SuspendLayout()
+        Panel11.SuspendLayout()
+        Panel1.SuspendLayout()
+        GbxJoineryFilter.SuspendLayout()
+        CType(DgvJoineryTypes, ComponentModel.ISupportInitialize).BeginInit()
+        TpHardwareStandards.SuspendLayout()
+        GbxHardwareFilter.SuspendLayout()
+        CType(ScHardwareMain, ComponentModel.ISupportInitialize).BeginInit()
+        ScHardwareMain.Panel1.SuspendLayout()
+        ScHardwareMain.Panel2.SuspendLayout()
+        ScHardwareMain.SuspendLayout()
+        CType(DgvHardware, ComponentModel.ISupportInitialize).BeginInit()
+        PnlHardwareSummaryInfo.SuspendLayout()
         TpAbout.SuspendLayout()
         GbxAbout.SuspendLayout()
         SuspendLayout()
@@ -2152,6 +2224,9 @@ Partial Class FrmMain
         ' 
         PnlBoardFeet.BackColor = Color.WhiteSmoke
         PnlBoardFeet.BorderStyle = BorderStyle.Fixed3D
+        PnlBoardFeet.Controls.Add(BtnLoadBoardFeetHistory)
+        PnlBoardFeet.Controls.Add(BtnSaveBoardFeetHistory)
+        PnlBoardFeet.Controls.Add(LblBfProjectName)
         PnlBoardFeet.Controls.Add(BtnPrtBfProject)
         PnlBoardFeet.Controls.Add(TxtBfProjectName)
         PnlBoardFeet.Controls.Add(BtnSaveBfProject)
@@ -2172,33 +2247,64 @@ Partial Class FrmMain
         PnlBoardFeet.Dock = DockStyle.Top
         PnlBoardFeet.Location = New Point(3, 3)
         PnlBoardFeet.Name = "PnlBoardFeet"
-        PnlBoardFeet.Size = New Size(1160, 505)
+        PnlBoardFeet.Size = New Size(1160, 567)
         PnlBoardFeet.TabIndex = 0
+        ' 
+        ' BtnLoadBoardFeetHistory
+        ' 
+        BtnLoadBoardFeetHistory.BackColor = Color.MistyRose
+        BtnLoadBoardFeetHistory.Location = New Point(619, 504)
+        BtnLoadBoardFeetHistory.Name = "BtnLoadBoardFeetHistory"
+        BtnLoadBoardFeetHistory.Size = New Size(190, 34)
+        BtnLoadBoardFeetHistory.TabIndex = 20
+        BtnLoadBoardFeetHistory.Text = "Load from History"
+        BtnLoadBoardFeetHistory.UseVisualStyleBackColor = False
+        ' 
+        ' BtnSaveBoardFeetHistory
+        ' 
+        BtnSaveBoardFeetHistory.BackColor = Color.MistyRose
+        BtnSaveBoardFeetHistory.Location = New Point(347, 504)
+        BtnSaveBoardFeetHistory.Name = "BtnSaveBoardFeetHistory"
+        BtnSaveBoardFeetHistory.Size = New Size(190, 34)
+        BtnSaveBoardFeetHistory.TabIndex = 19
+        BtnSaveBoardFeetHistory.Text = "Save to History"
+        BtnSaveBoardFeetHistory.UseVisualStyleBackColor = False
+        ' 
+        ' LblBfProjectName
+        ' 
+        LblBfProjectName.AutoSize = True
+        LblBfProjectName.Location = New Point(378, 453)
+        LblBfProjectName.Name = "LblBfProjectName"
+        LblBfProjectName.Size = New Size(129, 18)
+        LblBfProjectName.TabIndex = 18
+        LblBfProjectName.Text = "Project Name: "
         ' 
         ' BtnPrtBfProject
         ' 
-        BtnPrtBfProject.Location = New Point(821, 447)
+        BtnPrtBfProject.BackColor = Color.MistyRose
+        BtnPrtBfProject.Location = New Point(891, 504)
         BtnPrtBfProject.Name = "BtnPrtBfProject"
-        BtnPrtBfProject.Size = New Size(144, 29)
+        BtnPrtBfProject.Size = New Size(190, 34)
         BtnPrtBfProject.TabIndex = 16
         BtnPrtBfProject.Text = "Print Project"
-        BtnPrtBfProject.UseVisualStyleBackColor = True
+        BtnPrtBfProject.UseVisualStyleBackColor = False
         ' 
         ' TxtBfProjectName
         ' 
-        TxtBfProjectName.Location = New Point(467, 450)
+        TxtBfProjectName.Location = New Point(507, 449)
         TxtBfProjectName.Name = "TxtBfProjectName"
         TxtBfProjectName.Size = New Size(222, 26)
         TxtBfProjectName.TabIndex = 15
         ' 
         ' BtnSaveBfProject
         ' 
-        BtnSaveBfProject.Location = New Point(191, 447)
+        BtnSaveBfProject.BackColor = Color.MistyRose
+        BtnSaveBfProject.Location = New Point(75, 504)
         BtnSaveBfProject.Name = "BtnSaveBfProject"
-        BtnSaveBfProject.Size = New Size(144, 29)
+        BtnSaveBfProject.Size = New Size(190, 34)
         BtnSaveBfProject.TabIndex = 14
         BtnSaveBfProject.Text = "Save Project"
-        BtnSaveBfProject.UseVisualStyleBackColor = True
+        BtnSaveBfProject.UseVisualStyleBackColor = False
         ' 
         ' LblBoardFeetCost20
         ' 
@@ -4990,7 +5096,8 @@ Partial Class FrmMain
         ' 
         TcReferences.Alignment = TabAlignment.Right
         TcReferences.Controls.Add(TpWoodProperties)
-        TcReferences.Controls.Add(TabPage2)
+        TcReferences.Controls.Add(TpJoineryReference)
+        TcReferences.Controls.Add(TpHardwareStandards)
         TcReferences.Dock = DockStyle.Fill
         TcReferences.Location = New Point(0, 0)
         TcReferences.Multiline = True
@@ -5016,6 +5123,7 @@ Partial Class FrmMain
         ' 
         PnlWoodDetails.BackColor = Color.LightGray
         PnlWoodDetails.BorderStyle = BorderStyle.Fixed3D
+        PnlWoodDetails.Controls.Add(BtnAddWoodSpecies)
         PnlWoodDetails.Controls.Add(BtnPrintWoodData)
         PnlWoodDetails.Controls.Add(BtnExportWoodData)
         PnlWoodDetails.Controls.Add(BtnCompareWoods)
@@ -5027,10 +5135,20 @@ Partial Class FrmMain
         PnlWoodDetails.Size = New Size(1128, 379)
         PnlWoodDetails.TabIndex = 2
         ' 
+        ' BtnAddWoodSpecies
+        ' 
+        BtnAddWoodSpecies.BackColor = Color.MistyRose
+        BtnAddWoodSpecies.Location = New Point(858, 323)
+        BtnAddWoodSpecies.Name = "BtnAddWoodSpecies"
+        BtnAddWoodSpecies.Size = New Size(198, 34)
+        BtnAddWoodSpecies.TabIndex = 5
+        BtnAddWoodSpecies.Text = "Add Species"
+        BtnAddWoodSpecies.UseVisualStyleBackColor = False
+        ' 
         ' BtnPrintWoodData
         ' 
         BtnPrintWoodData.BackColor = Color.MistyRose
-        BtnPrintWoodData.Location = New Point(806, 323)
+        BtnPrintWoodData.Location = New Point(595, 323)
         BtnPrintWoodData.Name = "BtnPrintWoodData"
         BtnPrintWoodData.Size = New Size(198, 34)
         BtnPrintWoodData.TabIndex = 4
@@ -5040,7 +5158,7 @@ Partial Class FrmMain
         ' BtnExportWoodData
         ' 
         BtnExportWoodData.BackColor = Color.MistyRose
-        BtnExportWoodData.Location = New Point(460, 323)
+        BtnExportWoodData.Location = New Point(332, 323)
         BtnExportWoodData.Name = "BtnExportWoodData"
         BtnExportWoodData.Size = New Size(198, 34)
         BtnExportWoodData.TabIndex = 3
@@ -5050,7 +5168,7 @@ Partial Class FrmMain
         ' BtnCompareWoods
         ' 
         BtnCompareWoods.BackColor = Color.MistyRose
-        BtnCompareWoods.Location = New Point(114, 323)
+        BtnCompareWoods.Location = New Point(69, 323)
         BtnCompareWoods.Name = "BtnCompareWoods"
         BtnCompareWoods.Size = New Size(198, 34)
         BtnCompareWoods.TabIndex = 2
@@ -5170,15 +5288,622 @@ Partial Class FrmMain
         DgvWoodProperties.Size = New Size(1122, 310)
         DgvWoodProperties.TabIndex = 0
         ' 
-        ' TabPage2
+        ' TpJoineryReference
         ' 
-        TabPage2.Location = New Point(4, 4)
-        TabPage2.Name = "TabPage2"
-        TabPage2.Padding = New Padding(3)
-        TabPage2.Size = New Size(1128, 811)
-        TabPage2.TabIndex = 1
-        TabPage2.Text = "TabPage2"
-        TabPage2.UseVisualStyleBackColor = True
+        TpJoineryReference.BackColor = Color.Gainsboro
+        TpJoineryReference.Controls.Add(Panel11)
+        TpJoineryReference.Controls.Add(Panel1)
+        TpJoineryReference.Controls.Add(GbxJoineryFilter)
+        TpJoineryReference.Controls.Add(DgvJoineryTypes)
+        TpJoineryReference.Location = New Point(4, 4)
+        TpJoineryReference.Name = "TpJoineryReference"
+        TpJoineryReference.Padding = New Padding(3)
+        TpJoineryReference.Size = New Size(1134, 811)
+        TpJoineryReference.TabIndex = 1
+        TpJoineryReference.Text = "Joinery Types"
+        ' 
+        ' Panel11
+        ' 
+        Panel11.BackColor = Color.Silver
+        Panel11.BorderStyle = BorderStyle.FixedSingle
+        Panel11.Controls.Add(Label67)
+        Panel11.Controls.Add(TxtJoineryHistory)
+        Panel11.Controls.Add(Label66)
+        Panel11.Controls.Add(Label65)
+        Panel11.Controls.Add(Label64)
+        Panel11.Controls.Add(Label63)
+        Panel11.Controls.Add(TxtJoineryReinforcement)
+        Panel11.Controls.Add(TxtJoineryStrengthChar)
+        Panel11.Controls.Add(TxtJoineryTools)
+        Panel11.Controls.Add(TxtJoineryUses)
+        Panel11.Controls.Add(TxtJoineryDescription)
+        Panel11.Controls.Add(Label62)
+        Panel11.Location = New Point(509, 324)
+        Panel11.Name = "Panel11"
+        Panel11.Size = New Size(609, 481)
+        Panel11.TabIndex = 3
+        ' 
+        ' Label67
+        ' 
+        Label67.AutoSize = True
+        Label67.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label67.Location = New Point(20, 404)
+        Label67.Name = "Label67"
+        Label67.Size = New Size(181, 18)
+        Label67.TabIndex = 12
+        Label67.Text = "**Historical Notes:**"
+        ' 
+        ' TxtJoineryHistory
+        ' 
+        TxtJoineryHistory.Location = New Point(20, 430)
+        TxtJoineryHistory.Multiline = True
+        TxtJoineryHistory.Name = "TxtJoineryHistory"
+        TxtJoineryHistory.ReadOnly = True
+        TxtJoineryHistory.ScrollBars = ScrollBars.Both
+        TxtJoineryHistory.Size = New Size(570, 46)
+        TxtJoineryHistory.TabIndex = 11
+        ' 
+        ' Label66
+        ' 
+        Label66.AutoSize = True
+        Label66.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label66.Location = New Point(20, 322)
+        Label66.Name = "Label66"
+        Label66.Size = New Size(239, 18)
+        Label66.TabIndex = 10
+        Label66.Text = "**Reinforcement Options:**"
+        ' 
+        ' Label65
+        ' 
+        Label65.AutoSize = True
+        Label65.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label65.Location = New Point(20, 242)
+        Label65.Name = "Label65"
+        Label65.Size = New Size(249, 18)
+        Label65.TabIndex = 9
+        Label65.Text = "**Strength Characteristics:**"
+        ' 
+        ' Label64
+        ' 
+        Label64.AutoSize = True
+        Label64.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label64.Location = New Point(20, 162)
+        Label64.Name = "Label64"
+        Label64.Size = New Size(172, 18)
+        Label64.TabIndex = 8
+        Label64.Text = "**Required Tools:**"
+        ' 
+        ' Label63
+        ' 
+        Label63.AutoSize = True
+        Label63.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label63.Location = New Point(20, 82)
+        Label63.Name = "Label63"
+        Label63.Size = New Size(149, 18)
+        Label63.TabIndex = 7
+        Label63.Text = "**Typical uses:**"
+        ' 
+        ' TxtJoineryReinforcement
+        ' 
+        TxtJoineryReinforcement.Location = New Point(20, 348)
+        TxtJoineryReinforcement.Multiline = True
+        TxtJoineryReinforcement.Name = "TxtJoineryReinforcement"
+        TxtJoineryReinforcement.ReadOnly = True
+        TxtJoineryReinforcement.ScrollBars = ScrollBars.Both
+        TxtJoineryReinforcement.Size = New Size(570, 46)
+        TxtJoineryReinforcement.TabIndex = 6
+        ' 
+        ' TxtJoineryStrengthChar
+        ' 
+        TxtJoineryStrengthChar.Location = New Point(20, 268)
+        TxtJoineryStrengthChar.Multiline = True
+        TxtJoineryStrengthChar.Name = "TxtJoineryStrengthChar"
+        TxtJoineryStrengthChar.ReadOnly = True
+        TxtJoineryStrengthChar.ScrollBars = ScrollBars.Both
+        TxtJoineryStrengthChar.Size = New Size(570, 46)
+        TxtJoineryStrengthChar.TabIndex = 5
+        ' 
+        ' TxtJoineryTools
+        ' 
+        TxtJoineryTools.Location = New Point(20, 188)
+        TxtJoineryTools.Multiline = True
+        TxtJoineryTools.Name = "TxtJoineryTools"
+        TxtJoineryTools.ReadOnly = True
+        TxtJoineryTools.ScrollBars = ScrollBars.Both
+        TxtJoineryTools.Size = New Size(570, 46)
+        TxtJoineryTools.TabIndex = 4
+        ' 
+        ' TxtJoineryUses
+        ' 
+        TxtJoineryUses.Location = New Point(20, 108)
+        TxtJoineryUses.Multiline = True
+        TxtJoineryUses.Name = "TxtJoineryUses"
+        TxtJoineryUses.ReadOnly = True
+        TxtJoineryUses.ScrollBars = ScrollBars.Both
+        TxtJoineryUses.Size = New Size(570, 46)
+        TxtJoineryUses.TabIndex = 3
+        ' 
+        ' TxtJoineryDescription
+        ' 
+        TxtJoineryDescription.Location = New Point(20, 28)
+        TxtJoineryDescription.Multiline = True
+        TxtJoineryDescription.Name = "TxtJoineryDescription"
+        TxtJoineryDescription.ReadOnly = True
+        TxtJoineryDescription.ScrollBars = ScrollBars.Both
+        TxtJoineryDescription.Size = New Size(570, 46)
+        TxtJoineryDescription.TabIndex = 2
+        ' 
+        ' Label62
+        ' 
+        Label62.AutoSize = True
+        Label62.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label62.Location = New Point(20, 2)
+        Label62.Name = "Label62"
+        Label62.Size = New Size(143, 18)
+        Label62.TabIndex = 1
+        Label62.Text = "**Description:**"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.BackColor = Color.Silver
+        Panel1.BorderStyle = BorderStyle.FixedSingle
+        Panel1.Controls.Add(LblJoineryGlue)
+        Panel1.Controls.Add(LblJoineryStrength)
+        Panel1.Controls.Add(LblJoineryDifficulty)
+        Panel1.Controls.Add(LblJoineryCategory)
+        Panel1.Controls.Add(LblJoineryName)
+        Panel1.Controls.Add(LblSummary)
+        Panel1.Location = New Point(509, 102)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(609, 687)
+        Panel1.TabIndex = 2
+        ' 
+        ' LblJoineryGlue
+        ' 
+        LblJoineryGlue.AutoSize = True
+        LblJoineryGlue.Location = New Point(25, 183)
+        LblJoineryGlue.Name = "LblJoineryGlue"
+        LblJoineryGlue.Size = New Size(137, 18)
+        LblJoineryGlue.TabIndex = 5
+        LblJoineryGlue.Text = "Glue Required: "
+        ' 
+        ' LblJoineryStrength
+        ' 
+        LblJoineryStrength.AutoSize = True
+        LblJoineryStrength.Location = New Point(25, 148)
+        LblJoineryStrength.Name = "LblJoineryStrength"
+        LblJoineryStrength.Size = New Size(90, 18)
+        LblJoineryStrength.TabIndex = 4
+        LblJoineryStrength.Text = "Strength: "
+        ' 
+        ' LblJoineryDifficulty
+        ' 
+        LblJoineryDifficulty.AutoSize = True
+        LblJoineryDifficulty.Location = New Point(25, 113)
+        LblJoineryDifficulty.Name = "LblJoineryDifficulty"
+        LblJoineryDifficulty.Size = New Size(96, 18)
+        LblJoineryDifficulty.TabIndex = 3
+        LblJoineryDifficulty.Text = "Difficulty: "
+        ' 
+        ' LblJoineryCategory
+        ' 
+        LblJoineryCategory.AutoSize = True
+        LblJoineryCategory.Location = New Point(25, 78)
+        LblJoineryCategory.Name = "LblJoineryCategory"
+        LblJoineryCategory.Size = New Size(91, 18)
+        LblJoineryCategory.TabIndex = 2
+        LblJoineryCategory.Text = "Category: "
+        ' 
+        ' LblJoineryName
+        ' 
+        LblJoineryName.AutoSize = True
+        LblJoineryName.Location = New Point(25, 43)
+        LblJoineryName.Name = "LblJoineryName"
+        LblJoineryName.Size = New Size(66, 18)
+        LblJoineryName.TabIndex = 1
+        LblJoineryName.Text = "Name: "
+        ' 
+        ' LblSummary
+        ' 
+        LblSummary.AutoSize = True
+        LblSummary.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblSummary.Location = New Point(18, 7)
+        LblSummary.Name = "LblSummary"
+        LblSummary.Size = New Size(157, 24)
+        LblSummary.TabIndex = 0
+        LblSummary.Text = "**Summary:**"
+        ' 
+        ' GbxJoineryFilter
+        ' 
+        GbxJoineryFilter.BackColor = Color.Silver
+        GbxJoineryFilter.Controls.Add(LblJoineryCount)
+        GbxJoineryFilter.Controls.Add(RbJoineryBeginner)
+        GbxJoineryFilter.Controls.Add(RbJoineryEdge)
+        GbxJoineryFilter.Controls.Add(RbJoineryBox)
+        GbxJoineryFilter.Controls.Add(RbJoineryFrame)
+        GbxJoineryFilter.Controls.Add(RbJoineryAll)
+        GbxJoineryFilter.Location = New Point(509, 6)
+        GbxJoineryFilter.Name = "GbxJoineryFilter"
+        GbxJoineryFilter.Size = New Size(609, 96)
+        GbxJoineryFilter.TabIndex = 1
+        GbxJoineryFilter.TabStop = False
+        GbxJoineryFilter.Text = "Joinery Filter"
+        ' 
+        ' LblJoineryCount
+        ' 
+        LblJoineryCount.AutoSize = True
+        LblJoineryCount.Location = New Point(18, 65)
+        LblJoineryCount.Name = "LblJoineryCount"
+        LblJoineryCount.Size = New Size(128, 18)
+        LblJoineryCount.TabIndex = 5
+        LblJoineryCount.Text = "0 joinery types"
+        ' 
+        ' RbJoineryBeginner
+        ' 
+        RbJoineryBeginner.AutoSize = True
+        RbJoineryBeginner.Location = New Point(408, 27)
+        RbJoineryBeginner.Name = "RbJoineryBeginner"
+        RbJoineryBeginner.Size = New Size(182, 22)
+        RbJoineryBeginner.TabIndex = 4
+        RbJoineryBeginner.TabStop = True
+        RbJoineryBeginner.Text = "Beginner Friendly"
+        RbJoineryBeginner.UseVisualStyleBackColor = True
+        ' 
+        ' RbJoineryEdge
+        ' 
+        RbJoineryEdge.AutoSize = True
+        RbJoineryEdge.Location = New Point(321, 27)
+        RbJoineryEdge.Name = "RbJoineryEdge"
+        RbJoineryEdge.Size = New Size(73, 22)
+        RbJoineryEdge.TabIndex = 3
+        RbJoineryEdge.TabStop = True
+        RbJoineryEdge.Text = "Edge"
+        RbJoineryEdge.UseVisualStyleBackColor = True
+        ' 
+        ' RbJoineryBox
+        ' 
+        RbJoineryBox.AutoSize = True
+        RbJoineryBox.Location = New Point(243, 27)
+        RbJoineryBox.Name = "RbJoineryBox"
+        RbJoineryBox.Size = New Size(64, 22)
+        RbJoineryBox.TabIndex = 2
+        RbJoineryBox.TabStop = True
+        RbJoineryBox.Text = "Box"
+        RbJoineryBox.UseVisualStyleBackColor = True
+        ' 
+        ' RbJoineryFrame
+        ' 
+        RbJoineryFrame.AutoSize = True
+        RbJoineryFrame.Location = New Point(142, 27)
+        RbJoineryFrame.Name = "RbJoineryFrame"
+        RbJoineryFrame.Size = New Size(87, 22)
+        RbJoineryFrame.TabIndex = 1
+        RbJoineryFrame.TabStop = True
+        RbJoineryFrame.Text = "Frame"
+        RbJoineryFrame.UseVisualStyleBackColor = True
+        ' 
+        ' RbJoineryAll
+        ' 
+        RbJoineryAll.AutoSize = True
+        RbJoineryAll.Location = New Point(18, 27)
+        RbJoineryAll.Name = "RbJoineryAll"
+        RbJoineryAll.Size = New Size(110, 22)
+        RbJoineryAll.TabIndex = 0
+        RbJoineryAll.TabStop = True
+        RbJoineryAll.Text = "All Types"
+        RbJoineryAll.UseVisualStyleBackColor = True
+        ' 
+        ' DgvJoineryTypes
+        ' 
+        DgvJoineryTypes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvJoineryTypes.Dock = DockStyle.Left
+        DgvJoineryTypes.Location = New Point(3, 3)
+        DgvJoineryTypes.Name = "DgvJoineryTypes"
+        DgvJoineryTypes.RowHeadersWidth = 62
+        DgvJoineryTypes.Size = New Size(500, 805)
+        DgvJoineryTypes.TabIndex = 0
+        ' 
+        ' TpHardwareStandards
+        ' 
+        TpHardwareStandards.BorderStyle = BorderStyle.Fixed3D
+        TpHardwareStandards.Controls.Add(GbxHardwareFilter)
+        TpHardwareStandards.Controls.Add(ScHardwareMain)
+        TpHardwareStandards.Location = New Point(4, 4)
+        TpHardwareStandards.Name = "TpHardwareStandards"
+        TpHardwareStandards.Size = New Size(1134, 811)
+        TpHardwareStandards.TabIndex = 2
+        TpHardwareStandards.Text = "Hardware Standards"
+        TpHardwareStandards.UseVisualStyleBackColor = True
+        ' 
+        ' GbxHardwareFilter
+        ' 
+        GbxHardwareFilter.BackColor = Color.DarkGray
+        GbxHardwareFilter.Controls.Add(Label73)
+        GbxHardwareFilter.Controls.Add(RbHardwareFasteners)
+        GbxHardwareFilter.Controls.Add(RbHardwareSlides)
+        GbxHardwareFilter.Controls.Add(LblHardwareCount)
+        GbxHardwareFilter.Controls.Add(RbHardwareHinges)
+        GbxHardwareFilter.Controls.Add(RbHardwareAll)
+        GbxHardwareFilter.Controls.Add(RbHardwareShelf)
+        GbxHardwareFilter.Dock = DockStyle.Top
+        GbxHardwareFilter.Location = New Point(0, 0)
+        GbxHardwareFilter.Name = "GbxHardwareFilter"
+        GbxHardwareFilter.Size = New Size(1130, 88)
+        GbxHardwareFilter.TabIndex = 1
+        GbxHardwareFilter.TabStop = False
+        GbxHardwareFilter.Text = "Filter by Category"
+        ' 
+        ' Label73
+        ' 
+        Label73.AutoSize = True
+        Label73.Location = New Point(27, 28)
+        Label73.Name = "Label73"
+        Label73.Size = New Size(65, 18)
+        Label73.TabIndex = 6
+        Label73.Text = "Filter: "
+        ' 
+        ' RbHardwareFasteners
+        ' 
+        RbHardwareFasteners.AutoSize = True
+        RbHardwareFasteners.Location = New Point(619, 26)
+        RbHardwareFasteners.Name = "RbHardwareFasteners"
+        RbHardwareFasteners.Size = New Size(114, 22)
+        RbHardwareFasteners.TabIndex = 4
+        RbHardwareFasteners.TabStop = True
+        RbHardwareFasteners.Text = "Fasteners"
+        RbHardwareFasteners.UseVisualStyleBackColor = True
+        ' 
+        ' RbHardwareSlides
+        ' 
+        RbHardwareSlides.AutoSize = True
+        RbHardwareSlides.Location = New Point(341, 26)
+        RbHardwareSlides.Name = "RbHardwareSlides"
+        RbHardwareSlides.Size = New Size(83, 22)
+        RbHardwareSlides.TabIndex = 2
+        RbHardwareSlides.TabStop = True
+        RbHardwareSlides.Text = "Slides"
+        RbHardwareSlides.UseVisualStyleBackColor = True
+        ' 
+        ' LblHardwareCount
+        ' 
+        LblHardwareCount.AutoSize = True
+        LblHardwareCount.Location = New Point(27, 59)
+        LblHardwareCount.Name = "LblHardwareCount"
+        LblHardwareCount.Size = New Size(68, 18)
+        LblHardwareCount.TabIndex = 5
+        LblHardwareCount.Text = "Count: "
+        ' 
+        ' RbHardwareHinges
+        ' 
+        RbHardwareHinges.AutoSize = True
+        RbHardwareHinges.Location = New Point(227, 26)
+        RbHardwareHinges.Name = "RbHardwareHinges"
+        RbHardwareHinges.Size = New Size(90, 22)
+        RbHardwareHinges.TabIndex = 1
+        RbHardwareHinges.TabStop = True
+        RbHardwareHinges.Text = "Hinges"
+        RbHardwareHinges.UseVisualStyleBackColor = True
+        ' 
+        ' RbHardwareAll
+        ' 
+        RbHardwareAll.AutoSize = True
+        RbHardwareAll.Location = New Point(98, 26)
+        RbHardwareAll.Name = "RbHardwareAll"
+        RbHardwareAll.Size = New Size(105, 22)
+        RbHardwareAll.TabIndex = 0
+        RbHardwareAll.TabStop = True
+        RbHardwareAll.Text = "All types"
+        RbHardwareAll.UseVisualStyleBackColor = True
+        ' 
+        ' RbHardwareShelf
+        ' 
+        RbHardwareShelf.AutoSize = True
+        RbHardwareShelf.Location = New Point(448, 26)
+        RbHardwareShelf.Name = "RbHardwareShelf"
+        RbHardwareShelf.Size = New Size(147, 22)
+        RbHardwareShelf.TabIndex = 3
+        RbHardwareShelf.TabStop = True
+        RbHardwareShelf.Text = "Shelf Support"
+        RbHardwareShelf.UseVisualStyleBackColor = True
+        ' 
+        ' ScHardwareMain
+        ' 
+        ScHardwareMain.BorderStyle = BorderStyle.Fixed3D
+        ScHardwareMain.Dock = DockStyle.Bottom
+        ScHardwareMain.Location = New Point(0, 94)
+        ScHardwareMain.Name = "ScHardwareMain"
+        ' 
+        ' ScHardwareMain.Panel1
+        ' 
+        ScHardwareMain.Panel1.Controls.Add(DgvHardware)
+        ' 
+        ' ScHardwareMain.Panel2
+        ' 
+        ScHardwareMain.Panel2.BackColor = Color.Gainsboro
+        ScHardwareMain.Panel2.Controls.Add(Label72)
+        ScHardwareMain.Panel2.Controls.Add(Label71)
+        ScHardwareMain.Panel2.Controls.Add(Label70)
+        ScHardwareMain.Panel2.Controls.Add(Label69)
+        ScHardwareMain.Panel2.Controls.Add(Label68)
+        ScHardwareMain.Panel2.Controls.Add(PnlHardwareSummaryInfo)
+        ScHardwareMain.Panel2.Controls.Add(TxtHardwarePartNumber)
+        ScHardwareMain.Panel2.Controls.Add(TxtHardwareInstallation)
+        ScHardwareMain.Panel2.Controls.Add(TxtHardwareMounting)
+        ScHardwareMain.Panel2.Controls.Add(TxtHardwareUses)
+        ScHardwareMain.Panel2.Controls.Add(TxtHardwareDescription)
+        ScHardwareMain.Size = New Size(1130, 713)
+        ScHardwareMain.SplitterDistance = 504
+        ScHardwareMain.SplitterWidth = 6
+        ScHardwareMain.TabIndex = 0
+        ' 
+        ' DgvHardware
+        ' 
+        DgvHardware.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvHardware.Dock = DockStyle.Fill
+        DgvHardware.Location = New Point(0, 0)
+        DgvHardware.Name = "DgvHardware"
+        DgvHardware.RowHeadersWidth = 62
+        DgvHardware.Size = New Size(500, 709)
+        DgvHardware.TabIndex = 0
+        ' 
+        ' Label72
+        ' 
+        Label72.AutoSize = True
+        Label72.Location = New Point(23, 627)
+        Label72.Name = "Label72"
+        Label72.Size = New Size(153, 18)
+        Label72.TabIndex = 23
+        Label72.Text = "**Part Number:**"
+        ' 
+        ' Label71
+        ' 
+        Label71.AutoSize = True
+        Label71.Location = New Point(23, 553)
+        Label71.Name = "Label71"
+        Label71.Size = New Size(187, 18)
+        Label71.TabIndex = 22
+        Label71.Text = "**Installtion Notes:**"
+        ' 
+        ' Label70
+        ' 
+        Label70.AutoSize = True
+        Label70.Location = New Point(23, 478)
+        Label70.Name = "Label70"
+        Label70.Size = New Size(246, 18)
+        Label70.TabIndex = 21
+        Label70.Text = "**Mounting Requirements:**"
+        ' 
+        ' Label69
+        ' 
+        Label69.AutoSize = True
+        Label69.Location = New Point(23, 403)
+        Label69.Name = "Label69"
+        Label69.Size = New Size(151, 18)
+        Label69.TabIndex = 20
+        Label69.Text = "**Typical Uses:**"
+        ' 
+        ' Label68
+        ' 
+        Label68.AutoSize = True
+        Label68.Location = New Point(23, 319)
+        Label68.Name = "Label68"
+        Label68.Size = New Size(143, 18)
+        Label68.TabIndex = 19
+        Label68.Text = "**Description:**"
+        ' 
+        ' PnlHardwareSummaryInfo
+        ' 
+        PnlHardwareSummaryInfo.BackColor = Color.Silver
+        PnlHardwareSummaryInfo.Controls.Add(LblHardwareWeight)
+        PnlHardwareSummaryInfo.Controls.Add(LblHardwareDimensions)
+        PnlHardwareSummaryInfo.Controls.Add(LblhardwareBrand)
+        PnlHardwareSummaryInfo.Controls.Add(LblHardwareCategory)
+        PnlHardwareSummaryInfo.Controls.Add(LblHardwareType)
+        PnlHardwareSummaryInfo.Dock = DockStyle.Top
+        PnlHardwareSummaryInfo.Location = New Point(0, 0)
+        PnlHardwareSummaryInfo.Name = "PnlHardwareSummaryInfo"
+        PnlHardwareSummaryInfo.Size = New Size(616, 315)
+        PnlHardwareSummaryInfo.TabIndex = 18
+        ' 
+        ' LblHardwareWeight
+        ' 
+        LblHardwareWeight.BackColor = Color.Silver
+        LblHardwareWeight.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareWeight.Location = New Point(17, 257)
+        LblHardwareWeight.Name = "LblHardwareWeight"
+        LblHardwareWeight.Size = New Size(570, 47)
+        LblHardwareWeight.TabIndex = 17
+        LblHardwareWeight.Text = "Weight Capacity: "
+        ' 
+        ' LblHardwareDimensions
+        ' 
+        LblHardwareDimensions.BackColor = Color.Silver
+        LblHardwareDimensions.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareDimensions.Location = New Point(17, 194)
+        LblHardwareDimensions.Name = "LblHardwareDimensions"
+        LblHardwareDimensions.Size = New Size(570, 47)
+        LblHardwareDimensions.TabIndex = 16
+        LblHardwareDimensions.Text = "Dimensions: "
+        ' 
+        ' LblhardwareBrand
+        ' 
+        LblhardwareBrand.BackColor = Color.Silver
+        LblhardwareBrand.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblhardwareBrand.Location = New Point(17, 131)
+        LblhardwareBrand.Name = "LblhardwareBrand"
+        LblhardwareBrand.Size = New Size(570, 47)
+        LblhardwareBrand.TabIndex = 15
+        LblhardwareBrand.Text = "Brand: "
+        ' 
+        ' LblHardwareCategory
+        ' 
+        LblHardwareCategory.BackColor = Color.Silver
+        LblHardwareCategory.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareCategory.Location = New Point(17, 68)
+        LblHardwareCategory.Name = "LblHardwareCategory"
+        LblHardwareCategory.Size = New Size(570, 47)
+        LblHardwareCategory.TabIndex = 14
+        LblHardwareCategory.Text = "Category: "
+        ' 
+        ' LblHardwareType
+        ' 
+        LblHardwareType.BackColor = Color.Silver
+        LblHardwareType.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareType.Location = New Point(17, 5)
+        LblHardwareType.Name = "LblHardwareType"
+        LblHardwareType.Size = New Size(570, 47)
+        LblHardwareType.TabIndex = 13
+        LblHardwareType.Text = "Type: "
+        ' 
+        ' TxtHardwarePartNumber
+        ' 
+        TxtHardwarePartNumber.Location = New Point(23, 652)
+        TxtHardwarePartNumber.Multiline = True
+        TxtHardwarePartNumber.Name = "TxtHardwarePartNumber"
+        TxtHardwarePartNumber.ReadOnly = True
+        TxtHardwarePartNumber.ScrollBars = ScrollBars.Both
+        TxtHardwarePartNumber.Size = New Size(570, 46)
+        TxtHardwarePartNumber.TabIndex = 12
+        ' 
+        ' TxtHardwareInstallation
+        ' 
+        TxtHardwareInstallation.Location = New Point(23, 577)
+        TxtHardwareInstallation.Multiline = True
+        TxtHardwareInstallation.Name = "TxtHardwareInstallation"
+        TxtHardwareInstallation.ReadOnly = True
+        TxtHardwareInstallation.ScrollBars = ScrollBars.Both
+        TxtHardwareInstallation.Size = New Size(570, 46)
+        TxtHardwareInstallation.TabIndex = 10
+        ' 
+        ' TxtHardwareMounting
+        ' 
+        TxtHardwareMounting.Location = New Point(23, 502)
+        TxtHardwareMounting.Multiline = True
+        TxtHardwareMounting.Name = "TxtHardwareMounting"
+        TxtHardwareMounting.ReadOnly = True
+        TxtHardwareMounting.ScrollBars = ScrollBars.Both
+        TxtHardwareMounting.Size = New Size(570, 46)
+        TxtHardwareMounting.TabIndex = 8
+        ' 
+        ' TxtHardwareUses
+        ' 
+        TxtHardwareUses.Location = New Point(23, 427)
+        TxtHardwareUses.Multiline = True
+        TxtHardwareUses.Name = "TxtHardwareUses"
+        TxtHardwareUses.ReadOnly = True
+        TxtHardwareUses.ScrollBars = ScrollBars.Both
+        TxtHardwareUses.Size = New Size(570, 46)
+        TxtHardwareUses.TabIndex = 6
+        ' 
+        ' TxtHardwareDescription
+        ' 
+        TxtHardwareDescription.Location = New Point(23, 345)
+        TxtHardwareDescription.Multiline = True
+        TxtHardwareDescription.Name = "TxtHardwareDescription"
+        TxtHardwareDescription.ReadOnly = True
+        TxtHardwareDescription.ScrollBars = ScrollBars.Both
+        TxtHardwareDescription.Size = New Size(570, 46)
+        TxtHardwareDescription.TabIndex = 4
         ' 
         ' TpHelp
         ' 
@@ -5516,6 +6241,24 @@ Partial Class FrmMain
         PnlWoodProperties.ResumeLayout(False)
         PnlWoodProperties.PerformLayout()
         CType(DgvWoodProperties, ComponentModel.ISupportInitialize).EndInit()
+        TpJoineryReference.ResumeLayout(False)
+        Panel11.ResumeLayout(False)
+        Panel11.PerformLayout()
+        Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
+        GbxJoineryFilter.ResumeLayout(False)
+        GbxJoineryFilter.PerformLayout()
+        CType(DgvJoineryTypes, ComponentModel.ISupportInitialize).EndInit()
+        TpHardwareStandards.ResumeLayout(False)
+        GbxHardwareFilter.ResumeLayout(False)
+        GbxHardwareFilter.PerformLayout()
+        ScHardwareMain.Panel1.ResumeLayout(False)
+        ScHardwareMain.Panel2.ResumeLayout(False)
+        ScHardwareMain.Panel2.PerformLayout()
+        CType(ScHardwareMain, ComponentModel.ISupportInitialize).EndInit()
+        ScHardwareMain.ResumeLayout(False)
+        CType(DgvHardware, ComponentModel.ISupportInitialize).EndInit()
+        PnlHardwareSummaryInfo.ResumeLayout(False)
         TpAbout.ResumeLayout(False)
         TpAbout.PerformLayout()
         GbxAbout.ResumeLayout(False)
@@ -5974,7 +6717,7 @@ Partial Class FrmMain
     Friend WithEvents TpReferences As TabPage
     Friend WithEvents TcReferences As TabControl
     Friend WithEvents TpWoodProperties As TabPage
-    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TpJoineryReference As TabPage
     Friend WithEvents DgvWoodProperties As DataGridView
     Friend WithEvents PnlWoodProperties As Panel
     Friend WithEvents LblWoodSearch As Label
@@ -5990,4 +6733,63 @@ Partial Class FrmMain
     Friend WithEvents BtnPrintWoodData As Button
     Friend WithEvents BtnExportWoodData As Button
     Friend WithEvents BtnCompareWoods As Button
+    Friend WithEvents BtnAddWoodSpecies As Button
+    Friend WithEvents BtnLoadBoardFeetHistory As Button
+    Friend WithEvents BtnSaveBoardFeetHistory As Button
+    Friend WithEvents LblBfProjectName As Label
+    Friend WithEvents DgvJoineryTypes As DataGridView
+    Friend WithEvents GbxJoineryFilter As GroupBox
+    Friend WithEvents RbJoineryBeginner As RadioButton
+    Friend WithEvents RbJoineryEdge As RadioButton
+    Friend WithEvents RbJoineryBox As RadioButton
+    Friend WithEvents RbJoineryFrame As RadioButton
+    Friend WithEvents RbJoineryAll As RadioButton
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents LblSummary As Label
+    Friend WithEvents LblJoineryCount As Label
+    Friend WithEvents LblJoineryGlue As Label
+    Friend WithEvents LblJoineryStrength As Label
+    Friend WithEvents LblJoineryDifficulty As Label
+    Friend WithEvents LblJoineryCategory As Label
+    Friend WithEvents LblJoineryName As Label
+    Friend WithEvents Panel11 As Panel
+    Friend WithEvents Label62 As Label
+    Friend WithEvents Label66 As Label
+    Friend WithEvents Label65 As Label
+    Friend WithEvents Label64 As Label
+    Friend WithEvents Label63 As Label
+    Friend WithEvents TxtJoineryReinforcement As TextBox
+    Friend WithEvents TxtJoineryStrengthChar As TextBox
+    Friend WithEvents TxtJoineryTools As TextBox
+    Friend WithEvents TxtJoineryUses As TextBox
+    Friend WithEvents TxtJoineryDescription As TextBox
+    Friend WithEvents Label67 As Label
+    Friend WithEvents TxtJoineryHistory As TextBox
+    Friend WithEvents TpHardwareStandards As TabPage
+    Friend WithEvents RbHardwareFasteners As RadioButton
+    Friend WithEvents RbHardwareShelf As RadioButton
+    Friend WithEvents RbHardwareSlides As RadioButton
+    Friend WithEvents RbHardwareHinges As RadioButton
+    Friend WithEvents RbHardwareAll As RadioButton
+    Friend WithEvents ScHardwareMain As SplitContainer
+    Friend WithEvents DgvHardware As DataGridView
+    Friend WithEvents LblHardwareCount As Label
+    Friend WithEvents TxtHardwarePartNumber As TextBox
+    Friend WithEvents TxtHardwareInstallation As TextBox
+    Friend WithEvents TxtHardwareMounting As TextBox
+    Friend WithEvents TxtHardwareUses As TextBox
+    Friend WithEvents TxtHardwareDescription As TextBox
+    Friend WithEvents Label72 As Label
+    Friend WithEvents Label71 As Label
+    Friend WithEvents Label70 As Label
+    Friend WithEvents Label69 As Label
+    Friend WithEvents Label68 As Label
+    Friend WithEvents PnlHardwareSummaryInfo As Panel
+    Friend WithEvents LblHardwareWeight As Label
+    Friend WithEvents LblHardwareDimensions As Label
+    Friend WithEvents LblhardwareBrand As Label
+    Friend WithEvents LblHardwareCategory As Label
+    Friend WithEvents LblHardwareType As Label
+    Friend WithEvents GbxHardwareFilter As GroupBox
+    Friend WithEvents Label73 As Label
 End Class

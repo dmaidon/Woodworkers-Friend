@@ -1,0 +1,63 @@
+MIT License
+
+Copyright (c) 2026 Dan Maidon
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Additional Terms
+
+### Woodworking Calculations Disclaimer
+
+This software provides woodworking calculations based on industry-standard 
+formulas and best practices. However:
+
+- The calculations are provided "as-is" without warranty of any kind
+- Users must verify all measurements and structural calculations
+- Always consult local building codes for structural elements
+- Test joinery and techniques on scrap material first
+- Use appropriate safety equipment when woodworking
+- The author assumes no liability for project outcomes or safety
+
+### Reference Data Attribution
+
+Wood species data compiled from:
+- USDA Forest Products Laboratory publications
+- Wood Database (www.wood-database.com)
+- Industry-standard woodworking references
+
+Joinery and hardware specifications based on:
+- Traditional woodworking texts
+- Manufacturer specifications (Blum, Accuride, Kreg, etc.)
+- Industry best practices and standards
+
+### Third-Party Components
+
+This software uses the following open-source components:
+
+- **SQLite** - Public Domain (https://www.sqlite.org/copyright.html)
+- **System.Data.SQLite** - Public Domain
+- **.NET Framework** - MIT License (Microsoft)
+
+---
+
+**By using this software, you agree to these terms and conditions.**
+
+**Always prioritize safety in your workshop!** 🪚

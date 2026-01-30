@@ -1,0 +1,302 @@
+# Changelog
+
+All notable changes to **Woodworker's Friend** will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [Unreleased]
+
+### Planned
+- Cloud sync for projects across devices
+- Mobile companion app
+- 3D visualizations for cabinets
+- Plugin system for community calculators
+
+---
+
+## [1.0.0] - 2026-01-30
+
+### Added - Phase 7: Reference System Complete
+- **Joinery Reference Database** (Phase 7.1)
+  - 12 traditional and modern joint types
+  - Detailed specifications with historical context
+  - Strength ratings and difficulty levels
+  - Required tools and reinforcement options
+  - Filter by category (Frame, Box, Edge, Modern)
+  - Beginner-friendly filter option
+  
+- **Hardware Standards Reference** (Phase 7.2)
+  - 16 common hardware items with specifications
+  - Categories: Hinges, Slides, Shelf Support, Fasteners, Brackets, Pulls/Knobs, Legs, Casters
+  - Brand recommendations (Blum, Accuride, Grass)
+  - Part numbers and mounting requirements
+  - Weight capacity ratings
+  - Installation notes and tips
+  - Filter by hardware category
+
+### Added - Phase 6: Help System Complete
+- Comprehensive in-app help system
+- 14 searchable help topics
+- Markdown-based content with custom rendering
+- Context-sensitive help for each calculator
+- Help content stored in SQLite database
+- Rich formatting support with custom tags
+
+### Added - Phase 5: User Preferences Persistence
+- Persistent user preferences in SQLite database
+- Theme preference (Dark/Light) saved
+- Scale preference (Imperial/Metric) saved
+- Last active tab remembered
+- Window size and state persistence
+- Default calculator settings saved
+- Auto-load preferences on startup
+
+### Added - Phase 4: Shelf Sag Calculator & Enhancements
+- **Shelf Sag Calculator**
+  - 14 material types (plywood, MDF, hardwoods, softwoods, bamboo)
+  - Deflection calculations with industry standards (1/360 rule)
+  - Load capacity analysis (safe load vs maximum load)
+  - Support type options (Bracket, Dado, Pin)
+  - Edge stiffener calculations (front/back)
+  - Safety factor analysis and warnings
+  - Visual shelf diagram showing deflection
+  - Material property database
+  
+- **Board Feet Enhancements**
+  - Calculation history save/load
+  - Project naming and tracking
+  - History browser dialog
+  - Print project capability
+
+### Added - Phase 3: Wood Movement Calculator
+- **Wood Movement Calculator**
+  - 50+ wood species with movement coefficients
+  - Humidity-based expansion/contraction calculations
+  - Tangential (flat sawn) vs Radial (quarter sawn) grain options
+  - Recommended panel gap sizing
+  - Humidity presets (Indoor Winter/Summer, Shop, Kiln Dried)
+  - Wood property display (density, type, movement rates)
+  
+### Added - Phase 2: Database Migration
+- SQLite database implementation
+- Migrated wood species data from in-code to database
+- Database location: `%APPDATA%\Woodworkers Friend\WoodworkersFriend.db`
+- Automatic database creation and schema initialization
+- Data migration on first run
+- Fallback to in-code data if database unavailable
+- User-expandable wood species database
+
+### Added - Phase 1: Core Calculators
+- **Drawer Height Calculator**
+  - 10 calculation methods (Hambridge, Golden Ratio, Fibonacci, Geometric, Arithmetic, Logarithmic, Exponential, Reverse, Uniform, Custom)
+  - Quick presets (Kitchen, Office, Bathroom, Custom)
+  - Visual grid of drawer heights
+  - Save/load drawer projects
+  
+- **Door Calculator**
+  - Inset and Overlay door types
+  - Single and double door configurations
+  - Rail, stile, and panel dimension calculations
+  - Panel expansion gap and groove depth
+  - Material area calculations
+  - Save/load door projects
+  
+- **Board Feet Calculator**
+  - Grid-based multi-board calculations
+  - Waste factor options (0%, 10%, 15%, 20%)
+  - Cost estimation
+  - Project naming and saving
+  
+- **Epoxy Pour Calculator**
+  - Rectangular and circular pour calculations
+  - Custom area input
+  - Results in multiple units (oz, gal, qt, pt, L, mL)
+  - Waste factor options
+  - Cost estimation
+  - **Bonus:** Stone Coat top coat calculator
+  
+- **Joinery Calculator**
+  - Mortise & Tenon (Standard, Haunched, Through)
+  - Dovetails with automatic angle calculation
+  - Box joints with pin counting
+  - Dado joints for shelving
+  - Visual joint diagrams
+  
+- **Cut List Optimizer**
+  - Visual cutting diagram generation
+  - Multiple board optimization
+  - Kerf width accounting
+  - Standard sheet sizes (4×8, 4×4, 4×10, custom)
+  - Efficiency and waste metrics
+  - Export cutting plans
+  
+- **Polygon Calculator**
+  - Regular polygons (3-25 sides)
+  - Angle calculations (interior/exterior, cutting angles)
+  - Perimeter and area calculations
+  - Rotating visual display
+  
+- **Table Tipping Force Calculator**
+  - Safety calculator for furniture stability
+  - Force required to tip calculation
+  - Important for child safety
+
+### Added - Core Features
+- **Wood Properties Reference**
+  - 25 wood species with comprehensive data
+  - Janka hardness, density, specific gravity
+  - Shrinkage coefficients
+  - Typical uses and workability
+  - Search and filter capabilities
+  - Export to CSV
+  - Add custom species
+  
+- **Unit Conversions**
+  - Inches ↔ Millimeters
+  - Fractions ↔ Decimals
+  - Conversion reference tables
+  
+- **Theme System**
+  - Dark and Light themes
+  - Status bar theme toggle
+  - Persistent theme preference
+  
+- **Scale System**
+  - Imperial and Metric units
+  - Status bar scale toggle
+  - Persistent scale preference
+  
+- **Export Capabilities**
+  - Export to CSV
+  - Export to Text
+  - Export to HTML
+  - Print support
+  
+- **Error Handling**
+  - Comprehensive error logging
+  - Log file viewer
+  - Automatic log cleanup
+  - Diagnostic information
+
+### Added - User Interface
+- Tabbed interface for organized access
+- Split-pane layouts for input/results
+- Status bars with version, theme, scale indicators
+- Context menus for common operations
+- Tooltips on all input fields
+- Auto-select text in input fields
+- Keyboard shortcuts support
+- Responsive window sizing
+
+### Technical Infrastructure
+- Partial class architecture for maintainability
+- Manager pattern for business logic separation
+- Event coordinator for centralized event handling
+- Validation manager for input validation
+- Theme manager for consistent theming
+- Database manager with singleton pattern
+- Error handler with file logging
+- Resource management with proper disposal
+
+---
+
+## [0.9.0] - 2025-12-15 (Beta)
+
+### Added
+- Initial beta release
+- Core drawer calculator functionality
+- Basic door calculator
+- Board feet grid calculator
+- Epoxy volume calculator
+- Unit conversion tools
+- Dark theme prototype
+
+### Changed
+- Migrated from WinForms .NET Framework 4.8 to .NET 10
+- Updated to modern VB.NET syntax
+- Implemented file-scoped namespaces
+
+### Fixed
+- High DPI scaling issues
+- Control layout inconsistencies
+- Calculation precision errors
+
+---
+
+## Version History
+
+| Version | Date | Milestone |
+|---------|------|-----------|
+| 1.0.0 | 2026-01-30 | **Full Release** - Complete feature set |
+| 0.9.0 | 2025-12-15 | Beta - Core calculators |
+| 0.5.0 | 2025-11-01 | Alpha - Prototype testing |
+
+---
+
+## Migration Phases
+
+### **Phase 1: Core Calculators** ✅
+- Drawer, Door, Board Feet, Epoxy, Joinery, Cut List, Polygon calculators
+- Basic reference data (in-code)
+
+### **Phase 2: Database Migration** ✅
+- SQLite database implementation
+- Wood species migration to database
+- User-expandable data
+
+### **Phase 3: Wood Movement** ✅
+- Wood movement calculator with 50+ species
+- Humidity-based calculations
+- Panel gap recommendations
+
+### **Phase 4: Shelf Sag & History** ✅
+- Shelf sag calculator with 14 materials
+- Edge stiffener support
+- Board feet calculation history
+
+### **Phase 5: User Preferences** ✅
+- Persistent theme and scale preferences
+- Window state persistence
+- Last tab memory
+- Calculator defaults
+
+### **Phase 6: Help System** ✅
+- Database-driven help content
+- Searchable help topics
+- Markdown rendering
+
+### **Phase 7: Reference System** ✅
+- **7.1:** Joinery reference database (12 types)
+- **7.2:** Hardware standards database (16 items)
+
+---
+
+## 🐛 Known Issues
+
+### **Minor**
+- None currently reported
+
+### **Enhancement Requests**
+- See [GitHub Issues](https://github.com/dmaidon/Woodworkers-Friend/issues) for feature requests
+
+---
+
+## 📝 Notes
+
+- All measurements default to Imperial (inches, feet)
+- Metric support available via scale toggle
+- Database auto-creates on first run
+- Logs stored in `%APPDATA%\Woodworkers Friend\Logs\`
+- Old log files cleaned up automatically (>30 days)
+
+---
+
+**For detailed feature documentation, see the in-app Help tab or visit the [Wiki](https://github.com/dmaidon/Woodworkers-Friend/wiki).**
+
+---
+
+*This changelog is maintained as part of the Woodworker's Friend project.*
+*Last Updated: January 30, 2026*

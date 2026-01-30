@@ -36,6 +36,7 @@ Public Class FrmMain
             InitializeSystem()
             InitializeManagers()
             InitializeUI()
+            LoadUserPreferences()
             ApplyTheme(CurrentTheme)
 
             ' RtfParser.ParseRtfTableToCsv("c:\temp\hardwood.pdf.rtf", "c:\temp\hardwood.csv")
@@ -47,6 +48,21 @@ Public Class FrmMain
 
     Private Sub InitializeSystem()
         CreateprogramFolders()
+
+        ' Initialize database (SQLite) - Phase 1 of unified database migration
+        Try
+            ' This initializes the database and creates schema if needed
+            Dim dbManager = DatabaseManager.Instance
+
+            ' Perform initial data migration on first run
+            DataMigration.PerformInitialMigration()
+
+            ErrorHandler.LogError(New Exception($"Database initialized at: {dbManager.DatabasePath}"), "InitializeSystem")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "InitializeSystem - Database initialization failed")
+            ' Continue anyway - app can still function with in-code data
+        End Try
+
         ' LogRoutines.InitializeLogging()
         ' Settings.LoadUserSettings()
     End Sub
@@ -76,6 +92,10 @@ Public Class FrmMain
         InitializeShelfSagCalculator()
         InitializeCutListOptimizer()
         InitializeWoodPropertiesReference()
+
+        ' Phase 7.1 & 7.2: Initialize to wire up Enter events (data loads on first tab visit)
+        InitializeJoineryReference()
+        InitializeHardwareReference()
 
         TmrRotation.Interval = CInt(1000 / 60) ' 60 FPS
         TmrRotation.Start()
@@ -170,6 +190,9 @@ Public Class FrmMain
             TsslToggleTheme.ForeColor = Color.DarkRed
             TsslToggleTheme.Image = My.Resources.bulb_64
         End If
+
+        ' Persist theme preference to database (Phase 5)
+        DatabaseManager.Instance.SavePreference("Theme", If(CurrentTheme = AppTheme.Dark, "Dark", "Light"), "String", "UI")
     End Sub
 
     ''' <summary>
@@ -258,6 +281,10 @@ Public Class FrmMain
             TsslScale.ForeColor = Color.ForestGreen
             RbImperial.Checked = True
         End If
+
+        ' Persist scale preference to database (Phase 5)
+        DatabaseManager.Instance.SavePreference("Scale",
+            If(_scaleManager.CurrentScale = ScaleManager.ScaleType.Metric, "Metric", "Imperial"), "String", "UI")
     End Sub
 
     Private Sub TpDrawings_Enter(sender As Object, e As EventArgs) Handles TpDrawings.Enter
@@ -272,6 +299,107 @@ Public Class FrmMain
 
     Private Sub TmrClock_Tick(sender As Object, e As EventArgs)
         TsslClock.Text = Now.ToLongTimeString
+    End Sub
+
+#End Region
+
+#Region "User Preferences (Phase 5)"
+
+    ''' <summary>
+    ''' Loads user preferences from database on startup
+    ''' </summary>
+    Private Sub LoadUserPreferences()
+        Try
+            Dim db = DatabaseManager.Instance
+
+            ' Load theme preference
+            Dim savedTheme = db.GetPreference("Theme", "Light")
+            If savedTheme.Equals("Dark", StringComparison.OrdinalIgnoreCase) Then
+                CurrentTheme = AppTheme.Dark
+                TsslToggleTheme.Text = "Dark Mode"
+                TsslToggleTheme.ForeColor = Color.Red
+                TsslToggleTheme.Image = My.Resources.moon_64
+            Else
+                CurrentTheme = AppTheme.Light
+                TsslToggleTheme.Text = "Light Mode"
+                TsslToggleTheme.ForeColor = Color.DarkRed
+                TsslToggleTheme.Image = My.Resources.bulb_64
+            End If
+
+            ' Load scale preference
+            Dim savedScale = db.GetPreference("Scale", "Imperial")
+            If savedScale.Equals("Metric", StringComparison.OrdinalIgnoreCase) Then
+                _scaleManager.SetScale(ScaleManager.ScaleType.Metric)
+                TsslScale.Text = "Metric"
+                TsslScale.ForeColor = Color.Firebrick
+                RbMetric.Checked = True
+            Else
+                _scaleManager.SetScale(ScaleManager.ScaleType.Imperial)
+                TsslScale.Text = "Imperial"
+                TsslScale.ForeColor = Color.ForestGreen
+                RbImperial.Checked = True
+            End If
+
+            ' Load last active tab
+            Dim lastTab = db.GetIntPreference("LastActiveTab", 0)
+            If lastTab >= 0 AndAlso lastTab < Tc.TabCount Then
+                Tc.SelectedIndex = lastTab
+            End If
+
+            ' Load window state
+            Dim savedState = db.GetPreference("WindowState", "Normal")
+            Dim savedWidth = db.GetIntPreference("WindowWidth", 1200)
+            Dim savedHeight = db.GetIntPreference("WindowHeight", 800)
+
+            If savedState.Equals("Maximized", StringComparison.OrdinalIgnoreCase) Then
+                Me.WindowState = FormWindowState.Maximized
+            Else
+                If savedWidth > 100 AndAlso savedHeight > 100 Then
+                    Me.Width = Math.Min(savedWidth, Screen.PrimaryScreen.WorkingArea.Width)
+                    Me.Height = Math.Min(savedHeight, Screen.PrimaryScreen.WorkingArea.Height)
+                End If
+            End If
+
+            ErrorHandler.LogError(New Exception($"Preferences loaded: Theme={savedTheme}, Scale={savedScale}"), "LoadUserPreferences")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "LoadUserPreferences")
+            ' Continue with defaults - non-critical
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Saves user preferences to database (called on close and on changes)
+    ''' </summary>
+    Private Sub SaveUserPreferences()
+        Try
+            Dim db = DatabaseManager.Instance
+
+            ' Save theme
+            db.SavePreference("Theme", If(CurrentTheme = AppTheme.Dark, "Dark", "Light"), "String", "UI")
+
+            ' Save scale
+            db.SavePreference("Scale", If(_scaleManager.CurrentScale = ScaleManager.ScaleType.Metric, "Metric", "Imperial"), "String", "UI")
+
+            ' Save last active tab
+            db.SavePreference("LastActiveTab", Tc.SelectedIndex.ToString(), "Integer", "General")
+
+            ' Save window state
+            If Me.WindowState = FormWindowState.Maximized Then
+                db.SavePreference("WindowState", "Maximized", "String", "UI")
+            Else
+                db.SavePreference("WindowState", "Normal", "String", "UI")
+                If Me.WindowState = FormWindowState.Normal Then
+                    db.SavePreference("WindowWidth", Me.Width.ToString(), "Integer", "UI")
+                    db.SavePreference("WindowHeight", Me.Height.ToString(), "Integer", "UI")
+                End If
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "SaveUserPreferences")
+        End Try
+    End Sub
+
+    Private Sub FrmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        SaveUserPreferences()
     End Sub
 
 #End Region

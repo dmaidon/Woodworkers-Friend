@@ -1,0 +1,1445 @@
+' ============================================================================
+' Last Updated: January 30, 2026
+' Changes: Phase 5 - Added SeedDefaultPreferences() for user preferences persistence
+'          Phase 4 - Added MigrateHelpContent() for help system database migration
+' ============================================================================
+
+Imports System.Data.SQLite
+
+''' <summary>
+''' Handles migration of data from in-code databases to SQLite
+''' </summary>
+Public Class DataMigration
+
+    ''' <summary>
+    ''' Migrates all wood species from WoodPropertiesDatabase to SQLite
+    ''' </summary>
+    Public Shared Function MigrateWoodSpecies() As Boolean
+        Try
+            ErrorHandler.LogError(New Exception("Starting wood species migration..."), "MigrateWoodSpecies")
+
+            ' Get all species from in-code database
+#Disable Warning BC40000
+            Dim allSpecies = WoodPropertiesDatabase.GetWoodSpeciesList()
+#Enable Warning BC40000
+
+            ErrorHandler.LogError(New Exception($"Found {allSpecies.Count} species to migrate"), "MigrateWoodSpecies")
+
+            Dim successCount = 0
+            Dim failCount = 0
+
+            ' Get database connection
+            Using conn As New SQLiteConnection($"Data Source={DatabaseManager.Instance.DatabasePath};Version=3;")
+                conn.Open()
+
+                Using transaction = conn.BeginTransaction()
+                    Try
+                        For Each species In allSpecies
+                            Try
+                                Using cmd As New SQLiteCommand("
+                                    INSERT OR REPLACE INTO WoodSpecies (
+                                        CommonName, ScientificName, WoodType,
+                                        JankaHardness, SpecificGravity, Density, MoistureContent,
+                                        ShrinkageRadial, ShrinkageTangential,
+                                        TypicalUses, Workability, Cautions, Notes,
+                                        IsUserAdded
+                                    ) VALUES (
+                                        @CommonName, @ScientificName, @WoodType,
+                                        @JankaHardness, @SpecificGravity, @Density, @MoistureContent,
+                                        @ShrinkageRadial, @ShrinkageTangential,
+                                        @TypicalUses, @Workability, @Cautions, @Notes,
+                                        0
+                                    )", conn, transaction)
+
+                                    cmd.Parameters.AddWithValue("@CommonName", species.CommonName)
+                                    cmd.Parameters.AddWithValue("@ScientificName", If(String.IsNullOrEmpty(species.ScientificName), CObj(DBNull.Value), CObj(species.ScientificName)))
+                                    cmd.Parameters.AddWithValue("@WoodType", species.WoodType)
+                                    cmd.Parameters.AddWithValue("@JankaHardness", species.JankaHardness)
+                                    cmd.Parameters.AddWithValue("@SpecificGravity", species.SpecificGravity)
+                                    cmd.Parameters.AddWithValue("@Density", species.Density)
+                                    cmd.Parameters.AddWithValue("@MoistureContent", species.MoistureContent)
+                                    cmd.Parameters.AddWithValue("@ShrinkageRadial", species.ShrinkageRadial)
+                                    cmd.Parameters.AddWithValue("@ShrinkageTangential", species.ShrinkageTangential)
+                                    cmd.Parameters.AddWithValue("@TypicalUses", If(String.IsNullOrEmpty(species.TypicalUses), CObj(DBNull.Value), CObj(species.TypicalUses)))
+                                    cmd.Parameters.AddWithValue("@Workability", If(String.IsNullOrEmpty(species.Workability), CObj(DBNull.Value), CObj(species.Workability)))
+                                    cmd.Parameters.AddWithValue("@Cautions", If(String.IsNullOrEmpty(species.Cautions), CObj(DBNull.Value), CObj(species.Cautions)))
+                                    cmd.Parameters.AddWithValue("@Notes", If(String.IsNullOrEmpty(species.Notes), CObj(DBNull.Value), CObj(species.Notes)))
+
+                                    cmd.ExecuteNonQuery()
+                                    successCount += 1
+                                End Using
+                            Catch ex As Exception
+                                failCount += 1
+                                ErrorHandler.LogError(ex, $"MigrateWoodSpecies - Failed to migrate: {species.CommonName}")
+                            End Try
+                        Next
+
+                        transaction.Commit()
+
+                        ErrorHandler.LogError(
+                            New Exception($"Migration complete: {successCount} succeeded, {failCount} failed"),
+                            "MigrateWoodSpecies")
+
+                        Return failCount = 0
+                    Catch ex As Exception
+                        transaction.Rollback()
+                        ErrorHandler.LogError(ex, "MigrateWoodSpecies - Transaction failed")
+                        Return False
+                    End Try
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "MigrateWoodSpecies")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Checks if wood species data has been migrated
+    ''' </summary>
+    Public Shared Function IsWoodSpeciesMigrated() As Boolean
+        Try
+            Using conn As New SQLiteConnection($"Data Source={DatabaseManager.Instance.DatabasePath};Version=3;")
+                conn.Open()
+                Using cmd As New SQLiteCommand("SELECT COUNT(*) FROM WoodSpecies", conn)
+                    Dim count = Convert.ToInt32(cmd.ExecuteScalar())
+                    Return count > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "IsWoodSpeciesMigrated")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Performs initial data migration on first run
+    ''' </summary>
+    Public Shared Sub PerformInitialMigration()
+        Try
+            ' Check if wood species migration is needed
+            If Not IsWoodSpeciesMigrated() Then
+                ErrorHandler.LogError(New Exception("First run detected - starting initial data migration"), "PerformInitialMigration")
+
+                ' Migrate wood species
+                If MigrateWoodSpecies() Then
+                    ErrorHandler.LogError(New Exception("Wood species migration completed successfully"), "PerformInitialMigration")
+                Else
+                    ErrorHandler.LogError(New Exception("Wood species migration completed with errors"), "PerformInitialMigration")
+                End If
+            End If
+
+            ' Check if help content migration is needed
+            If Not DatabaseManager.Instance.IsHelpContentSeeded() Then
+                ErrorHandler.LogError(New Exception("Help content not found - seeding help database"), "PerformInitialMigration")
+                Dim helpCount = MigrateHelpContent()
+                ErrorHandler.LogError(New Exception($"Help content seeded: {helpCount} topics"), "PerformInitialMigration")
+            End If
+
+            ' Phase 5: Seed default user preferences if not yet set
+            If Not DatabaseManager.Instance.HasPreferences() Then
+                ErrorHandler.LogError(New Exception("No user preferences found - seeding defaults"), "PerformInitialMigration")
+                SeedDefaultPreferences()
+            End If
+
+            ' Phase 7.1: Migrate joinery types reference data
+            Dim joineryCount = MigrateJoineryTypes()
+            If joineryCount > 0 Then
+                ErrorHandler.LogError(New Exception($"Joinery types seeded: {joineryCount} types"), "PerformInitialMigration")
+            End If
+
+            ' Phase 7.2: Migrate hardware standards reference data
+            Dim hardwareCount = MigrateHardwareStandards()
+            If hardwareCount > 0 Then
+                ErrorHandler.LogError(New Exception($"Hardware standards seeded: {hardwareCount} items"), "PerformInitialMigration")
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "PerformInitialMigration")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Migrates all help content from hardcoded methods to SQLite database.
+    ''' Content uses simple markup: lines prefixed with tags for rendering.
+    ''' Tags: #TITLE:, ##SECTION:, ###SUBTITLE:, *BULLET:, #NUM:n:, !WARNING:, ?NOTE:,
+    '''        =FORMULA:, ~STEP:n:title:, @METHOD:title:desc:, %COLOR:label:desc:,
+    '''        ^SHORTCUT:keys:, &amp;PROBLEM:text:, &amp;SOLUTION:text:, +CATEGORY:
+    ''' </summary>
+    Public Shared Function MigrateHelpContent() As Integer
+        Try
+            ' ===== GETTING STARTED =====
+            ' ===== INTERFACE =====
+            ' ===== DRAWER CALCULATOR =====
+            ' ===== DOOR CALCULATOR =====
+            ' ===== BOARD FEET =====
+            ' ===== EPOXY =====
+            ' ===== POLYGON =====
+            ' ===== JOINERY =====
+            ' ===== WOOD MOVEMENT =====
+            ' ===== SHELF SAG =====
+            ' ===== CUT LIST =====
+            ' ===== UNIT CONVERSIONS =====
+            ' ===== FRACTIONS =====
+            ' ===== TABLE TIP =====
+            ' ===== SHORTCUTS =====
+            ' ===== THEMES =====
+            ' ===== BEST PRACTICES =====
+            ' ===== TROUBLESHOOTING =====
+            ' ===== VERSION =====
+            ' ===== EXPORT =====
+            ' ===== PRESETS =====
+            ' ===== VALIDATION =====
+            Dim helpItems As New List(Of DatabaseManager.HelpContentData) From {
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "GettingStarted",
+.Title = "Getting Started with Woodworker's Friend",
+.Category = "GettingStarted",
+.SortOrder = 1,
+.Keywords = "start,welcome,overview,introduction,navigation,tips",
+.Content =
+"#TITLE:Getting Started with Woodworker's Friend" & vbLf &
+"##SECTION:Welcome!|Woodworker's Friend is your comprehensive woodworking calculator and planning tool. This application helps you calculate dimensions, materials, and perform conversions for various woodworking projects." & vbLf &
+"###SUBTITLE:What Can You Do?" & vbLf &
+"*BULLET:Calculate drawer heights using various mathematical progressions" & vbLf &
+"*BULLET:Design cabinet doors with precise rail and stile dimensions" & vbLf &
+"*BULLET:Calculate board feet for material estimation" & vbLf &
+"*BULLET:Determine epoxy pour volumes for river tables and projects" & vbLf &
+"*BULLET:Calculate polygon dimensions and angles" & vbLf &
+"*BULLET:Design mortise & tenon, dovetail, box, and dado joints" & vbLf &
+"*BULLET:Predict wood movement and plan for expansion gaps" & vbLf &
+"*BULLET:Optimize cut lists to minimize material waste" & vbLf &
+"*BULLET:Convert between imperial and metric units" & vbLf &
+"*BULLET:Convert fractions to decimals and vice versa" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Navigation" & vbLf &
+"Use the tabs at the top of the window to access different calculators and tools. Each tab contains related functionality with easy-to-understand input fields." & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Hover your mouse over input fields to see helpful tooltips with valid ranges and examples!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "interface",
+.Title = "Understanding the Interface",
+.Category = "GettingStarted",
+.SortOrder = 2,
+.Keywords = "interface,layout,tabs,status bar,color coding,navigation",
+.Content =
+"#TITLE:Understanding the Interface" & vbLf &
+"###SUBTITLE:Main Window Layout" & vbLf &
+"The application uses a tabbed interface with the following main sections:" & vbLf &
+"" & vbLf &
+"*BULLET:Drawers Tab - Calculate drawer heights and spacing" & vbLf &
+"*BULLET:Doors Tab - Design cabinet doors with precise measurements" & vbLf &
+"*BULLET:Board Feet Tab - Calculate lumber requirements" & vbLf &
+"*BULLET:Calculations Tab - Unit conversions and misc calculations" & vbLf &
+"*BULLET:Epoxy Tab - Calculate epoxy pour volumes" & vbLf &
+"*BULLET:Conversions Tab - Quick unit conversions" & vbLf &
+"*BULLET:Calculators Tab - Polygon and geometric calculations" & vbLf &
+"*BULLET:Joinery Tab - Mortise & tenon, dovetails, box joints, dados" & vbLf &
+"*BULLET:Wood Movement Tab - Calculate wood expansion/contraction" & vbLf &
+"*BULLET:Cut List Tab - Optimize board cutting patterns" & vbLf &
+"*BULLET:References Tab - Wood species, joinery types, hardware standards" & vbLf &
+"*BULLET:Drawings Tab - Visual representations of calculations" & vbLf &
+"*BULLET:Help Tab - This help system" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Status Bar" & vbLf &
+"The status bar at the bottom shows:" & vbLf &
+"*BULLET:Application version" & vbLf &
+"*BULLET:Copyright information" & vbLf &
+"*BULLET:Current theme (click to toggle Dark/Light)" & vbLf &
+"*BULLET:Current scale setting"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "DrawerCalculator",
+.Title = "Drawer Calculator",
+.Category = "Calculators",
+.SortOrder = 10,
+.Keywords = "drawer,heights,progression,geometric,arithmetic,golden ratio,fibonacci,cabinet",
+.Content =
+"#TITLE:Drawer Calculator" & vbLf &
+"##SECTION:Purpose|Calculate optimal drawer heights for cabinets using various mathematical progressions. Perfect for creating aesthetically pleasing and functional drawer configurations." & vbLf &
+"###SUBTITLE:Calculation Methods" & vbLf &
+"@METHOD:Geometric|Each drawer is proportionally taller than the previous one" & vbLf &
+"@METHOD:Arithmetic|Each drawer increases by a fixed amount" & vbLf &
+"@METHOD:Golden Ratio|Uses the golden ratio (1.618) for pleasing proportions" & vbLf &
+"@METHOD:Fibonacci|Based on the Fibonacci sequence" & vbLf &
+"@METHOD:Uniform|All drawers the same height" & vbLf &
+"@METHOD:Custom Ratio|Define your own progression ratio" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Required Inputs" & vbLf &
+"*BULLET:Number of Drawers (1-20)" & vbLf &
+"*BULLET:Drawer Width (6-48 inches)" & vbLf &
+"*BULLET:Drawer Spacing (0-2 inches)" & vbLf &
+"*BULLET:First Drawer Height (method-specific)" & vbLf &
+"*BULLET:Multiplier or Increment (method-specific)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Presets" & vbLf &
+"Quick-start presets are available for common scenarios:" & vbLf &
+"*BULLET:Kitchen Standard - Typical kitchen base cabinet" & vbLf &
+"*BULLET:Office Desk - Standard desk drawer configuration" & vbLf &
+"*BULLET:Bathroom Vanity - Bathroom cabinet dimensions" & vbLf &
+"*BULLET:Custom Cabinet - Your saved configurations" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Use the 'Draw' button to see a visual representation of your drawer configuration!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "doors",
+.Title = "Door Calculator",
+.Category = "Calculators",
+.SortOrder = 11,
+.Keywords = "door,cabinet,rail,stile,panel,inset,overlay,groove",
+.Content =
+"#TITLE:Door Calculator" & vbLf &
+"##SECTION:Purpose|Calculate precise dimensions for cabinet doors including rails, stiles, and panels. Supports both inset and overlay door configurations." & vbLf &
+"###SUBTITLE:Door Types" & vbLf &
+"@METHOD:Inset Doors|Door fits inside the cabinet opening" & vbLf &
+"@METHOD:Overlay Doors|Door overlaps the cabinet face frame" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Required Inputs" & vbLf &
+"*BULLET:Cabinet Opening Height (6-120 inches)" & vbLf &
+"*BULLET:Cabinet Opening Width (6-60 inches)" & vbLf &
+"*BULLET:Stile Width (0.5-6 inches)" & vbLf &
+"*BULLET:Rail Width (0.5-6 inches)" & vbLf &
+"*BULLET:Panel Groove Depth (typically 0.25-0.5 inches)" & vbLf &
+"*BULLET:Gap Size (for inset doors)" & vbLf &
+"*BULLET:Overlay Amount (for overlay doors)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Calculated Results" & vbLf &
+"*BULLET:Exact door width and height" & vbLf &
+"*BULLET:Rail lengths (top and bottom)" & vbLf &
+"*BULLET:Stile lengths (left and right)" & vbLf &
+"*BULLET:Panel dimensions" & vbLf &
+"*BULLET:Material requirements" & vbLf &
+"" & vbLf &
+"!WARNING:Remember to account for wood movement when sizing panels!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "boardfeet",
+.Title = "Board Feet Calculator",
+.Category = "Calculators",
+.SortOrder = 12,
+.Keywords = "board feet,lumber,thickness,width,length,waste,material,estimate",
+.Content =
+"#TITLE:Board Feet Calculator" & vbLf &
+"##SECTION:What is a Board Foot?|A board foot is a unit of measurement for lumber. One board foot equals 144 cubic inches (1"" x 12"" x 12"")." & vbLf &
+"###SUBTITLE:Formula" & vbLf &
+"=FORMULA:Board Feet = (Thickness x Width x Length) / 144" & vbLf &
+"Where all dimensions are in inches" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using the Calculator" & vbLf &
+"#NUM:1:Enter board thickness in inches (e.g., 0.75 for 3/4"")" & vbLf &
+"#NUM:2:Enter board width in inches" & vbLf &
+"#NUM:3:Enter board length in inches" & vbLf &
+"#NUM:4:Enter quantity needed" & vbLf &
+"#NUM:5:Add waste percentage (typically 10-20%)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Multiple Boards" & vbLf &
+"Use the grid to calculate total board feet for multiple board sizes. The calculator automatically sums all entries and applies waste percentage." & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Always add 10-20% waste factor for cuts, mistakes, and matching grain!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "epoxy",
+.Title = "Epoxy Pour Calculator",
+.Category = "Calculators",
+.SortOrder = 13,
+.Keywords = "epoxy,resin,river table,pour,volume,ounces,gallons,bar top",
+.Content =
+"#TITLE:Epoxy Pour Calculator" & vbLf &
+"##SECTION:Purpose|Calculate the exact amount of epoxy resin needed for river tables, bar tops, and other epoxy projects." & vbLf &
+"###SUBTITLE:Calculation Methods" & vbLf &
+"@METHOD:Rectangular Pour|For straight-sided projects (Length x Width x Depth)" & vbLf &
+"@METHOD:Circular Pour|For round projects (Pi x Radius-squared x Depth)" & vbLf &
+"@METHOD:Custom Area|Enter your own calculated area" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Required Inputs" & vbLf &
+"*BULLET:Length (inches) - for rectangular pours" & vbLf &
+"*BULLET:Width (inches) - for rectangular pours" & vbLf &
+"*BULLET:Diameter (inches) - for circular pours" & vbLf &
+"*BULLET:Depth (1/16"" to 6"" typical)" & vbLf &
+"*BULLET:Waste percentage (10-20% recommended)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Results Provided" & vbLf &
+"*BULLET:Total ounces needed" & vbLf &
+"*BULLET:Gallons, quarts, and pints" & vbLf &
+"*BULLET:Milliliters and liters" & vbLf &
+"*BULLET:Estimated cost (if epoxy price is set)" & vbLf &
+"" & vbLf &
+"!WARNING:Important: Always mix resin in small batches to avoid excessive heat buildup!" & vbLf &
+"?NOTE:Tip: For deep pours, consider multiple thin layers instead of one thick pour!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "polygon",
+.Title = "Polygon Calculator",
+.Category = "Calculators",
+.SortOrder = 14,
+.Keywords = "polygon,hexagon,octagon,angles,sides,radius,apothem,perimeter,area",
+.Content =
+"#TITLE:Polygon Calculator" & vbLf &
+"##SECTION:Purpose|Calculate dimensions and angles for regular polygons. Useful for hexagonal tables, octagonal windows, and decorative inlays." & vbLf &
+"###SUBTITLE:Calculations" & vbLf &
+"*BULLET:Side length from radius" & vbLf &
+"*BULLET:Interior angles" & vbLf &
+"*BULLET:Exterior angles" & vbLf &
+"*BULLET:Total perimeter" & vbLf &
+"*BULLET:Area" & vbLf &
+"*BULLET:Apothem (distance from center to mid-side)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Inputs" & vbLf &
+"*BULLET:Number of sides (3-25)" & vbLf &
+"*BULLET:Radius or side length" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Common Polygons" & vbLf &
+"Triangle (3), Square (4), Pentagon (5), Hexagon (6), Octagon (8)" & vbLf &
+"" & vbLf &
+"?NOTE:The visual display rotates to show your polygon from all angles!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "joinery",
+.Title = "Joinery Calculator",
+.Category = "Joinery",
+.SortOrder = 20,
+.Keywords = "joinery,mortise,tenon,dovetail,box joint,dado,groove,joint",
+.Content =
+"#TITLE:Joinery Calculator" & vbLf &
+"##SECTION:Purpose|Calculate precise dimensions for traditional woodworking joints including mortise & tenon, dovetails, box joints, and dados. Ensures strong, accurate joints every time." & vbLf &
+"###SUBTITLE:Available Joint Types" & vbLf &
+"@METHOD:Mortise & Tenon|Traditional frame joint - strong and versatile (Standard, Haunched, Through)" & vbLf &
+"@METHOD:Dovetails|Beautiful, interlocking drawer joint for hardwood and softwood" & vbLf &
+"@METHOD:Box Joints|Finger joints for boxes - easier than dovetails, very strong" & vbLf &
+"@METHOD:Dado & Groove|Housed joints for shelves and panels" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Mortise & Tenon" & vbLf &
+"Input your stock dimensions and the calculator determines:" & vbLf &
+"*BULLET:Tenon thickness (typically 1/3 of stock thickness)" & vbLf &
+"*BULLET:Tenon length (typically 1"" to 2"")" & vbLf &
+"*BULLET:Tenon width (typically 2/3 of stock width)" & vbLf &
+"*BULLET:Mortise depth (tenon length + 1/16"")" & vbLf &
+"*BULLET:Shoulder offsets for aesthetic balance" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Dovetails" & vbLf &
+"Perfect for drawer fronts and backs. Calculator provides:" & vbLf &
+"*BULLET:Dovetail angle (1:6 for softwood, 1:8 for hardwood)" & vbLf &
+"*BULLET:Pin width (typically half-pin at corners)" & vbLf &
+"*BULLET:Tail width (proportional to pin spacing)" & vbLf &
+"*BULLET:Number of tails needed for board width" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Box Joints" & vbLf &
+"Simple, strong corner joints for boxes and drawers:" & vbLf &
+"*BULLET:Pin width matches stock thickness" & vbLf &
+"*BULLET:Alternating pins and sockets" & vbLf &
+"*BULLET:Perfect for router table jig" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Dados & Grooves" & vbLf &
+"For shelf housing and panel installations:" & vbLf &
+"*BULLET:Dado depth (typically 1/3 to 1/2 of stock thickness)" & vbLf &
+"*BULLET:Dado width (matches shelf thickness + slight clearance)" & vbLf &
+"*BULLET:Stopped or through dados" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Visual diagrams show you exactly how to cut each joint!" & vbLf &
+"!WARNING:Always test joints with scrap wood before cutting your final pieces!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "WoodMovement",
+.Title = "Wood Movement Calculator",
+.Category = "Joinery",
+.SortOrder = 21,
+.Keywords = "wood movement,expansion,contraction,humidity,shrinkage,tangential,radial,grain,panel gap",
+.Content =
+"#TITLE:Wood Movement Calculator" & vbLf &
+"##SECTION:Purpose|Predict how much wood will expand or contract with changes in humidity. Critical for avoiding cracked panels, stuck drawers, and failed joints." & vbLf &
+"###SUBTITLE:Why Wood Moves" & vbLf &
+"Wood absorbs and releases moisture with changing humidity. This causes:" & vbLf &
+"*BULLET:Width changes (significant across the grain)" & vbLf &
+"*BULLET:Minimal length changes (along the grain)" & vbLf &
+"*BULLET:Seasonal expansion and contraction cycles" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Calculation Inputs" & vbLf &
+"*BULLET:Wood Species (50+ species in database)" & vbLf &
+"*BULLET:Board Width (inches)" & vbLf &
+"*BULLET:Initial Humidity % (where wood is now)" & vbLf &
+"*BULLET:Final Humidity % (where it will be)" & vbLf &
+"*BULLET:Grain Direction (Tangential/Radial)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Humidity Presets" & vbLf &
+"@METHOD:Indoor Winter|6-8% RH - Dry heated air" & vbLf &
+"@METHOD:Indoor Summer|10-12% RH - Higher humidity" & vbLf &
+"@METHOD:Shop Storage|8-10% RH - Typical workshop" & vbLf &
+"@METHOD:Kiln Dried|6-8% RH - Fresh from kiln" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Grain Direction" & vbLf &
+"Movement depends on how the board was cut:" & vbLf &
+"*BULLET:Tangential (Flatsawn) - More movement, 2x radial" & vbLf &
+"*BULLET:Radial (Quartersawn) - Less movement, more stable" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Results Provided" & vbLf &
+"*BULLET:Total movement in inches and fractions" & vbLf &
+"*BULLET:Direction (expansion or contraction)" & vbLf &
+"*BULLET:Recommended panel gaps (min/max)" & vbLf &
+"*BULLET:Wood properties (density, movement coefficient)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Design Guidelines" & vbLf &
+"*BULLET:Allow 1/16"" gap per 12"" of width for panel doors" & vbLf &
+"*BULLET:Use elongated screw holes for table tops" & vbLf &
+"*BULLET:Never glue wide boards edge-to-edge across grain" & vbLf &
+"*BULLET:Account for movement in all cross-grain joints" & vbLf &
+"" & vbLf &
+"!WARNING:CRITICAL: Failure to account for wood movement is the #1 cause of failed projects!" & vbLf &
+"?NOTE:Tip: Always use quartersawn lumber for the most stable projects!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "ShelfSag",
+.Title = "Shelf Sag Calculator",
+.Category = "Joinery",
+.SortOrder = 22,
+.Keywords = "shelf,sag,deflection,load,span,stiffener,plywood,MDF,oak,maple",
+.Content =
+"#TITLE:Shelf Sag Calculator" & vbLf &
+"##SECTION:Purpose|Calculate shelf deflection (sag) and load capacity to design safe, sturdy shelves. Accounts for material properties, dimensions, and optional edge stiffeners." & vbLf &
+"###SUBTITLE:Why This Matters" & vbLf &
+"Shelves that sag too much are:" & vbLf &
+"*BULLET:Aesthetically unpleasing - visible droop looks unprofessional" & vbLf &
+"*BULLET:Functionally poor - items slide to center, doors don't close" & vbLf &
+"*BULLET:Potentially unsafe - risk of failure under heavy loads" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Industry Standard" & vbLf &
+"Maximum acceptable sag is 1/360 of span" & vbLf &
+"Example: For a 36"" shelf, maximum sag = 0.10""" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Shelf Material Options" & vbLf &
+"Choose from 14 material types with different stiffness:" & vbLf &
+"*BULLET:Engineered: Plywood, MDF, Particleboard, Melamine, OSB" & vbLf &
+"*BULLET:Softwoods: SYP, White Pine" & vbLf &
+"*BULLET:Hardwoods: Oak, Maple, Walnut, Cherry, Mahogany" & vbLf &
+"*BULLET:Other: Bamboo" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Key Inputs" & vbLf &
+"*BULLET:Span - Distance between supports (typical: 36"")" & vbLf &
+"*BULLET:Thickness - Shelf material thickness (typical: 0.75"")" & vbLf &
+"*BULLET:Width - Shelf depth front to back (typical: 10-12"")" & vbLf &
+"*BULLET:Load - Total weight on shelf (lbs)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Edge Stiffeners" & vbLf &
+"Add stiffeners to reduce sag:" & vbLf &
+"*BULLET:Front edge band - solid wood strip glued to front edge" & vbLf &
+"*BULLET:Back edge band - additional support at rear" & vbLf &
+"*BULLET:Significantly increases stiffness without changing shelf thickness" & vbLf &
+"" & vbLf &
+"!WARNING:Always test shelves with actual weight before use!" & vbLf &
+"?NOTE:Tip: Doubling thickness increases stiffness by 8x!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "cut_list",
+.Title = "Cut List Optimizer",
+.Category = "Optimization",
+.SortOrder = 30,
+.Keywords = "cut list,optimizer,waste,sheet goods,plywood,cutting diagram,kerf,pattern",
+.Content =
+"#TITLE:Cut List Optimizer" & vbLf &
+"##SECTION:Purpose|Optimize how you cut parts from sheet goods or boards to minimize waste and save money. Generates cutting diagrams showing exactly where to make each cut." & vbLf &
+"###SUBTITLE:How It Works" & vbLf &
+"Enter all the pieces you need, and the optimizer:" & vbLf &
+"*BULLET:Arranges pieces to minimize waste" & vbLf &
+"*BULLET:Accounts for saw kerf (blade width)" & vbLf &
+"*BULLET:Calculates total boards needed" & vbLf &
+"*BULLET:Shows material cost" & vbLf &
+"*BULLET:Displays cutting patterns visually" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Adding Pieces" & vbLf &
+"#NUM:1:Enter a label/name for each piece (e.g., ""Shelf A"")" & vbLf &
+"#NUM:2:Enter length in inches" & vbLf &
+"#NUM:3:Enter width in inches" & vbLf &
+"#NUM:4:Enter quantity needed" & vbLf &
+"#NUM:5:Click 'Add Row' for additional pieces" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Stock Board Selection" & vbLf &
+"Choose from standard sheet sizes:" & vbLf &
+"*BULLET:4x8 Sheet (48"" x 96"") - Standard plywood" & vbLf &
+"*BULLET:4x4 Sheet (48"" x 48"") - Half sheet" & vbLf &
+"*BULLET:4x10 Sheet (48"" x 120"") - Oversized" & vbLf &
+"*BULLET:Custom sizes supported" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Kerf Width" & vbLf &
+"Set your saw blade width (kerf) for accurate calculations:" & vbLf &
+"*BULLET:Table saw: 1/8"" (0.125"")" & vbLf &
+"*BULLET:Circular saw: 3/32"" to 1/8""" & vbLf &
+"*BULLET:Track saw: 1/16"" to 3/32""" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Optimization Results" & vbLf &
+"After clicking 'Optimize', you'll see:" & vbLf &
+"*BULLET:Boards Needed - Total sheets/boards required" & vbLf &
+"*BULLET:Total Cost - Based on board price" & vbLf &
+"*BULLET:Waste % - Percentage of material wasted" & vbLf &
+"*BULLET:Efficiency % - How well pieces were packed" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Print cutting diagrams and tape them to your boards in the shop!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "units",
+.Title = "Unit Conversions",
+.Category = "Conversions",
+.SortOrder = 40,
+.Keywords = "units,conversion,inches,millimeters,feet,meters,imperial,metric",
+.Content =
+"#TITLE:Unit Conversions" & vbLf &
+"##SECTION:Available Conversions|Quick conversion between imperial and metric units commonly used in woodworking." & vbLf &
+"###SUBTITLE:Length Conversions" & vbLf &
+"*BULLET:Inches to Millimeters (1"" = 25.4mm)" & vbLf &
+"*BULLET:Millimeters to Inches" & vbLf &
+"*BULLET:Feet to Meters" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Fraction Conversions" & vbLf &
+"*BULLET:Decimal to Fraction (e.g., 0.375 = 3/8)" & vbLf &
+"*BULLET:Fraction to Decimal (e.g., 3/4 = 0.75)" & vbLf &
+"*BULLET:Mixed fractions supported (e.g., 1 1/2 = 1.5)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Quick Reference Tables" & vbLf &
+"The Calculations tab includes comprehensive conversion tables for common fractions (1/64"" through 1"") in both decimal and metric." & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Conversion constants are centralized and can be found in UnitConversionConstants module!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "fractions",
+.Title = "Fraction Conversions",
+.Category = "Conversions",
+.SortOrder = 41,
+.Keywords = "fraction,decimal,conversion,mixed,reduce,simplify",
+.Content =
+"#TITLE:Fraction Conversions" & vbLf &
+"##SECTION:Working with Fractions|Woodworking often requires converting between fractional and decimal measurements." & vbLf &
+"###SUBTITLE:Fraction to Decimal" & vbLf &
+"Enter fractions in any of these formats:" & vbLf &
+"*BULLET:Simple: 3/4" & vbLf &
+"*BULLET:Mixed: 1 1/2" & vbLf &
+"*BULLET:Already decimal: 0.75" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Decimal to Fraction" & vbLf &
+"Converts decimal values to the nearest 1/64"" fraction. The calculator automatically reduces fractions (e.g., 32/64 becomes 1/2)." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Common Conversions" & vbLf &
+"Quick reference for common woodworking measurements:" & vbLf &
+"*BULLET:1/4"" = 0.25 (Quarter inch)" & vbLf &
+"*BULLET:3/8"" = 0.375 (Common dado width)" & vbLf &
+"*BULLET:1/2"" = 0.5 (Half inch)" & vbLf &
+"*BULLET:5/8"" = 0.625 (Common drawer bottom)" & vbLf &
+"*BULLET:3/4"" = 0.75 (Standard plywood thickness)"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "table_tip",
+.Title = "Table Tipping Force Calculator",
+.Category = "Conversions",
+.SortOrder = 42,
+.Keywords = "table,tipping,force,safety,children,weight,base,stability",
+.Content =
+"#TITLE:Table Tipping Force Calculator" & vbLf &
+"##SECTION:Purpose|Calculate the force required to tip over a table. Important for safety in furniture design, especially with children." & vbLf &
+"###SUBTITLE:How It Works" & vbLf &
+"The calculator determines the force needed at the edge of the table top to cause tipping, based on:" & vbLf &
+"*BULLET:Table top weight and length" & vbLf &
+"*BULLET:Base weight and length" & vbLf &
+"*BULLET:Lever arm principles" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Required Inputs" & vbLf &
+"*BULLET:Table Top Length (inches or mm)" & vbLf &
+"*BULLET:Table Top Weight (lbs or kg)" & vbLf &
+"*BULLET:Base Length (inches or mm)" & vbLf &
+"*BULLET:Base Weight (lbs or kg)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Safety Guidelines" & vbLf &
+"!WARNING:IMPORTANT: Tipping force should be AT LEAST 50 lbs (23 kg) for tables used around children!" & vbLf &
+"!WARNING:Consider: A heavy table is safer than a light one with the same proportions" & vbLf &
+"!WARNING:Wider bases significantly increase tipping resistance" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Design Tips" & vbLf &
+"*BULLET:Increase base width/length" & vbLf &
+"*BULLET:Add weight to the base" & vbLf &
+"*BULLET:Reduce table top overhang" & vbLf &
+"*BULLET:Consider attaching to wall for very tall pieces"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "shortcuts",
+.Title = "Keyboard Shortcuts",
+.Category = "Features",
+.SortOrder = 50,
+.Keywords = "keyboard,shortcuts,hotkeys,ctrl,tab,navigation,copy,paste",
+.Content =
+"#TITLE:Keyboard Shortcuts" & vbLf &
+"##SECTION:Work Faster|Use keyboard shortcuts to navigate and perform calculations more efficiently." & vbLf &
+"###SUBTITLE:Navigation Shortcuts" & vbLf &
+"^SHORTCUT:Ctrl+Tab|Next tab" & vbLf &
+"^SHORTCUT:Ctrl+Shift+Tab|Previous tab" & vbLf &
+"^SHORTCUT:Tab|Next field" & vbLf &
+"^SHORTCUT:Shift+Tab|Previous field" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Action Shortcuts" & vbLf &
+"^SHORTCUT:Enter|Calculate (when in input field)" & vbLf &
+"^SHORTCUT:Ctrl+C|Copy results" & vbLf &
+"^SHORTCUT:Ctrl+V|Paste values" & vbLf &
+"^SHORTCUT:Ctrl+A|Select all (in text fields)" & vbLf &
+"^SHORTCUT:Escape|Clear current field" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Text fields auto-select all text when you click them for quick replacement!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "themes",
+.Title = "Dark & Light Themes",
+.Category = "Features",
+.SortOrder = 51,
+.Keywords = "theme,dark,light,appearance,toggle,eye strain",
+.Content =
+"#TITLE:Dark & Light Themes" & vbLf &
+"##SECTION:Visual Themes|Choose between Light and Dark themes to match your preference and working environment." & vbLf &
+"###SUBTITLE:Switching Themes" & vbLf &
+"Click the theme toggle in the status bar at the bottom of the window." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Light Theme" & vbLf &
+"*BULLET:Traditional light background" & vbLf &
+"*BULLET:Black text on white" & vbLf &
+"*BULLET:Better for bright environments" & vbLf &
+"*BULLET:Better for printing screenshots" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Dark Theme" & vbLf &
+"*BULLET:Dark background with white text" & vbLf &
+"*BULLET:Reduces eye strain in dim lighting" & vbLf &
+"*BULLET:Modern appearance" & vbLf &
+"*BULLET:Reduces screen brightness" & vbLf &
+"" & vbLf &
+"?NOTE:Your theme preference is remembered between sessions!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "best_practices",
+.Title = "Best Practices",
+.Category = "Features",
+.SortOrder = 52,
+.Keywords = "best practices,tips,measurement,safety,material,accuracy",
+.Content =
+"#TITLE:Best Practices" & vbLf &
+"##SECTION:Tips for Success|Follow these best practices to get the most accurate and useful results from Woodworker's Friend." & vbLf &
+"###SUBTITLE:Measurement Best Practices" & vbLf &
+"*BULLET:Always measure twice, calculate once" & vbLf &
+"*BULLET:Use consistent units throughout a project" & vbLf &
+"*BULLET:Account for wood movement in panel calculations" & vbLf &
+"*BULLET:Add waste factor to material estimates (10-20%)" & vbLf &
+"*BULLET:Consider grain direction in your calculations" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Calculator Usage" & vbLf &
+"*BULLET:Use presets as starting points" & vbLf &
+"*BULLET:Export results before starting a new calculation" & vbLf &
+"*BULLET:Verify results make sense for your project" & vbLf &
+"*BULLET:Save custom presets for repeat projects" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Safety First" & vbLf &
+"!WARNING:Always verify structural calculations with local building codes" & vbLf &
+"!WARNING:Test joinery on scrap wood before final pieces" & vbLf &
+"!WARNING:Use appropriate safety equipment when working" & vbLf &
+"" & vbLf &
+"?NOTE:The calculator is a tool - your experience and judgment are irreplaceable!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "joinery_reference",
+.Title = "Joinery Reference Guide",
+.Category = "References",
+.SortOrder = 53,
+.Keywords = "joinery,reference,mortise,tenon,dovetail,box joint,dado,rabbet,lap joint,biscuit,dowel,pocket hole,spline,strength,difficulty",
+.Content =
+"#TITLE:Joinery Reference Guide" & vbLf &
+"##SECTION:Woodworking Joinery Database|Comprehensive reference for traditional and modern woodworking joints." & vbLf &
+"###SUBTITLE:What is the Joinery Reference?" & vbLf &
+"The Joinery Reference tab provides a searchable database of 12 common woodworking joint types. Each entry includes:" & vbLf &
+"*BULLET:Joint name and category (Frame, Box, Edge)" & vbLf &
+"*BULLET:Strength rating (1-5 scale)" & vbLf &
+"*BULLET:Difficulty level (Beginner, Intermediate, Advanced)" & vbLf &
+"*BULLET:Detailed description and historical context" & vbLf &
+"*BULLET:Typical uses and applications" & vbLf &
+"*BULLET:Required tools and equipment" & vbLf &
+"*BULLET:Strength characteristics" & vbLf &
+"*BULLET:Glue requirements" & vbLf &
+"*BULLET:Reinforcement options" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using the Joinery Reference" & vbLf &
+"*BULLET:Click on the References tab, then Joinery Types tab" & vbLf &
+"*BULLET:Filter joints by category (Frame, Box, Edge) or difficulty" & vbLf &
+"*BULLET:Click any joint type to view detailed specifications" & vbLf &
+"*BULLET:Sort by name, strength, or difficulty by clicking column headers" & vbLf &
+"*BULLET:Review the description, tools needed, and typical uses" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Joint Categories" & vbLf &
+"&TOPIC:Frame Joinery" & vbLf &
+"Connects pieces at angles (legs to aprons, chair rails):" & vbLf &
+"*BULLET:Mortise & Tenon - strongest traditional joint" & vbLf &
+"*BULLET:Bridle Joint - good for leg-to-rail connections" & vbLf &
+"*BULLET:Biscuit Joint - fast alignment for frames" & vbLf &
+"*BULLET:Dowel Joint - simple alternative to mortise & tenon" & vbLf &
+"*BULLET:Pocket Hole - fastest method, requires jig" & vbLf &
+"" & vbLf &
+"&TOPIC:Box Joinery" & vbLf &
+"Joins boards edge-to-edge for boxes and drawers:" & vbLf &
+"*BULLET:Dovetail (Through) - strongest and most decorative" & vbLf &
+"*BULLET:Dovetail (Half-Blind) - strong with hidden joint on one face" & vbLf &
+"*BULLET:Box Joint (Finger Joint) - strong and decorative" & vbLf &
+"*BULLET:Rabbet Joint - simple for box backs and bottoms" & vbLf &
+"" & vbLf &
+"&TOPIC:Edge Joinery" & vbLf &
+"Joins boards face-to-face or edge-to-edge:" & vbLf &
+"*BULLET:Spline Joint - reinforces edge glue-ups" & vbLf &
+"*BULLET:Dado - creates strong housing for shelves" & vbLf &
+"*BULLET:Lap Joint - creates flush surfaces" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Strength Ratings Explained" & vbLf &
+"Joint strength is rated 1-5 stars:" & vbLf &
+"*BULLET:⭐ - Lightweight applications only" & vbLf &
+"*BULLET:⭐⭐ - Light-duty furniture" & vbLf &
+"*BULLET:⭐⭐⭐ - Medium-strength for most furniture" & vbLf &
+"*BULLET:⭐⭐⭐⭐ - Heavy-duty furniture and structures" & vbLf &
+"*BULLET:⭐⭐⭐⭐⭐ - Maximum strength for demanding applications" & vbLf &
+"" & vbLf &
+"?NOTE:Click any joint in the list to see full details, historical notes, and recommended reinforcement options!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "hardware_standards",
+.Title = "Hardware Standards Reference",
+.Category = "References",
+.SortOrder = 54,
+.Keywords = "hardware,hinges,slides,shelf,fasteners,brackets,pulls,knobs,euro hinge,drawer slide,specifications,dimensions,mounting",
+.Content =
+"#TITLE:Hardware Standards Reference" & vbLf &
+"##SECTION:Woodworking Hardware Database|Comprehensive specifications for common cabinet and furniture hardware." & vbLf &
+"###SUBTITLE:What is the Hardware Reference?" & vbLf &
+"The Hardware Standards tab provides detailed specifications for 16 common hardware items used in woodworking. Each entry includes:" & vbLf &
+"*BULLET:Hardware type and category" & vbLf &
+"*BULLET:Brand recommendations" & vbLf &
+"*BULLET:Part numbers (when applicable)" & vbLf &
+"*BULLET:Precise dimensions and specifications" & vbLf &
+"*BULLET:Mounting requirements" & vbLf &
+"*BULLET:Weight capacity ratings" & vbLf &
+"*BULLET:Typical uses and applications" & vbLf &
+"*BULLET:Installation notes and tips" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using the Hardware Reference" & vbLf &
+"*BULLET:Click on the References tab, then Hardware tab" & vbLf &
+"*BULLET:Filter by category (Hinges, Slides, Shelf Support, Fasteners)" & vbLf &
+"*BULLET:Click any hardware item to view complete specifications" & vbLf &
+"*BULLET:Sort by type, category, brand, or dimensions" & vbLf &
+"*BULLET:Review mounting requirements before purchasing" & vbLf &
+"*BULLET:Check weight capacity for your application" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Hardware Categories" & vbLf &
+"&TOPIC:Hinges" & vbLf &
+"Cabinet and door hardware:" & vbLf &
+"*BULLET:European (Euro) Hinges - 35mm concealed, most common" & vbLf &
+"*BULLET:Butt Hinges - traditional surface-mounted" & vbLf &
+"*BULLET:Overlay Hinges - no mortising required" & vbLf &
+"" & vbLf &
+"&TOPIC:Drawer Slides" & vbLf &
+"Full-extension and soft-close options:" & vbLf &
+"*BULLET:Ball-Bearing Slides - side-mount, 75-100 lbs capacity" & vbLf &
+"*BULLET:Undermount Soft-Close - hidden installation, premium option" & vbLf &
+"" & vbLf &
+"&TOPIC:Shelf Support" & vbLf &
+"Adjustable and fixed shelf hardware:" & vbLf &
+"*BULLET:5mm Shelf Pins - metric standard" & vbLf &
+"*BULLET:1/4"" Shelf Pins - imperial standard" & vbLf &
+"" & vbLf &
+"&TOPIC:Brackets & Fasteners" & vbLf &
+"Structural and mounting hardware:" & vbLf &
+"*BULLET:Corner Braces - reinforces joints" & vbLf &
+"*BULLET:Table Leg Brackets - secure leg attachment" & vbLf &
+"*BULLET:Wood Screws - standard #8 size" & vbLf &
+"*BULLET:Confirmat Screws - European cabinet fasteners" & vbLf &
+"" & vbLf &
+"&TOPIC:Pulls & Knobs" & vbLf &
+"Cabinet door and drawer handles:" & vbLf &
+"*BULLET:Bar Pulls - 3"" center-to-center most common" & vbLf &
+"*BULLET:Knobs - 1.25"" diameter standard" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Key Specifications" & vbLf &
+"When selecting hardware, pay attention to:" & vbLf &
+"*BULLET:Dimensions - Ensure proper fit for your project" & vbLf &
+"*BULLET:Mounting Requirements - Drill sizes, clearances, depths" & vbLf &
+"*BULLET:Weight Capacity - Match to your application loads" & vbLf &
+"*BULLET:Installation Notes - Special tools or techniques required" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Installation Tips" & vbLf &
+"!WARNING:Euro hinges require precise 35mm boring" & vbLf &
+"!WARNING:Drawer slides need exact 1/2"" clearance per side" & vbLf &
+"!WARNING:Use pilot holes for all screws to prevent splitting" & vbLf &
+"" & vbLf &
+"?NOTE:Click any hardware item to see detailed mounting requirements, brand recommendations, and part numbers!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "troubleshooting",
+.Title = "Troubleshooting",
+.Category = "Support",
+.SortOrder = 60,
+.Keywords = "troubleshooting,problem,error,fix,invalid input,display,performance,help",
+.Content =
+"#TITLE:Troubleshooting" & vbLf &
+"##SECTION:Common Issues & Solutions|Having problems? Check these common issues and their solutions." & vbLf &
+"###SUBTITLE:Calculation Issues" & vbLf &
+"&PROBLEM:""Invalid Input"" error" & vbLf &
+"&SOLUTION:Check that all required fields are filled in. Verify values are within valid ranges (hover for tooltip). Ensure you're using numbers, not text." & vbLf &
+"" & vbLf &
+"&PROBLEM:Results seem incorrect" & vbLf &
+"&SOLUTION:Verify you're using consistent units (all inches or all mm). Double-check input values for typos. Ensure correct calculation method is selected." & vbLf &
+"" & vbLf &
+"&PROBLEM:Can't see all results" & vbLf &
+"&SOLUTION:Scroll down in the results panel. Resize the window or splitter. Export results to view in external program." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Display Issues" & vbLf &
+"&PROBLEM:Text is too small/large" & vbLf &
+"&SOLUTION:Use Windows display scaling settings. Try different theme (Light/Dark). Maximize window for more space." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Getting Help" & vbLf &
+"If problems persist:" & vbLf &
+"*BULLET:Check error log file in application folder" & vbLf &
+"*BULLET:Note exact error messages" & vbLf &
+"*BULLET:Try restarting the application" & vbLf &
+"*BULLET:Contact support with screenshots and error logs" & vbLf &
+"" & vbLf &
+"?NOTE:Error logs are automatically created in the Logs folder for debugging!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "version",
+.Title = "Version Information",
+.Category = "About",
+.SortOrder = 70,
+.Keywords = "version,about,features,system,build,.NET,credits",
+.Content =
+"#TITLE:Version Information" & vbLf &
+"##SECTION:Woodworker's Friend|A comprehensive woodworking calculator and planning tool." & vbLf &
+"###SUBTITLE:Features in This Version" & vbLf &
+"*BULLET:Drawer height calculator with 10 calculation methods" & vbLf &
+"*BULLET:Cabinet door calculator for inset and overlay" & vbLf &
+"*BULLET:Board feet calculator with grid support" & vbLf &
+"*BULLET:Epoxy pour volume calculator" & vbLf &
+"*BULLET:Polygon calculator with visual display" & vbLf &
+"*BULLET:Joinery calculator (mortise & tenon, dovetails, box joints, dados)" & vbLf &
+"*BULLET:Wood movement calculator with 50+ species" & vbLf &
+"*BULLET:Shelf sag calculator with material database" & vbLf &
+"*BULLET:Cut list optimizer with visual cutting diagrams" & vbLf &
+"*BULLET:Wood properties reference database (25 species, searchable)" & vbLf &
+"*BULLET:Joinery reference guide (12 joint types with specifications)" & vbLf &
+"*BULLET:Hardware standards database (16 items with dimensions)" & vbLf &
+"*BULLET:Unit conversion tools" & vbLf &
+"*BULLET:Table tipping force calculator" & vbLf &
+"*BULLET:Dark/Light theme support" & vbLf &
+"*BULLET:Export to CSV, Text, HTML" & vbLf &
+"*BULLET:Unified SQLite database" & vbLf &
+"*BULLET:Searchable help system" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Technical Details" & vbLf &
+"*BULLET:Language: Visual Basic .NET" & vbLf &
+"*BULLET:UI Framework: Windows Forms" & vbLf &
+"*BULLET:Database: SQLite" & vbLf &
+"*BULLET:Architecture: Modular with partial classes" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Credits" & vbLf &
+"Developed with passion for woodworking and software craftsmanship." & vbLf &
+"*BULLET:GitHub: https://github.com/dmaidon/Woodworkers-Friend" & vbLf &
+"*BULLET:Report issues on GitHub Issues page" & vbLf &
+"" & vbLf &
+"?NOTE:Thank you for using Woodworker's Friend! Happy woodworking!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "export",
+.Title = "Exporting Results",
+.Category = "Features",
+.SortOrder = 53,
+.Keywords = "export,CSV,text,HTML,save,share,print",
+.Content =
+"#TITLE:Exporting Results" & vbLf &
+"##SECTION:Export Capabilities|Save and share your calculations in multiple formats for documentation, client quotes, and project planning." & vbLf &
+"###SUBTITLE:Available Export Formats" & vbLf &
+"@METHOD:CSV (Comma-Separated Values)|Opens in Excel, Google Sheets. Best for data analysis." & vbLf &
+"@METHOD:Text (Plain Text)|Simple format readable in any text editor. Good for printing." & vbLf &
+"@METHOD:HTML (Web Page)|Formatted web page with styling. Perfect for emailing to clients." & vbLf &
+"" & vbLf &
+"###SUBTITLE:How to Export" & vbLf &
+"#NUM:1:Complete your calculations" & vbLf &
+"#NUM:2:Right-click on results area" & vbLf &
+"#NUM:3:Choose 'Export Results'" & vbLf &
+"#NUM:4:Select format (CSV, Text, or HTML)" & vbLf &
+"#NUM:5:Choose save location" & vbLf &
+"#NUM:6:Click Save" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: CSV exports can be imported back into Excel for further calculations!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "presets",
+.Title = "Using Presets",
+.Category = "Features",
+.SortOrder = 54,
+.Keywords = "presets,kitchen,office,bathroom,custom,save,load,configuration",
+.Content =
+"#TITLE:Using Presets" & vbLf &
+"##SECTION:What are Presets?|Presets are pre-configured settings for common woodworking scenarios. They save time and ensure you start with industry-standard dimensions." & vbLf &
+"###SUBTITLE:Available Presets" & vbLf &
+"@METHOD:Kitchen Standard|Typical kitchen base cabinet: 5 drawers with graduated heights" & vbLf &
+"@METHOD:Office Desk|Standard office desk drawer configuration" & vbLf &
+"@METHOD:Bathroom Vanity|Typical bathroom vanity dimensions" & vbLf &
+"@METHOD:Custom Cabinet|Your saved custom configurations" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using Presets" & vbLf &
+"#NUM:1:Navigate to the calculator (e.g., Drawers)" & vbLf &
+"#NUM:2:Click on a preset button" & vbLf &
+"#NUM:3:All fields are populated automatically" & vbLf &
+"#NUM:4:Modify values as needed for your project" & vbLf &
+"#NUM:5:Calculate to see results" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Save presets for your frequently-built pieces to speed up future projects!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "validation",
+.Title = "Input Validation",
+.Category = "Features",
+.SortOrder = 55,
+.Keywords = "validation,input,error,range,feedback,visual,rules",
+.Content =
+"#TITLE:Input Validation" & vbLf &
+"##SECTION:Smart Input Validation|Woodworker's Friend includes intelligent validation to prevent errors and guide you to successful calculations." & vbLf &
+"###SUBTITLE:Validation Features" & vbLf &
+"*BULLET:Real-time feedback as you type" & vbLf &
+"*BULLET:Clear error messages explaining what's wrong" & vbLf &
+"*BULLET:Suggested valid ranges for each field" & vbLf &
+"*BULLET:Automatic fixing of common mistakes" & vbLf &
+"*BULLET:Prevention of impossible calculations" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Common Validation Rules" & vbLf &
+"Drawer Calculator:" & vbLf &
+"*BULLET:Drawer count: 1-20 drawers" & vbLf &
+"*BULLET:Width: 6-48 inches" & vbLf &
+"*BULLET:Spacing: 0-2 inches" & vbLf &
+"" & vbLf &
+"Door Calculator:" & vbLf &
+"*BULLET:Height: 6-120 inches" & vbLf &
+"*BULLET:Width: 6-60 inches" & vbLf &
+"*BULLET:Stile/Rail: 0.5-6 inches" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Hover over any input field to see its valid range and examples!" & vbLf &
+"!WARNING:Validation prevents mistakes, but always double-check critical measurements!"
+}
+            }
+
+            ' Bulk insert all help content
+            Dim insertedCount = DatabaseManager.Instance.BulkInsertHelpContent(helpItems)
+            ErrorHandler.LogError(New Exception($"Help content migration: {insertedCount}/{helpItems.Count} topics inserted"), "MigrateHelpContent")
+            Return insertedCount
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "MigrateHelpContent")
+            Return 0
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Seeds default user preferences into the database (Phase 5).
+    ''' These are the initial values for a first-time user.
+    ''' </summary>
+    Public Shared Sub SeedDefaultPreferences()
+        Try
+            Dim db = DatabaseManager.Instance
+
+            ' UI Preferences
+            db.SavePreference("Theme", "Light", "String", "UI")
+            db.SavePreference("Scale", "Imperial", "String", "UI")
+
+            ' Window state (will be updated on close)
+            db.SavePreference("WindowState", "Normal", "String", "UI")
+            db.SavePreference("WindowWidth", "1200", "Integer", "UI")
+            db.SavePreference("WindowHeight", "800", "Integer", "UI")
+
+            ' Calculator defaults
+            db.SavePreference("DefaultWastePercent", "10", "Integer", "Calculation")
+            db.SavePreference("DefaultKerfWidth", "0.125", "Double", "Calculation")
+
+            ' General
+            db.SavePreference("LastActiveTab", "0", "Integer", "General")
+
+            ErrorHandler.LogError(New Exception("Default preferences seeded successfully"), "SeedDefaultPreferences")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "SeedDefaultPreferences")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Migrates joinery types reference data to database (Phase 7.1)
+    ''' </summary>
+    Public Shared Function MigrateJoineryTypes() As Integer
+        Try
+            ErrorHandler.LogError(New Exception("Starting joinery types migration..."), "MigrateJoineryTypes")
+
+            ' Check if already seeded
+            Dim existing = DatabaseManager.Instance.GetAllJoineryTypes()
+            If existing.Count > 0 Then
+                ErrorHandler.LogError(New Exception($"Joinery types already migrated ({existing.Count} types found)"), "MigrateJoineryTypes")
+                Return existing.Count
+            End If
+
+            ' Create joinery types list
+            ' ===== MORTISE & TENON =====
+            ' ===== DOVETAIL - THROUGH =====
+            ' ===== DOVETAIL - HALF-BLIND =====
+            ' ===== BOX JOINT (FINGER JOINT) =====
+            ' ===== DADO JOINT =====
+            ' ===== RABBET JOINT =====
+            ' ===== LAP JOINT =====
+            ' ===== BRIDLE JOINT =====
+            ' ===== BISCUIT JOINT =====
+            ' ===== DOWEL JOINT =====
+            ' ===== POCKET HOLE =====
+            ' ===== SPLINE JOINT =====
+            Dim joineryList As New List(Of JoineryType) From {
+                New JoineryType With {
+.Name = "Mortise & Tenon",
+.Category = JoineryCategory.Frame,
+.StrengthRating = 10,
+.DifficultyLevel = JoineryDifficulty.Intermediate,
+.Description = "One of the strongest and most versatile joints in woodworking. A rectangular tenon fits into a matching mortise.",
+.TypicalUses = "Frame and panel construction, table legs, chair frames, door frames, mission-style furniture",
+.RequiredTools = "Mortiser, chisel, router, table saw, tenon saw",
+.StrengthCharacteristics = "Excellent in tension, compression, and shear. Large glue surface area provides maximum strength.",
+.GlueRequired = True,
+.ReinforcementOptions = "Through wedges, drawbore pegs, pins",
+.HistoricalNotes = "Used for thousands of years. Found in ancient Egyptian furniture and medieval timber framing."
+},
+                New JoineryType With {
+.Name = "Dovetail (Through)",
+.Category = JoineryCategory.Box,
+.StrengthRating = 10,
+.DifficultyLevel = JoineryDifficulty.Advanced,
+.Description = "Interlocking wedge-shaped pins and tails. Visible from both sides. The joint gets stronger under tension.",
+.TypicalUses = "Drawer boxes, jewelry boxes, fine furniture carcasses, decorative boxes",
+.RequiredTools = "Dovetail saw, coping saw, chisel, marking gauge, dovetail jig (optional)",
+.StrengthCharacteristics = "Exceptional mechanical strength. Resists pulling apart without glue. Self-tightening under load.",
+.GlueRequired = False,
+.ReinforcementOptions = "Typically used alone. Sometimes pinned in large timbers.",
+.HistoricalNotes = "Dates to ancient Egypt. Became signature of fine craftsmanship in 18th century furniture."
+},
+                New JoineryType With {
+.Name = "Dovetail (Half-Blind)",
+.Category = JoineryCategory.Box,
+.StrengthRating = 9,
+.DifficultyLevel = JoineryDifficulty.Advanced,
+.Description = "Dovetails hidden on one face. Pins are cut only partway through the tail board.",
+.TypicalUses = "Drawer fronts where you don't want visible joinery, fine cabinet work",
+.RequiredTools = "Dovetail saw, coping saw, chisel, marking gauge, router with dovetail jig",
+.StrengthCharacteristics = "Nearly as strong as through dovetails. Slightly less glue surface.",
+.GlueRequired = True,
+.ReinforcementOptions = "Rarely reinforced due to complexity",
+.HistoricalNotes = "Developed to hide joinery on drawer fronts. Became standard for fine furniture drawers."
+},
+                New JoineryType With {
+.Name = "Box Joint (Finger Joint)",
+.Category = JoineryCategory.Box,
+.StrengthRating = 8,
+.DifficultyLevel = JoineryDifficulty.Beginner,
+.Description = "Square interlocking fingers. Machine-cut precision provides large glue surface area.",
+.TypicalUses = "Shop-made boxes, tool boxes, drawers, small cabinets",
+.RequiredTools = "Table saw with box joint jig, router with template",
+.StrengthCharacteristics = "Very strong due to large glue surface. Not as decorative as dovetails but easier to cut.",
+.GlueRequired = True,
+.ReinforcementOptions = "Pins through fingers (decorative)",
+.HistoricalNotes = "Popularized with power tools in 20th century as a simpler alternative to dovetails."
+},
+                New JoineryType With {
+.Name = "Dado",
+.Category = JoineryCategory.Carcass,
+.StrengthRating = 7,
+.DifficultyLevel = JoineryDifficulty.Beginner,
+.Description = "A groove cut across the grain to receive another board. Provides excellent alignment and strength.",
+.TypicalUses = "Bookshelf shelves, cabinet dividers, drawer bottoms",
+.RequiredTools = "Router, dado stack on table saw, straight bit",
+.StrengthCharacteristics = "Good strength in compression. Prevents racking. Provides positive alignment.",
+.GlueRequired = True,
+.ReinforcementOptions = "Screws, nails, pins through the dado",
+.HistoricalNotes = "One of the oldest joinery methods. Simple and effective for shelf support."
+},
+                New JoineryType With {
+.Name = "Rabbet",
+.Category = JoineryCategory.Edge,
+.StrengthRating = 5,
+.DifficultyLevel = JoineryDifficulty.Beginner,
+.Description = "L-shaped cut along the edge of a board. Simple joint with good glue surface.",
+.TypicalUses = "Cabinet backs, drawer backs, picture frames, panel inserts",
+.RequiredTools = "Router, table saw, rabbet plane",
+.StrengthCharacteristics = "Moderate strength. Primarily relies on glue. Good for alignment.",
+.GlueRequired = True,
+.ReinforcementOptions = "Brad nails, screws, staples",
+.HistoricalNotes = "Used in panel construction for centuries. Common in traditional cabinetry."
+},
+                New JoineryType With {
+.Name = "Lap Joint (Half-Lap)",
+.Category = JoineryCategory.Frame,
+.StrengthRating = 6,
+.DifficultyLevel = JoineryDifficulty.Beginner,
+.Description = "Two boards overlap with half the thickness removed from each. Creates flush surface.",
+.TypicalUses = "Face frames, stretchers, cross-bracing, Japanese joinery",
+.RequiredTools = "Table saw, router, dado stack, chisel",
+.StrengthCharacteristics = "Good for frames. Better with mechanical fasteners. Large glue surface.",
+.GlueRequired = True,
+.ReinforcementOptions = "Screws, bolts, pins, pegs",
+.HistoricalNotes = "Traditional timber framing joint. Used in both Western and Japanese carpentry."
+},
+                New JoineryType With {
+.Name = "Bridle Joint",
+.Category = JoineryCategory.Frame,
+.StrengthRating = 8,
+.DifficultyLevel = JoineryDifficulty.Intermediate,
+.Description = "Open mortise and tenon. Fork-like joint where tenon sits between two prongs.",
+.TypicalUses = "Leg-to-rail connections, chair frames, table aprons",
+.RequiredTools = "Table saw, band saw, chisel, router",
+.StrengthCharacteristics = "Strong in compression and tension. Large glue surface. Resists racking.",
+.GlueRequired = True,
+.ReinforcementOptions = "Wedges, pins",
+.HistoricalNotes = "Common in Arts & Crafts furniture. Visible joinery is part of the aesthetic."
+},
+                New JoineryType With {
+.Name = "Biscuit Joint",
+.Category = JoineryCategory.Edge,
+.StrengthRating = 6,
+.DifficultyLevel = JoineryDifficulty.Beginner,
+.Description = "Compressed wood wafers expand in glue-filled slots. Provides alignment and some strength.",
+.TypicalUses = "Edge-to-edge panels, miter joints, case construction",
+.RequiredTools = "Biscuit joiner (plate joiner)",
+.StrengthCharacteristics = "Primarily for alignment. Adds moderate strength. Not structural on its own.",
+.GlueRequired = True,
+.ReinforcementOptions = "Used with glue joints, rarely reinforced further",
+.HistoricalNotes = "Invented in Switzerland in 1950s. Revolutionized cabinet making."
+},
+                New JoineryType With {
+.Name = "Dowel Joint",
+.Category = JoineryCategory.Frame,
+.StrengthRating = 7,
+.DifficultyLevel = JoineryDifficulty.Intermediate,
+.Description = "Round wooden pegs fit into matching holes. Provides alignment and mechanical strength.",
+.TypicalUses = "Chair joints, frame corners, edge gluing, cabinet face frames",
+.RequiredTools = "Drill, doweling jig, dowel centers, clamps",
+.StrengthCharacteristics = "Good strength if aligned properly. Multiple dowels distribute load. Relies on tight fit and glue.",
+.GlueRequired = True,
+.ReinforcementOptions = "Multiple dowels, larger diameter",
+.HistoricalNotes = "Ancient technique. Mass-produced furniture often uses dowels instead of mortise & tenon."
+},
+                New JoineryType With {
+.Name = "Pocket Hole",
+.Category = JoineryCategory.Modern,
+.StrengthRating = 6,
+.DifficultyLevel = JoineryDifficulty.Beginner,
+.Description = "Angled screw driven through pocket hole. Fast and strong. Hidden on back face.",
+.TypicalUses = "Face frames, cabinet construction, quick assemblies",
+.RequiredTools = "Pocket hole jig (Kreg), drill, special screws, clamps",
+.StrengthCharacteristics = "Good for face frames. Not ideal for high-stress joints. Quick and repeatable.",
+.GlueRequired = False,
+.ReinforcementOptions = "Glue added for extra strength",
+.HistoricalNotes = "Popularized by Kreg Tool in 1980s. Now standard in production cabinetry."
+},
+                New JoineryType With {
+.Name = "Spline Joint",
+.Category = JoineryCategory.Edge,
+.StrengthRating = 7,
+.DifficultyLevel = JoineryDifficulty.Intermediate,
+.Description = "Thin strip of wood fits into matching grooves. Reinforces miter joints and edge glue-ups.",
+.TypicalUses = "Miter joints on boxes, breadboard ends, edge-to-edge panels",
+.RequiredTools = "Table saw, router, biscuit joiner",
+.StrengthCharacteristics = "Strengthens weak miter joints. Provides cross-grain support. Aids alignment.",
+.GlueRequired = True,
+.ReinforcementOptions = "Multiple splines, keys on miters",
+.HistoricalNotes = "Traditional method for strengthening miter joints and breadboard ends."
+}
+            }
+
+            ' Insert all into database
+            Dim inserted = 0
+            For Each joinery In joineryList
+                If DatabaseManager.Instance.AddJoineryType(joinery) Then
+                    inserted += 1
+                End If
+            Next
+
+            ErrorHandler.LogError(New Exception($"Joinery migration complete: {inserted}/{joineryList.Count} types inserted"), "MigrateJoineryTypes")
+            Return inserted
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "MigrateJoineryTypes")
+            Return 0
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Migrates hardware standards reference data to database (Phase 7.2)
+    ''' </summary>
+    Public Shared Function MigrateHardwareStandards() As Integer
+        Try
+            ErrorHandler.LogError(New Exception("Starting hardware standards migration..."), "MigrateHardwareStandards")
+
+            ' Check if already seeded
+            Dim existing = DatabaseManager.Instance.GetAllHardwareStandards()
+            If existing.Count > 0 Then
+                ErrorHandler.LogError(New Exception($"Hardware already migrated ({existing.Count} items found)"), "MigrateHardwareStandards")
+                Return existing.Count
+            End If
+
+            ' Create hardware list with common items
+            ' ===== HINGES =====
+            ' ===== DRAWER SLIDES =====
+            ' ===== SHELF SUPPORT =====
+            ' ===== BRACKETS =====
+            ' ===== FASTENERS =====
+            ' ===== PULLS & KNOBS =====
+            ' ===== TABLE LEGS =====
+            ' ===== CASTERS =====
+            Dim hardwareList As New List(Of HardwareStandard) From {
+                New HardwareStandard With {
+.Category = HardwareCategory.Hinges,
+.Type = "European (Euro) Hinge - 107°",
+.Brand = "Blum",
+.Description = "Concealed cabinet hinge with 107° opening angle. Most common cabinet hinge type.",
+.Dimensions = "35mm cup diameter, various mounting plates",
+.MountingRequirements = "35mm bore hole, 3-4mm depth. Requires mounting plate on cabinet side.",
+.TypicalUses = "Face frame and frameless cabinets, overlay doors, kitchen cabinets",
+.InstallationNotes = "Use 35mm Forstner bit for cup hole. Allows 3-way adjustment (in/out, up/down, left/right)."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Hinges,
+.Type = "Butt Hinge - 2"" x 1.5""",
+.Description = "Traditional surface-mounted hinge. Visible on face frame cabinets.",
+.Dimensions = "2"" height x 1.5"" width (when open)",
+.MountingRequirements = "Mortise into door and frame. Typically 1/16"" to 1/8"" deep.",
+.TypicalUses = "Face frame cabinets, inset doors, traditional furniture",
+.InstallationNotes = "Use chisel to create mortise. Three hinges for doors over 60"" tall."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Hinges,
+.Type = "Overlay Hinge - Non-Mortise",
+.Description = "Surface-mounted overlay hinge. No mortising required.",
+.Dimensions = "Various sizes, typically 3/8"" or 1/2"" overlay",
+.MountingRequirements = "Screws directly to door and face frame. No mortise needed.",
+.TypicalUses = "Utility cabinets, shop cabinets, quick builds",
+.InstallationNotes = "Easier to install than mortised hinges. Less adjustment range."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Slides,
+.Type = "Full Extension Ball-Bearing Slide - Side Mount",
+.Brand = "Blum, Accuride",
+.Description = "Drawer extends fully for complete access. Ball-bearing rollers for smooth operation.",
+.Dimensions = "Lengths: 12"", 14"", 16"", 18"", 20"", 22"", 24"". Width: 1/2"" per side.",
+.WeightCapacity = "75-100 lbs per pair (varies by length)",
+.MountingRequirements = "1/2"" clearance each side. Screws to drawer side and cabinet.",
+.TypicalUses = "Kitchen drawers, tool drawers, file cabinets",
+.InstallationNotes = "Drawer width = opening width - 1"". Use spacers for exact alignment."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Slides,
+.Type = "Undermount Soft-Close Slide",
+.Brand = "Blum Tandem, Grass",
+.Description = "Hidden slides mount under drawer. Soft-close mechanism prevents slamming.",
+.Dimensions = "Lengths: 12""-24"". Requires specific drawer box height.",
+.WeightCapacity = "75-100 lbs per pair",
+.MountingRequirements = "Mounts to drawer bottom. Requires specific drawer box dimensions per manufacturer.",
+.TypicalUses = "High-end kitchen cabinets, furniture, clean aesthetic installations",
+.InstallationNotes = "More complex installation. Follow manufacturer templates exactly."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Shelf,
+.Type = "Shelf Pin - 5mm",
+.Description = "Standard shelf support pin. Fits into drilled holes for adjustable shelving.",
+.Dimensions = "5mm diameter x 16-20mm length",
+.MountingRequirements = "5mm diameter holes, typically 1-2"" from edges, 32mm or 50mm spacing",
+.TypicalUses = "Adjustable shelves in cabinets and bookcases",
+.InstallationNotes = "Use shelf pin jig for accurate hole spacing. 4 pins per shelf minimum."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Shelf,
+.Type = "Shelf Pin - 1/4""",
+.Description = "Imperial shelf support pin. Common in North America.",
+.Dimensions = "1/4"" diameter x 5/8"" to 3/4"" length",
+.MountingRequirements = "1/4"" diameter holes, 1-2"" from edges",
+.TypicalUses = "Adjustable shelves, bookcase standards",
+.InstallationNotes = "Drill holes perpendicular to surface. Use brad point bit for clean holes."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Brackets,
+.Type = "Corner Brace - 2"" x 2""",
+.Description = "L-shaped metal bracket for reinforcing corners.",
+.Dimensions = "2"" x 2"" with screw holes",
+.TypicalUses = "Reinforcing case corners, securing table legs, picture frames",
+.InstallationNotes = "Use on inside corners. Countersink screws if visible."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Brackets,
+.Type = "Table Leg Bracket - Angled",
+.Description = "Steel bracket for attaching table legs. Allows angle adjustment.",
+.Dimensions = "4"" mounting surface, accommodates 1.5""-3"" legs",
+.MountingRequirements = "4 screws to underside of top. Center on leg position.",
+.TypicalUses = "Table leg attachment, workbench legs",
+.InstallationNotes = "Ensure bracket is square to top. Use lag screws into leg."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Fasteners,
+.Type = "Wood Screw - #8 x 1.5""",
+.Description = "General purpose wood screw. Tapered head for countersinking.",
+.Dimensions = "#8 diameter (0.164""), 1.5"" length",
+.TypicalUses = "Face frame attachment, hinge mounting, general assembly",
+.InstallationNotes = "Pilot hole: 1/8"" for hardwood, 3/32"" for softwood."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Fasteners,
+.Type = "Confirmat Screw - 5mm x 50mm",
+.Description = "European connector screw for cabinet construction. Coarse thread, large head.",
+.Dimensions = "5mm diameter, 50mm length (most common)",
+.MountingRequirements = "Requires specific drill bit (5mm shank, 7mm counterbore)",
+.TypicalUses = "Frameless cabinet construction, connecting cabinet panels",
+.InstallationNotes = "Use Confirmat drill bit. Screws into 8mm pilot hole."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Pulls,
+.Type = "Bar Pull - 3"" Center-to-Center",
+.Description = "Cabinet drawer pull. Modern straight bar design.",
+.Dimensions = "3"" hole spacing (76mm), 4-5"" overall length",
+.MountingRequirements = "Two 3/32"" or 1/8"" holes, 3"" apart",
+.TypicalUses = "Kitchen cabinets, drawer fronts, modern furniture",
+.InstallationNotes = "Use template for consistent placement. 2.5""-3"" from bottom edge is standard."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Pulls,
+.Type = "Knob - 1.25"" Diameter",
+.Description = "Round cabinet knob. Single-screw mounting.",
+.Dimensions = "1.25"" diameter, 1"" projection",
+.MountingRequirements = "Single 1/8"" hole, centered on door/drawer",
+.TypicalUses = "Traditional cabinets, doors, drawers",
+.InstallationNotes = "Center on door stile or drawer front. Use backing washer for thin fronts."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Legs,
+.Type = "Tapered Table Leg - 29""",
+.Description = "Wooden table leg with taper. Standard dining table height.",
+.Dimensions = "29"" length, 2"" square at top, tapers to 1.5"" at bottom",
+.MountingRequirements = "Apron rail attachment or leg mounting plate",
+.TypicalUses = "Dining tables, desks, workbenches",
+.InstallationNotes = "Add glides to bottom for floor protection. Account for top thickness."
+},
+                New HardwareStandard With {
+.Category = HardwareCategory.Casters,
+.Type = "Swivel Caster - 3"" Wheel",
+.Description = "Rotating wheel for shop furniture. Lockable versions available.",
+.Dimensions = "3"" wheel diameter, 3.5"" overall height, 2"" x 2"" mounting plate",
+.WeightCapacity = "75-150 lbs per caster",
+.MountingRequirements = "4 screws through mounting plate",
+.TypicalUses = "Mobile workbenches, tool carts, assembly tables",
+.InstallationNotes = "Use locking casters on 2 wheels minimum. Add threaded inserts for easier replacement."
+}
+            }
+
+            ' Insert all into database
+            Dim inserted = 0
+            For Each hardware In hardwareList
+                If DatabaseManager.Instance.AddHardwareStandard(hardware) Then
+                    inserted += 1
+                End If
+            Next
+
+            ErrorHandler.LogError(New Exception($"Hardware migration complete: {inserted}/{hardwareList.Count} items inserted"), "MigrateHardwareStandards")
+            Return inserted
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "MigrateHardwareStandards")
+            Return 0
+        End Try
+    End Function
+
+End Class

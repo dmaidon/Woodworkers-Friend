@@ -14,15 +14,34 @@ Partial Public Class FrmMain
     Private _allWoodPropertiesData As List(Of WoodPropertiesData)
     Private _currentSortColumn As String = ""
     Private _currentSortDirection As ListSortDirection = ListSortDirection.Ascending
+    Private _woodPropertiesLoading As Boolean = False
 
     ''' <summary>
     ''' Initializes wood properties reference
     ''' </summary>
     Private Sub InitializeWoodPropertiesReference()
         Try
-            ' Load data
-            _allWoodPropertiesData = WoodPropertiesDatabase.GetWoodSpeciesList()
-            _woodPropertiesData = New BindingList(Of WoodPropertiesData)(_allWoodPropertiesData)
+            ' Set loading flag to prevent events from firing during initialization
+            _woodPropertiesLoading = True
+
+            ' Load data from SQLite database (Phase 2: Database migration)
+            ErrorHandler.LogError(New Exception("Starting to load wood species from database..."), "InitializeWoodPropertiesReference")
+
+            _allWoodPropertiesData = DatabaseManager.Instance.GetAllWoodSpecies()
+
+            Dim loadedCount = If(_allWoodPropertiesData IsNot Nothing, _allWoodPropertiesData.Count, 0)
+            ErrorHandler.LogError(New Exception($"Loaded {loadedCount} species from database"), "InitializeWoodPropertiesReference")
+
+            If _allWoodPropertiesData Is Nothing OrElse _allWoodPropertiesData.Count = 0 Then
+                ' Fallback to in-code database if SQLite fails
+                ErrorHandler.LogError(New Exception("Database returned empty! Falling back to in-code database..."), "InitializeWoodPropertiesReference")
+#Disable Warning BC40000
+                _allWoodPropertiesData = WoodPropertiesDatabase.GetWoodSpeciesList()
+#Enable Warning BC40000
+                ErrorHandler.LogError(New Exception($"Loaded {_allWoodPropertiesData.Count} species from in-code fallback"), "InitializeWoodPropertiesReference")
+            End If
+
+            _woodPropertiesData = New BindingList(Of WoodPropertiesData)(New List(Of WoodPropertiesData)(_allWoodPropertiesData))
 
             ' Setup grid
             InitializeWoodPropertiesGrid()
@@ -30,7 +49,7 @@ Partial Public Class FrmMain
             ' Bind data
             DgvWoodProperties.DataSource = _woodPropertiesData
 
-            ' Set default filter
+            ' Set default filter (this will trigger CheckedChanged event, but flag will prevent processing)
             If RbWoodAll IsNot Nothing Then
                 RbWoodAll.Checked = True
             End If
@@ -38,12 +57,21 @@ Partial Public Class FrmMain
             ' Setup tooltips
             SetupWoodPropertiesTooltips()
 
+            ' Wire up Add Species button event (if button exists)
+            If BtnAddWoodSpecies IsNot Nothing Then
+                AddHandler BtnAddWoodSpecies.Click, AddressOf BtnAddWoodSpecies_Click
+            End If
+
             ' Clear details initially
             ClearWoodDetails()
+
+            ' Clear loading flag BEFORE calling ApplyWoodFilter
+            _woodPropertiesLoading = False
 
             ' Force initial load of data
             ApplyWoodFilter()
         Catch ex As Exception
+            _woodPropertiesLoading = False ' Make sure flag is cleared on error
             ErrorHandler.LogError(ex, "InitializeWoodPropertiesReference")
         End Try
     End Sub
@@ -228,11 +256,15 @@ Partial Public Class FrmMain
                 filterType = "Softwood"
             End If
 
-            ' Check if data is loaded
+            ' Check if data is loaded - reload if needed
             If _allWoodPropertiesData Is Nothing OrElse _allWoodPropertiesData.Count = 0 Then
-                MessageBox.Show("Wood properties data is not loaded. Please restart the application.", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                ErrorHandler.LogError(New Exception("_allWoodPropertiesData is null or empty!"), "ApplyWoodFilter")
-                Return
+#Disable Warning BC40000
+                _allWoodPropertiesData = WoodPropertiesDatabase.GetWoodSpeciesList()
+#Enable Warning BC40000
+                If _allWoodPropertiesData Is Nothing OrElse _allWoodPropertiesData.Count = 0 Then
+                    MessageBox.Show("Wood properties data is not loaded. Please restart the application.", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End If
             End If
 
             ' Filter the list
@@ -407,7 +439,7 @@ Partial Public Class FrmMain
     ''' Handles wood filter change (All)
     ''' </summary>
     Private Sub RbWoodAll_CheckedChanged(sender As Object, e As EventArgs) Handles RbWoodAll.CheckedChanged
-        If RbWoodAll.Checked AndAlso Not _loading Then
+        If RbWoodAll.Checked AndAlso Not _woodPropertiesLoading Then
             ApplyWoodFilter()
         End If
     End Sub
@@ -416,7 +448,7 @@ Partial Public Class FrmMain
     ''' Handles wood filter change (Hardwoods)
     ''' </summary>
     Private Sub RbWoodHardwoods_CheckedChanged(sender As Object, e As EventArgs) Handles RbWoodHardwoods.CheckedChanged
-        If RbWoodHardwoods.Checked AndAlso Not _loading Then
+        If RbWoodHardwoods.Checked AndAlso Not _woodPropertiesLoading Then
             ApplyWoodFilter()
         End If
     End Sub
@@ -425,7 +457,7 @@ Partial Public Class FrmMain
     ''' Handles wood filter change (Softwoods)
     ''' </summary>
     Private Sub RbWoodSoftwoods_CheckedChanged(sender As Object, e As EventArgs) Handles RbWoodSoftwoods.CheckedChanged
-        If RbWoodSoftwoods.Checked AndAlso Not _loading Then
+        If RbWoodSoftwoods.Checked AndAlso Not _woodPropertiesLoading Then
             ApplyWoodFilter()
         End If
     End Sub
@@ -488,6 +520,57 @@ Partial Public Class FrmMain
     Private Sub BtnPrintWoodData_Click(sender As Object, e As EventArgs) Handles BtnPrintWoodData.Click
         MessageBox.Show("Print feature coming soon!", "Feature In Development",
                       MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    ''' <summary>
+    ''' Handles add species button click
+    ''' </summary>
+    Private Sub BtnAddWoodSpecies_Click(sender As Object, e As EventArgs)
+        Try
+            Using dlg As New FrmAddWoodSpecies()
+                If dlg.ShowDialog(Me) = DialogResult.OK Then
+                    ' Add species to database
+                    If DatabaseManager.Instance.AddWoodSpecies(dlg.WoodSpeciesData) Then
+                        MessageBox.Show($"Successfully added '{dlg.WoodSpeciesData.CommonName}' to the database!",
+                                      "Species Added",
+                                      MessageBoxButtons.OK,
+                                      MessageBoxIcon.Information)
+
+                        ' Reload data from database
+                        _allWoodPropertiesData = DatabaseManager.Instance.GetAllWoodSpecies()
+                        If _allWoodPropertiesData Is Nothing OrElse _allWoodPropertiesData.Count = 0 Then
+#Disable Warning BC40000
+                            _allWoodPropertiesData = WoodPropertiesDatabase.GetWoodSpeciesList()
+#Enable Warning BC40000
+                        End If
+
+                        ' Re-apply current filter to refresh grid
+                        ApplyWoodFilter()
+
+                        ' Try to select the newly added species
+                        For i = 0 To DgvWoodProperties.Rows.Count - 1
+                            If DgvWoodProperties.Rows(i).Cells("CommonName").Value?.ToString() = dlg.WoodSpeciesData.CommonName Then
+                                DgvWoodProperties.ClearSelection()
+                                DgvWoodProperties.Rows(i).Selected = True
+                                DgvWoodProperties.FirstDisplayedScrollingRowIndex = i
+                                Exit For
+                            End If
+                        Next
+                    Else
+                        MessageBox.Show($"Failed to add '{dlg.WoodSpeciesData.CommonName}' to the database. The species may already exist.",
+                                      "Error",
+                                      MessageBoxButtons.OK,
+                                      MessageBoxIcon.Error)
+                    End If
+                End If
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "BtnAddWoodSpecies_Click")
+            MessageBox.Show($"An error occurred while adding the wood species: {ex.Message}",
+                          "Error",
+                          MessageBoxButtons.OK,
+                          MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ''' <summary>

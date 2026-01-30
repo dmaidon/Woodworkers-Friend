@@ -1,4 +1,4 @@
-﻿Imports System.Drawing.Printing
+Imports System.Drawing.Printing
 Imports System.IO
 Imports System.Text
 Imports System.Text.Json
@@ -511,6 +511,125 @@ Partial Public Class FrmMain
         Dim val = row.Cells(colName).Value
         Return If(val IsNot Nothing, val.ToString(), "")
     End Function
+
+#End Region
+
+#Region "Board Feet History (Phase 6)"
+
+    ''' <summary>
+    ''' Saves current board feet calculation to history
+    ''' </summary>
+    Private Sub BtnSaveBoardFeetHistory_Click(sender As Object, e As EventArgs) Handles BtnSaveBoardFeetHistory.Click
+        Try
+            ' Validate we have data
+            If DgvBoardfeet.Rows.Count = 0 OrElse DgvBoardfeet.Rows.Count = 1 AndAlso DgvBoardfeet.Rows(0).IsNewRow Then
+                MessageBox.Show("No calculations to save! Enter dimensions first.",
+                              "Save History", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
+            End If
+
+            ' Get values from first data row
+            Dim row = DgvBoardfeet.Rows(0)
+            Dim thickness, width, length As Double
+            Dim quantity As Integer
+
+            If Not TryGetCellValue(row, "Thickness", thickness) Then thickness = 0
+            If Not TryGetCellValue(row, "Width", width) Then width = 0
+            If Not TryGetCellValue(row, "Length", length) Then length = 0
+            If Not TryGetCellValue(row, "Quantity", quantity) Then quantity = 1
+
+            ' Validate we have actual values
+            If thickness = 0 OrElse width = 0 OrElse length = 0 Then
+                MessageBox.Show("Please enter thickness, width, and length values.",
+                              "Save History", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Get calculated board feet
+            Dim boardFeet As Double
+            If Not TryGetCellValue(row, "TotalBoardFeet", boardFeet) Then
+                boardFeet = thickness * width * length / 144.0 * quantity
+            End If
+
+            ' Calculate cubic measurements
+            Dim cubicInches = thickness * width * length * quantity
+            Dim cubicFeet = cubicInches / 1728.0
+
+            ' Ask for optional name
+            Dim name = InputBox($"Save calculation:{vbCrLf}" &
+                               $"Thickness: {thickness}""{vbCrLf}" &
+                               $"Width: {width}""{vbCrLf}" &
+                               $"Length: {length}""{vbCrLf}" &
+                               $"Quantity: {quantity}{vbCrLf}{vbCrLf}" &
+                               "Enter a name (or leave blank):",
+                               "Save Calculation",
+                               $"{thickness}x{width}x{length} ({quantity})")
+
+            ' Save to database
+            If BoardFeetHistoryHelper.SaveCalculation(thickness, width, length, quantity,
+                                                     boardFeet, cubicInches, cubicFeet, name) Then
+                MessageBox.Show("✅ Calculation saved to history!", "Success",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Failed to save calculation. Check error log for details.",
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "BtnSaveBoardFeetHistory_Click")
+            MessageBox.Show($"Error saving calculation:{vbCrLf}{ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Loads a calculation from history
+    ''' </summary>
+    Private Sub BtnLoadBoardFeetHistory_Click(sender As Object, e As EventArgs) Handles BtnLoadBoardFeetHistory.Click
+        Try
+            ' Show history dialog
+            Dim history = BoardFeetHistoryHelper.ShowHistoryDialog()
+            If history Is Nothing Then Return ' User cancelled
+
+            ' Extract values from history
+            Dim thickness, width, length As Double
+            Dim quantity As Integer
+
+            If Not BoardFeetHistoryHelper.LoadCalculation(history, thickness, width, length, quantity) Then
+                MessageBox.Show("Failed to load calculation data.",
+                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' Clear existing rows
+            DgvBoardfeet.Rows.Clear()
+
+            ' Add new row with loaded values
+            Dim rowIndex = DgvBoardfeet.Rows.Add()
+            Dim newRow = DgvBoardfeet.Rows(rowIndex)
+
+            ' Populate cells
+            newRow.Cells("Thickness").Value = thickness
+            newRow.Cells("Width").Value = width
+            newRow.Cells("Length").Value = length
+            newRow.Cells("Quantity").Value = quantity
+
+            ' Trigger recalculation
+            DgvBoardFeet_CellValueChanged(DgvBoardfeet, New DataGridViewCellEventArgs(0, rowIndex))
+
+            ' Success message
+            Dim calcName = If(String.IsNullOrEmpty(history.CalculationName), "(unnamed)", history.CalculationName)
+            MessageBox.Show($"✅ Loaded: {calcName}{vbCrLf}{vbCrLf}" &
+                          $"Thickness: {thickness}""{vbCrLf}" &
+                          $"Width: {width}""{vbCrLf}" &
+                          $"Length: {length}""{vbCrLf}" &
+                          $"Quantity: {quantity}",
+                          "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "BtnLoadBoardFeetHistory_Click")
+            MessageBox.Show($"Error loading calculation:{vbCrLf}{ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 #End Region
 

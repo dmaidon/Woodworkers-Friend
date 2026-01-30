@@ -1,23 +1,36 @@
 ' ============================================================================
-' Last Updated: January 27, 2026
-' Changes: Initial creation - Wood movement calculator UI with species selector
-'          and humidity presets for practical calculations
+' Last Updated: January 30, 2026
+' Changes: Phase 3 - Migrated to unified SQLite database via DatabaseManager.
+'          Species now loaded from unified database instead of WoodSpeciesDatabase.
+'          Added conversion from WoodPropertiesData to WoodSpecies for calculator.
 ' ============================================================================
 
 Partial Public Class FrmMain
 
 #Region "Wood Movement Calculator"
 
+    ' Cached species list from unified database for Wood Movement
+    Private _woodMovementSpecies As List(Of WoodPropertiesData)
+
     ''' <summary>
-    ''' Initializes wood movement calculator
+    ''' Initializes wood movement calculator using unified database
     ''' </summary>
     Private Sub InitializeWoodMovementCalculator()
         Try
-            ' Populate species dropdown
+            ' Load species from unified database (Phase 3: Database migration)
+            _woodMovementSpecies = DatabaseManager.Instance.GetAllWoodSpecies()
+            If _woodMovementSpecies Is Nothing OrElse _woodMovementSpecies.Count = 0 Then
+                ' Fallback to in-code database
+#Disable Warning BC40000
+                _woodMovementSpecies = WoodPropertiesDatabase.GetWoodSpeciesList()
+#Enable Warning BC40000
+            End If
+
+            ' Populate species dropdown from unified database
             If CmbWoodSpecies IsNot Nothing Then
                 CmbWoodSpecies.Items.Clear()
-                For Each species In WoodSpeciesDatabase.AllSpecies
-                    CmbWoodSpecies.Items.Add(species.Name)
+                For Each species In _woodMovementSpecies
+                    CmbWoodSpecies.Items.Add(species.CommonName)
                 Next
                 If CmbWoodSpecies.Items.Count > 0 Then
                     CmbWoodSpecies.SelectedIndex = 0  ' Default to first species
@@ -43,7 +56,30 @@ Partial Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Calculates wood movement
+    ''' Converts a WoodPropertiesData object to a WoodSpecies object for the calculator.
+    ''' WoodPropertiesData stores shrinkage as decimals (0.108), WoodSpecies uses raw % (10.8).
+    ''' </summary>
+    Private Shared Function ConvertToWoodSpecies(data As WoodPropertiesData) As WoodSpecies
+        Return New WoodSpecies With {
+            .Name = data.CommonName,
+            .TangentialShrinkage = data.ShrinkageTangential * 100,
+            .RadialShrinkage = data.ShrinkageRadial * 100,
+            .Density = data.Density,
+            .IsHardwood = (data.WoodType = "Hardwood")
+        }
+    End Function
+
+    ''' <summary>
+    ''' Finds a species from the cached list by name
+    ''' </summary>
+    Private Function FindWoodMovementSpecies(name As String) As WoodPropertiesData
+        If _woodMovementSpecies Is Nothing Then Return Nothing
+        Return _woodMovementSpecies.FirstOrDefault(
+            Function(s) s.CommonName.Equals(name, StringComparison.OrdinalIgnoreCase))
+    End Function
+
+    ''' <summary>
+    ''' Calculates wood movement using unified database
     ''' </summary>
     Private Sub CalculateWoodMovement()
         Try
@@ -53,13 +89,16 @@ Partial Public Class FrmMain
             End If
 
             Dim speciesName = CmbWoodSpecies.SelectedItem.ToString()
-            Dim species = WoodSpeciesDatabase.GetSpeciesByName(speciesName)
+            Dim speciesData = FindWoodMovementSpecies(speciesName)
 
-            If species Is Nothing Then
+            If speciesData Is Nothing Then
                 MessageBox.Show("Please select a wood species", "Missing Information",
                               MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
+
+            ' Convert to WoodSpecies for calculator (handles decimal-to-percent conversion)
+            Dim species = ConvertToWoodSpecies(speciesData)
 
             ' Get inputs
             Dim width = InputValidator.TryParseDoubleWithDefault(TxtMovementWidth.Text, 12)
@@ -94,30 +133,35 @@ Partial Public Class FrmMain
             Dim movementAbs = Math.Abs(movement)
             Dim movementCategory = WoodMovementCalculator.GetMovementCategory(movement)
 
-            ' Update labels
-            LabelFormatter.UpdateLabelWithFallback(LblMovementResult,
-                $"Movement: {movementAbs:N4} inches", movementAbs)
+            ' Update labels directly (no Tag-based format strings on these labels)
+            If LblMovementResult IsNot Nothing Then
+                LblMovementResult.Text = $"Movement: {movementAbs:N4}"" ({movementCategory})"
+            End If
 
-            LabelFormatter.UpdateLabelWithFallback(LblMovementDirection,
-                $"Direction: {movementDirection} ({movementCategory})", movementDirection)
+            If LblMovementDirection IsNot Nothing Then
+                LblMovementDirection.Text = $"Direction: {movementDirection}"
+            End If
 
-            LabelFormatter.UpdateLabelWithFallback(LblMovementFraction,
-                $"Approximately {ConvertToFraction(movementAbs)}", movementAbs)
+            If LblMovementFraction IsNot Nothing Then
+                LblMovementFraction.Text = $"Approximately {ConvertToFraction(movementAbs)}"
+            End If
 
             ' Panel gap recommendations
-            LabelFormatter.UpdateLabelWithFallback(LblPanelGapMin,
-                $"Min Gap (per side): {gaps.MinGap:N3}"" ({ConvertToFraction(gaps.MinGap)})", gaps.MinGap)
+            If LblPanelGapMin IsNot Nothing Then
+                LblPanelGapMin.Text = $"Min Gap (per side): {gaps.MinGap:N3}"" ({ConvertToFraction(gaps.MinGap)})"
+            End If
 
-            LabelFormatter.UpdateLabelWithFallback(LblPanelGapMax,
-                $"Max Gap (per side): {gaps.MaxGap:N3}"" ({ConvertToFraction(gaps.MaxGap)})", gaps.MaxGap)
+            If LblPanelGapMax IsNot Nothing Then
+                LblPanelGapMax.Text = $"Max Gap (per side): {gaps.MaxGap:N3}"" ({ConvertToFraction(gaps.MaxGap)})"
+            End If
 
-            ' Display wood properties
+            ' Display wood properties from unified database
             If LblWoodDensity IsNot Nothing Then
-                LblWoodDensity.Text = $"Density: {species.Density} lbs/ft³"
+                LblWoodDensity.Text = $"Density: {speciesData.Density} lbs/ft³"
             End If
 
             If LblWoodType IsNot Nothing Then
-                LblWoodType.Text = $"Type: {If(species.IsHardwood, "Hardwood", "Softwood")}"
+                LblWoodType.Text = $"Type: {speciesData.WoodType}"
             End If
 
             ' Color code severity

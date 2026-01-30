@@ -3,8 +3,12 @@
   <PropertyGroup>
     <RootNamespace>Woodworkers_Friend.Help</RootNamespace>
     <TargetFramework>net10.0</TargetFramework>
-    <AssemblyVersion>26.1.29.4</AssemblyVersion>
-    <FileVersion>26.1.29.4</FileVersion>
+    <AssemblyVersion>26.1.30.5</AssemblyVersion>
+    <FileVersion>26.1.30.5</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+  </ItemGroup>
 
 </Project>

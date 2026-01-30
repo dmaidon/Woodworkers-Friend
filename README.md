@@ -1,0 +1,888 @@
+# 🪚 Woodworker's Friend
+
+**A comprehensive woodworking calculator and planning tool for professional woodworkers and enthusiasts.**
+
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+[![VB.NET](https://img.shields.io/badge/VB.NET-Windows%20Forms-blue)](https://docs.microsoft.com/en-us/dotnet/visual-basic/)
+[![SQLite](https://img.shields.io/badge/SQLite-3.0-003B57?logo=sqlite)](https://www.sqlite.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+---
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## 🎯 Overview
+
+**Woodworker's Friend** is a feature-rich desktop application designed to simplify complex woodworking calculations and provide quick access to essential reference data. Whether you're building cabinets, designing furniture, or planning your next project, this tool helps you calculate precise measurements, estimate materials, and make informed decisions.
+
+### **Why Woodworker's Friend?**
+
+- ✅ **Save Time** - Instant calculations for common woodworking tasks
+- ✅ **Increase Accuracy** - Mathematical precision reduces waste and errors
+- ✅ **Learn Best Practices** - Built-in reference guides for joinery and materials
+- ✅ **Plan Efficiently** - Optimize cut lists and material usage
+- ✅ **Professional Results** - Industry-standard calculations and formulas
+
+---
+
+## ✨ Features
+
+### **🔧 Calculators**
+
+#### **Drawer Height Calculator**
+- **10 calculation methods** including Hambridge Ratio, Golden Ratio, Fibonacci, Geometric, Arithmetic progressions
+- Quick presets for kitchen, office, and bathroom cabinets
+- Visual representation of drawer configurations
+- Export results to CSV, text, or HTML
+
+#### **Door Calculator**
+- Cabinet door calculations for **inset** and **overlay** styles
+- Precise rail, stile, and panel dimensions
+- Single and double door configurations
+- Accounts for panel expansion gaps and groove depths
+
+#### **Board Feet Calculator**
+- Calculate lumber requirements with waste factor
+- Grid-based multi-board calculations
+- Cost estimation
+- Project save/load with history tracking
+
+#### **Epoxy Pour Calculator**
+- Calculate resin volumes for river tables and bar tops
+- Rectangular, circular, and custom area support
+- Multiple waste percentage options
+- Results in ounces, gallons, quarts, pints, liters, and milliliters
+- **Bonus:** Stone Coat top coat calculator
+
+#### **Joinery Calculator**
+- **Mortise & Tenon** (Standard, Haunched, Through)
+- **Dovetails** (Through and Half-Blind) with automatic angle calculation
+- **Box Joints** (Finger Joints)
+- **Dado Joints** for shelf housing
+- Visual diagrams for each joint type
+
+#### **Wood Movement Calculator**
+- Predict expansion and contraction based on humidity changes
+- **50+ wood species** with accurate movement coefficients
+- Tangential (flat sawn) and Radial (quarter sawn) calculations
+- Recommended panel gap sizing
+- Humidity presets for different environments
+
+#### **Shelf Sag Calculator**
+- Calculate shelf deflection under load
+- **14 material types** including plywood, MDF, hardwoods, softwoods
+- Support type options: Bracket, Dado, Pin
+- Edge stiffener calculations
+- Safety factor analysis with industry standards (1/360 deflection limit)
+- Visual shelf diagram
+
+#### **Cut List Optimizer**
+- Optimize cutting patterns to minimize waste
+- Visual cutting diagrams for each board
+- Supports standard sheet sizes (4x8, 4x4, 4x10, custom)
+- Accounts for saw kerf (blade width)
+- Material cost estimation
+- Export cutting plans
+
+#### **Polygon Calculator**
+- Calculate dimensions for regular polygons (3-25 sides)
+- Interior/exterior angles
+- Perimeter, area, apothem calculations
+- Rotating visual display
+
+#### **Table Tipping Force Calculator**
+- Safety calculator for furniture stability
+- Critical for pieces used around children
+- Calculates force required to tip furniture
+
+### **📚 Reference Databases**
+
+#### **Wood Properties Reference**
+- **25+ wood species** with comprehensive data
+- Janka hardness ratings
+- Specific gravity and density
+- Shrinkage coefficients (radial and tangential)
+- Typical uses, workability, and cautions
+- Searchable and filterable (hardwoods, softwoods, all)
+- **User-expandable** - Add your own custom species
+
+#### **Joinery Reference Guide**
+- **12 traditional joint types** with detailed specifications
+- Strength ratings (1-5 scale)
+- Difficulty levels (Beginner, Intermediate, Advanced)
+- Required tools and equipment
+- Typical applications and historical context
+- Reinforcement options
+- Filter by category: Frame, Box, Edge, Modern
+
+#### **Hardware Standards Database**
+- **16 common hardware items** with precise specifications
+- Categories: Hinges, Slides, Shelf Support, Fasteners, Brackets, Pulls/Knobs, Legs, Casters
+- Brand recommendations and part numbers
+- Mounting requirements and dimensions
+- Weight capacity ratings
+- Installation notes and tips
+
+### **🛠️ Utilities**
+
+- **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals
+- **Conversion Tables** - Quick reference for common fractions
+- **Project Management** - Save and load calculations for repeat projects
+- **Export Capabilities** - CSV, Text, HTML formats
+- **Print Support** - Print calculations and cutting diagrams
+- **Dark/Light Themes** - Reduce eye strain with theme switching
+- **User Preferences** - Persistent settings for theme, scale, window state
+- **Comprehensive Help System** - Searchable in-app documentation
+- **Error Logging** - Automatic logging for troubleshooting
+
+---
+
+## 📸 Screenshots
+
+> **Coming Soon:** Screenshots showcasing the main calculators and reference databases.
+
+### **Main Interface**
+- Tabbed interface with organized calculator sections
+- Clean, professional layout
+- Responsive split-pane design
+
+### **Calculators**
+- Drawer height progressions with visual grid
+- Door calculations with material breakdown
+- Joinery diagrams with dimensional callouts
+- Shelf sag analysis with safety indicators
+
+### **Reference Databases**
+- Sortable, filterable data grids
+- Detailed information panels
+- Search capabilities
+
+---
+
+## 💻 Installation
+
+### **Requirements**
+
+- **Operating System:** Windows 10 or later
+- **.NET Runtime:** .NET 10.0 or later
+- **Display:** 1200x900 minimum resolution (1920x1080 recommended)
+- **Storage:** ~50 MB for application and database
+
+### **Installation Steps**
+
+1. **Download the latest release**
+   ```
+   Download from GitHub Releases page
+   ```
+
+2. **Extract the ZIP file**
+   ```
+   Extract to a folder of your choice (e.g., C:\Program Files\Woodworkers Friend\)
+   ```
+
+3. **Run the application**
+   ```
+   Double-click "Woodworkers Friend.exe"
+   ```
+
+4. **First Run**
+   - Application creates database automatically
+   - Default preferences are set
+   - Initial data migration occurs
+   - Splash screen displays during initialization
+
+### **Building from Source**
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/dmaidon/Woodworkers-Friend.git
+   cd Woodworkers-Friend
+   ```
+
+2. **Open in Visual Studio**
+   ```
+   Open "Woodworkers Friend.sln" in Visual Studio 2022 or later
+   ```
+
+3. **Restore NuGet packages**
+   ```bash
+   dotnet restore
+   ```
+
+4. **Build the solution**
+   ```bash
+   dotnet build --configuration Release
+   ```
+
+5. **Run the application**
+   ```bash
+   dotnet run --project "Woodworkers Friend"
+   ```
+
+---
+
+## 🚀 Usage
+
+### **Quick Start**
+
+1. **Launch the application**
+2. **Select a calculator tab** (Drawers, Doors, Joinery, etc.)
+3. **Enter your measurements** in the input fields
+4. **Click Calculate** to see results
+5. **Export or print** your results for shop use
+
+### **Common Workflows**
+
+#### **Cabinet Drawer Design**
+1. Navigate to **Drawers** tab
+2. Select a preset (Kitchen Standard, Office Desk, etc.)
+3. Adjust parameters as needed
+4. Click **Calculate**
+5. Review the grid of drawer heights
+6. Export results or save project
+
+#### **Wood Movement Planning**
+1. Navigate to **Wood Movement** tab
+2. Select wood species from dropdown (50+ species)
+3. Enter board width
+4. Set initial and final humidity levels (or use presets)
+5. Select grain direction (Tangential/Radial)
+6. Click **Calculate Movement**
+7. Review recommended panel gaps
+
+#### **Shelf Design with Sag Analysis**
+1. Navigate to **Wood Movement** → **Shelf Sag** tab
+2. Select shelf material (14 options)
+3. Enter span, thickness, width, and expected load
+4. Select support type (Bracket, Dado, Pin)
+5. Add edge stiffeners if needed
+6. Click **Calculate Shelf Sag**
+7. Check safety status and recommendations
+
+#### **Cut List Optimization**
+1. Navigate to **Cut List** tab
+2. Add pieces with labels, lengths, widths, and quantities
+3. Select stock board size
+4. Set saw kerf width
+5. Click **Optimize**
+6. Review cutting diagrams
+7. Navigate through multiple board patterns
+8. Export cutting plan
+
+### **Tips & Tricks**
+
+- 💡 **Hover over input fields** to see tooltips with valid ranges
+- 💡 **Use presets** as starting points and customize
+- 💡 **Click theme toggle** in status bar to switch Dark/Light mode
+- 💡 **Click scale indicator** to toggle Imperial/Metric
+- 💡 **Text fields auto-select** when clicked for quick editing
+- 💡 **Right-click log viewer** for context menu options
+- 💡 **Save projects** for repeat builds
+
+---
+
+## 🏗️ Technology Stack
+
+### **Core Technologies**
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Visual Basic .NET** | VB 16+ | Primary programming language |
+| **.NET Framework** | .NET 10.0 | Application framework |
+| **Windows Forms** | - | User interface framework |
+| **SQLite** | 3.x | Embedded database |
+| **System.Data.SQLite** | Latest | SQLite ADO.NET provider |
+
+### **Design Patterns**
+
+- **Partial Classes** - Modular code organization
+- **Manager Pattern** - Centralized business logic
+- **Repository Pattern** - Database abstraction
+- **Event Coordinator** - Centralized event handling
+- **Singleton Pattern** - DatabaseManager, ErrorHandler
+
+### **Key Libraries**
+
+- `System.Drawing` - Graphics rendering for diagrams
+- `System.Data.SQLite` - Database operations
+- `System.ComponentModel` - Data binding
+
+---
+
+## 📁 Project Structure
+
+```
+Woodworkers Friend/
+│
+├── Forms/                          # Modal dialogs and secondary forms
+│   ├── FrmSplash.vb               # Splash screen
+│   ├── FrmAddWoodSpecies.vb       # Add custom wood species
+│   └── FrmCalculationHistory.vb   # Board feet history viewer
+│
+├── Partials/                       # FrmMain partial class files
+│   ├── FrmMain.Boardfoot.vb       # Board feet calculator logic
+│   ├── FrmMain.Drawers.vb         # Drawer calculator logic
+│   ├── FrmMain.Doors.vb           # Door calculator logic
+│   ├── FrmMain.Epoxy.vb           # Epoxy calculator logic
+│   ├── FrmMain.Joinery.vb         # Joinery calculator logic
+│   ├── FrmMain.WoodMovement.vb    # Wood movement calculator logic
+│   ├── FrmMain.ShelfSag.vb        # Shelf sag calculator logic
+│   ├── FrmMain.CutList.vb         # Cut list optimizer logic
+│   ├── FrmMain.WoodProperties.vb  # Wood properties reference logic
+│   ├── FrmMain.JoineryReference.vb # Joinery reference logic
+│   ├── FrmMain.HardwareReference.vb # Hardware reference logic
+│   ├── FrmMain.Help.vb            # Help system logic
+│   └── FrmMain.About.vb           # About tab and logging
+│
+├── Modules/                        # Business logic modules
+│   ├── Calculators/               # Calculator implementations
+│   │   ├── BoardFeetCalculator.vb
+│   │   ├── DrawerCalculator.vb
+│   │   ├── DoorCalculator.vb
+│   │   ├── EpoxyCalculator.vb
+│   │   ├── JoineryCalculator.vb
+│   │   ├── WoodMovementCalculator.vb
+│   │   ├── ShelfSagCalculator.vb
+│   │   └── CutListOptimizer.vb
+│   │
+│   ├── Database/                  # Database layer
+│   │   ├── DatabaseManager.vb     # SQLite database operations
+│   │   ├── DataMigration.vb       # Data seeding and migration
+│   │   └── CalculationHistoryModels.vb
+│   │
+│   ├── References/                # Reference data models
+│   │   ├── WoodPropertiesDatabase.vb
+│   │   ├── WoodPropertiesModels.vb
+│   │   ├── JoineryModels.vb
+│   │   └── HardwareModels.vb
+│   │
+│   ├── Utils/                     # Utility classes
+│   │   ├── ErrorHandler.vb        # Logging and error management
+│   │   ├── ThemeManager.vb        # Dark/Light theme switching
+│   │   ├── ValidationManager.vb   # Input validation
+│   │   └── ScaleManager.vb        # Imperial/Metric scale management
+│   │
+│   └── Help/                      # Help system
+│       └── HelpContentManager.vb  # Help content rendering
+│
+├── Resources/                      # Embedded resources
+│   ├── Help/                      # User-facing help markdown files
+│   │   ├── GettingStarted.md
+│   │   ├── DrawerCalculator.md
+│   │   ├── ShelfSag.md
+│   │   ├── WoodMovement.md
+│   │   └── version.md
+│   │
+│   └── Icons/                     # Application icons and images
+│
+├── Docs/                          # Development documentation
+│   ├── README.md                  # Documentation index
+│   └── [Phase and feature docs]  # Implementation guides
+│
+├── FrmMain.vb                     # Main form
+├── FrmMain.Designer.vb            # Main form designer code
+├── Globals.vb                     # Global constants and enums
+└── My Project/                    # Project settings and resources
+
+```
+
+---
+
+## 🎨 Features in Detail
+
+### **Calculator Suite**
+
+#### **1. Drawer Height Calculator**
+Calculate aesthetically pleasing drawer height progressions using mathematical sequences:
+
+- **Hambridge Ratio** - Classical proportions based on mathematical harmony
+- **Golden Ratio** - φ (phi) = 1.618 for natural beauty
+- **Fibonacci Sequence** - Nature's pattern (1, 1, 2, 3, 5, 8...)
+- **Geometric Progression** - Fixed multiplier (e.g., each 1.2× previous)
+- **Arithmetic Progression** - Fixed increment (e.g., +0.5" each)
+- **Logarithmic/Exponential** - Advanced mathematical curves
+- **Reverse Sequences** - Larger drawers at top
+- **Uniform** - All equal heights
+- **Custom Ratio** - Define your own sequence
+
+**Output:** Grid of drawer heights, total height, material needed, visual representation
+
+---
+
+#### **2. Cabinet Door Calculator**
+Design precision cabinet doors with accurate component sizing:
+
+- **Inset Doors** - Fit inside cabinet opening with gap allowance
+- **Overlay Doors** - Cover face frame with overlay amount
+- **Single or Double Doors** - Automatic width division for pairs
+- **Panel Sizing** - Accounts for groove depth and expansion gaps
+- **Material Breakdown** - Rail lengths, stile lengths, panel dimensions
+
+**Output:** Complete cutting list for all door components
+
+---
+
+#### **3. Board Feet Calculator**
+Estimate lumber requirements and costs:
+
+- **Grid-based entry** - Multiple board sizes in one calculation
+- **Automatic totals** - Calculates total board feet
+- **Waste factors** - Add 10%, 15%, or 20% waste
+- **Cost estimation** - Total project cost
+- **Project save/load** - Store calculations for future reference
+- **History tracking** - Review past calculations
+
+**Formula:** `Board Feet = (Thickness × Width × Length) / 144`
+
+---
+
+#### **4. Epoxy Pour Volume Calculator**
+Never run out (or waste) expensive epoxy again:
+
+- **Rectangular Pours** - Length × Width × Depth
+- **Circular Pours** - Diameter-based calculations
+- **Custom Area** - Enter your own square footage
+- **Multiple units** - Results in oz, gal, qt, pt, L, mL
+- **Waste factors** - 0%, 10%, 15%, 20%
+- **Cost estimation** - Track epoxy expenses
+
+**Bonus Feature:** Stone Coat top coat calculator with water ratios
+
+---
+
+#### **5. Joinery Calculator**
+Design traditional woodworking joints with precision:
+
+**Mortise & Tenon:**
+- Tenon thickness = 1/3 stock thickness
+- Tenon length = 1"-2" (typical)
+- Mortise depth = tenon length + 1/16"
+- Shoulder offset for balance
+
+**Dovetails:**
+- Automatic angle calculation (1:6 softwood, 1:8 hardwood)
+- Pin and tail width calculations
+- Half-pin sizing for corners
+- Optimal spacing for board width
+
+**Box Joints:**
+- Pin width = stock thickness
+- Automatic pin count calculation
+- Perfect for router jig setup
+
+**Dados:**
+- Depth = 1/3 to 1/2 stock thickness
+- Width = shelf thickness + clearance
+
+**Output:** Precise dimensions, visual diagrams, cutting instructions
+
+---
+
+#### **6. Wood Movement Calculator**
+The #1 cause of failed projects is ignoring wood movement. This calculator prevents that:
+
+- **50+ wood species** with accurate movement data
+- **Humidity-based calculations** - From/To moisture content
+- **Grain direction** - Tangential (flat sawn) vs Radial (quarter sawn)
+- **Panel gap recommendations** - Min/Max gaps for frame & panel doors
+- **Humidity presets** - Indoor Winter, Indoor Summer, Shop Storage, Kiln Dried
+
+**Critical for:**
+- Frame and panel doors
+- Table tops
+- Wide glue-ups
+- Breadboard ends
+- Any cross-grain construction
+
+**Formula:** Accounts for tangential/radial shrinkage coefficients and humidity differential
+
+---
+
+#### **7. Shelf Sag Calculator**
+Design shelves that won't sag:
+
+- **14 material types** - Plywood (various), MDF, Particleboard, Hardwoods, Softwoods, Bamboo
+- **Deflection calculations** - Industry standard: max 1/360 of span
+- **Load capacity** - Safe load vs maximum load
+- **Support types** - Bracket, Dado, Pin support
+- **Edge stiffeners** - Front/back stiffeners significantly reduce sag
+- **Safety analysis** - Pass/Fail based on deflection limits
+- **Visual diagram** - See your shelf under load
+
+**Example:** A 36" oak shelf, 3/4" thick, 10" wide can safely hold ~50 lbs without exceeding sag limits.
+
+---
+
+#### **8. Cut List Optimizer**
+Minimize waste and save money:
+
+- **Visual cutting diagrams** - See exactly where to cut
+- **Multiple board optimization** - Arrange pieces across several boards
+- **Kerf accounting** - Accounts for saw blade width
+- **Standard sheet sizes** - 4×8, 4×4, 4×10, or custom
+- **Efficiency metrics** - Waste %, efficiency %, boards needed, total cost
+- **Navigation** - Browse through each board's cutting pattern
+- **Export diagrams** - Print for shop use
+
+**Algorithm:** Best-fit rectangle packing with waste minimization
+
+---
+
+### **Reference System**
+
+#### **Wood Properties Database**
+Comprehensive reference for 25+ wood species:
+
+**Data Included:**
+- Common name and scientific name
+- Wood type (Hardwood/Softwood)
+- Janka hardness rating (lbf)
+- Specific gravity
+- Density (lb/ft³)
+- Moisture content (%)
+- Shrinkage coefficients (radial and tangential)
+- Typical uses and applications
+- Workability characteristics
+- Cautions and safety notes
+- Special notes
+
+**Features:**
+- Search by name
+- Filter by wood type
+- Sort by any column
+- Compare multiple species
+- Export to CSV
+- Print data sheets
+- **Add custom species** - Expand database with your own data
+
+---
+
+#### **Joinery Reference**
+Learn about 12 classic and modern joints:
+
+**Joint Types:**
+
+| Joint | Category | Strength | Difficulty |
+|-------|----------|----------|------------|
+| Mortise & Tenon | Frame | ⭐⭐⭐⭐⭐ | Intermediate |
+| Dovetail (Through) | Box | ⭐⭐⭐⭐⭐ | Advanced |
+| Dovetail (Half-Blind) | Box | ⭐⭐⭐⭐ | Advanced |
+| Box Joint | Box | ⭐⭐⭐⭐ | Beginner |
+| Dado | Carcass | ⭐⭐⭐ | Beginner |
+| Rabbet | Edge | ⭐⭐ | Beginner |
+| Lap Joint | Frame | ⭐⭐⭐ | Beginner |
+| Bridle Joint | Frame | ⭐⭐⭐⭐ | Intermediate |
+| Biscuit Joint | Edge | ⭐⭐⭐ | Beginner |
+| Dowel Joint | Frame | ⭐⭐⭐ | Intermediate |
+| Pocket Hole | Modern | ⭐⭐⭐ | Beginner |
+| Spline Joint | Edge | ⭐⭐⭐ | Intermediate |
+
+**Each entry includes:**
+- Detailed description and history
+- Required tools
+- Typical applications
+- Strength characteristics
+- Glue requirements
+- Reinforcement options
+
+---
+
+#### **Hardware Standards Reference**
+Specifications for 16 common hardware items:
+
+**Categories:**
+- **Hinges** - Euro hinges (35mm), butt hinges, overlay hinges
+- **Drawer Slides** - Ball-bearing, undermount soft-close
+- **Shelf Support** - 5mm pins, 1/4" pins
+- **Brackets** - Corner braces, table leg brackets
+- **Fasteners** - Wood screws, Confirmat screws
+- **Pulls & Knobs** - Bar pulls (3" c-c), knobs (1.25" dia)
+- **Legs** - Tapered table legs (29")
+- **Casters** - Swivel casters (3" wheel)
+
+**Data Included:**
+- Brand recommendations (Blum, Accuride, Grass, etc.)
+- Part numbers (when applicable)
+- Precise dimensions
+- Mounting requirements
+- Weight capacity
+- Installation notes and tips
+
+---
+
+### **Application Features**
+
+#### **Theme Support**
+- **Light Theme** - Traditional appearance, best for bright environments
+- **Dark Theme** - Reduces eye strain in dim lighting, modern aesthetic
+- **Persistent preference** - Your choice is saved
+
+#### **Scale System**
+- **Imperial** - Inches, feet, pounds (default for North America)
+- **Metric** - Millimeters, meters, kilograms
+- **Toggle easily** - Click status bar indicator
+- **Persistent preference** - Auto-loads your preference
+
+#### **User Preferences (Phase 5)**
+All preferences saved to database:
+- Theme selection (Dark/Light)
+- Scale selection (Imperial/Metric)
+- Last active tab
+- Window size and state (Normal/Maximized)
+- Calculator defaults (waste %, kerf width)
+
+#### **Help System**
+- **Searchable help** - Find topics quickly
+- **Context-sensitive** - Help for each calculator
+- **Markdown-based** - Clean, readable formatting
+- **Embedded in app** - No internet required
+
+#### **Error Logging**
+- **Automatic logging** - All errors logged to files
+- **Log viewer** - Built-in log browser on About tab
+- **Log rotation** - Old logs automatically cleaned up
+- **Diagnostic support** - Easy troubleshooting
+
+---
+
+## 🗃️ Database Schema
+
+### **SQLite Database Location**
+```
+%APPDATA%\Woodworkers Friend\WoodworkersFriend.db
+```
+
+### **Tables**
+
+- **WoodSpecies** - Wood properties and movement data
+- **UserPreferences** - Application settings
+- **CalculationHistory** - Saved calculations (board feet, etc.)
+- **HelpContent** - Searchable help system content
+- **JoineryTypes** - Joinery reference data (Phase 7.1)
+- **HardwareStandards** - Hardware reference data (Phase 7.2)
+
+### **Data Migration**
+First run automatically:
+1. Creates database schema
+2. Seeds wood species data (25+ species)
+3. Seeds joinery types (12 types)
+4. Seeds hardware standards (16 items)
+5. Seeds help content (14 topics)
+6. Creates default user preferences
+
+---
+
+## 👨‍💻 Development
+
+### **Prerequisites**
+
+- Visual Studio 2022 or later
+- .NET 10.0 SDK
+- Windows 10 SDK (10.0.22000.0 or later)
+
+### **Development Setup**
+
+1. Clone the repository
+2. Open `Woodworkers Friend.sln` in Visual Studio
+3. Restore NuGet packages
+4. Build solution (F6)
+5. Run application (F5)
+
+### **Code Style**
+
+- **VB.NET Conventions** - Follow VB.NET naming conventions
+- **Partial Classes** - Feature-specific logic in separate files
+- **XML Comments** - Document public APIs
+- **Error Handling** - All exceptions logged via ErrorHandler
+- **Null Checking** - `ArgumentNullException.ThrowIfNull()` for parameters
+
+### **Adding New Features**
+
+**To add a new calculator:**
+1. Create partial class file: `FrmMain.[Feature].vb`
+2. Add tab page in Designer
+3. Implement calculator logic in module
+4. Wire up events in partial class
+5. Add help content to database
+6. Update this README
+
+---
+
+## 📦 Release Checklist
+
+- [ ] Update version number in `AssemblyInfo.vb`
+- [ ] Build in Release configuration
+- [ ] Test all calculators
+- [ ] Verify database migration
+- [ ] Test on clean Windows installation
+- [ ] Update help content if needed
+- [ ] Create installer package
+- [ ] Tag release in Git
+- [ ] Update CHANGELOG.md
+- [ ] Publish to GitHub Releases
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+### **Bug Reports**
+1. Check existing issues first
+2. Provide detailed description
+3. Include steps to reproduce
+4. Attach error logs if applicable
+5. Specify Windows version and .NET version
+
+### **Feature Requests**
+1. Describe the feature clearly
+2. Explain the use case
+3. Provide examples if possible
+4. Discuss impact on existing features
+
+### **Pull Requests**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Follow existing code style and patterns
+4. Add XML comments to public APIs
+5. Test thoroughly
+6. Update documentation
+7. Commit changes (`git commit -m 'Add amazing feature'`)
+8. Push to branch (`git push origin feature/amazing-feature`)
+9. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+### **Woodworking Formulas & Standards**
+- Drawer progression formulas based on classical design principles
+- Wood movement data compiled from Forest Products Laboratory publications
+- Shelf sag calculations based on engineering beam deflection formulas
+- Joinery standards from traditional woodworking texts
+
+### **Technologies**
+- .NET Framework and Windows Forms - Microsoft
+- SQLite - D. Richard Hipp
+- System.Data.SQLite - SQLite Development Team
+
+### **Inspiration**
+Built with passion for woodworking and software craftsmanship. This tool combines years of woodworking experience with modern software engineering.
+
+---
+
+## 📧 Contact
+
+**Developer:** Dan Maidon  
+**GitHub:** [@dmaidon](https://github.com/dmaidon)  
+**Repository:** [Woodworkers-Friend](https://github.com/dmaidon/Woodworkers-Friend)  
+**Issues:** [GitHub Issues](https://github.com/dmaidon/Woodworkers-Friend/issues)
+
+---
+
+## 🚧 Roadmap
+
+### **Planned Features**
+
+- [ ] **Cloud Sync** - Sync projects across devices
+- [ ] **Mobile Companion App** - iOS/Android calculator subset
+- [ ] **3D Visualizations** - Render cabinet and furniture designs
+- [ ] **Material Database** - Expand to include plywood, veneers, finishes
+- [ ] **Project Templates** - Complete project plans (workbench, bookshelf, etc.)
+- [ ] **Cut List Integration** - Link to major lumber suppliers
+- [ ] **Advanced Analytics** - Track material usage over time
+- [ ] **Multi-language Support** - Internationalization
+- [ ] **Plugin System** - Community-contributed calculators
+
+### **Recent Updates**
+
+#### **Version 1.0 (Current)**
+- ✅ Complete calculator suite (8 calculators)
+- ✅ SQLite database migration
+- ✅ User preferences persistence
+- ✅ Dark/Light theme support
+- ✅ Wood properties reference (25 species)
+- ✅ Joinery reference (12 joint types)
+- ✅ Hardware reference (16 items)
+- ✅ Comprehensive help system
+- ✅ Error logging system
+- ✅ Export capabilities
+
+---
+
+## 📊 Statistics
+
+- **25+ Wood Species** - Comprehensive movement and property data
+- **12 Joint Types** - Traditional to modern joinery
+- **16 Hardware Items** - Common cabinet and furniture hardware
+- **10 Drawer Methods** - Mathematical progressions for aesthetic design
+- **14 Shelf Materials** - Engineered and solid wood options
+- **50+ Help Topics** - Searchable in-app documentation
+
+---
+
+## 🎓 Educational Value
+
+**Woodworker's Friend** is not just a calculator—it's a learning tool:
+
+- 📖 **Learn joinery** - Understand joint strength and appropriate uses
+- 📖 **Master wood movement** - Prevent common project failures
+- 📖 **Optimize materials** - Reduce waste, save money
+- 📖 **Discover species** - Explore properties of different woods
+- 📖 **Industry standards** - Hardware specs and mounting requirements
+
+---
+
+## ⚠️ Disclaimer
+
+**Woodworker's Friend** provides calculations based on industry-standard formulas and best practices. However:
+
+- ✋ Always verify structural calculations with local building codes
+- ✋ Test joints and techniques on scrap wood first
+- ✋ Use appropriate safety equipment
+- ✋ The calculator is a tool—your experience and judgment are essential
+- ✋ Author assumes no liability for project outcomes
+
+**Safety first, accuracy second, craftsmanship always!** 🪚
+
+---
+
+## 🌟 Star History
+
+If you find **Woodworker's Friend** useful, please consider giving it a star ⭐ on GitHub!
+
+---
+
+## 📝 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
+
+---
+
+**Made with ❤️ by woodworkers, for woodworkers.**
+
+**Happy woodworking!** 🪵🔨🪚
+
+---
+
+*Last Updated: January 30, 2026*
