@@ -1360,6 +1360,109 @@ Public Class DataMigration
 "" & vbLf &
 "?NOTE:Pro Tip: Biscuits are for alignment - the glue joint provides the strength!" & vbLf &
 "?NOTE:For long joints (>36 inches), consider adding more biscuits near the middle"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "definitions",
+.Title = "Woodworking Definitions & Glossary",
+.Category = "Reference",
+.SortOrder = 60,
+.Keywords = "definitions,glossary,terms,apothem,circumradius,radius,interior angle,exterior angle,miter angle,kerf,dado,rabbet,moisture content,board feet,joinery,safety",
+.Content =
+"#TITLE:Woodworking Definitions & Glossary" & vbLf &
+"##SECTION:Purpose|Quick reference for woodworking terms, geometry concepts, and technical definitions used throughout Woodworker's Friend." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Geometry Terms" & vbLf &
+"" & vbLf &
+"@METHOD:Apothem|The perpendicular distance from the center of a regular polygon to the midpoint of any side (inradius)." & vbLf &
+"=FORMULA:From side length: apothem = side_length / (2 × tan(π/n))" & vbLf &
+"=FORMULA:From radius: apothem = radius × cos(π/n)" & vbLf &
+"?NOTE:The apothem determines the 'flat-to-flat' measurement when building polygon shapes like hexagonal planters or octagonal frames." & vbLf &
+"" & vbLf &
+"@METHOD:Circumradius (Radius)|Distance from the center of a regular polygon to any vertex (corner)." & vbLf &
+"=FORMULA:From side length: radius = side_length / (2 × sin(π/n))" & vbLf &
+"?NOTE:This is the radius of the circle that passes through all vertices. Important for determining minimum board width needed." & vbLf &
+"" & vbLf &
+"@METHOD:Interior Angle|Angle formed inside a polygon where two adjacent sides meet at a vertex." & vbLf &
+"=FORMULA:Interior Angle = (n - 2) × 180° / n" & vbLf &
+"*BULLET:Triangle (3): 60°" & vbLf &
+"*BULLET:Square (4): 90°" & vbLf &
+"*BULLET:Hexagon (6): 120°" & vbLf &
+"*BULLET:Octagon (8): 135°" & vbLf &
+"" & vbLf &
+"@METHOD:Exterior Angle|Central angle subtended by one side. Also the angle formed outside the polygon." & vbLf &
+"=FORMULA:Exterior Angle = 360° / n" & vbLf &
+"?NOTE:This is the angle you turn at each corner when walking around the polygon perimeter." & vbLf &
+"" & vbLf &
+"@METHOD:Miter Angle (Cut Angle)|The angle to cut each end of a segment so adjacent pieces meet perfectly." & vbLf &
+"=FORMULA:Miter Angle = 180° / n = (Exterior Angle / 2)" & vbLf &
+"*BULLET:Square (4): 45° miter" & vbLf &
+"*BULLET:Hexagon (6): 30° miter" & vbLf &
+"*BULLET:Octagon (8): 22.5° miter" & vbLf &
+"!WARNING:Most miter saws display angles as deviation from 90°. For a hexagon, set saw to 30° (not 60°)." & vbLf &
+"" & vbLf &
+"@METHOD:Perimeter|Total distance around the outside of a polygon." & vbLf &
+"=FORMULA:Perimeter = n × side_length" & vbLf &
+"?NOTE:Tells you total linear footage needed. Add 10-20% waste for saw kerfs and mistakes." & vbLf &
+"" & vbLf &
+"@METHOD:Area|Total surface area enclosed by a polygon." & vbLf &
+"=FORMULA:Area = (n × side²) / (4 × tan(π/n))" & vbLf &
+"=FORMULA:Alternative: Area = (Perimeter × Apothem) / 2" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Joinery Terms" & vbLf &
+"" & vbLf &
+"@METHOD:Board Feet|Unit of lumber volume equal to 144 cubic inches." & vbLf &
+"=FORMULA:Board Feet = (Thickness × Width × Length) / 144" & vbLf &
+"?NOTE:Standard unit for purchasing hardwood lumber. All dimensions in inches." & vbLf &
+"" & vbLf &
+"@METHOD:Kerf|Width of material removed by a saw blade during cutting." & vbLf &
+"*BULLET:Table saw blade: 1/8 inch (0.125 in)" & vbLf &
+"*BULLET:Thin-kerf blade: 3/32 inch (0.094 in)" & vbLf &
+"?NOTE:Account for kerf when calculating how many pieces you can get from a board." & vbLf &
+"" & vbLf &
+"@METHOD:Dado|Rectangular groove cut across the grain, typically for shelving." & vbLf &
+"?NOTE:Dado width should match the thickness of piece being inserted." & vbLf &
+"" & vbLf &
+"@METHOD:Rabbet|L-shaped step cut along edge or end of a board." & vbLf &
+"?NOTE:Common for cabinet back panels and picture frames." & vbLf &
+"" & vbLf &
+"@METHOD:Biscuit|Oval compressed wood piece used to align and strengthen butt joints." & vbLf &
+"*BULLET:#0: 5/8 in × 1-3/4 in" & vbLf &
+"*BULLET:#10: 3/4 in × 2-1/8 in" & vbLf &
+"*BULLET:#20: 1 in × 2-3/8 in (most common)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Wood Movement Terms" & vbLf &
+"" & vbLf &
+"@METHOD:Moisture Content (MC)|Percentage of water weight compared to oven-dry weight." & vbLf &
+"=FORMULA:MC = ((Wet Weight - Dry Weight) / Dry Weight) × 100%" & vbLf &
+"*BULLET:Furniture: 6-8% MC" & vbLf &
+"*BULLET:Outdoor: 12-15% MC" & vbLf &
+"*BULLET:Construction: 15-19% MC" & vbLf &
+"" & vbLf &
+"@METHOD:Equilibrium Moisture Content (EMC)|Moisture content where wood neither gains nor loses moisture to surrounding air." & vbLf &
+"?NOTE:Allow wood to acclimate to your shop's EMC before final dimensioning to minimize movement after construction." & vbLf &
+"" & vbLf &
+"@METHOD:Tangential Movement|Wood movement parallel to growth rings (typically most significant)." & vbLf &
+"?NOTE:Tangential movement is usually 1.5-2× greater than radial movement. This is why flat-sawn boards cup more." & vbLf &
+"" & vbLf &
+"@METHOD:Radial Movement|Wood movement perpendicular to growth rings." & vbLf &
+"?NOTE:Quarter-sawn lumber experiences primarily radial movement, which is more stable and consistent." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Safety Terms" & vbLf &
+"" & vbLf &
+"@METHOD:Kickback|Dangerous condition where workpiece is violently thrown back toward operator by spinning blade." & vbLf &
+"!WARNING:Prevention: Use riving knife, never stand behind blade, use proper blade guard, maintain sharp blades." & vbLf &
+"" & vbLf &
+"@METHOD:Push Stick|Safety device to push material through blade while keeping hands at safe distance." & vbLf &
+"*BULLET:Use when ripping material less than 6 inches wide" & vbLf &
+"*BULLET:Use when material is less than 3 inches from blade" & vbLf &
+"*BULLET:Use anytime hands would be uncomfortably close to blade" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Finishing Terms" & vbLf &
+"" & vbLf &
+"@METHOD:Grit Progression|Sequence of sandpaper grits used when smoothing wood, typically doubling or increasing by 50% between grits." & vbLf &
+"*BULLET:Typical progression: 80 → 120 → 180 → 220 → 320" & vbLf &
+"!WARNING:Skipping grits leaves scratches from coarser paper that show through finish!" & vbLf &
+"?NOTE:Each grit should remove the scratches from previous grit."
 }
             }
 

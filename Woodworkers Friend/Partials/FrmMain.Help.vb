@@ -195,6 +195,9 @@ Partial Public Class FrmMain
         nodeFeatures.Nodes.Add("validation", "Input Validation")
         nodeFeatures.Nodes.Add("best_practices", "Best Practices")
 
+        Dim nodeReference = treeView.Nodes.Add("reference", "Reference")
+        nodeReference.Nodes.Add("definitions", "Definitions & Glossary")
+
         Dim nodeSupport = treeView.Nodes.Add("support", "Support")
         nodeSupport.Nodes.Add("troubleshooting", "Troubleshooting")
 
