@@ -9,6 +9,7 @@ Partial Public Class FrmMain
     ''' Handles entering the About tab - populates log file list and loads current log
     ''' </summary>
     Private Sub TpAbout_Enter(sender As Object, e As EventArgs) Handles TpAbout.Enter
+        InitializeLogFilesContextMenu()
         PopulateAppInformation()
         PopulateLogFileList()
         LoadCurrentLogFile()
@@ -525,6 +526,219 @@ Partial Public Class FrmMain
             ' Silently handle any selection errors
             ErrorHandler.LogError(ex, "NudLogKeep_GotFocus")
         End Try
+    End Sub
+
+#End Region
+
+#Region "Log Files ListBox Context Menu"
+
+    Private CmsLogFiles As ContextMenuStrip
+    Private CmsLogFilesDelete As ToolStripMenuItem
+    Private CmsLogFilesOpenNotepad As ToolStripMenuItem
+    Private CmsLogFilesOpenFolder As ToolStripMenuItem
+    Private CmsLogFilesSeparator As ToolStripSeparator
+    Private CmsLogFilesRefresh As ToolStripMenuItem
+
+    ''' <summary>
+    ''' Initializes the context menu for LbLogFiles
+    ''' Call this from TpAbout_Enter or form initialization
+    ''' </summary>
+    Private Sub InitializeLogFilesContextMenu()
+        ' Create context menu if not already created
+        If CmsLogFiles IsNot Nothing Then Return
+
+        CmsLogFiles = New ContextMenuStrip()
+
+        ' Open in Notepad menu item
+        CmsLogFilesOpenNotepad = New ToolStripMenuItem("Open in Notepad")
+        ' CmsLogFilesOpenNotepad.Image = TryCast(My.Resources.ResourceManager.GetObject("document"), Image) ' Optional icon
+        AddHandler CmsLogFilesOpenNotepad.Click, AddressOf CmsLogFilesOpenNotepad_Click
+
+        ' Open Folder menu item
+        CmsLogFilesOpenFolder = New ToolStripMenuItem("Open Containing Folder")
+        ' CmsLogFilesOpenFolder.Image = TryCast(My.Resources.ResourceManager.GetObject("folder"), Image) ' Optional icon
+        AddHandler CmsLogFilesOpenFolder.Click, AddressOf CmsLogFilesOpenFolder_Click
+
+        ' Separator
+        CmsLogFilesSeparator = New ToolStripSeparator()
+
+        ' Delete File menu item
+        CmsLogFilesDelete = New ToolStripMenuItem("Delete File")
+        CmsLogFilesDelete.ForeColor = Color.Red
+        CmsLogFilesDelete.Font = New Font(CmsLogFilesDelete.Font, FontStyle.Bold)
+        AddHandler CmsLogFilesDelete.Click, AddressOf CmsLogFilesDelete_Click
+
+        ' Separator
+        Dim separator2 As New ToolStripSeparator()
+
+        ' Refresh menu item
+        CmsLogFilesRefresh = New ToolStripMenuItem("Refresh List")
+        AddHandler CmsLogFilesRefresh.Click, AddressOf CmsLogFilesRefresh_Click
+
+        ' Add items to context menu
+        CmsLogFiles.Items.AddRange({
+            CmsLogFilesOpenNotepad,
+            CmsLogFilesOpenFolder,
+            CmsLogFilesSeparator,
+            CmsLogFilesDelete,
+            separator2,
+            CmsLogFilesRefresh
+        })
+
+        ' Attach context menu to LbLogFiles
+        LbLogFiles.ContextMenuStrip = CmsLogFiles
+
+        ' Hook up Opening event to enable/disable items
+        AddHandler CmsLogFiles.Opening, AddressOf CmsLogFiles_Opening
+    End Sub
+
+    ''' <summary>
+    ''' Handles context menu opening - enables/disables items based on selection
+    ''' </summary>
+    Private Sub CmsLogFiles_Opening(sender As Object, e As ComponentModel.CancelEventArgs)
+        Dim hasSelection = LbLogFiles.SelectedIndex >= 0
+
+        ' Enable/disable items based on selection
+        CmsLogFilesDelete.Enabled = hasSelection
+        CmsLogFilesOpenNotepad.Enabled = hasSelection
+        CmsLogFilesOpenFolder.Enabled = hasSelection
+    End Sub
+
+    ''' <summary>
+    ''' Opens selected log file in Notepad
+    ''' </summary>
+    Private Sub CmsLogFilesOpenNotepad_Click(sender As Object, e As EventArgs)
+        Try
+            If LbLogFiles.SelectedIndex < 0 Then Return
+            If LbLogFiles.Tag Is Nothing Then Return
+
+            Dim filePaths = CType(LbLogFiles.Tag, List(Of String))
+            If LbLogFiles.SelectedIndex >= filePaths.Count Then Return
+
+            Dim logFilePath = filePaths(LbLogFiles.SelectedIndex)
+
+            If File.Exists(logFilePath) Then
+                Process.Start("notepad.exe", logFilePath)
+            Else
+                MessageBox.Show($"Log file not found: {Path.GetFileName(logFilePath)}",
+                              "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CmsLogFilesOpenNotepad_Click")
+            MessageBox.Show($"Error opening file in Notepad: {ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Opens the folder containing the log files in Windows Explorer
+    ''' </summary>
+    Private Sub CmsLogFilesOpenFolder_Click(sender As Object, e As EventArgs)
+        Try
+            If Directory.Exists(LogDir) Then
+                Process.Start("explorer.exe", LogDir)
+            Else
+                MessageBox.Show($"Log directory not found: {LogDir}",
+                              "Directory Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CmsLogFilesOpenFolder_Click")
+            MessageBox.Show($"Error opening folder: {ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Deletes the selected log file after confirmation
+    ''' </summary>
+    Private Sub CmsLogFilesDelete_Click(sender As Object, e As EventArgs)
+        Try
+            If LbLogFiles.SelectedIndex < 0 Then Return
+            If LbLogFiles.Tag Is Nothing Then Return
+
+            Dim filePaths = CType(LbLogFiles.Tag, List(Of String))
+            If LbLogFiles.SelectedIndex >= filePaths.Count Then Return
+
+            Dim logFilePath = filePaths(LbLogFiles.SelectedIndex)
+            Dim fileName = Path.GetFileName(logFilePath)
+
+            ' Confirm deletion
+            Dim result = MessageBox.Show(
+                $"Are you sure you want to delete this log file?{Environment.NewLine}{Environment.NewLine}" &
+                $"File: {fileName}{Environment.NewLine}{Environment.NewLine}" &
+                "This action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2)
+
+            If result <> DialogResult.Yes Then Return
+
+            ' Check if file exists
+            If Not File.Exists(logFilePath) Then
+                MessageBox.Show($"Log file not found: {fileName}",
+                              "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                PopulateLogFileList() ' Refresh list
+                Return
+            End If
+
+            ' Check if it's the current log file
+            If logFilePath.Equals(LogFile, StringComparison.OrdinalIgnoreCase) Then
+                MessageBox.Show(
+                    $"Cannot delete the current log file:{Environment.NewLine}{fileName}{Environment.NewLine}{Environment.NewLine}" &
+                    "This file is currently in use by the application.",
+                    "Cannot Delete",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Delete the file
+            File.Delete(logFilePath)
+
+            ' Log the deletion
+            ErrorHandler.LogWarning("LogFileDeleted", $"User deleted log file: {fileName}")
+
+            ' Show success message
+            MessageBox.Show($"Log file deleted successfully:{Environment.NewLine}{fileName}",
+                          "File Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh the list
+            PopulateLogFileList()
+
+            ' If list is now empty or selection is invalid, clear display
+            If LbLogFiles.Items.Count = 0 OrElse LbLogFiles.SelectedIndex < 0 Then
+                ClearLogDisplay()
+            End If
+
+        Catch ex As UnauthorizedAccessException
+            ErrorHandler.LogError(ex, "CmsLogFilesDelete_Click")
+            MessageBox.Show(
+                $"Access denied. Cannot delete the file.{Environment.NewLine}{Environment.NewLine}" &
+                "The file may be in use or you may not have sufficient permissions.",
+                "Access Denied",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error)
+        Catch ex As IOException
+            ErrorHandler.LogError(ex, "CmsLogFilesDelete_Click")
+            MessageBox.Show(
+                $"Cannot delete the file. It may be in use by another process.{Environment.NewLine}{Environment.NewLine}" &
+                ex.Message,
+                "File In Use",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CmsLogFilesDelete_Click")
+            MessageBox.Show($"Error deleting log file: {ex.Message}",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Refreshes the log files list
+    ''' </summary>
+    Private Sub CmsLogFilesRefresh_Click(sender As Object, e As EventArgs)
+        PopulateLogFileList()
     End Sub
 
 #End Region
