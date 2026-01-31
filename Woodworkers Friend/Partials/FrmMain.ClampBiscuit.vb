@@ -554,28 +554,54 @@ Partial Public Class FrmMain
     End Function
 
     ''' <summary>
-    ''' Calculate biscuit/domino center mark positions
+    ''' Calculate biscuit/domino center mark positions with symmetrical distribution
+    ''' First and last positions are at edge distance from ends
+    ''' Remaining positions are evenly distributed between them
     ''' </summary>
     Private Function CalculateBiscuitPositions(jointLength As Double, spacing As Double,
                                               edgeDistance As Double) As List(Of Double)
         Dim positions As New List(Of Double)()
 
-        ' Start at edge distance
-        Dim currentPosition As Double = edgeDistance
-        Dim endPosition As Double = jointLength - edgeDistance
+        ' Calculate the usable length (between edge distances)
+        Dim usableLength As Double = jointLength - (2 * edgeDistance)
 
-        ' Add positions at spacing intervals
-        While currentPosition <= endPosition
-            positions.Add(currentPosition)
-            currentPosition += spacing
-        End While
+        ' If usable length is too small, just place two at edges
+        If usableLength <= 0 Then
+            positions.Add(edgeDistance)
+            If jointLength > edgeDistance Then
+                positions.Add(jointLength - edgeDistance)
+            End If
+            Return positions
+        End If
 
-        ' Ensure we have at least 2 positions (one at each end)
-        If positions.Count = 0 Then
+        ' Calculate how many biscuits fit in the usable length
+        ' We want at least spacing distance between biscuits
+        Dim numBiscuits As Integer = CInt(Math.Floor(usableLength / spacing)) + 1
+
+        ' Ensure we have at least 2 biscuits (one at each edge)
+        numBiscuits = Math.Max(numBiscuits, 2)
+
+        ' For symmetrical placement:
+        ' Position 1: edgeDistance from left
+        ' Position N: edgeDistance from right
+        ' Positions 2 through N-1: evenly distributed between
+
+        If numBiscuits = 1 Then
+            ' Single biscuit in center
+            positions.Add(jointLength / 2)
+        ElseIf numBiscuits = 2 Then
+            ' Two biscuits at edges
             positions.Add(edgeDistance)
             positions.Add(jointLength - edgeDistance)
-        ElseIf positions.Count = 1 Then
-            positions.Add(jointLength - edgeDistance)
+        Else
+            ' Multiple biscuits - evenly distributed
+            ' Calculate spacing between biscuits
+            Dim actualSpacing As Double = usableLength / (numBiscuits - 1)
+
+            For i As Integer = 0 To numBiscuits - 1
+                Dim position As Double = edgeDistance + (i * actualSpacing)
+                positions.Add(position)
+            Next
         End If
 
         Return positions
