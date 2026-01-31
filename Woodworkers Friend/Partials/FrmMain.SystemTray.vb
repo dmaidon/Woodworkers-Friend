@@ -17,7 +17,7 @@ Partial Public Class FrmMain
             End If
 
             _trayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
-            
+
             ' Set icon
             If Me.Icon IsNot Nothing Then
                 _trayIcon.Icon = Me.Icon
@@ -26,7 +26,7 @@ Partial Public Class FrmMain
             End If
 
             _trayIcon.Text = $"{AppName} - {Version}"
-            
+
             ' Create context menu
             _trayContextMenu = New ContextMenuStrip()
             _trayContextMenu.Items.Add("Show Woodworker's Friend", Nothing, AddressOf TrayMenu_Show)
@@ -39,25 +39,17 @@ Partial Public Class FrmMain
             _trayContextMenu.Items.Add("Help...", Nothing, AddressOf TrayMenu_Help)
             _trayContextMenu.Items.Add(New ToolStripSeparator())
             _trayContextMenu.Items.Add("Exit", Nothing, AddressOf TrayMenu_Exit)
-            
+
             ' Assign context menu - this SHOULD work in .NET 10
             _trayIcon.ContextMenuStrip = _trayContextMenu
-            
+
             ' Handle double-click
             AddHandler _trayIcon.DoubleClick, AddressOf TrayIcon_DoubleClick
-            
+
             ' Make visible
             _trayIcon.Visible = True
-            
-            ' Show balloon to PROVE the icon is working
-            _trayIcon.ShowBalloonTip(
-                3000,
-                "Woodworker's Friend",
-                "Right-click THIS ICON for menu. Look in system tray near clock!",
-                ToolTipIcon.Info)
 
             Debug.WriteLine("System tray initialized")
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeSystemTray")
             MessageBox.Show($"Error: {ex.Message}", "System Tray Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
