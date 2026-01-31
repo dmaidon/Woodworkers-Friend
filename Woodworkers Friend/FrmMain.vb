@@ -26,12 +26,19 @@ Public Class FrmMain
                 TimesRun = dbManager.GetTimesRun()  ' Get current value
                 TimesRun += 1                        ' Increment it
                 dbManager.SavePreference("TimesRun", TimesRun.ToString(), "Integer", "System")  ' Save as Integer, not Long
+
+                ' Load LogKeepDays BEFORE cleanup so cleanup uses user's preferred retention
+                Dim logKeepDays = dbManager.GetIntPreference("LogKeepDays", 10)
+                If logKeepDays < 5 Then logKeepDays = 5
+                If logKeepDays > 100 Then logKeepDays = 100
+                MaxLogAgeInDays = logKeepDays
             Catch ex As Exception
                 TimesRun = 0
+                MaxLogAgeInDays = 5  ' Use minimum if load fails
             End Try
 
             ' Initialize logging system - uses TimesRun in filename
-            ErrorHandler.CleanupOldLogs()  ' Clean up old log files
+            ErrorHandler.CleanupOldLogs()  ' Clean up old log files (now uses user's MaxLogAgeInDays)
             ErrorHandler.LogStartup()      ' Log application startup
             ErrorHandler.LogError(New Exception($"Application started - Run #{TimesRun}"), "FrmMain_Load")
 
@@ -431,7 +438,7 @@ Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Loads the LogKeep setting from database and sets ErrorHandler.MaxLogAgeInDays
+    ''' Loads the LogKeep setting from database and sets global MaxLogAgeInDays
     ''' </summary>
     Private Sub LoadLogKeepSetting()
         Try
@@ -442,8 +449,8 @@ Public Class FrmMain
             If logKeepDays < 5 Then logKeepDays = 5
             If logKeepDays > 100 Then logKeepDays = 100
 
-            ' Set the property in ErrorHandler
-            ErrorHandler.MaxLogAgeInDays = logKeepDays
+            ' Set the global variable
+            MaxLogAgeInDays = logKeepDays
 
             ' Update the NumericUpDown control
             If NudLogKeep IsNot Nothing Then
@@ -451,22 +458,22 @@ Public Class FrmMain
             End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "LoadLogKeepSetting")
-            ' Use default of 10 if loading fails
-            ErrorHandler.MaxLogAgeInDays = 10
+            ' Use minimum of 5 if loading fails
+            MaxLogAgeInDays = 5
             If NudLogKeep IsNot Nothing Then
-                NudLogKeep.Value = 10
+                NudLogKeep.Value = 5
             End If
         End Try
     End Sub
 
     ''' <summary>
-    ''' Saves the LogKeep setting to database and updates ErrorHandler.MaxLogAgeInDays
+    ''' Saves the LogKeep setting to database and updates global MaxLogAgeInDays
     ''' </summary>
     Private Sub SaveLogKeepSetting(value As Integer)
         Try
             Dim db = DatabaseManager.Instance
             db.SavePreference("LogKeepDays", value.ToString(), "Integer", "System")
-            ErrorHandler.MaxLogAgeInDays = value
+            MaxLogAgeInDays = value
             ErrorHandler.LogWarning("LogKeepSetting", $"Log retention changed to {value} days")
         Catch ex As Exception
             ErrorHandler.LogError(ex, "SaveLogKeepSetting")

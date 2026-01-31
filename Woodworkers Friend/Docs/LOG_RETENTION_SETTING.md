@@ -14,7 +14,7 @@ Added user-configurable log retention setting via `NudLogKeep` NumericUpDown con
 - **Location:** About Tab (TpAbout)
 - **Type:** NumericUpDown
 - **Range:** 5-100 days (already configured in Designer)
-- **Default:** 10 days
+- **Default:** 5 days (minimum safe value)
 - **Purpose:** Control how many days of log files to retain before automatic cleanup
 
 ### 2. **Database Storage**
@@ -22,9 +22,25 @@ Added user-configurable log retention setting via `NudLogKeep` NumericUpDown con
 - **Type:** Integer
 - **Category:** System
 - **Table:** UserPreferences
-- **Default:** 10 days
+- **Default:** 10 days (loaded preference, falls back to 5 if not set)
 
-### 3. **ErrorHandler Changes**
+### 3. **Global Variable**
+**File:** `Woodworkers Friend\Globals.vb`
+
+```vb
+' MaxLogAgeInDays controls how long to keep log files before cleanup
+' Default is 5 days (minimum), loaded from UserPreferences at startup
+Friend MaxLogAgeInDays As Integer = 5
+```
+
+**Why Global?**
+- ✅ Initialized before ErrorHandler is used
+- ✅ Ensures startup cleanup uses user's preference
+- ✅ Accessible throughout application
+- ✅ Single source of truth
+- ✅ Avoids initialization order issues
+
+### 4. **ErrorHandler Changes**
 **File:** `Woodworkers Friend\Modules\Utils\ErrorHandler.vb`
 
 **Before:**
@@ -34,14 +50,10 @@ Private Const MaxLogAgeInDays As Integer = 10
 
 **After:**
 ```vb
-''' <summary>
-''' Maximum age in days before log files are deleted (default: 10 days)
-''' This value is loaded from user preferences at startup
-''' </summary>
-Public Shared Property MaxLogAgeInDays As Integer = 10
+' Removed - now uses global variable from Globals.vb
 ```
 
-**Change:** Converted from constant to public shared property so it can be set from user preferences.
+**Change:** Removed local constant, now uses global `MaxLogAgeInDays` variable.
 
 ### 4. **Load/Save Methods**
 **File:** `Woodworkers Friend\FrmMain.vb`
@@ -50,14 +62,14 @@ Public Shared Property MaxLogAgeInDays As Integer = 10
 - Called at the end of `LoadUserPreferences()`
 - Loads `LogKeepDays` from database (default: 10)
 - Validates range (5-100 days)
-- Sets `ErrorHandler.MaxLogAgeInDays`
+- Sets global `MaxLogAgeInDays`
 - Updates `NudLogKeep.Value`
-- Handles errors gracefully with default fallback
+- Handles errors gracefully with minimum fallback (5 days)
 
 #### SaveLogKeepSetting(value As Integer)
 - Called when `NudLogKeep.Value` changes
 - Saves to database under key `LogKeepDays`
-- Updates `ErrorHandler.MaxLogAgeInDays` immediately
+- Updates global `MaxLogAgeInDays` immediately
 - Logs the change for audit trail
 
 ### 5. **Event Handlers**
@@ -80,15 +92,18 @@ Public Shared Property MaxLogAgeInDays As Integer = 10
 
 ## 🔄 Workflow
 
-### Application Startup
-1. `FrmMain_Load()` calls `LoadUserPreferences()`
-2. `LoadUserPreferences()` calls `LoadLogKeepSetting()`
-3. `LoadLogKeepSetting()`:
-   - Reads `LogKeepDays` from database (default: 10)
-   - Validates range (5-100)
-   - Sets `ErrorHandler.MaxLogAgeInDays`
-   - Updates `NudLogKeep.Value`
-4. `ErrorHandler.CleanupOldLogs()` uses current `MaxLogAgeInDays` value
+### Application Startup (CRITICAL ORDER)
+1. `FrmMain_Load()` initializes database
+2. **EARLY LOAD:** Reads `LogKeepDays` from database and sets global `MaxLogAgeInDays`
+3. `ErrorHandler.CleanupOldLogs()` uses user's preferred retention value
+4. `ErrorHandler.LogStartup()` creates new log
+5. Later: `LoadUserPreferences()` → `LoadLogKeepSetting()` updates `NudLogKeep.Value` display
+
+**Why Early Load?**
+- Cleanup happens BEFORE full UI initialization
+- Must use user's preference, not default value
+- Global variable ensures it's available when needed
+- Default of 5 days (minimum) is safe if database load fails
 
 ### User Changes Setting
 1. User navigates to About tab
@@ -98,7 +113,7 @@ Public Shared Property MaxLogAgeInDays As Integer = 10
 5. `NudLogKeep_ValueChanged` fires
 6. `SaveLogKeepSetting()` is called:
    - Saves to database
-   - Updates `ErrorHandler.MaxLogAgeInDays` immediately
+   - Updates global `MaxLogAgeInDays` immediately
    - Logs the change
 7. Next cleanup will use new retention period
 
@@ -109,18 +124,18 @@ Public Shared Property MaxLogAgeInDays As Integer = 10
 ### For Users
 1. Open the application
 2. Navigate to the **About** tab
-3. Find the **Log Retention Days** control
+3. Find the **Log Retention Days** control (NudLogKeep)
 4. Set the desired number of days (5-100)
 5. Value is saved automatically when changed
 6. Applies to next log cleanup
 
 ### For Developers
 ```vb
-' Get current retention days
-Dim retentionDays = ErrorHandler.MaxLogAgeInDays
+' Get current retention days (from global)
+Dim retentionDays = MaxLogAgeInDays
 
-' Change retention days (typically done via NUD)
-ErrorHandler.MaxLogAgeInDays = 30
+' Change retention days
+MaxLogAgeInDays = 30
 
 ' Save to database
 DatabaseManager.Instance.SavePreference("LogKeepDays", "30", "Integer", "System")
@@ -189,21 +204,54 @@ VALUES ('LogKeepDays', '10', 'Integer', 'System');
 
 ## 📁 Files Modified
 
-1. `Woodworkers Friend\Modules\Utils\ErrorHandler.vb`
-   - Changed `MaxLogAgeInDays` from constant to property
+1. `Woodworkers Friend\Globals.vb`
+   - Added `MaxLogAgeInDays` as global variable (default: 5 days)
 
-2. `Woodworkers Friend\FrmMain.vb`
-   - Added `LoadLogKeepSetting()` method
-   - Added `SaveLogKeepSetting()` method
+2. `Woodworkers Friend\Modules\Utils\ErrorHandler.vb`
+   - Removed `MaxLogAgeInDays` property (now uses global from Globals.vb)
+
+3. `Woodworkers Friend\FrmMain.vb`
+   - Added early load of `LogKeepDays` in `FrmMain_Load` (before cleanup)
+   - Added `LoadLogKeepSetting()` method (updates NUD display)
+   - Added `SaveLogKeepSetting()` method (saves to DB and global)
    - Modified `LoadUserPreferences()` to call `LoadLogKeepSetting()`
 
-3. `Woodworkers Friend\Partials\FrmMain.About.vb`
+4. `Woodworkers Friend\Partials\FrmMain.About.vb`
    - Added `NudLogKeep_ValueChanged` handler
    - Added `NudLogKeep_Enter` handler
    - Added `NudLogKeep_GotFocus` handler
 
-4. `Woodworkers Friend\FrmMain.Designer.vb`
+5. `Woodworkers Friend\FrmMain.Designer.vb`
    - Already contains `NudLogKeep` with Min=5, Max=100
+
+---
+
+## 🔍 Technical Details
+
+### Why Global Variable?
+
+**Problem:** 
+- `ErrorHandler.CleanupOldLogs()` is called in `FrmMain_Load` before `LoadUserPreferences()`
+- If `MaxLogAgeInDays` was in ErrorHandler as a property with default=10, cleanup would always use 10 on first call
+- User's preference wouldn't be applied until after cleanup already happened
+
+**Solution:**
+- Declare `MaxLogAgeInDays` as global in `Globals.vb` with initial value = 5 (minimum)
+- Load from database EARLY in `FrmMain_Load`, right after getting `TimesRun`
+- Set global variable BEFORE calling `ErrorHandler.CleanupOldLogs()`
+- Cleanup now uses user's preference on every startup
+
+**Initialization Sequence:**
+```vb
+' FrmMain_Load()
+1. CreateProgramFolders()
+2. Get TimesRun from database
+3. *** LOAD LogKeepDays from database → set global MaxLogAgeInDays ***
+4. CleanupOldLogs() - now uses user's MaxLogAgeInDays
+5. LogStartup()
+6. ... rest of initialization ...
+7. LoadUserPreferences() - updates NudLogKeep.Value for display
+```
 
 ---
 

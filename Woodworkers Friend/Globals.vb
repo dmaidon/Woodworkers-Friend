@@ -10,6 +10,10 @@ Friend Module Globals
     ' TimesRun tracks the number of application starts (stored in database)
     Friend TimesRun As Integer
 
+    ' MaxLogAgeInDays controls how long to keep log files before cleanup
+    ' Default is 5 days (minimum), loaded from UserPreferences at startup
+    Friend MaxLogAgeInDays As Integer = 5
+
     ' Directory paths
     Friend ReadOnly LogDir As String = Path.Combine(Application.StartupPath, "Logs")
 
