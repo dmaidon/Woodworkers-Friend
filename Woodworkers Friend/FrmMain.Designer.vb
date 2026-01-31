@@ -284,6 +284,7 @@ Partial Class FrmMain
         Label8 = New Label()
         TpCalculators = New TabPage()
         PnlDadoCalc = New Panel()
+        LblDadoCalctitle = New Label()
         BtnCopyResults = New Button()
         GbxBladeCombination = New GroupBox()
         TlpBladeCombo = New TableLayoutPanel()
@@ -317,12 +318,6 @@ Partial Class FrmMain
         Label20 = New Label()
         Label18 = New Label()
         Label15 = New Label()
-        PnlPolygonCalc = New Panel()
-        LblPolygonPieceAngle = New Label()
-        LblPolygonSideAngle = New Label()
-        TxtPolygonSides = New TextBox()
-        LblPolygonSides = New Label()
-        PbPolygon = New PictureBox()
         TpSpacings = New TabPage()
         ScSpacings = New SplitContainer()
         GbxClampSpacing = New GroupBox()
@@ -363,6 +358,37 @@ Partial Class FrmMain
         Label59 = New Label()
         Label58 = New Label()
         Label52 = New Label()
+        TpAngles = New TabPage()
+        ScAngles = New SplitContainer()
+        GbxPolygonCalculations = New GroupBox()
+        PnlPolygonCalc = New Panel()
+        NudPolygonDimension = New NumericUpDown()
+        TlpPolygonResults = New TableLayoutPanel()
+        Label90 = New Label()
+        LblPolygonInteriorAngle = New Label()
+        LblPolygonSideAngle = New Label()
+        LblPolygonPieceAngle = New Label()
+        LblPolygonSideLengthResult = New Label()
+        BtnCopyPolyResults = New Button()
+        BtnResetPolygon = New Button()
+        LblPolygonArea = New Label()
+        LblPolygonPerimeter = New Label()
+        LblPolygonApothem = New Label()
+        LblPolygonRadiusResult = New Label()
+        BtnPolyCalc = New Button()
+        CboPolygonUnits = New ComboBox()
+        Label89 = New Label()
+        Label88 = New Label()
+        RbRadius = New RadioButton()
+        RbSidelength = New RadioButton()
+        LblPolyDimensionInput = New Label()
+        BtnPolyOctagon = New Button()
+        BtnPolyHexagon = New Button()
+        BtnPolySquare = New Button()
+        BtnPolyTriangle = New Button()
+        TxtPolygonSides = New TextBox()
+        LblPolygonSides = New Label()
+        PbPolygon = New PictureBox()
         TpDrawings = New TabPage()
         PbOutputDrawing = New PictureBox()
         TpJoinery = New TabPage()
@@ -720,8 +746,6 @@ Partial Class FrmMain
         CType(NudDesiredWidth, ComponentModel.ISupportInitialize).BeginInit()
         CType(NudKerfWidth, ComponentModel.ISupportInitialize).BeginInit()
         PnlTableTip.SuspendLayout()
-        PnlPolygonCalc.SuspendLayout()
-        CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
         TpSpacings.SuspendLayout()
         CType(ScSpacings, ComponentModel.ISupportInitialize).BeginInit()
         ScSpacings.Panel1.SuspendLayout()
@@ -729,6 +753,15 @@ Partial Class FrmMain
         ScSpacings.SuspendLayout()
         GbxClampSpacing.SuspendLayout()
         GbxBiscuitDomino.SuspendLayout()
+        TpAngles.SuspendLayout()
+        CType(ScAngles, ComponentModel.ISupportInitialize).BeginInit()
+        ScAngles.Panel1.SuspendLayout()
+        ScAngles.SuspendLayout()
+        GbxPolygonCalculations.SuspendLayout()
+        PnlPolygonCalc.SuspendLayout()
+        CType(NudPolygonDimension, ComponentModel.ISupportInitialize).BeginInit()
+        TlpPolygonResults.SuspendLayout()
+        CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
         TpDrawings.SuspendLayout()
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).BeginInit()
         TpJoinery.SuspendLayout()
@@ -2677,6 +2710,7 @@ Partial Class FrmMain
         TcCalculattions.Controls.Add(TpConversions)
         TcCalculattions.Controls.Add(TpCalculators)
         TcCalculattions.Controls.Add(TpSpacings)
+        TcCalculattions.Controls.Add(TpAngles)
         TcCalculattions.Dock = DockStyle.Fill
         TcCalculattions.Location = New Point(0, 0)
         TcCalculattions.Multiline = True
@@ -3425,10 +3459,9 @@ Partial Class FrmMain
         TpCalculators.BorderStyle = BorderStyle.Fixed3D
         TpCalculators.Controls.Add(PnlDadoCalc)
         TpCalculators.Controls.Add(PnlTableTip)
-        TpCalculators.Controls.Add(PnlPolygonCalc)
         TpCalculators.Location = New Point(4, 4)
         TpCalculators.Name = "TpCalculators"
-        TpCalculators.Size = New Size(1134, 811)
+        TpCalculators.Size = New Size(1128, 811)
         TpCalculators.TabIndex = 2
         TpCalculators.Text = "Calculators"
         ' 
@@ -3436,6 +3469,7 @@ Partial Class FrmMain
         ' 
         PnlDadoCalc.BackColor = Color.Gray
         PnlDadoCalc.BorderStyle = BorderStyle.Fixed3D
+        PnlDadoCalc.Controls.Add(LblDadoCalctitle)
         PnlDadoCalc.Controls.Add(BtnCopyResults)
         PnlDadoCalc.Controls.Add(GbxBladeCombination)
         PnlDadoCalc.Controls.Add(BtnDadoReset)
@@ -3444,14 +3478,25 @@ Partial Class FrmMain
         PnlDadoCalc.Controls.Add(GbxDadoSet)
         PnlDadoCalc.Controls.Add(GbxDadoCalc)
         PnlDadoCalc.Dock = DockStyle.Right
-        PnlDadoCalc.Location = New Point(614, 0)
+        PnlDadoCalc.Location = New Point(608, 0)
         PnlDadoCalc.Name = "PnlDadoCalc"
         PnlDadoCalc.Size = New Size(516, 807)
         PnlDadoCalc.TabIndex = 8
         ' 
+        ' LblDadoCalctitle
+        ' 
+        LblDadoCalctitle.AutoSize = True
+        LblDadoCalctitle.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblDadoCalctitle.ForeColor = Color.SandyBrown
+        LblDadoCalctitle.Location = New Point(126, 3)
+        LblDadoCalctitle.Name = "LblDadoCalctitle"
+        LblDadoCalctitle.Size = New Size(261, 24)
+        LblDadoCalctitle.TabIndex = 12
+        LblDadoCalctitle.Text = "Dado Stack Calculations"
+        ' 
         ' BtnCopyResults
         ' 
-        BtnCopyResults.Location = New Point(268, 707)
+        BtnCopyResults.Location = New Point(268, 742)
         BtnCopyResults.Name = "BtnCopyResults"
         BtnCopyResults.Size = New Size(199, 34)
         BtnCopyResults.TabIndex = 0
@@ -3462,7 +3507,7 @@ Partial Class FrmMain
         ' 
         GbxBladeCombination.BackColor = Color.DarkGray
         GbxBladeCombination.Controls.Add(TlpBladeCombo)
-        GbxBladeCombination.Location = New Point(45, 419)
+        GbxBladeCombination.Location = New Point(45, 454)
         GbxBladeCombination.Name = "GbxBladeCombination"
         GbxBladeCombination.Size = New Size(422, 271)
         GbxBladeCombination.TabIndex = 11
@@ -3521,7 +3566,7 @@ Partial Class FrmMain
         ' 
         ' BtnDadoReset
         ' 
-        BtnDadoReset.Location = New Point(45, 707)
+        BtnDadoReset.Location = New Point(45, 742)
         BtnDadoReset.Name = "BtnDadoReset"
         BtnDadoReset.Size = New Size(199, 34)
         BtnDadoReset.TabIndex = 1
@@ -3531,7 +3576,7 @@ Partial Class FrmMain
         ' BtnDadoCalculate
         ' 
         BtnDadoCalculate.BackColor = Color.MistyRose
-        BtnDadoCalculate.Location = New Point(310, 378)
+        BtnDadoCalculate.Location = New Point(310, 413)
         BtnDadoCalculate.Name = "BtnDadoCalculate"
         BtnDadoCalculate.Size = New Size(157, 34)
         BtnDadoCalculate.TabIndex = 10
@@ -3542,7 +3587,7 @@ Partial Class FrmMain
         ' 
         BtnAddCustom.AutoSize = True
         BtnAddCustom.BackColor = Color.MistyRose
-        BtnAddCustom.Location = New Point(45, 378)
+        BtnAddCustom.Location = New Point(45, 413)
         BtnAddCustom.Name = "BtnAddCustom"
         BtnAddCustom.Size = New Size(159, 35)
         BtnAddCustom.TabIndex = 9
@@ -3553,7 +3598,7 @@ Partial Class FrmMain
         ' 
         GbxDadoSet.BackColor = Color.DarkGray
         GbxDadoSet.Controls.Add(chklstAvailableChippers)
-        GbxDadoSet.Location = New Point(45, 139)
+        GbxDadoSet.Location = New Point(45, 174)
         GbxDadoSet.Name = "GbxDadoSet"
         GbxDadoSet.Size = New Size(422, 233)
         GbxDadoSet.TabIndex = 8
@@ -3574,7 +3619,7 @@ Partial Class FrmMain
         ' 
         GbxDadoCalc.BackColor = Color.DarkGray
         GbxDadoCalc.Controls.Add(TlpDadoCalc)
-        GbxDadoCalc.Location = New Point(102, 6)
+        GbxDadoCalc.Location = New Point(102, 41)
         GbxDadoCalc.Name = "GbxDadoCalc"
         GbxDadoCalc.Size = New Size(309, 130)
         GbxDadoCalc.TabIndex = 7
@@ -3682,7 +3727,7 @@ Partial Class FrmMain
         PnlTableTip.Controls.Add(Label18)
         PnlTableTip.Controls.Add(Label15)
         PnlTableTip.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        PnlTableTip.Location = New Point(12, 15)
+        PnlTableTip.Location = New Point(12, 5)
         PnlTableTip.Name = "PnlTableTip"
         PnlTableTip.Size = New Size(356, 355)
         PnlTableTip.TabIndex = 6
@@ -3809,70 +3854,6 @@ Partial Class FrmMain
         Label15.TabIndex = 0
         Label15.Text = "Table Tip Force"
         ' 
-        ' PnlPolygonCalc
-        ' 
-        PnlPolygonCalc.BackColor = Color.WhiteSmoke
-        PnlPolygonCalc.BorderStyle = BorderStyle.Fixed3D
-        PnlPolygonCalc.Controls.Add(LblPolygonPieceAngle)
-        PnlPolygonCalc.Controls.Add(LblPolygonSideAngle)
-        PnlPolygonCalc.Controls.Add(TxtPolygonSides)
-        PnlPolygonCalc.Controls.Add(LblPolygonSides)
-        PnlPolygonCalc.Controls.Add(PbPolygon)
-        PnlPolygonCalc.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        PnlPolygonCalc.Location = New Point(35, 388)
-        PnlPolygonCalc.Name = "PnlPolygonCalc"
-        PnlPolygonCalc.Size = New Size(302, 397)
-        PnlPolygonCalc.TabIndex = 5
-        ' 
-        ' LblPolygonPieceAngle
-        ' 
-        LblPolygonPieceAngle.AutoSize = True
-        LblPolygonPieceAngle.Location = New Point(24, 113)
-        LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
-        LblPolygonPieceAngle.Size = New Size(168, 21)
-        LblPolygonPieceAngle.TabIndex = 4
-        LblPolygonPieceAngle.Tag = "Cut angle each piece: {0:N2}°"
-        LblPolygonPieceAngle.Text = "Cut angle each piece"
-        LblPolygonPieceAngle.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' LblPolygonSideAngle
-        ' 
-        LblPolygonSideAngle.AutoSize = True
-        LblPolygonSideAngle.Location = New Point(24, 84)
-        LblPolygonSideAngle.Name = "LblPolygonSideAngle"
-        LblPolygonSideAngle.Size = New Size(130, 21)
-        LblPolygonSideAngle.TabIndex = 3
-        LblPolygonSideAngle.Tag = "Angle each side: {0:N2}°"
-        LblPolygonSideAngle.Text = "Angle each side"
-        LblPolygonSideAngle.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' TxtPolygonSides
-        ' 
-        TxtPolygonSides.Location = New Point(146, 45)
-        TxtPolygonSides.MaxLength = 5
-        TxtPolygonSides.Name = "TxtPolygonSides"
-        TxtPolygonSides.Size = New Size(49, 29)
-        TxtPolygonSides.TabIndex = 0
-        ' 
-        ' LblPolygonSides
-        ' 
-        LblPolygonSides.AutoSize = True
-        LblPolygonSides.Location = New Point(24, 49)
-        LblPolygonSides.Name = "LblPolygonSides"
-        LblPolygonSides.Size = New Size(115, 21)
-        LblPolygonSides.TabIndex = 1
-        LblPolygonSides.Text = "Number sides"
-        ' 
-        ' PbPolygon
-        ' 
-        PbPolygon.BackColor = Color.LightGray
-        PbPolygon.BorderStyle = BorderStyle.Fixed3D
-        PbPolygon.Location = New Point(21, 151)
-        PbPolygon.Name = "PbPolygon"
-        PbPolygon.Size = New Size(257, 236)
-        PbPolygon.TabIndex = 0
-        PbPolygon.TabStop = False
-        ' 
         ' TpSpacings
         ' 
         TpSpacings.BackColor = Color.Gainsboro
@@ -3899,7 +3880,7 @@ Partial Class FrmMain
         ' 
         ScSpacings.Panel2.Controls.Add(GbxBiscuitDomino)
         ScSpacings.Size = New Size(1124, 807)
-        ScSpacings.SplitterDistance = 558
+        ScSpacings.SplitterDistance = 557
         ScSpacings.SplitterWidth = 6
         ScSpacings.TabIndex = 0
         ' 
@@ -3925,7 +3906,7 @@ Partial Class FrmMain
         GbxClampSpacing.Dock = DockStyle.Fill
         GbxClampSpacing.Location = New Point(0, 0)
         GbxClampSpacing.Name = "GbxClampSpacing"
-        GbxClampSpacing.Size = New Size(554, 803)
+        GbxClampSpacing.Size = New Size(553, 803)
         GbxClampSpacing.TabIndex = 0
         GbxClampSpacing.TabStop = False
         GbxClampSpacing.Text = "Clamp Spacing"
@@ -3980,7 +3961,7 @@ Partial Class FrmMain
         TxtClampNotes.Multiline = True
         TxtClampNotes.Name = "TxtClampNotes"
         TxtClampNotes.ScrollBars = ScrollBars.Both
-        TxtClampNotes.Size = New Size(548, 395)
+        TxtClampNotes.Size = New Size(547, 395)
         TxtClampNotes.TabIndex = 13
         ' 
         ' Label56
@@ -4110,7 +4091,7 @@ Partial Class FrmMain
         GbxBiscuitDomino.Dock = DockStyle.Fill
         GbxBiscuitDomino.Location = New Point(0, 0)
         GbxBiscuitDomino.Name = "GbxBiscuitDomino"
-        GbxBiscuitDomino.Size = New Size(556, 803)
+        GbxBiscuitDomino.Size = New Size(557, 803)
         GbxBiscuitDomino.TabIndex = 0
         GbxBiscuitDomino.TabStop = False
         GbxBiscuitDomino.Text = "Biscuit Domino Spacing"
@@ -4301,6 +4282,386 @@ Partial Class FrmMain
         Label52.TabIndex = 0
         Label52.Text = "Joint Length: "
         Label52.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' TpAngles
+        ' 
+        TpAngles.BackColor = Color.Gainsboro
+        TpAngles.BorderStyle = BorderStyle.Fixed3D
+        TpAngles.Controls.Add(ScAngles)
+        TpAngles.Location = New Point(4, 4)
+        TpAngles.Name = "TpAngles"
+        TpAngles.Size = New Size(1134, 811)
+        TpAngles.TabIndex = 4
+        TpAngles.Text = "Angles"
+        ' 
+        ' ScAngles
+        ' 
+        ScAngles.BorderStyle = BorderStyle.Fixed3D
+        ScAngles.Dock = DockStyle.Fill
+        ScAngles.Location = New Point(0, 0)
+        ScAngles.Name = "ScAngles"
+        ' 
+        ' ScAngles.Panel1
+        ' 
+        ScAngles.Panel1.Controls.Add(GbxPolygonCalculations)
+        ScAngles.Size = New Size(1130, 807)
+        ScAngles.SplitterDistance = 497
+        ScAngles.SplitterWidth = 6
+        ScAngles.TabIndex = 0
+        ' 
+        ' GbxPolygonCalculations
+        ' 
+        GbxPolygonCalculations.BackColor = Color.Silver
+        GbxPolygonCalculations.Controls.Add(PnlPolygonCalc)
+        GbxPolygonCalculations.Dock = DockStyle.Fill
+        GbxPolygonCalculations.Location = New Point(0, 0)
+        GbxPolygonCalculations.Name = "GbxPolygonCalculations"
+        GbxPolygonCalculations.Size = New Size(493, 803)
+        GbxPolygonCalculations.TabIndex = 0
+        GbxPolygonCalculations.TabStop = False
+        GbxPolygonCalculations.Text = "Polygon Calculations"
+        ' 
+        ' PnlPolygonCalc
+        ' 
+        PnlPolygonCalc.BackColor = Color.WhiteSmoke
+        PnlPolygonCalc.BorderStyle = BorderStyle.Fixed3D
+        PnlPolygonCalc.Controls.Add(NudPolygonDimension)
+        PnlPolygonCalc.Controls.Add(TlpPolygonResults)
+        PnlPolygonCalc.Controls.Add(CboPolygonUnits)
+        PnlPolygonCalc.Controls.Add(Label89)
+        PnlPolygonCalc.Controls.Add(Label88)
+        PnlPolygonCalc.Controls.Add(RbRadius)
+        PnlPolygonCalc.Controls.Add(RbSidelength)
+        PnlPolygonCalc.Controls.Add(LblPolyDimensionInput)
+        PnlPolygonCalc.Controls.Add(BtnPolyOctagon)
+        PnlPolygonCalc.Controls.Add(BtnPolyHexagon)
+        PnlPolygonCalc.Controls.Add(BtnPolySquare)
+        PnlPolygonCalc.Controls.Add(BtnPolyTriangle)
+        PnlPolygonCalc.Controls.Add(TxtPolygonSides)
+        PnlPolygonCalc.Controls.Add(LblPolygonSides)
+        PnlPolygonCalc.Controls.Add(PbPolygon)
+        PnlPolygonCalc.Dock = DockStyle.Fill
+        PnlPolygonCalc.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        PnlPolygonCalc.Location = New Point(3, 22)
+        PnlPolygonCalc.Name = "PnlPolygonCalc"
+        PnlPolygonCalc.Size = New Size(487, 778)
+        PnlPolygonCalc.TabIndex = 6
+        ' 
+        ' NudPolygonDimension
+        ' 
+        NudPolygonDimension.Location = New Point(71, 110)
+        NudPolygonDimension.Name = "NudPolygonDimension"
+        NudPolygonDimension.Size = New Size(78, 29)
+        NudPolygonDimension.TabIndex = 7
+        ' 
+        ' TlpPolygonResults
+        ' 
+        TlpPolygonResults.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
+        TlpPolygonResults.ColumnCount = 2
+        TlpPolygonResults.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpPolygonResults.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpPolygonResults.Controls.Add(Label90, 0, 0)
+        TlpPolygonResults.Controls.Add(LblPolygonInteriorAngle, 0, 1)
+        TlpPolygonResults.Controls.Add(LblPolygonSideAngle, 0, 2)
+        TlpPolygonResults.Controls.Add(LblPolygonPieceAngle, 0, 3)
+        TlpPolygonResults.Controls.Add(LblPolygonSideLengthResult, 0, 4)
+        TlpPolygonResults.Controls.Add(BtnCopyPolyResults, 0, 5)
+        TlpPolygonResults.Controls.Add(BtnResetPolygon, 1, 5)
+        TlpPolygonResults.Controls.Add(LblPolygonArea, 1, 4)
+        TlpPolygonResults.Controls.Add(LblPolygonPerimeter, 1, 3)
+        TlpPolygonResults.Controls.Add(LblPolygonApothem, 1, 2)
+        TlpPolygonResults.Controls.Add(LblPolygonRadiusResult, 1, 1)
+        TlpPolygonResults.Controls.Add(BtnPolyCalc, 1, 0)
+        TlpPolygonResults.Dock = DockStyle.Bottom
+        TlpPolygonResults.Location = New Point(0, 551)
+        TlpPolygonResults.Name = "TlpPolygonResults"
+        TlpPolygonResults.RowCount = 6
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Absolute, 20.0F))
+        TlpPolygonResults.Size = New Size(483, 223)
+        TlpPolygonResults.TabIndex = 23
+        ' 
+        ' Label90
+        ' 
+        Label90.AutoSize = True
+        Label90.Dock = DockStyle.Fill
+        Label90.Location = New Point(4, 4)
+        Label90.Margin = New Padding(3)
+        Label90.Name = "Label90"
+        Label90.Size = New Size(234, 29)
+        Label90.TabIndex = 16
+        Label90.Text = "RESULTS:"
+        Label90.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonInteriorAngle
+        ' 
+        LblPolygonInteriorAngle.AutoSize = True
+        LblPolygonInteriorAngle.Dock = DockStyle.Fill
+        LblPolygonInteriorAngle.Location = New Point(4, 40)
+        LblPolygonInteriorAngle.Margin = New Padding(3)
+        LblPolygonInteriorAngle.Name = "LblPolygonInteriorAngle"
+        LblPolygonInteriorAngle.Size = New Size(234, 29)
+        LblPolygonInteriorAngle.TabIndex = 17
+        LblPolygonInteriorAngle.Tag = "Interior Angle: {0:N2}°"
+        LblPolygonInteriorAngle.Text = "Interior Angle: "
+        LblPolygonInteriorAngle.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonSideAngle
+        ' 
+        LblPolygonSideAngle.AutoSize = True
+        LblPolygonSideAngle.Dock = DockStyle.Fill
+        LblPolygonSideAngle.Location = New Point(4, 76)
+        LblPolygonSideAngle.Margin = New Padding(3)
+        LblPolygonSideAngle.Name = "LblPolygonSideAngle"
+        LblPolygonSideAngle.Size = New Size(234, 29)
+        LblPolygonSideAngle.TabIndex = 3
+        LblPolygonSideAngle.Tag = "Exterior Angle: {0:N2}°"
+        LblPolygonSideAngle.Text = "Exterior Angle:"
+        LblPolygonSideAngle.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonPieceAngle
+        ' 
+        LblPolygonPieceAngle.AutoSize = True
+        LblPolygonPieceAngle.Dock = DockStyle.Fill
+        LblPolygonPieceAngle.Location = New Point(4, 112)
+        LblPolygonPieceAngle.Margin = New Padding(3)
+        LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
+        LblPolygonPieceAngle.Size = New Size(234, 29)
+        LblPolygonPieceAngle.TabIndex = 4
+        LblPolygonPieceAngle.Tag = "Miter Cut Angle: {0:N2}°"
+        LblPolygonPieceAngle.Text = "Miter Cut Angle:"
+        LblPolygonPieceAngle.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonSideLengthResult
+        ' 
+        LblPolygonSideLengthResult.AutoSize = True
+        LblPolygonSideLengthResult.Dock = DockStyle.Fill
+        LblPolygonSideLengthResult.Location = New Point(4, 148)
+        LblPolygonSideLengthResult.Margin = New Padding(3)
+        LblPolygonSideLengthResult.Name = "LblPolygonSideLengthResult"
+        LblPolygonSideLengthResult.Size = New Size(234, 29)
+        LblPolygonSideLengthResult.TabIndex = 18
+        LblPolygonSideLengthResult.Tag = "Side Length: {0:N2} {1}"
+        LblPolygonSideLengthResult.Text = "Side Length: "
+        LblPolygonSideLengthResult.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' BtnCopyPolyResults
+        ' 
+        BtnCopyPolyResults.BackColor = Color.MistyRose
+        BtnCopyPolyResults.Dock = DockStyle.Fill
+        BtnCopyPolyResults.Location = New Point(4, 184)
+        BtnCopyPolyResults.Name = "BtnCopyPolyResults"
+        BtnCopyPolyResults.Size = New Size(234, 35)
+        BtnCopyPolyResults.TabIndex = 1
+        BtnCopyPolyResults.Text = "Copy Results"
+        BtnCopyPolyResults.UseVisualStyleBackColor = False
+        ' 
+        ' BtnResetPolygon
+        ' 
+        BtnResetPolygon.BackColor = Color.MistyRose
+        BtnResetPolygon.Dock = DockStyle.Fill
+        BtnResetPolygon.Location = New Point(245, 184)
+        BtnResetPolygon.Name = "BtnResetPolygon"
+        BtnResetPolygon.Size = New Size(234, 35)
+        BtnResetPolygon.TabIndex = 2
+        BtnResetPolygon.Text = "Reset"
+        BtnResetPolygon.UseVisualStyleBackColor = False
+        ' 
+        ' LblPolygonArea
+        ' 
+        LblPolygonArea.AutoSize = True
+        LblPolygonArea.Dock = DockStyle.Fill
+        LblPolygonArea.Location = New Point(245, 148)
+        LblPolygonArea.Margin = New Padding(3)
+        LblPolygonArea.Name = "LblPolygonArea"
+        LblPolygonArea.Size = New Size(234, 29)
+        LblPolygonArea.TabIndex = 22
+        LblPolygonArea.Tag = "Area: {0:N2} {1}"
+        LblPolygonArea.Text = "Area: "
+        LblPolygonArea.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonPerimeter
+        ' 
+        LblPolygonPerimeter.AutoSize = True
+        LblPolygonPerimeter.Dock = DockStyle.Fill
+        LblPolygonPerimeter.Location = New Point(245, 112)
+        LblPolygonPerimeter.Margin = New Padding(3)
+        LblPolygonPerimeter.Name = "LblPolygonPerimeter"
+        LblPolygonPerimeter.Size = New Size(234, 29)
+        LblPolygonPerimeter.TabIndex = 21
+        LblPolygonPerimeter.Tag = "Perimeter: {0:N2} {1}"
+        LblPolygonPerimeter.Text = "Perimeter"
+        LblPolygonPerimeter.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonApothem
+        ' 
+        LblPolygonApothem.AutoSize = True
+        LblPolygonApothem.Dock = DockStyle.Fill
+        LblPolygonApothem.Location = New Point(245, 76)
+        LblPolygonApothem.Margin = New Padding(3)
+        LblPolygonApothem.Name = "LblPolygonApothem"
+        LblPolygonApothem.Size = New Size(234, 29)
+        LblPolygonApothem.TabIndex = 20
+        LblPolygonApothem.Tag = "Apothem: {0:N2} {1}"
+        LblPolygonApothem.Text = "Apothem: "
+        LblPolygonApothem.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblPolygonRadiusResult
+        ' 
+        LblPolygonRadiusResult.AutoSize = True
+        LblPolygonRadiusResult.Dock = DockStyle.Fill
+        LblPolygonRadiusResult.Location = New Point(245, 40)
+        LblPolygonRadiusResult.Margin = New Padding(3)
+        LblPolygonRadiusResult.Name = "LblPolygonRadiusResult"
+        LblPolygonRadiusResult.Size = New Size(234, 29)
+        LblPolygonRadiusResult.TabIndex = 19
+        LblPolygonRadiusResult.Tag = "Radius: {0:N2} {1}"
+        LblPolygonRadiusResult.Text = "Radius: "
+        LblPolygonRadiusResult.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' BtnPolyCalc
+        ' 
+        BtnPolyCalc.BackColor = Color.MistyRose
+        BtnPolyCalc.Dock = DockStyle.Fill
+        BtnPolyCalc.Location = New Point(245, 4)
+        BtnPolyCalc.Name = "BtnPolyCalc"
+        BtnPolyCalc.Size = New Size(234, 29)
+        BtnPolyCalc.TabIndex = 0
+        BtnPolyCalc.Text = "Calculate"
+        BtnPolyCalc.UseVisualStyleBackColor = False
+        ' 
+        ' CboPolygonUnits
+        ' 
+        CboPolygonUnits.FormattingEnabled = True
+        CboPolygonUnits.Location = New Point(217, 110)
+        CboPolygonUnits.Name = "CboPolygonUnits"
+        CboPolygonUnits.Size = New Size(135, 29)
+        CboPolygonUnits.TabIndex = 8
+        ' 
+        ' Label89
+        ' 
+        Label89.AutoSize = True
+        Label89.Location = New Point(159, 114)
+        Label89.Name = "Label89"
+        Label89.Size = New Size(58, 21)
+        Label89.TabIndex = 14
+        Label89.Text = "Units: "
+        ' 
+        ' Label88
+        ' 
+        Label88.AutoSize = True
+        Label88.Location = New Point(10, 114)
+        Label88.Name = "Label88"
+        Label88.Size = New Size(61, 21)
+        Label88.TabIndex = 12
+        Label88.Text = "Value: "
+        ' 
+        ' RbRadius
+        ' 
+        RbRadius.AutoSize = True
+        RbRadius.Location = New Point(135, 78)
+        RbRadius.Name = "RbRadius"
+        RbRadius.Size = New Size(86, 25)
+        RbRadius.TabIndex = 6
+        RbRadius.TabStop = True
+        RbRadius.Text = "Radius"
+        RbRadius.UseVisualStyleBackColor = True
+        ' 
+        ' RbSidelength
+        ' 
+        RbSidelength.AutoSize = True
+        RbSidelength.Location = New Point(10, 78)
+        RbSidelength.Name = "RbSidelength"
+        RbSidelength.Size = New Size(125, 25)
+        RbSidelength.TabIndex = 5
+        RbSidelength.TabStop = True
+        RbSidelength.Text = "Side Length"
+        RbSidelength.UseVisualStyleBackColor = True
+        ' 
+        ' LblPolyDimensionInput
+        ' 
+        LblPolyDimensionInput.AutoSize = True
+        LblPolyDimensionInput.Location = New Point(10, 48)
+        LblPolyDimensionInput.Name = "LblPolyDimensionInput"
+        LblPolyDimensionInput.Size = New Size(142, 21)
+        LblPolyDimensionInput.TabIndex = 9
+        LblPolyDimensionInput.Text = "Dimension Input:"
+        ' 
+        ' BtnPolyOctagon
+        ' 
+        BtnPolyOctagon.AutoSize = True
+        BtnPolyOctagon.BackColor = Color.MistyRose
+        BtnPolyOctagon.Location = New Point(361, 112)
+        BtnPolyOctagon.Name = "BtnPolyOctagon"
+        BtnPolyOctagon.Size = New Size(112, 34)
+        BtnPolyOctagon.TabIndex = 4
+        BtnPolyOctagon.Text = "Octagon"
+        BtnPolyOctagon.UseVisualStyleBackColor = False
+        ' 
+        ' BtnPolyHexagon
+        ' 
+        BtnPolyHexagon.AutoSize = True
+        BtnPolyHexagon.BackColor = Color.MistyRose
+        BtnPolyHexagon.Location = New Point(361, 78)
+        BtnPolyHexagon.Name = "BtnPolyHexagon"
+        BtnPolyHexagon.Size = New Size(112, 34)
+        BtnPolyHexagon.TabIndex = 3
+        BtnPolyHexagon.Text = "Hexagon"
+        BtnPolyHexagon.UseVisualStyleBackColor = False
+        ' 
+        ' BtnPolySquare
+        ' 
+        BtnPolySquare.AutoSize = True
+        BtnPolySquare.BackColor = Color.MistyRose
+        BtnPolySquare.Location = New Point(361, 44)
+        BtnPolySquare.Name = "BtnPolySquare"
+        BtnPolySquare.Size = New Size(112, 34)
+        BtnPolySquare.TabIndex = 2
+        BtnPolySquare.Text = "Square"
+        BtnPolySquare.UseVisualStyleBackColor = False
+        ' 
+        ' BtnPolyTriangle
+        ' 
+        BtnPolyTriangle.AutoSize = True
+        BtnPolyTriangle.BackColor = Color.MistyRose
+        BtnPolyTriangle.Location = New Point(361, 10)
+        BtnPolyTriangle.Name = "BtnPolyTriangle"
+        BtnPolyTriangle.Size = New Size(112, 34)
+        BtnPolyTriangle.TabIndex = 1
+        BtnPolyTriangle.Text = "Triangle"
+        BtnPolyTriangle.UseVisualStyleBackColor = False
+        ' 
+        ' TxtPolygonSides
+        ' 
+        TxtPolygonSides.Location = New Point(135, 14)
+        TxtPolygonSides.MaxLength = 5
+        TxtPolygonSides.Name = "TxtPolygonSides"
+        TxtPolygonSides.Size = New Size(49, 29)
+        TxtPolygonSides.TabIndex = 0
+        ' 
+        ' LblPolygonSides
+        ' 
+        LblPolygonSides.AutoSize = True
+        LblPolygonSides.Location = New Point(10, 18)
+        LblPolygonSides.Name = "LblPolygonSides"
+        LblPolygonSides.Size = New Size(125, 21)
+        LblPolygonSides.TabIndex = 1
+        LblPolygonSides.Text = "Number Sides: "
+        ' 
+        ' PbPolygon
+        ' 
+        PbPolygon.BackColor = Color.LightGray
+        PbPolygon.BorderStyle = BorderStyle.Fixed3D
+        PbPolygon.Location = New Point(11, 161)
+        PbPolygon.Name = "PbPolygon"
+        PbPolygon.Size = New Size(460, 375)
+        PbPolygon.TabIndex = 0
+        PbPolygon.TabStop = False
         ' 
         ' TpDrawings
         ' 
@@ -7575,9 +7936,6 @@ Partial Class FrmMain
         CType(NudKerfWidth, ComponentModel.ISupportInitialize).EndInit()
         PnlTableTip.ResumeLayout(False)
         PnlTableTip.PerformLayout()
-        PnlPolygonCalc.ResumeLayout(False)
-        PnlPolygonCalc.PerformLayout()
-        CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
         TpSpacings.ResumeLayout(False)
         ScSpacings.Panel1.ResumeLayout(False)
         ScSpacings.Panel2.ResumeLayout(False)
@@ -7587,6 +7945,17 @@ Partial Class FrmMain
         GbxClampSpacing.PerformLayout()
         GbxBiscuitDomino.ResumeLayout(False)
         GbxBiscuitDomino.PerformLayout()
+        TpAngles.ResumeLayout(False)
+        ScAngles.Panel1.ResumeLayout(False)
+        CType(ScAngles, ComponentModel.ISupportInitialize).EndInit()
+        ScAngles.ResumeLayout(False)
+        GbxPolygonCalculations.ResumeLayout(False)
+        PnlPolygonCalc.ResumeLayout(False)
+        PnlPolygonCalc.PerformLayout()
+        CType(NudPolygonDimension, ComponentModel.ISupportInitialize).EndInit()
+        TlpPolygonResults.ResumeLayout(False)
+        TlpPolygonResults.PerformLayout()
+        CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
         TpDrawings.ResumeLayout(False)
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).EndInit()
         TpJoinery.ResumeLayout(False)
@@ -7968,12 +8337,6 @@ Partial Class FrmMain
     Friend WithEvents Label20 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents Label15 As Label
-    Friend WithEvents PnlPolygonCalc As Panel
-    Friend WithEvents LblPolygonPieceAngle As Label
-    Friend WithEvents LblPolygonSideAngle As Label
-    Friend WithEvents TxtPolygonSides As TextBox
-    Friend WithEvents LblPolygonSides As Label
-    Friend WithEvents PbPolygon As PictureBox
 
     ' Drawings Tab Controls
     Friend WithEvents PbOutputDrawing As PictureBox
@@ -8340,5 +8703,37 @@ Partial Class FrmMain
     Friend WithEvents BtnCopyResults As Button
     Friend WithEvents BtnDadoReset As Button
     Friend WithEvents TxtAlternatives As TextBox
+    Friend WithEvents LblDadoCalctitle As Label
+    Friend WithEvents TpAngles As TabPage
+    Friend WithEvents ScAngles As SplitContainer
+    Friend WithEvents GbxPolygonCalculations As GroupBox
+    Friend WithEvents PnlPolygonCalc As Panel
+    Friend WithEvents LblPolygonPieceAngle As Label
+    Friend WithEvents LblPolygonSideAngle As Label
+    Friend WithEvents TxtPolygonSides As TextBox
+    Friend WithEvents LblPolygonSides As Label
+    Friend WithEvents PbPolygon As PictureBox
+    Friend WithEvents BtnPolyOctagon As Button
+    Friend WithEvents BtnPolyHexagon As Button
+    Friend WithEvents BtnPolySquare As Button
+    Friend WithEvents BtnPolyTriangle As Button
+    Friend WithEvents RbRadius As RadioButton
+    Friend WithEvents RbSidelength As RadioButton
+    Friend WithEvents LblPolyDimensionInput As Label
+    Friend WithEvents Label90 As Label
+    Friend WithEvents CboPolygonUnits As ComboBox
+    Friend WithEvents Label89 As Label
+    Friend WithEvents Label88 As Label
+    Friend WithEvents LblPolygonRadiusResult As Label
+    Friend WithEvents LblPolygonSideLengthResult As Label
+    Friend WithEvents LblPolygonInteriorAngle As Label
+    Friend WithEvents TlpPolygonResults As TableLayoutPanel
+    Friend WithEvents LblPolygonArea As Label
+    Friend WithEvents LblPolygonPerimeter As Label
+    Friend WithEvents LblPolygonApothem As Label
+    Friend WithEvents BtnCopyPolyResults As Button
+    Friend WithEvents BtnResetPolygon As Button
+    Friend WithEvents NudPolygonDimension As NumericUpDown
+    Friend WithEvents BtnPolyCalc As Button
 End Class
 

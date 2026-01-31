@@ -99,10 +99,28 @@
 - Export cutting plans
 
 #### **Polygon Calculator**
-- Calculate dimensions for regular polygons (3-25 sides)
-- Interior/exterior angles
-- Perimeter, area, apothem calculations
-- Rotating visual display
+- Calculate dimensions for **regular polygons (3-25 sides)**
+- **Dual input modes:**
+  - Enter side length → calculates radius, apothem, perimeter, area
+  - Enter radius → calculates side length, apothem, perimeter, area
+- **Comprehensive calculations:**
+  - Interior angle (angle at each vertex)
+  - Exterior angle (central angle per side)
+  - Miter angle (cut angle for segments)
+  - Apothem (inradius - perpendicular distance to side)
+  - Perimeter (total distance around polygon)
+  - Area (surface area enclosed)
+- **Unit support:**
+  - Imperial (inches, sq.in) and Metric (millimeters, sq.cm)
+  - Automatic conversion when switching units
+- **Quick presets** for common polygons:
+  - Triangle (3), Square (4), Hexagon (6), Octagon (8)
+- **Rotating 3D visual display** with:
+  - Vertex markers, side labels, angle arc indicators
+  - Shadow and lighting effects
+  - Click to pause/resume animation
+- **Copy results to clipboard** - Ready for spreadsheets or documentation
+- **Perfect for:** Segmented bowls, polygon frames, faceted boxes, geometric panels
 
 #### **Table Tipping Force Calculator**
 - Safety calculator for furniture stability

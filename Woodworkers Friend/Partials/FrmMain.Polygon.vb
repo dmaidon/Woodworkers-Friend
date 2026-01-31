@@ -1,4 +1,4 @@
-﻿Partial Public Class FrmMain
+Partial Public Class FrmMain
 
 #Region "Polygon Calculations"
 
@@ -18,6 +18,13 @@
     Private Const SHADOW_ALPHA As Integer = 80
     Private Const LIGHTING_BASE As Single = 0.5F
     Private Const LIGHTING_VARIATION As Single = 0.5F
+
+    ' Calculation constants
+    Private Const MM_PER_INCH As Double = 25.4
+
+    Private Const DEFAULT_DIMENSION As Decimal = 5D
+    Private Const MIN_DIMENSION As Decimal = 0.125D
+    Private Const MAX_DIMENSION As Decimal = 100D
 
 #End Region
 
@@ -71,6 +78,9 @@
     Private cachedCenter As PointF
     Private cachedRadius As Single
     Friend RotationEnabled As Boolean = True
+    Private _polygonTooltip As ToolTip = Nothing
+    Private _suppressDimensionUpdate As Boolean = False
+    Private _lastUnitIndex As Integer = 0 ' Track by index: 0 = inches, 1 = mm
 
 #End Region
 
@@ -106,7 +116,7 @@
             InvalidateCache()
             DrawResultingPolygon(sides)
         Catch ex As Exception
-            Debug.WriteLine($"Error in TxtPolygonSides_TextChanged: {ex.Message}")
+            ErrorHandler.LogError(ex, "TxtPolygonSides_TextChanged")
             ' Reset to minimum on any error
             TxtPolygonSides.Text = MIN_POLYGON_SIDES.ToString()
         End Try
@@ -151,7 +161,7 @@
                 DrawResultingPolygon(sides)
             End If
         Catch ex As Exception
-            Debug.WriteLine($"Error in TmrRotation_Tick: {ex.Message}")
+            ErrorHandler.LogError(ex, "TmrRotation_Tick")
         End Try
     End Sub
 
@@ -179,6 +189,11 @@
             Dim formatCut As String = GetFormatString(LblPolygonPieceAngle.Tag, "{0:F2}")
             LblPolygonPieceAngle.Text = String.Format(formatCut, totalAngle / 2)
         End If
+
+        ' Recalculate all geometry if dimension is entered
+        If NudPolygonDimension IsNot Nothing AndAlso NudPolygonDimension.Value > 0 Then
+            CalculateAndDisplayResults()
+        End If
     End Sub
 
     Private Shared Function GetFormatString(tag As Object, defaultFormat As String) As String
@@ -191,6 +206,542 @@
         cachedNSides = 0
         cachedPoints = Nothing
     End Sub
+
+#Region "Initialization"
+
+    ''' <summary>
+    ''' Initialize polygon calculator controls and tooltips
+    ''' </summary>
+    Friend Sub InitializePolygonCalculator()
+        Try
+            ' Initialize tooltips
+            InitializePolygonTooltips()
+
+            ' Initialize units ComboBox
+            If CboPolygonUnits IsNot Nothing Then
+                If CboPolygonUnits.Items.Count = 0 Then
+                    CboPolygonUnits.Items.AddRange({"inches", "millimeters"})
+                End If
+                _lastUnitIndex = 0 ' Track initial index BEFORE setting selection
+                CboPolygonUnits.SelectedIndex = 0 ' Default to inches
+
+                ' Explicitly wire up the event handler to ensure it fires
+                AddHandler CboPolygonUnits.SelectedIndexChanged, AddressOf OnPolygonUnitsChanged
+            End If
+
+            ' Initialize NumericUpDown
+            If NudPolygonDimension IsNot Nothing Then
+                NudPolygonDimension.DecimalPlaces = 4
+                NudPolygonDimension.Increment = 0.125D
+                NudPolygonDimension.Minimum = MIN_DIMENSION
+                NudPolygonDimension.Maximum = MAX_DIMENSION
+                NudPolygonDimension.Value = DEFAULT_DIMENSION
+            End If
+
+            ' Set default number of sides to 3 (triangle)
+            If TxtPolygonSides IsNot Nothing Then
+                TxtPolygonSides.Text = MIN_POLYGON_SIDES.ToString()
+            End If
+
+            ' Set default radio button
+            If RbSidelength IsNot Nothing Then
+                RbSidelength.Checked = True
+            End If
+
+            ' Initial calculation
+            CalculateAndDisplayResults()
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "InitializePolygonCalculator")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Initialize tooltips for polygon calculator controls
+    ''' </summary>
+    Private Sub InitializePolygonTooltips()
+        Try
+            If _polygonTooltip Is Nothing Then
+                _polygonTooltip = New ToolTip()
+            End If
+
+            Dim tooltip As ToolTip = _polygonTooltip
+
+            If TxtPolygonSides IsNot Nothing Then
+                tooltip.SetToolTip(TxtPolygonSides,
+                    "Enter number of sides (3-25)" & vbCrLf &
+                    "Common: Triangle(3), Square(4), Pentagon(5)" & vbCrLf &
+                    "Hexagon(6), Octagon(8), Dodecagon(12)")
+            End If
+
+            If RbSidelength IsNot Nothing Then
+                tooltip.SetToolTip(RbSidelength,
+                    "Calculate from side length measurement" & vbCrLf &
+                    "Use when you know the length of each edge")
+            End If
+
+            If RbRadius IsNot Nothing Then
+                tooltip.SetToolTip(RbRadius,
+                    "Calculate from radius (circumradius)" & vbCrLf &
+                    "Distance from center to any vertex")
+            End If
+
+            If NudPolygonDimension IsNot Nothing Then
+                tooltip.SetToolTip(NudPolygonDimension,
+                    "Enter the dimension value" & vbCrLf &
+                    "Side length OR radius depending on selection above")
+            End If
+
+            If CboPolygonUnits IsNot Nothing Then
+                tooltip.SetToolTip(CboPolygonUnits,
+                    "Select measurement unit" & vbCrLf &
+                    "inches - Imperial (US standard)" & vbCrLf &
+                    "millimeters - Metric")
+            End If
+
+            If BtnPolyTriangle IsNot Nothing Then
+                tooltip.SetToolTip(BtnPolyTriangle, "Quick select: 3-sided polygon")
+            End If
+
+            If BtnPolySquare IsNot Nothing Then
+                tooltip.SetToolTip(BtnPolySquare, "Quick select: 4-sided polygon (square)")
+            End If
+
+            If BtnPolyHexagon IsNot Nothing Then
+                tooltip.SetToolTip(BtnPolyHexagon, "Quick select: 6-sided polygon (most common)")
+            End If
+
+            If BtnPolyOctagon IsNot Nothing Then
+                tooltip.SetToolTip(BtnPolyOctagon, "Quick select: 8-sided polygon")
+            End If
+
+            If BtnPolyCalc IsNot Nothing Then
+                tooltip.SetToolTip(BtnPolyCalc,
+                    "Calculate polygon dimensions" & vbCrLf &
+                    "Updates all results based on current inputs")
+            End If
+
+            If BtnCopyPolyResults IsNot Nothing Then
+                tooltip.SetToolTip(BtnCopyPolyResults,
+                    "Copy all calculation results to clipboard" & vbCrLf &
+                    "Paste into spreadsheet or text editor")
+            End If
+
+            If BtnResetPolygon IsNot Nothing Then
+                tooltip.SetToolTip(BtnResetPolygon,
+                    "Reset to default values" & vbCrLf &
+                    "3 sides, 5 inch side length")
+            End If
+
+            If PbPolygon IsNot Nothing Then
+                tooltip.SetToolTip(PbPolygon,
+                    "Click to pause/resume rotation animation" & vbCrLf &
+                    "Visual representation of polygon geometry")
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "InitializePolygonTooltips")
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Event Handlers"
+
+    ''' <summary>
+    ''' Preset button clicks - set number of sides
+    ''' </summary>
+    Private Sub BtnPolyTriangle_Click(sender As Object, e As EventArgs) Handles BtnPolyTriangle.Click
+        TxtPolygonSides.Text = "3"
+    End Sub
+
+    Private Sub BtnPolySquare_Click(sender As Object, e As EventArgs) Handles BtnPolySquare.Click
+        TxtPolygonSides.Text = "4"
+    End Sub
+
+    Private Sub BtnPolyHexagon_Click(sender As Object, e As EventArgs) Handles BtnPolyHexagon.Click
+        TxtPolygonSides.Text = "6"
+    End Sub
+
+    Private Sub BtnPolyOctagon_Click(sender As Object, e As EventArgs) Handles BtnPolyOctagon.Click
+        TxtPolygonSides.Text = "8"
+    End Sub
+
+    ''' <summary>
+    ''' Calculate button - manually trigger calculation
+    ''' </summary>
+    Private Sub BtnPolyCalc_Click(sender As Object, e As EventArgs) Handles BtnPolyCalc.Click
+        CalculateAndDisplayResults()
+    End Sub
+
+    ''' <summary>
+    ''' Radio button selection changed - update input prompt and recalculate
+    ''' </summary>
+    Private Sub RbSidelength_CheckedChanged(sender As Object, e As EventArgs) Handles RbSidelength.CheckedChanged
+        If RbSidelength.Checked Then
+            If LblPolyDimensionInput IsNot Nothing Then
+                LblPolyDimensionInput.Text = "Enter Side Length:"
+            End If
+            CalculateAndDisplayResults()
+        End If
+    End Sub
+
+    Private Sub RbRadius_CheckedChanged(sender As Object, e As EventArgs) Handles RbRadius.CheckedChanged
+        If RbRadius.Checked Then
+            If LblPolyDimensionInput IsNot Nothing Then
+                LblPolyDimensionInput.Text = "Enter Radius:"
+            End If
+            CalculateAndDisplayResults()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Dimension value changed - recalculate all geometry
+    ''' </summary>
+    Private Sub NudPolygonDimension_ValueChanged(sender As Object, e As EventArgs) Handles NudPolygonDimension.ValueChanged
+        If Not _suppressDimensionUpdate Then
+            CalculateAndDisplayResults()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Unit selection changed - convert dimension and recalculate
+    ''' </summary>
+    Private Sub OnPolygonUnitsChanged(sender As Object, e As EventArgs)
+        ' Guard clauses
+        If CboPolygonUnits Is Nothing Then Return
+        If NudPolygonDimension Is Nothing Then Return
+        If CboPolygonUnits.SelectedIndex < 0 Then Return
+
+        Try
+            Dim newIndex As Integer = CboPolygonUnits.SelectedIndex
+
+            ' Skip if same index (no actual change)
+            If newIndex = _lastUnitIndex Then
+                Return
+            End If
+
+            ' Get current value before conversion
+            Dim currentValue As Decimal = NudPolygonDimension.Value
+
+            ' Suppress the ValueChanged event during conversion
+            _suppressDimensionUpdate = True
+
+            If currentValue > 0 Then
+                If newIndex = 0 AndAlso _lastUnitIndex = 1 Then
+                    ' Converting FROM mm TO inches (index 1 -> 0)
+                    NudPolygonDimension.Value = Math.Round(CDec(currentValue / MM_PER_INCH), 4)
+                ElseIf newIndex = 1 AndAlso _lastUnitIndex = 0 Then
+                    ' Converting FROM inches TO mm (index 0 -> 1)
+                    NudPolygonDimension.Value = Math.Round(CDec(currentValue * MM_PER_INCH), 2)
+                End If
+            End If
+
+            ' Update tracked index
+            _lastUnitIndex = newIndex
+
+            ' Re-enable updates and recalculate
+            _suppressDimensionUpdate = False
+            CalculateAndDisplayResults()
+
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "OnPolygonUnitsChanged")
+            _suppressDimensionUpdate = False
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Copy results to clipboard
+    ''' </summary>
+    Private Sub BtnCopyPolyResults_Click(sender As Object, e As EventArgs) Handles BtnCopyPolyResults.Click
+        Try
+            Dim results As New System.Text.StringBuilder()
+
+            results.AppendLine("POLYGON CALCULATION RESULTS")
+            results.AppendLine("=" & New String("="c, 40))
+            results.AppendLine()
+            results.AppendLine($"Number of Sides: {TxtPolygonSides.Text}")
+            results.AppendLine()
+
+            If LblPolygonInteriorAngle IsNot Nothing Then
+                results.AppendLine(LblPolygonInteriorAngle.Text)
+            End If
+
+            If LblPolygonSideAngle IsNot Nothing Then
+                results.AppendLine(LblPolygonSideAngle.Text)
+            End If
+
+            If LblPolygonPieceAngle IsNot Nothing Then
+                results.AppendLine(LblPolygonPieceAngle.Text)
+            End If
+
+            results.AppendLine()
+
+            If LblPolygonSideLengthResult IsNot Nothing AndAlso LblPolygonSideLengthResult.Visible Then
+                results.AppendLine(LblPolygonSideLengthResult.Text)
+            End If
+
+            If LblPolygonRadiusResult IsNot Nothing AndAlso LblPolygonRadiusResult.Visible Then
+                results.AppendLine(LblPolygonRadiusResult.Text)
+            End If
+
+            If LblPolygonApothem IsNot Nothing Then
+                results.AppendLine(LblPolygonApothem.Text)
+            End If
+
+            If LblPolygonPerimeter IsNot Nothing Then
+                results.AppendLine(LblPolygonPerimeter.Text)
+            End If
+
+            If LblPolygonArea IsNot Nothing Then
+                results.AppendLine(LblPolygonArea.Text)
+            End If
+
+            Clipboard.SetText(results.ToString())
+
+            MessageBox.Show("Results copied to clipboard!", "Success",
+                          MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "BtnCopyPolyResults_Click")
+            MessageBox.Show($"Error copying results: {ex.Message}", "Error",
+                          MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Reset to default values
+    ''' </summary>
+    Private Sub BtnResetPolygon_Click(sender As Object, e As EventArgs) Handles BtnResetPolygon.Click
+        Try
+            _lastUnitIndex = 0 ' Reset tracked index BEFORE changing combobox
+            TxtPolygonSides.Text = "3"
+            NudPolygonDimension.Value = DEFAULT_DIMENSION
+            CboPolygonUnits.SelectedIndex = 0 ' inches
+            RbSidelength.Checked = True
+            RotationEnabled = True
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "BtnResetPolygon_Click")
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Calculation Methods"
+
+    ''' <summary>
+    ''' Calculate and display all polygon geometry
+    ''' </summary>
+    Private Sub CalculateAndDisplayResults()
+        Try
+            If NudPolygonDimension Is Nothing OrElse NudPolygonDimension.Value = 0 Then
+                ClearPolygonResults()
+                Return
+            End If
+
+            Dim sides As Integer
+            If Not Integer.TryParse(TxtPolygonSides.Text, sides) Then
+                ClearPolygonResults()
+                Return
+            End If
+
+            If sides < MIN_POLYGON_SIDES OrElse sides > MAX_POLYGON_SIDES Then
+                ClearPolygonResults()
+                Return
+            End If
+
+            Dim dimensionValue As Double = CDbl(NudPolygonDimension.Value)
+
+            ' Use index for unit detection (0 = inches, 1 = millimeters)
+            Dim isInches As Boolean = (CboPolygonUnits Is Nothing OrElse CboPolygonUnits.SelectedIndex = 0)
+            Dim unitAbbrev As String = If(isInches, "in", "mm")
+            ' For area: use sq.in for imperial, sq.cm for metric (more practical than sq.mm)
+            Dim unitAbbrevSq As String = If(isInches, "sq.in", "sq.cm")
+
+            ' Calculate geometry based on input mode
+            Dim sideLength As Double
+            Dim radius As Double
+            Dim apothem As Double
+            Dim perimeter As Double
+            Dim area As Double
+            Dim interiorAngle As Double
+
+            If RbSidelength IsNot Nothing AndAlso RbSidelength.Checked Then
+                ' User entered side length
+                sideLength = dimensionValue
+                radius = CalculateRadiusFromSide(sideLength, sides)
+                apothem = CalculateApothemFromSide(sideLength, sides)
+            Else
+                ' User entered radius
+                radius = dimensionValue
+                sideLength = CalculateSideFromRadius(radius, sides)
+                apothem = CalculateApothemFromRadius(radius, sides)
+            End If
+
+            perimeter = CalculatePerimeter(sideLength, sides)
+            area = CalculateArea(sideLength, sides)
+            interiorAngle = CalculateInteriorAngle(sides)
+
+            ' Convert area from mm² to cm² for metric display (1 cm² = 100 mm²)
+            If Not isInches Then
+                area = area / 100.0
+            End If
+
+            ' Display results
+            DisplayResults(sides, sideLength, radius, apothem, perimeter, area,
+                          interiorAngle, unitAbbrev, unitAbbrevSq)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CalculateAndDisplayResults")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Calculate interior angle
+    ''' </summary>
+    Private Function CalculateInteriorAngle(sides As Integer) As Double
+        Return (sides - 2) * 180.0 / sides
+    End Function
+
+    ''' <summary>
+    ''' Calculate radius (circumradius) from side length
+    ''' </summary>
+    Private Function CalculateRadiusFromSide(sideLength As Double, sides As Integer) As Double
+        Return sideLength / (2 * Math.Sin(Math.PI / sides))
+    End Function
+
+    ''' <summary>
+    ''' Calculate side length from radius (circumradius)
+    ''' </summary>
+    Private Function CalculateSideFromRadius(radius As Double, sides As Integer) As Double
+        Return 2 * radius * Math.Sin(Math.PI / sides)
+    End Function
+
+    ''' <summary>
+    ''' Calculate apothem (inradius) from side length
+    ''' </summary>
+    Private Function CalculateApothemFromSide(sideLength As Double, sides As Integer) As Double
+        Return sideLength / (2 * Math.Tan(Math.PI / sides))
+    End Function
+
+    ''' <summary>
+    ''' Calculate apothem (inradius) from radius (circumradius)
+    ''' </summary>
+    Private Function CalculateApothemFromRadius(radius As Double, sides As Integer) As Double
+        Return radius * Math.Cos(Math.PI / sides)
+    End Function
+
+    ''' <summary>
+    ''' Calculate perimeter
+    ''' </summary>
+    Private Function CalculatePerimeter(sideLength As Double, sides As Integer) As Double
+        Return sideLength * sides
+    End Function
+
+    ''' <summary>
+    ''' Calculate area
+    ''' </summary>
+    Private Function CalculateArea(sideLength As Double, sides As Integer) As Double
+        Return (sides * sideLength * sideLength) / (4 * Math.Tan(Math.PI / sides))
+    End Function
+
+    ''' <summary>
+    ''' Display all calculated results
+    ''' </summary>
+    Private Sub DisplayResults(sides As Integer, sideLength As Double, radius As Double,
+                              apothem As Double, perimeter As Double, area As Double,
+                              interiorAngle As Double, unit As String, unitSq As String)
+        Try
+            ' Interior angle
+            If LblPolygonInteriorAngle IsNot Nothing Then
+                Dim formatStr As String = GetFormatString(LblPolygonInteriorAngle.Tag, "Interior Angle: {0:F2}°")
+                LblPolygonInteriorAngle.Text = String.Format(formatStr, interiorAngle)
+            End If
+
+            ' Show/hide derived dimensions based on input mode
+            Dim enteringSide As Boolean = RbSidelength IsNot Nothing AndAlso RbSidelength.Checked
+
+            If LblPolygonSideLengthResult IsNot Nothing Then
+                If Not enteringSide Then
+                    ' User entered radius, show calculated side
+                    LblPolygonSideLengthResult.Visible = True
+                    Dim formatStr As String = GetFormatString(LblPolygonSideLengthResult.Tag, "Side Length: {0:F3} {1}")
+                    LblPolygonSideLengthResult.Text = String.Format(formatStr, sideLength, unit)
+                Else
+                    ' User entered side, hide this result
+                    LblPolygonSideLengthResult.Visible = False
+                End If
+            End If
+
+            If LblPolygonRadiusResult IsNot Nothing Then
+                If enteringSide Then
+                    ' User entered side, show calculated radius
+                    LblPolygonRadiusResult.Visible = True
+                    Dim formatStr As String = GetFormatString(LblPolygonRadiusResult.Tag, "Radius: {0:F3} {1}")
+                    LblPolygonRadiusResult.Text = String.Format(formatStr, radius, unit)
+                Else
+                    ' User entered radius, hide this result
+                    LblPolygonRadiusResult.Visible = False
+                End If
+            End If
+
+            ' Apothem - ALWAYS show
+            If LblPolygonApothem IsNot Nothing Then
+                Dim formatStr As String = GetFormatString(LblPolygonApothem.Tag, "Apothem: {0:F3} {1}")
+                LblPolygonApothem.Text = String.Format(formatStr, apothem, unit)
+                LblPolygonApothem.Visible = True
+            End If
+
+            ' Perimeter - ALWAYS show
+            If LblPolygonPerimeter IsNot Nothing Then
+                Dim formatStr As String = GetFormatString(LblPolygonPerimeter.Tag, "Perimeter: {0:F3} {1}")
+                LblPolygonPerimeter.Text = String.Format(formatStr, perimeter, unit)
+                LblPolygonPerimeter.Visible = True
+            End If
+
+            ' Area - ALWAYS show
+            If LblPolygonArea IsNot Nothing Then
+                Dim formatStr As String = GetFormatString(LblPolygonArea.Tag, "Area: {0:F3} {1}")
+                LblPolygonArea.Text = String.Format(formatStr, area, unitSq)
+                LblPolygonArea.Visible = True
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "DisplayResults")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Clear all result labels
+    ''' </summary>
+    Private Sub ClearPolygonResults()
+        Try
+            If LblPolygonInteriorAngle IsNot Nothing Then
+                LblPolygonInteriorAngle.Text = "Interior Angle:"
+            End If
+
+            If LblPolygonSideLengthResult IsNot Nothing Then
+                LblPolygonSideLengthResult.Text = "Side Length:"
+                LblPolygonSideLengthResult.Visible = False
+            End If
+
+            If LblPolygonRadiusResult IsNot Nothing Then
+                LblPolygonRadiusResult.Text = "Radius:"
+                LblPolygonRadiusResult.Visible = False
+            End If
+
+            If LblPolygonApothem IsNot Nothing Then
+                LblPolygonApothem.Text = "Apothem:"
+            End If
+
+            If LblPolygonPerimeter IsNot Nothing Then
+                LblPolygonPerimeter.Text = "Perimeter:"
+            End If
+
+            If LblPolygonArea IsNot Nothing Then
+                LblPolygonArea.Text = "Area:"
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "ClearPolygonResults")
+        End Try
+    End Sub
+
+#End Region
 
 #Region "Drawing Methods"
 
