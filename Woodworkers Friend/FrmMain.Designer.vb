@@ -303,6 +303,44 @@ Partial Class FrmMain
         TxtPolygonSides = New TextBox()
         Label11 = New Label()
         PbPolygon = New PictureBox()
+        TpClampSpacing = New TabPage()
+        ScSpacings = New SplitContainer()
+        GbxClampSpacing = New GroupBox()
+        LblClampPressure = New Label()
+        LblNumClampsResults = New Label()
+        LblClampSpacingResult = New Label()
+        Label57 = New Label()
+        TxtClampNotes = New TextBox()
+        Label56 = New Label()
+        BtnCalcClampSpacing = New Button()
+        CboGlueType = New ComboBox()
+        CCboClampWoodType = New ComboBox()
+        CboPanelWidthUnit = New ComboBox()
+        TxtClampPanelThickness = New TextBox()
+        TxtClampPanelWidth = New TextBox()
+        Label55 = New Label()
+        Label54 = New Label()
+        Label53 = New Label()
+        LblClampPanelWidth = New Label()
+        GbxBiscuitDomino = New GroupBox()
+        LstCenterMarks = New ListBox()
+        LblCenterMarkPositions = New Label()
+        LblNumberNeeded = New Label()
+        LblEdgeDistance = New Label()
+        LblRecommendedSpacing = New Label()
+        Label62 = New Label()
+        BtnCalcBiscuit = New Button()
+        TxtBiscuitStockThickness = New TextBox()
+        CboJointStrength = New ComboBox()
+        CboBiscuitSize = New ComboBox()
+        CboJoineryType = New ComboBox()
+        CboJointLengthUnit = New ComboBox()
+        TxtBiscuitJointLength = New TextBox()
+        Label61 = New Label()
+        Label60 = New Label()
+        Label59 = New Label()
+        Label58 = New Label()
+        Label52 = New Label()
         TpDrawings = New TabPage()
         PbOutputDrawing = New PictureBox()
         TpJoinery = New TabPage()
@@ -654,6 +692,13 @@ Partial Class FrmMain
         Panel5.SuspendLayout()
         Panel3.SuspendLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
+        TpClampSpacing.SuspendLayout()
+        CType(ScSpacings, ComponentModel.ISupportInitialize).BeginInit()
+        ScSpacings.Panel1.SuspendLayout()
+        ScSpacings.Panel2.SuspendLayout()
+        ScSpacings.SuspendLayout()
+        GbxClampSpacing.SuspendLayout()
+        GbxBiscuitDomino.SuspendLayout()
         TpDrawings.SuspendLayout()
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).BeginInit()
         TpJoinery.SuspendLayout()
@@ -2601,6 +2646,7 @@ Partial Class FrmMain
         TcCalculattions.Controls.Add(TpEpoxy)
         TcCalculattions.Controls.Add(TpConversions)
         TcCalculattions.Controls.Add(TpCalculators)
+        TcCalculattions.Controls.Add(TpClampSpacing)
         TcCalculattions.Dock = DockStyle.Fill
         TcCalculattions.Location = New Point(0, 0)
         TcCalculattions.Multiline = True
@@ -3563,6 +3609,416 @@ Partial Class FrmMain
         PbPolygon.Size = New Size(257, 236)
         PbPolygon.TabIndex = 0
         PbPolygon.TabStop = False
+        ' 
+        ' TpClampSpacing
+        ' 
+        TpClampSpacing.BackColor = Color.Gainsboro
+        TpClampSpacing.BorderStyle = BorderStyle.Fixed3D
+        TpClampSpacing.Controls.Add(ScSpacings)
+        TpClampSpacing.Location = New Point(4, 4)
+        TpClampSpacing.Name = "TpClampSpacing"
+        TpClampSpacing.Size = New Size(1134, 811)
+        TpClampSpacing.TabIndex = 3
+        TpClampSpacing.Text = "Clamp Spacing"
+        ' 
+        ' ScSpacings
+        ' 
+        ScSpacings.BorderStyle = BorderStyle.Fixed3D
+        ScSpacings.Dock = DockStyle.Fill
+        ScSpacings.Location = New Point(0, 0)
+        ScSpacings.Name = "ScSpacings"
+        ' 
+        ' ScSpacings.Panel1
+        ' 
+        ScSpacings.Panel1.Controls.Add(GbxClampSpacing)
+        ' 
+        ' ScSpacings.Panel2
+        ' 
+        ScSpacings.Panel2.Controls.Add(GbxBiscuitDomino)
+        ScSpacings.Size = New Size(1130, 807)
+        ScSpacings.SplitterDistance = 561
+        ScSpacings.SplitterWidth = 6
+        ScSpacings.TabIndex = 0
+        ' 
+        ' GbxClampSpacing
+        ' 
+        GbxClampSpacing.BackColor = Color.Silver
+        GbxClampSpacing.Controls.Add(LblClampPressure)
+        GbxClampSpacing.Controls.Add(LblNumClampsResults)
+        GbxClampSpacing.Controls.Add(LblClampSpacingResult)
+        GbxClampSpacing.Controls.Add(Label57)
+        GbxClampSpacing.Controls.Add(TxtClampNotes)
+        GbxClampSpacing.Controls.Add(Label56)
+        GbxClampSpacing.Controls.Add(BtnCalcClampSpacing)
+        GbxClampSpacing.Controls.Add(CboGlueType)
+        GbxClampSpacing.Controls.Add(CCboClampWoodType)
+        GbxClampSpacing.Controls.Add(CboPanelWidthUnit)
+        GbxClampSpacing.Controls.Add(TxtClampPanelThickness)
+        GbxClampSpacing.Controls.Add(TxtClampPanelWidth)
+        GbxClampSpacing.Controls.Add(Label55)
+        GbxClampSpacing.Controls.Add(Label54)
+        GbxClampSpacing.Controls.Add(Label53)
+        GbxClampSpacing.Controls.Add(LblClampPanelWidth)
+        GbxClampSpacing.Dock = DockStyle.Fill
+        GbxClampSpacing.Location = New Point(0, 0)
+        GbxClampSpacing.Name = "GbxClampSpacing"
+        GbxClampSpacing.Size = New Size(557, 803)
+        GbxClampSpacing.TabIndex = 0
+        GbxClampSpacing.TabStop = False
+        GbxClampSpacing.Text = "Clamp Spacing"
+        ' 
+        ' LblClampPressure
+        ' 
+        LblClampPressure.AutoSize = True
+        LblClampPressure.Location = New Point(24, 336)
+        LblClampPressure.Name = "LblClampPressure"
+        LblClampPressure.Size = New Size(148, 18)
+        LblClampPressure.TabIndex = 17
+        LblClampPressure.Tag = "Clamp Pressure: {0} psi"
+        LblClampPressure.Text = "Clamp Pressure: "
+        LblClampPressure.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblNumClampsResults
+        ' 
+        LblNumClampsResults.AutoSize = True
+        LblNumClampsResults.Location = New Point(24, 301)
+        LblNumClampsResults.Name = "LblNumClampsResults"
+        LblNumClampsResults.Size = New Size(151, 18)
+        LblNumClampsResults.TabIndex = 16
+        LblNumClampsResults.Tag = "Number of Clamps: {0}"
+        LblNumClampsResults.Text = "Number Clamps: "
+        LblNumClampsResults.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblClampSpacingResult
+        ' 
+        LblClampSpacingResult.AutoSize = True
+        LblClampSpacingResult.Location = New Point(24, 266)
+        LblClampSpacingResult.Name = "LblClampSpacingResult"
+        LblClampSpacingResult.Size = New Size(211, 18)
+        LblClampSpacingResult.TabIndex = 15
+        LblClampSpacingResult.Tag = "Recommended Spacing: {0} {1}"
+        LblClampSpacingResult.Text = "Recommended Spacing: "
+        LblClampSpacingResult.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Label57
+        ' 
+        Label57.AutoSize = True
+        Label57.Font = New Font("Georgia", 8.0F, FontStyle.Bold)
+        Label57.Location = New Point(11, 381)
+        Label57.Name = "Label57"
+        Label57.Size = New Size(73, 18)
+        Label57.TabIndex = 14
+        Label57.Text = "NOTES:"
+        ' 
+        ' TxtClampNotes
+        ' 
+        TxtClampNotes.Dock = DockStyle.Bottom
+        TxtClampNotes.Location = New Point(3, 405)
+        TxtClampNotes.Multiline = True
+        TxtClampNotes.Name = "TxtClampNotes"
+        TxtClampNotes.ScrollBars = ScrollBars.Both
+        TxtClampNotes.Size = New Size(551, 395)
+        TxtClampNotes.TabIndex = 13
+        ' 
+        ' Label56
+        ' 
+        Label56.AutoSize = True
+        Label56.Font = New Font("Georgia", 8.0F, FontStyle.Bold)
+        Label56.Location = New Point(11, 231)
+        Label56.Name = "Label56"
+        Label56.Size = New Size(93, 18)
+        Label56.TabIndex = 12
+        Label56.Text = "RESULTS:"
+        ' 
+        ' BtnCalcClampSpacing
+        ' 
+        BtnCalcClampSpacing.BackColor = Color.MistyRose
+        BtnCalcClampSpacing.Location = New Point(193, 174)
+        BtnCalcClampSpacing.Name = "BtnCalcClampSpacing"
+        BtnCalcClampSpacing.Size = New Size(112, 34)
+        BtnCalcClampSpacing.TabIndex = 11
+        BtnCalcClampSpacing.Text = "Calculate"
+        BtnCalcClampSpacing.UseVisualStyleBackColor = False
+        ' 
+        ' CboGlueType
+        ' 
+        CboGlueType.FormattingEnabled = True
+        CboGlueType.Items.AddRange(New Object() {"PVA", "Polyurethane", "Epoxy"})
+        CboGlueType.Location = New Point(178, 133)
+        CboGlueType.Name = "CboGlueType"
+        CboGlueType.Size = New Size(182, 26)
+        CboGlueType.TabIndex = 10
+        ' 
+        ' CCboClampWoodType
+        ' 
+        CCboClampWoodType.FormattingEnabled = True
+        CCboClampWoodType.Items.AddRange(New Object() {"Hardwood", "Softwood"})
+        CCboClampWoodType.Location = New Point(178, 99)
+        CCboClampWoodType.Name = "CCboClampWoodType"
+        CCboClampWoodType.Size = New Size(182, 26)
+        CCboClampWoodType.TabIndex = 9
+        ' 
+        ' CboPanelWidthUnit
+        ' 
+        CboPanelWidthUnit.FormattingEnabled = True
+        CboPanelWidthUnit.Items.AddRange(New Object() {"in", "mm"})
+        CboPanelWidthUnit.Location = New Point(270, 31)
+        CboPanelWidthUnit.Name = "CboPanelWidthUnit"
+        CboPanelWidthUnit.Size = New Size(90, 26)
+        CboPanelWidthUnit.TabIndex = 8
+        ' 
+        ' TxtClampPanelThickness
+        ' 
+        TxtClampPanelThickness.Location = New Point(178, 65)
+        TxtClampPanelThickness.Name = "TxtClampPanelThickness"
+        TxtClampPanelThickness.Size = New Size(92, 26)
+        TxtClampPanelThickness.TabIndex = 5
+        ' 
+        ' TxtClampPanelWidth
+        ' 
+        TxtClampPanelWidth.Location = New Point(178, 31)
+        TxtClampPanelWidth.Name = "TxtClampPanelWidth"
+        TxtClampPanelWidth.Size = New Size(92, 26)
+        TxtClampPanelWidth.TabIndex = 4
+        ' 
+        ' Label55
+        ' 
+        Label55.AutoSize = True
+        Label55.Location = New Point(76, 137)
+        Label55.Name = "Label55"
+        Label55.Size = New Size(102, 18)
+        Label55.TabIndex = 3
+        Label55.Text = "Glue Type: "
+        Label55.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label54
+        ' 
+        Label54.AutoSize = True
+        Label54.Location = New Point(66, 103)
+        Label54.Name = "Label54"
+        Label54.Size = New Size(112, 18)
+        Label54.TabIndex = 2
+        Label54.Text = "Wood Type: "
+        Label54.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label53
+        ' 
+        Label53.AutoSize = True
+        Label53.Location = New Point(25, 69)
+        Label53.Name = "Label53"
+        Label53.Size = New Size(153, 18)
+        Label53.TabIndex = 1
+        Label53.Text = "Panel Thickness: "
+        Label53.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' LblClampPanelWidth
+        ' 
+        LblClampPanelWidth.AutoSize = True
+        LblClampPanelWidth.Location = New Point(56, 35)
+        LblClampPanelWidth.Name = "LblClampPanelWidth"
+        LblClampPanelWidth.Size = New Size(122, 18)
+        LblClampPanelWidth.TabIndex = 0
+        LblClampPanelWidth.Text = "Panel Width: "
+        LblClampPanelWidth.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' GbxBiscuitDomino
+        ' 
+        GbxBiscuitDomino.BackColor = Color.Silver
+        GbxBiscuitDomino.Controls.Add(LstCenterMarks)
+        GbxBiscuitDomino.Controls.Add(LblCenterMarkPositions)
+        GbxBiscuitDomino.Controls.Add(LblNumberNeeded)
+        GbxBiscuitDomino.Controls.Add(LblEdgeDistance)
+        GbxBiscuitDomino.Controls.Add(LblRecommendedSpacing)
+        GbxBiscuitDomino.Controls.Add(Label62)
+        GbxBiscuitDomino.Controls.Add(BtnCalcBiscuit)
+        GbxBiscuitDomino.Controls.Add(TxtBiscuitStockThickness)
+        GbxBiscuitDomino.Controls.Add(CboJointStrength)
+        GbxBiscuitDomino.Controls.Add(CboBiscuitSize)
+        GbxBiscuitDomino.Controls.Add(CboJoineryType)
+        GbxBiscuitDomino.Controls.Add(CboJointLengthUnit)
+        GbxBiscuitDomino.Controls.Add(TxtBiscuitJointLength)
+        GbxBiscuitDomino.Controls.Add(Label61)
+        GbxBiscuitDomino.Controls.Add(Label60)
+        GbxBiscuitDomino.Controls.Add(Label59)
+        GbxBiscuitDomino.Controls.Add(Label58)
+        GbxBiscuitDomino.Controls.Add(Label52)
+        GbxBiscuitDomino.Dock = DockStyle.Fill
+        GbxBiscuitDomino.Location = New Point(0, 0)
+        GbxBiscuitDomino.Name = "GbxBiscuitDomino"
+        GbxBiscuitDomino.Size = New Size(559, 803)
+        GbxBiscuitDomino.TabIndex = 0
+        GbxBiscuitDomino.TabStop = False
+        GbxBiscuitDomino.Text = "Biscuit Domino Spacing"
+        ' 
+        ' LstCenterMarks
+        ' 
+        LstCenterMarks.FormattingEnabled = True
+        LstCenterMarks.Location = New Point(28, 478)
+        LstCenterMarks.Name = "LstCenterMarks"
+        LstCenterMarks.Size = New Size(430, 184)
+        LstCenterMarks.TabIndex = 17
+        ' 
+        ' LblCenterMarkPositions
+        ' 
+        LblCenterMarkPositions.AutoSize = True
+        LblCenterMarkPositions.Location = New Point(13, 446)
+        LblCenterMarkPositions.Name = "LblCenterMarkPositions"
+        LblCenterMarkPositions.Size = New Size(197, 18)
+        LblCenterMarkPositions.TabIndex = 16
+        LblCenterMarkPositions.Text = "Center Mark Positions:"
+        ' 
+        ' LblNumberNeeded
+        ' 
+        LblNumberNeeded.AutoSize = True
+        LblNumberNeeded.Location = New Point(29, 405)
+        LblNumberNeeded.Name = "LblNumberNeeded"
+        LblNumberNeeded.Size = New Size(151, 18)
+        LblNumberNeeded.TabIndex = 15
+        LblNumberNeeded.Tag = "Number Needed: {0}"
+        LblNumberNeeded.Text = "Number Needed: "
+        LblNumberNeeded.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblEdgeDistance
+        ' 
+        LblEdgeDistance.AutoSize = True
+        LblEdgeDistance.Location = New Point(29, 371)
+        LblEdgeDistance.Name = "LblEdgeDistance"
+        LblEdgeDistance.Size = New Size(134, 18)
+        LblEdgeDistance.TabIndex = 14
+        LblEdgeDistance.Tag = "Edge Distance: {0} {1}"
+        LblEdgeDistance.Text = "Edge Distance: "
+        LblEdgeDistance.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LblRecommendedSpacing
+        ' 
+        LblRecommendedSpacing.AutoSize = True
+        LblRecommendedSpacing.Location = New Point(29, 337)
+        LblRecommendedSpacing.Name = "LblRecommendedSpacing"
+        LblRecommendedSpacing.Size = New Size(211, 18)
+        LblRecommendedSpacing.TabIndex = 13
+        LblRecommendedSpacing.Tag = "Recommended Spacing: {0} {1}"
+        LblRecommendedSpacing.Text = "Recommended Spacing: "
+        LblRecommendedSpacing.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Label62
+        ' 
+        Label62.AutoSize = True
+        Label62.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label62.Location = New Point(9, 304)
+        Label62.Name = "Label62"
+        Label62.Size = New Size(93, 18)
+        Label62.TabIndex = 12
+        Label62.Text = "RESULTS:"
+        ' 
+        ' BtnCalcBiscuit
+        ' 
+        BtnCalcBiscuit.BackColor = Color.MistyRose
+        BtnCalcBiscuit.Location = New Point(235, 244)
+        BtnCalcBiscuit.Name = "BtnCalcBiscuit"
+        BtnCalcBiscuit.Size = New Size(112, 34)
+        BtnCalcBiscuit.TabIndex = 11
+        BtnCalcBiscuit.Text = "Calculate"
+        BtnCalcBiscuit.UseVisualStyleBackColor = False
+        ' 
+        ' TxtBiscuitStockThickness
+        ' 
+        TxtBiscuitStockThickness.Location = New Point(171, 171)
+        TxtBiscuitStockThickness.Name = "TxtBiscuitStockThickness"
+        TxtBiscuitStockThickness.Size = New Size(97, 26)
+        TxtBiscuitStockThickness.TabIndex = 10
+        ' 
+        ' CboJointStrength
+        ' 
+        CboJointStrength.FormattingEnabled = True
+        CboJointStrength.Items.AddRange(New Object() {"Light", "Medium", "Heavy"})
+        CboJointStrength.Location = New Point(171, 137)
+        CboJointStrength.Name = "CboJointStrength"
+        CboJointStrength.Size = New Size(126, 26)
+        CboJointStrength.TabIndex = 9
+        ' 
+        ' CboBiscuitSize
+        ' 
+        CboBiscuitSize.FormattingEnabled = True
+        CboBiscuitSize.Items.AddRange(New Object() {"#0", "#10", "#20", "#FF", "#H9"})
+        CboBiscuitSize.Location = New Point(171, 103)
+        CboBiscuitSize.Name = "CboBiscuitSize"
+        CboBiscuitSize.Size = New Size(123, 26)
+        CboBiscuitSize.TabIndex = 8
+        ' 
+        ' CboJoineryType
+        ' 
+        CboJoineryType.FormattingEnabled = True
+        CboJoineryType.Items.AddRange(New Object() {"Biscuit", "Domino"})
+        CboJoineryType.Location = New Point(171, 69)
+        CboJoineryType.Name = "CboJoineryType"
+        CboJoineryType.Size = New Size(182, 26)
+        CboJoineryType.TabIndex = 7
+        ' 
+        ' CboJointLengthUnit
+        ' 
+        CboJointLengthUnit.FormattingEnabled = True
+        CboJointLengthUnit.Items.AddRange(New Object() {"in", "mm"})
+        CboJointLengthUnit.Location = New Point(268, 35)
+        CboJointLengthUnit.Name = "CboJointLengthUnit"
+        CboJointLengthUnit.Size = New Size(76, 26)
+        CboJointLengthUnit.TabIndex = 6
+        ' 
+        ' TxtBiscuitJointLength
+        ' 
+        TxtBiscuitJointLength.Location = New Point(171, 35)
+        TxtBiscuitJointLength.Name = "TxtBiscuitJointLength"
+        TxtBiscuitJointLength.Size = New Size(97, 26)
+        TxtBiscuitJointLength.TabIndex = 5
+        ' 
+        ' Label61
+        ' 
+        Label61.AutoSize = True
+        Label61.Location = New Point(19, 175)
+        Label61.Name = "Label61"
+        Label61.Size = New Size(152, 18)
+        Label61.TabIndex = 4
+        Label61.Text = "Stock Thickness: "
+        Label61.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label60
+        ' 
+        Label60.AutoSize = True
+        Label60.Location = New Point(34, 141)
+        Label60.Name = "Label60"
+        Label60.Size = New Size(137, 18)
+        Label60.TabIndex = 3
+        Label60.Text = "Joint Strength: "
+        Label60.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label59
+        ' 
+        Label59.AutoSize = True
+        Label59.Location = New Point(119, 107)
+        Label59.Name = "Label59"
+        Label59.Size = New Size(52, 18)
+        Label59.TabIndex = 2
+        Label59.Text = "Size: "
+        Label59.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label58
+        ' 
+        Label58.AutoSize = True
+        Label58.Location = New Point(46, 73)
+        Label58.Name = "Label58"
+        Label58.Size = New Size(125, 18)
+        Label58.TabIndex = 1
+        Label58.Text = "Joinery Type: "
+        Label58.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label52
+        ' 
+        Label52.AutoSize = True
+        Label52.Location = New Point(48, 39)
+        Label52.Name = "Label52"
+        Label52.Size = New Size(123, 18)
+        Label52.TabIndex = 0
+        Label52.Text = "Joint Length: "
+        Label52.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' TpDrawings
         ' 
@@ -6413,7 +6869,7 @@ Partial Class FrmMain
         SplitContainer2.Panel2.Controls.Add(TxtGritNotes)
         SplitContainer2.Panel2.Controls.Add(LblGritResult)
         SplitContainer2.Size = New Size(1124, 807)
-        SplitContainer2.SplitterDistance = 497
+        SplitContainer2.SplitterDistance = 496
         SplitContainer2.SplitterWidth = 6
         SplitContainer2.TabIndex = 2
         ' 
@@ -6433,7 +6889,7 @@ Partial Class FrmMain
         GbxSandingGrit.Dock = DockStyle.Fill
         GbxSandingGrit.Location = New Point(0, 0)
         GbxSandingGrit.Name = "GbxSandingGrit"
-        GbxSandingGrit.Size = New Size(493, 803)
+        GbxSandingGrit.Size = New Size(492, 803)
         GbxSandingGrit.TabIndex = 0
         GbxSandingGrit.TabStop = False
         GbxSandingGrit.Text = "Sanding Grit Progression"
@@ -6547,7 +7003,7 @@ Partial Class FrmMain
         LblOptimalGritSequence.Dock = DockStyle.Top
         LblOptimalGritSequence.Location = New Point(3, 22)
         LblOptimalGritSequence.Name = "LblOptimalGritSequence"
-        LblOptimalGritSequence.Size = New Size(487, 140)
+        LblOptimalGritSequence.Size = New Size(486, 140)
         LblOptimalGritSequence.TabIndex = 0
         ' 
         ' TxtGritNotes
@@ -6558,7 +7014,7 @@ Partial Class FrmMain
         TxtGritNotes.Name = "TxtGritNotes"
         TxtGritNotes.ReadOnly = True
         TxtGritNotes.ScrollBars = ScrollBars.Both
-        TxtGritNotes.Size = New Size(617, 751)
+        TxtGritNotes.Size = New Size(618, 751)
         TxtGritNotes.TabIndex = 1
         ' 
         ' LblGritResult
@@ -6829,6 +7285,15 @@ Partial Class FrmMain
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
+        TpClampSpacing.ResumeLayout(False)
+        ScSpacings.Panel1.ResumeLayout(False)
+        ScSpacings.Panel2.ResumeLayout(False)
+        CType(ScSpacings, ComponentModel.ISupportInitialize).EndInit()
+        ScSpacings.ResumeLayout(False)
+        GbxClampSpacing.ResumeLayout(False)
+        GbxClampSpacing.PerformLayout()
+        GbxBiscuitDomino.ResumeLayout(False)
+        GbxBiscuitDomino.PerformLayout()
         TpDrawings.ResumeLayout(False)
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).EndInit()
         TpJoinery.ResumeLayout(False)
@@ -7224,14 +7689,14 @@ Partial Class FrmMain
     Friend WithEvents Label55 As Label
     Friend WithEvents Label56 As Label
     Friend WithEvents TxtJointStockThickness As TextBox
-    Friend WithEvents Label59 As Label
+    Friend WithEvents LblNumClampsResults As Label
     Friend WithEvents TxtJointStockWidth As TextBox
     Friend WithEvents Label57 As Label
     Friend WithEvents RbTenonThrough As RadioButton
     Friend WithEvents RbTenonHaunched As RadioButton
     Friend WithEvents RbTenonStandard As RadioButton
-    Friend WithEvents Label58 As Label
-    Friend WithEvents Label60 As Label
+    Friend WithEvents LblClampSpacingResult As Label
+    Friend WithEvents LblClampPressure As Label
     Friend WithEvents Label61 As Label
     Friend WithEvents LblTenonThickness As Label
     Friend WithEvents LblTenonLength As Label
@@ -7433,7 +7898,7 @@ Partial Class FrmMain
     Friend WithEvents Label66 As Label
     Friend WithEvents Label65 As Label
     Friend WithEvents Label64 As Label
-    Friend WithEvents Label63 As Label
+    Friend WithEvents LblRecommendedSpacing As Label
     Friend WithEvents TxtJoineryReinforcement As TextBox
     Friend WithEvents TxtJoineryStrengthChar As TextBox
     Friend WithEvents TxtJoineryTools As TextBox
@@ -7533,5 +7998,32 @@ Partial Class FrmMain
     Friend WithEvents TxtGritNotes As TextBox
     Friend WithEvents NudLogKeep As NumericUpDown
     Friend WithEvents Label51 As Label
+    Friend WithEvents TpClampSpacing As TabPage
+    Friend WithEvents ScSpacings As SplitContainer
+    Friend WithEvents GbxClampSpacing As GroupBox
+    Friend WithEvents GbxBiscuitDomino As GroupBox
+    Friend WithEvents BtnCalcClampSpacing As Button
+    Friend WithEvents CboGlueType As ComboBox
+    Friend WithEvents CCboClampWoodType As ComboBox
+    Friend WithEvents CboPanelWidthUnit As ComboBox
+    Friend WithEvents TxtClampPanelThickness As TextBox
+    Friend WithEvents TxtClampPanelWidth As TextBox
+    Friend WithEvents LblClampPanelWidth As Label
+    Friend WithEvents TxtClampNotes As TextBox
+    Friend WithEvents LblNumberNeeded As Label
+    Friend WithEvents LblEdgeDistance As Label
+    Friend WithEvents BtnCalcBiscuit As Button
+    Friend WithEvents TxtBiscuitStockThickness As TextBox
+    Friend WithEvents CboJointStrength As ComboBox
+    Friend WithEvents CboBiscuitSize As ComboBox
+    Friend WithEvents CboJoineryType As ComboBox
+    Friend WithEvents CboJointLengthUnit As ComboBox
+    Friend WithEvents TxtBiscuitJointLength As TextBox
+    Friend WithEvents Label60 As Label
+    Friend WithEvents Label59 As Label
+    Friend WithEvents Label58 As Label
+    Friend WithEvents Label52 As Label
+    Friend WithEvents LblCenterMarkPositions As Label
+    Friend WithEvents LstCenterMarks As ListBox
 End Class
 
