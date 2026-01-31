@@ -1,9 +1,6 @@
 Imports System.Drawing
 
-''' <summary>
-''' Partial class for FrmMain - System Tray (NotifyIcon) functionality
-''' Provides taskbar icon with context menu for quick access to common functions
-''' </summary>
+
 Partial Public Class FrmMain
 
 #Region "System Tray - NotifyIcon and Context Menu"
@@ -24,11 +21,19 @@ Partial Public Class FrmMain
     ''' </summary>
     Private Sub InitializeSystemTray()
         Try
-            ' Create NotifyIcon
-            NotifyIcon = New NotifyIcon()
+            ' Ensure we have a components container
+            If Me.components Is Nothing Then
+                Me.components = New System.ComponentModel.Container()
+            End If
+
+            ' Create NotifyIcon with components container
+            NotifyIcon = New NotifyIcon(Me.components)
             NotifyIcon.Icon = Me.Icon ' Use application icon
             NotifyIcon.Text = $"{AppName} - {Version}" ' Tooltip
             NotifyIcon.Visible = True
+
+            ' Debug log
+            Debug.WriteLine("NotifyIcon created and set to visible")
 
             ' Create context menu
             CmsNotifyIcon = New ContextMenuStrip()
@@ -98,11 +103,23 @@ Partial Public Class FrmMain
             ' Hook into form minimize to hide to tray (optional behavior)
             ' AddHandler Me.Resize, AddressOf FrmMain_Resize
 
+            ' Debug and log success
+            Debug.WriteLine($"System tray icon initialized successfully. Visible={NotifyIcon.Visible}, Icon={NotifyIcon.Icon IsNot Nothing}")
             ErrorHandler.LogError(New Exception("System tray icon initialized"), "InitializeSystemTray")
+            
+            ' Force icon to show (sometimes needed)
+            NotifyIcon.Visible = False
+            NotifyIcon.Visible = True
+            
+            ' Debug message (remove after testing)
+            MessageBox.Show($"System Tray Icon Created!{Environment.NewLine}Visible: {NotifyIcon.Visible}{Environment.NewLine}Icon Set: {NotifyIcon.Icon IsNot Nothing}{Environment.NewLine}Context Menu: {NotifyIcon.ContextMenuStrip IsNot Nothing}", 
+                          "Debug: System Tray", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeSystemTray")
             ' Non-critical - app can function without tray icon
+            MessageBox.Show($"Error initializing system tray:{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}Stack Trace:{Environment.NewLine}{ex.StackTrace}",
+                          "System Tray Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

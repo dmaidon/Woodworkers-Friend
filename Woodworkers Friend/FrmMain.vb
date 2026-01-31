@@ -14,6 +14,7 @@ Public Class FrmMain
     Private _resourceManager As New List(Of IDisposable)
 
     ' Add a field to track the current scale
+    ' Note: _scaleManager is declared in FrmMain.DoorCalculations.vb partial class
     'Private _scaleManager As New ScaleManager()
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
