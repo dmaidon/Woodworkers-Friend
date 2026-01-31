@@ -1,4 +1,4 @@
-﻿Imports Microsoft.VisualBasic.ApplicationServices
+Imports Microsoft.VisualBasic.ApplicationServices
 
 Namespace My
     ' The following events are available for MyApplication:
@@ -24,6 +24,45 @@ Namespace My
     ' End Sub
 
     Partial Friend Class MyApplication
+
+        ''' <summary>
+        ''' Handles StartupNextInstance event for single-instance application
+        ''' This fires when user tries to start a second instance
+        ''' </summary>
+        Private Sub MyApplication_StartupNextInstance(sender As Object, e As StartupNextInstanceEventArgs) Handles Me.StartupNextInstance
+            Try
+                ' Get the main form
+                Dim mainForm = TryCast(Me.MainForm, FrmMain)
+                If mainForm IsNot Nothing Then
+                    ' Restore the window if minimized
+                    If mainForm.WindowState = FormWindowState.Minimized Then
+                        mainForm.WindowState = FormWindowState.Normal
+                    End If
+
+                    ' Bring window to front
+                    mainForm.Show()
+                    mainForm.Activate()
+                    mainForm.BringToFront()
+                    
+                    ' Set focus
+                    mainForm.Focus()
+                End If
+            Catch ex As Exception
+                ' Log error but don't crash
+                System.Diagnostics.Debug.WriteLine($"StartupNextInstance error: {ex.Message}")
+            End Try
+        End Sub
+
+        ''' <summary>
+        ''' Apply application-wide defaults
+        ''' </summary>
+        Private Sub MyApplication_ApplyApplicationDefaults(sender As Object, e As ApplyApplicationDefaultsEventArgs) Handles Me.ApplyApplicationDefaults
+            ' Set color mode for dark mode support (.NET 9+)
+            e.ColorMode = SystemColorMode.System
+            
+            ' Set HighDPI mode
+            e.HighDpiMode = HighDpiMode.SystemAware
+        End Sub
 
     End Class
 End Namespace

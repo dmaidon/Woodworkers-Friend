@@ -118,8 +118,10 @@ Partial Public Class FrmMain
             ' We'll show the menu manually on right-click instead
             ' _trayIcon.ContextMenuStrip = CmsNotifyIcon  ' <-- This doesn't work!
 
-            ' Handle mouse clicks on tray icon
-            AddHandler _trayIcon.MouseClick, AddressOf TrayIcon_MouseClick
+            ' CRITICAL: Use MouseUp instead of MouseClick
+            ' MouseUp fires BEFORE Windows processes the click (so we can intercept it)
+            ' MouseClick fires AFTER (too late - default menu already shown)
+            AddHandler _trayIcon.MouseUp, AddressOf TrayIcon_MouseUp
 
             ' Debug log success
             Debug.WriteLine($"System tray initialized - Menu items: {CmsNotifyIcon.Items.Count}, Visible: {_trayIcon.Visible}")
@@ -158,11 +160,12 @@ Partial Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Handles mouse clicks on the tray icon.
+    ''' Handles MouseUp event on the tray icon - THIS IS CRITICAL!
+    ''' MouseUp fires BEFORE Windows default handling (MouseClick fires AFTER)
     ''' Left-click: restores window
     ''' Right-click: shows context menu manually
     ''' </summary>
-    Private Sub TrayIcon_MouseClick(sender As Object, e As MouseEventArgs)
+    Private Sub TrayIcon_MouseUp(sender As Object, e As MouseEventArgs)
         Try
             If e.Button = MouseButtons.Left Then
                 ' Left-click restores window
@@ -171,14 +174,14 @@ Partial Public Class FrmMain
                 ' Right-click shows context menu
                 ' CRITICAL: Must call SetForegroundWindow to make menu behave properly
                 SetForegroundWindow(Me.Handle)
-                
+
                 ' Show context menu at cursor position
                 CmsNotifyIcon.Show(Cursor.Position)
-                
+
                 Debug.WriteLine("Context menu shown at cursor position")
             End If
         Catch ex As Exception
-            ErrorHandler.LogError(ex, "TrayIcon_MouseClick")
+            ErrorHandler.LogError(ex, "TrayIcon_MouseUp")
         End Try
     End Sub
 
