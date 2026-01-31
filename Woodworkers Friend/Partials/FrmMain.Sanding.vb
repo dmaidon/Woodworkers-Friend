@@ -1,7 +1,3 @@
-''' <summary>
-''' Partial class for FrmMain - Sanding Grit Progression Calculator
-''' Handles optimal sanding grit sequence calculations for woodworking projects
-''' </summary>
 Partial Public Class FrmMain
 
 #Region "Sanding Grit Progression - Initialization"
@@ -47,7 +43,6 @@ Partial Public Class FrmMain
             TxtGritNotes.Text = ""
 
             ErrorHandler.LogError(New Exception("Sanding Grit Progression calculator initialized"), "InitializeSandingGritCalculator")
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeSandingGritCalculator")
             MessageBox.Show("Error initializing Sanding Grit calculator: " & ex.Message,
@@ -105,7 +100,6 @@ Partial Public Class FrmMain
 
             ' Display results
             DisplayGritResults(progression, skipGrits, isSoftwood, startGrit, finalGrit)
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "BtnCalculateGrit_Click")
             MessageBox.Show("Error calculating grit progression: " & ex.Message,
@@ -133,8 +127,9 @@ Partial Public Class FrmMain
 
         ' If skip-grit method, remove every other grit (except first and last)
         If skipGrits AndAlso progression.Count > 2 Then
-            Dim skippedProgression As New List(Of Integer)
-            skippedProgression.Add(progression(0)) ' Always keep first
+            Dim skippedProgression As New List(Of Integer) From {
+                progression(0) ' Always keep first
+                }
 
             ' Add every other grit from the middle
             For i As Integer = 2 To progression.Count - 2 Step 2
@@ -247,7 +242,6 @@ Partial Public Class FrmMain
             TxtGritNotes.Text = notes.ToString()
 
             ErrorHandler.LogError(New Exception($"Grit progression calculated: {String.Join(" → ", progression)}"), "DisplayGritResults")
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "DisplayGritResults")
             TxtGritNotes.Text = "Error displaying results: " & ex.Message

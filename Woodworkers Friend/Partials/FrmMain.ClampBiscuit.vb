@@ -1,8 +1,5 @@
 Imports System.Drawing
 
-''' <summary>
-''' Partial class for FrmMain - Clamp Spacing & Biscuit/Domino Spacing Calculators
-''' </summary>
 Partial Public Class FrmMain
 
 #Region "Clamp & Biscuit Spacing - Event Handlers"
@@ -24,8 +21,8 @@ Partial Public Class FrmMain
 
             ' Convert to inches if needed
             If unit = "mm" Then
-                panelWidth = panelWidth / 25.4
-                panelThickness = panelThickness / 25.4
+                panelWidth /= 25.4
+                panelThickness /= 25.4
             End If
 
             ' Calculate clamp spacing
@@ -34,13 +31,13 @@ Partial Public Class FrmMain
             Dim pressure As Double = CalculateClampPressure(woodType, glueType)
 
             ' Display results using Tag format strings
-            LblClampSpacingResult.Text = String.Format(LblClampSpacingResult.Tag.ToString(), FormatMeasurement(spacing, unit))
+            ' LblClampSpacingResult.Tag = "Recommended Spacing: {0} {1}" - needs value and unit
+            LblClampSpacingResult.Text = String.Format(LblClampSpacingResult.Tag.ToString(), spacing.ToString("F1"), unit)
             LblNumClampsResults.Text = String.Format(LblNumClampsResults.Tag.ToString(), numClamps)
             LblClampPressure.Text = String.Format(LblClampPressure.Tag.ToString(), pressure.ToString("F0"))
 
             ' Update notes
             UpdateClampNotes(numClamps, spacing, woodType, glueType)
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "BtnCalcClampSpacing_Click")
             MessageBox.Show($"Error calculating clamp spacing: {ex.Message}",
@@ -66,8 +63,8 @@ Partial Public Class FrmMain
 
             ' Convert to inches if needed
             If unit = "mm" Then
-                jointLength = jointLength / 25.4
-                stockThickness = stockThickness / 25.4
+                jointLength /= 25.4
+                stockThickness /= 25.4
             End If
 
             ' Calculate spacing and positions
@@ -76,18 +73,13 @@ Partial Public Class FrmMain
             Dim positions As List(Of Double) = CalculateBiscuitPositions(jointLength, spacing, edgeDistance)
 
             ' Display results using Tag format strings
+            ' Tags have format: "Label: {0} {1}" where {0}=value, {1}=unit
             LblNumberNeeded.Text = String.Format(LblNumberNeeded.Tag.ToString(), positions.Count)
-            LblEdgeDistance.Text = String.Format(LblEdgeDistance.Tag.ToString(), FormatMeasurement(edgeDistance, unit))
-
-            ' Note: LblRecommendedSpacing is Label58 based on the designer
-            Dim lblSpacing = TryCast(GbxBiscuitDomino.Controls.Cast(Of Control)().FirstOrDefault(Function(c) c.Name = "Label58"), Label)
-            If lblSpacing IsNot Nothing AndAlso lblSpacing.Tag IsNot Nothing Then
-                lblSpacing.Text = String.Format(lblSpacing.Tag.ToString(), FormatMeasurement(spacing, unit))
-            End If
+            LblEdgeDistance.Text = String.Format(LblEdgeDistance.Tag.ToString(), edgeDistance.ToString("F2"), unit)
+            LblRecommendedSpacing.Text = String.Format(LblRecommendedSpacing.Tag.ToString(), spacing.ToString("F1"), unit)
 
             ' Populate center mark positions
             PopulateCenterMarks(positions, unit)
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "BtnCalcBiscuit_Click")
             MessageBox.Show($"Error calculating biscuit spacing: {ex.Message}",
