@@ -178,6 +178,23 @@
   - Health and safety warnings for wood dust exposure
   - General dust collection system tips and best practices
 
+#### **Sanding Grit Progression Calculator** 🆕
+- **Optimal grit sequence planning** for professional-quality finishes
+- **Wood-specific recommendations** (Softwood vs Hardwood)
+- **Two progression methods:**
+  - Sequential (Thorough) - Every grit for best finish quality
+  - Skip-Grit (Fast) - Every other grit for painted surfaces
+- **Standard grit range:** 40 → 60 → 80 → 100 → 120 → 150 → 180 → 220 → 320 → 400 → 600
+- **Detailed results include:**
+  - Visual grit progression sequence
+  - Time estimates (3-5 minutes per grit)
+  - Method-specific recommendations
+  - Individual grit descriptions and purposes
+  - Wood-specific sanding tips
+  - Safety reminders (dust mask requirements)
+- **Common finish sequences** for different project types
+- **Comprehensive help documentation** with sanding science and best practices
+
 ### **🛠️ Utilities**
 
 - **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals

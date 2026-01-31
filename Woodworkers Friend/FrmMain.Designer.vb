@@ -567,6 +567,23 @@ Partial Class FrmMain
         Label84 = New Label()
         Label85 = New Label()
         Label86 = New Label()
+        TpSanding = New TabPage()
+        SplitContainer2 = New SplitContainer()
+        GbxSandingGrit = New GroupBox()
+        BtnCalculateGrit = New Button()
+        PnlSgpRadioButtons = New Panel()
+        RbSequential = New RadioButton()
+        RbSkipGrit = New RadioButton()
+        CmbFinalGrit = New ComboBox()
+        LblSgpProgressType = New Label()
+        LblSgpFinalGrit = New Label()
+        CmbStartGrit = New ComboBox()
+        LblSgpStartingGrit = New Label()
+        CmbWoodType = New ComboBox()
+        LblSgpWoodType = New Label()
+        LblOptimalGritSequence = New Label()
+        TxtGritNotes = New TextBox()
+        LblGritResult = New Label()
         TpHelp = New TabPage()
         TpAbout = New TabPage()
         LblManageCosts = New Label()
@@ -703,6 +720,13 @@ Partial Class FrmMain
         GbBladeHeight.SuspendLayout()
         GbPushStick.SuspendLayout()
         GbxDustCollection.SuspendLayout()
+        TpSanding.SuspendLayout()
+        CType(SplitContainer2, ComponentModel.ISupportInitialize).BeginInit()
+        SplitContainer2.Panel1.SuspendLayout()
+        SplitContainer2.Panel2.SuspendLayout()
+        SplitContainer2.SuspendLayout()
+        GbxSandingGrit.SuspendLayout()
+        PnlSgpRadioButtons.SuspendLayout()
         TpAbout.SuspendLayout()
         GbxAbout.SuspendLayout()
         SuspendLayout()
@@ -5072,6 +5096,7 @@ Partial Class FrmMain
         TcReferences.Controls.Add(TpJoineryReference)
         TcReferences.Controls.Add(TpHardwareStandards)
         TcReferences.Controls.Add(TpSafety)
+        TcReferences.Controls.Add(TpSanding)
         TcReferences.Dock = DockStyle.Fill
         TcReferences.Location = New Point(0, 0)
         TcReferences.Multiline = True
@@ -5684,7 +5709,7 @@ Partial Class FrmMain
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareUses)
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareDescription)
         ScHardwareMain.Size = New Size(1124, 713)
-        ScHardwareMain.SplitterDistance = 498
+        ScHardwareMain.SplitterDistance = 496
         ScHardwareMain.SplitterWidth = 6
         ScHardwareMain.TabIndex = 0
         ' 
@@ -5695,7 +5720,7 @@ Partial Class FrmMain
         DgvHardware.Location = New Point(0, 0)
         DgvHardware.Name = "DgvHardware"
         DgvHardware.RowHeadersWidth = 62
-        DgvHardware.Size = New Size(494, 709)
+        DgvHardware.Size = New Size(492, 709)
         DgvHardware.TabIndex = 0
         ' 
         ' Label72
@@ -5754,7 +5779,7 @@ Partial Class FrmMain
         PnlHardwareSummaryInfo.Dock = DockStyle.Top
         PnlHardwareSummaryInfo.Location = New Point(0, 0)
         PnlHardwareSummaryInfo.Name = "PnlHardwareSummaryInfo"
-        PnlHardwareSummaryInfo.Size = New Size(616, 315)
+        PnlHardwareSummaryInfo.Size = New Size(618, 315)
         PnlHardwareSummaryInfo.TabIndex = 18
         ' 
         ' LblHardwareWeight
@@ -5864,7 +5889,7 @@ Partial Class FrmMain
         TpSafety.Controls.Add(TlpSafety)
         TpSafety.Location = New Point(4, 4)
         TpSafety.Name = "TpSafety"
-        TpSafety.Size = New Size(1134, 811)
+        TpSafety.Size = New Size(1128, 811)
         TpSafety.TabIndex = 3
         TpSafety.Text = "Safety"
         ' 
@@ -5885,7 +5910,7 @@ Partial Class FrmMain
         TlpSafety.RowCount = 2
         TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
         TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
-        TlpSafety.Size = New Size(1130, 807)
+        TlpSafety.Size = New Size(1124, 807)
         TlpSafety.TabIndex = 0
         ' 
         ' GbRouterSpeed
@@ -5904,7 +5929,7 @@ Partial Class FrmMain
         GbRouterSpeed.Location = New Point(15, 15)
         GbRouterSpeed.Name = "GbRouterSpeed"
         GbRouterSpeed.Padding = New Padding(10)
-        GbRouterSpeed.Size = New Size(546, 384)
+        GbRouterSpeed.Size = New Size(543, 384)
         GbRouterSpeed.TabIndex = 0
         GbRouterSpeed.TabStop = False
         GbRouterSpeed.Text = "Router Bit Speed Calculator"
@@ -6010,10 +6035,10 @@ Partial Class FrmMain
         GbBladeHeight.Controls.Add(Label79)
         GbBladeHeight.Dock = DockStyle.Fill
         GbBladeHeight.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
-        GbBladeHeight.Location = New Point(569, 15)
+        GbBladeHeight.Location = New Point(566, 15)
         GbBladeHeight.Name = "GbBladeHeight"
         GbBladeHeight.Padding = New Padding(10)
-        GbBladeHeight.Size = New Size(546, 384)
+        GbBladeHeight.Size = New Size(543, 384)
         GbBladeHeight.TabIndex = 1
         GbBladeHeight.TabStop = False
         GbBladeHeight.Text = "Blade Height Recommendations"
@@ -6115,7 +6140,7 @@ Partial Class FrmMain
         GbPushStick.Location = New Point(15, 407)
         GbPushStick.Name = "GbPushStick"
         GbPushStick.Padding = New Padding(10)
-        GbPushStick.Size = New Size(546, 385)
+        GbPushStick.Size = New Size(543, 385)
         GbPushStick.TabIndex = 2
         GbPushStick.TabStop = False
         GbPushStick.Text = "Push Stick Requirements"
@@ -6234,10 +6259,10 @@ Partial Class FrmMain
         GbxDustCollection.Controls.Add(Label86)
         GbxDustCollection.Dock = DockStyle.Fill
         GbxDustCollection.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
-        GbxDustCollection.Location = New Point(569, 407)
+        GbxDustCollection.Location = New Point(566, 407)
         GbxDustCollection.Name = "GbxDustCollection"
         GbxDustCollection.Padding = New Padding(10)
-        GbxDustCollection.Size = New Size(546, 385)
+        GbxDustCollection.Size = New Size(543, 385)
         GbxDustCollection.TabIndex = 3
         GbxDustCollection.TabStop = False
         GbxDustCollection.Text = "Dust Collection CFM Calculator"
@@ -6344,6 +6369,192 @@ Partial Class FrmMain
         Label86.TabIndex = 0
         Label86.Text = "Duct Length:"
         Label86.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' TpSanding
+        ' 
+        TpSanding.BackColor = Color.Gainsboro
+        TpSanding.BorderStyle = BorderStyle.Fixed3D
+        TpSanding.Controls.Add(SplitContainer2)
+        TpSanding.Location = New Point(4, 4)
+        TpSanding.Name = "TpSanding"
+        TpSanding.Size = New Size(1134, 811)
+        TpSanding.TabIndex = 4
+        TpSanding.Text = "Sanding"
+        ' 
+        ' SplitContainer2
+        ' 
+        SplitContainer2.BorderStyle = BorderStyle.Fixed3D
+        SplitContainer2.Dock = DockStyle.Fill
+        SplitContainer2.Location = New Point(0, 0)
+        SplitContainer2.Name = "SplitContainer2"
+        ' 
+        ' SplitContainer2.Panel1
+        ' 
+        SplitContainer2.Panel1.Controls.Add(GbxSandingGrit)
+        ' 
+        ' SplitContainer2.Panel2
+        ' 
+        SplitContainer2.Panel2.Controls.Add(TxtGritNotes)
+        SplitContainer2.Panel2.Controls.Add(LblGritResult)
+        SplitContainer2.Size = New Size(1130, 807)
+        SplitContainer2.SplitterDistance = 500
+        SplitContainer2.SplitterWidth = 6
+        SplitContainer2.TabIndex = 2
+        ' 
+        ' GbxSandingGrit
+        ' 
+        GbxSandingGrit.BackColor = Color.Silver
+        GbxSandingGrit.Controls.Add(BtnCalculateGrit)
+        GbxSandingGrit.Controls.Add(PnlSgpRadioButtons)
+        GbxSandingGrit.Controls.Add(CmbFinalGrit)
+        GbxSandingGrit.Controls.Add(LblSgpProgressType)
+        GbxSandingGrit.Controls.Add(LblSgpFinalGrit)
+        GbxSandingGrit.Controls.Add(CmbStartGrit)
+        GbxSandingGrit.Controls.Add(LblSgpStartingGrit)
+        GbxSandingGrit.Controls.Add(CmbWoodType)
+        GbxSandingGrit.Controls.Add(LblSgpWoodType)
+        GbxSandingGrit.Controls.Add(LblOptimalGritSequence)
+        GbxSandingGrit.Dock = DockStyle.Fill
+        GbxSandingGrit.Location = New Point(0, 0)
+        GbxSandingGrit.Name = "GbxSandingGrit"
+        GbxSandingGrit.Size = New Size(496, 803)
+        GbxSandingGrit.TabIndex = 0
+        GbxSandingGrit.TabStop = False
+        GbxSandingGrit.Text = "Sanding Grit Progression"
+        ' 
+        ' BtnCalculateGrit
+        ' 
+        BtnCalculateGrit.BackColor = Color.MistyRose
+        BtnCalculateGrit.Location = New Point(131, 405)
+        BtnCalculateGrit.Name = "BtnCalculateGrit"
+        BtnCalculateGrit.Size = New Size(206, 34)
+        BtnCalculateGrit.TabIndex = 9
+        BtnCalculateGrit.Text = "Calculate Progression"
+        BtnCalculateGrit.UseVisualStyleBackColor = False
+        ' 
+        ' PnlSgpRadioButtons
+        ' 
+        PnlSgpRadioButtons.Controls.Add(RbSequential)
+        PnlSgpRadioButtons.Controls.Add(RbSkipGrit)
+        PnlSgpRadioButtons.Location = New Point(12, 310)
+        PnlSgpRadioButtons.Name = "PnlSgpRadioButtons"
+        PnlSgpRadioButtons.Size = New Size(253, 81)
+        PnlSgpRadioButtons.TabIndex = 8
+        ' 
+        ' RbSequential
+        ' 
+        RbSequential.AutoSize = True
+        RbSequential.Location = New Point(17, 39)
+        RbSequential.Name = "RbSequential"
+        RbSequential.Size = New Size(224, 22)
+        RbSequential.TabIndex = 1
+        RbSequential.TabStop = True
+        RbSequential.Text = "Sequential (Thorough)"
+        RbSequential.UseVisualStyleBackColor = True
+        ' 
+        ' RbSkipGrit
+        ' 
+        RbSkipGrit.AutoSize = True
+        RbSkipGrit.Location = New Point(18, 6)
+        RbSkipGrit.Name = "RbSkipGrit"
+        RbSkipGrit.Size = New Size(172, 22)
+        RbSkipGrit.TabIndex = 0
+        RbSkipGrit.TabStop = True
+        RbSkipGrit.Text = "Skip Grits (Fast)"
+        RbSkipGrit.UseVisualStyleBackColor = True
+        ' 
+        ' CmbFinalGrit
+        ' 
+        CmbFinalGrit.FormattingEnabled = True
+        CmbFinalGrit.Items.AddRange(New Object() {"150", "180", "220", "320", "400", "600"})
+        CmbFinalGrit.Location = New Point(169, 243)
+        CmbFinalGrit.Name = "CmbFinalGrit"
+        CmbFinalGrit.Size = New Size(182, 26)
+        CmbFinalGrit.TabIndex = 7
+        ' 
+        ' LblSgpProgressType
+        ' 
+        LblSgpProgressType.AutoSize = True
+        LblSgpProgressType.Location = New Point(12, 281)
+        LblSgpProgressType.Name = "LblSgpProgressType"
+        LblSgpProgressType.Size = New Size(157, 18)
+        LblSgpProgressType.TabIndex = 6
+        LblSgpProgressType.Text = "ProgressionType: "
+        ' 
+        ' LblSgpFinalGrit
+        ' 
+        LblSgpFinalGrit.AutoSize = True
+        LblSgpFinalGrit.Location = New Point(69, 247)
+        LblSgpFinalGrit.Name = "LblSgpFinalGrit"
+        LblSgpFinalGrit.Size = New Size(100, 18)
+        LblSgpFinalGrit.TabIndex = 5
+        LblSgpFinalGrit.Text = "Final Grit: "
+        ' 
+        ' CmbStartGrit
+        ' 
+        CmbStartGrit.FormattingEnabled = True
+        CmbStartGrit.Items.AddRange(New Object() {"40", "60", "80", "100", "120", "150"})
+        CmbStartGrit.Location = New Point(169, 209)
+        CmbStartGrit.Name = "CmbStartGrit"
+        CmbStartGrit.Size = New Size(182, 26)
+        CmbStartGrit.TabIndex = 4
+        ' 
+        ' LblSgpStartingGrit
+        ' 
+        LblSgpStartingGrit.AutoSize = True
+        LblSgpStartingGrit.Location = New Point(45, 213)
+        LblSgpStartingGrit.Name = "LblSgpStartingGrit"
+        LblSgpStartingGrit.Size = New Size(124, 18)
+        LblSgpStartingGrit.TabIndex = 3
+        LblSgpStartingGrit.Text = "Starting Grit: "
+        ' 
+        ' CmbWoodType
+        ' 
+        CmbWoodType.FormattingEnabled = True
+        CmbWoodType.Location = New Point(169, 175)
+        CmbWoodType.Name = "CmbWoodType"
+        CmbWoodType.Size = New Size(245, 26)
+        CmbWoodType.TabIndex = 2
+        ' 
+        ' LblSgpWoodType
+        ' 
+        LblSgpWoodType.AutoSize = True
+        LblSgpWoodType.Location = New Point(57, 179)
+        LblSgpWoodType.Name = "LblSgpWoodType"
+        LblSgpWoodType.Size = New Size(112, 18)
+        LblSgpWoodType.TabIndex = 1
+        LblSgpWoodType.Text = "Wood Type: "
+        ' 
+        ' LblOptimalGritSequence
+        ' 
+        LblOptimalGritSequence.BackColor = Color.LightGray
+        LblOptimalGritSequence.Dock = DockStyle.Top
+        LblOptimalGritSequence.Location = New Point(3, 22)
+        LblOptimalGritSequence.Name = "LblOptimalGritSequence"
+        LblOptimalGritSequence.Size = New Size(490, 140)
+        LblOptimalGritSequence.TabIndex = 0
+        ' 
+        ' TxtGritNotes
+        ' 
+        TxtGritNotes.Dock = DockStyle.Bottom
+        TxtGritNotes.Location = New Point(0, 52)
+        TxtGritNotes.Multiline = True
+        TxtGritNotes.Name = "TxtGritNotes"
+        TxtGritNotes.ReadOnly = True
+        TxtGritNotes.ScrollBars = ScrollBars.Both
+        TxtGritNotes.Size = New Size(620, 751)
+        TxtGritNotes.TabIndex = 1
+        ' 
+        ' LblGritResult
+        ' 
+        LblGritResult.AutoSize = True
+        LblGritResult.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblGritResult.ForeColor = Color.Green
+        LblGritResult.Location = New Point(13, 22)
+        LblGritResult.Name = "LblGritResult"
+        LblGritResult.Size = New Size(328, 21)
+        LblGritResult.TabIndex = 0
+        LblGritResult.Text = "Progression: 80 → 120 → 180 → 220"
         ' 
         ' TpHelp
         ' 
@@ -6678,6 +6889,16 @@ Partial Class FrmMain
         GbPushStick.PerformLayout()
         GbxDustCollection.ResumeLayout(False)
         GbxDustCollection.PerformLayout()
+        TpSanding.ResumeLayout(False)
+        SplitContainer2.Panel1.ResumeLayout(False)
+        SplitContainer2.Panel2.ResumeLayout(False)
+        SplitContainer2.Panel2.PerformLayout()
+        CType(SplitContainer2, ComponentModel.ISupportInitialize).EndInit()
+        SplitContainer2.ResumeLayout(False)
+        GbxSandingGrit.ResumeLayout(False)
+        GbxSandingGrit.PerformLayout()
+        PnlSgpRadioButtons.ResumeLayout(False)
+        PnlSgpRadioButtons.PerformLayout()
         TpAbout.ResumeLayout(False)
         TpAbout.PerformLayout()
         GbxAbout.ResumeLayout(False)
@@ -6891,7 +7112,6 @@ Partial Class FrmMain
     Friend WithEvents TxtEpoxyArea As TextBox
     Friend WithEvents LblEpoxyArea As Label
     Friend WithEvents TxtEpoxyDiameter As TextBox
-    Friend WithEvents Label52 As Label
     Friend WithEvents CmbEpoxyCost As ComboBox
     Friend WithEvents LblEpoxyCost As Label
     Friend WithEvents LblEpoxyLiters As Label
@@ -7256,5 +7476,22 @@ Partial Class FrmMain
     Friend WithEvents Label84 As Label
     Friend WithEvents Label85 As Label
     Friend WithEvents Label86 As Label
+    Friend WithEvents TpSanding As TabPage
+    Friend WithEvents GbxSandingGrit As GroupBox
+    Friend WithEvents LblOptimalGritSequence As Label
+    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents LblSgpStartingGrit As Label
+    Friend WithEvents CmbWoodType As ComboBox
+    Friend WithEvents LblSgpWoodType As Label
+    Friend WithEvents PnlSgpRadioButtons As Panel
+    Friend WithEvents CmbFinalGrit As ComboBox
+    Friend WithEvents LblSgpProgressType As Label
+    Friend WithEvents LblSgpFinalGrit As Label
+    Friend WithEvents CmbStartGrit As ComboBox
+    Friend WithEvents BtnCalculateGrit As Button
+    Friend WithEvents RbSequential As RadioButton
+    Friend WithEvents RbSkipGrit As RadioButton
+    Friend WithEvents LblGritResult As Label
+    Friend WithEvents TxtGritNotes As TextBox
 End Class
 

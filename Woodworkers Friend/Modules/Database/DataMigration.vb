@@ -1106,6 +1106,107 @@ Public Class DataMigration
 "*BULLET:If it feels unsafe, find another way" & vbLf &
 "" & vbLf &
 "?NOTE:For detailed safety information, see the Safety Calculator Help document!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "sanding_grit",
+.Title = "Sanding Grit Progression Calculator",
+.Category = "Calculators",
+.SortOrder = 57,
+.Keywords = "sanding,grit,progression,sandpaper,finish,smooth,sequential,skip grit,softwood,hardwood",
+.Content =
+"#TITLE:Sanding Grit Progression Calculator" & vbLf &
+"##SECTION:Purpose|Calculate optimal sanding grit sequence for achieving professional-quality smooth finishes on woodworking projects." & vbLf &
+"###SUBTITLE:Why Grit Progression Matters" & vbLf &
+"Each sandpaper grit creates scratches in wood. Progressive sanding replaces deep scratches with finer ones until invisible to the eye." & vbLf &
+"" & vbLf &
+"*BULLET:Skipping grits leaves visible scratches" & vbLf &
+"*BULLET:Starting too fine wastes time" & vbLf &
+"*BULLET:Ending too coarse gives rough finish" & vbLf &
+"*BULLET:Proper progression = professional results" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Input Parameters" & vbLf &
+"@METHOD:Wood Type|Softwood (Pine, Fir) or Hardwood (Oak, Maple, Walnut)" & vbLf &
+"@METHOD:Starting Grit|40-150 based on surface condition (80 most common)" & vbLf &
+"@METHOD:Final Grit|150-600 based on desired finish (220 standard)" & vbLf &
+"@METHOD:Progression Type|Sequential (thorough) or Skip-Grit (fast)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Progression Methods" & vbLf &
+"~STEP:1:Sequential Method:Uses every grit in sequence for best quality" & vbLf &
+"~STEP:2:Skip-Grit Method:Skips every other grit for faster results" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Starting Grits Guide" & vbLf &
+"*BULLET:40 - Extra coarse: Heavy stock removal, major flattening" & vbLf &
+"*BULLET:60 - Coarse: Remove mill marks, rough shaping" & vbLf &
+"*BULLET:80 - Medium-coarse: Standard starting point (most common)" & vbLf &
+"*BULLET:100 - Medium: Already smooth surfaces" & vbLf &
+"*BULLET:120 - Medium-fine: Very smooth starting surfaces" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Final Grits Guide" & vbLf &
+"*BULLET:150 - Fine: Basic smooth finish, acceptable for paint" & vbLf &
+"*BULLET:180 - Fine: Standard for stain and paint" & vbLf &
+"*BULLET:220 - Very fine: Optimal for clear finish (most common)" & vbLf &
+"*BULLET:320 - Extra fine: Between finish coats" & vbLf &
+"*BULLET:400-600 - Ultra fine: High-gloss prep, wet-sanding only" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Sequential Method (Thorough)" & vbLf &
+"Uses every grit in the standard sequence." & vbLf &
+"" & vbLf &
+"Example: 80 → 100 → 120 → 150 → 180 → 220" & vbLf &
+"" & vbLf &
+"*BULLET:Best finish quality" & vbLf &
+"*BULLET:Each grit removes previous scratches" & vbLf &
+"*BULLET:Recommended for clear finishes" & vbLf &
+"*BULLET:Takes more time but better results" & vbLf &
+"*BULLET:Reveals wood grain figure best" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Skip-Grit Method (Fast)" & vbLf &
+"Skips every other grit (keeps first and last)." & vbLf &
+"" & vbLf &
+"Example: 80 → 120 → 180 → 220" & vbLf &
+"" & vbLf &
+"*BULLET:Faster process" & vbLf &
+"*BULLET:Uses less sandpaper" & vbLf &
+"*BULLET:May leave visible scratches" & vbLf &
+"*BULLET:Good for painted surfaces" & vbLf &
+"!WARNING:Check for cross-grain scratches between grits!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Softwood Tips" & vbLf &
+"Pine, Fir, Cedar, Spruce require careful sanding:" & vbLf &
+"" & vbLf &
+"*BULLET:Don't skip grits - shows scratches easily" & vbLf &
+"*BULLET:Use light pressure to avoid dishing" & vbLf &
+"*BULLET:Sand with the grain direction" & vbLf &
+"*BULLET:Watch for raised grain after first grit" & vbLf &
+"*BULLET:Consider wet-sanding between coats" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Hardwood Tips" & vbLf &
+"Oak, Maple, Walnut, Cherry are more forgiving:" & vbLf &
+"" & vbLf &
+"*BULLET:Can skip grits if needed" & vbLf &
+"*BULLET:Higher final grit = better grain clarity" & vbLf &
+"*BULLET:Check for mill marks before sanding" & vbLf &
+"*BULLET:Use card scraper for difficult grain" & vbLf &
+"*BULLET:Final grit shows grain figure best" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Results Provided" & vbLf &
+"*BULLET:Grit sequence (e.g., 80 → 120 → 180 → 220)" & vbLf &
+"*BULLET:Total steps required" & vbLf &
+"*BULLET:Estimated time (3-5 minutes per grit)" & vbLf &
+"*BULLET:Method-specific recommendations" & vbLf &
+"*BULLET:Wood-specific tips" & vbLf &
+"*BULLET:Description of each grit's purpose" & vbLf &
+"*BULLET:Safety reminders" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Common Sequences" & vbLf &
+"Fine Furniture (Hardwood, Clear): 80 → 100 → 120 → 150 → 180 → 220" & vbLf &
+"Painted Cabinet: 80 → 120 → 180" & vbLf &
+"Stained Project: 80 → 100 → 120 → 150 → 180 → 220" & vbLf &
+"Premium Table: 60 → 80 → 100 → 120 → 150 → 180 → 220 → 320" & vbLf &
+"" & vbLf &
+"!WARNING:SAFETY: Always wear dust mask! Wood dust is carcinogenic!" & vbLf &
+"!WARNING:Use dust collection or work outdoors when possible!" & vbLf &
+"" & vbLf &
+"?NOTE:Tip: Test your finish on scrap wood after final sanding!"
 }
             }
 
