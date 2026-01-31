@@ -128,6 +128,7 @@ Public Class FrmMain
         InitializeWoodPropertiesReference()
         InitializeSafetyCalculator()
         InitializeSandingGritCalculator()
+        InitializeClampBiscuitCalculator()
 
         ' Phase 7.1 & 7.2: Initialize to wire up Enter events (data loads on first tab visit)
         InitializeJoineryReference()

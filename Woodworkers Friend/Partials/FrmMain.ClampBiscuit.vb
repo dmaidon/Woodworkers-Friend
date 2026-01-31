@@ -1,6 +1,170 @@
 Imports System.Drawing
 
+''' <summary>
+''' Partial class for FrmMain - Clamp Spacing & Biscuit/Domino Spacing Calculators
+''' </summary>
 Partial Public Class FrmMain
+
+#Region "Clamp & Biscuit Spacing - Initialization"
+
+    ''' <summary>
+    ''' Initialize Clamp Spacing and Biscuit/Domino calculators with tooltips
+    ''' </summary>
+    Private Sub InitializeClampBiscuitCalculator()
+        Try
+            ' Initialize tooltips
+            InitializeClampBiscuitTooltips()
+
+            ' Set default values for Clamp Spacing
+            If CboPanelWidthUnit.Items.Count = 0 Then
+                CboPanelWidthUnit.Items.AddRange({"in", "mm"})
+                CboPanelWidthUnit.SelectedIndex = 0 ' Default to inches
+            End If
+
+            If CCboClampWoodType.Items.Count = 0 Then
+                CCboClampWoodType.Items.AddRange({"Hardwood", "Softwood"})
+                CCboClampWoodType.SelectedIndex = 0 ' Default to Hardwood
+            End If
+
+            If CboGlueType.Items.Count = 0 Then
+                CboGlueType.Items.AddRange({"PVA", "Polyurethane", "Epoxy"})
+                CboGlueType.SelectedIndex = 0 ' Default to PVA
+            End If
+
+            ' Set default values for Biscuit/Domino
+            If CboJointLengthUnit.Items.Count = 0 Then
+                CboJointLengthUnit.Items.AddRange({"in", "mm"})
+                CboJointLengthUnit.SelectedIndex = 0 ' Default to inches
+            End If
+
+            If CboJoineryType.Items.Count = 0 Then
+                CboJoineryType.Items.AddRange({"Biscuit", "Festool Domino"})
+                CboJoineryType.SelectedIndex = 0 ' Default to Biscuit
+            End If
+
+            If CboBiscuitSize.Items.Count = 0 Then
+                CboBiscuitSize.Items.AddRange({"#0", "#10", "#20", "#FF", "#H9",
+                                              "4x20mm", "5x30mm", "6x40mm", "8x50mm", "10x50mm"})
+                CboBiscuitSize.SelectedIndex = 2 ' Default to #20
+            End If
+
+            If CboJointStrength.Items.Count = 0 Then
+                CboJointStrength.Items.AddRange({"Light", "Medium", "Heavy"})
+                CboJointStrength.SelectedIndex = 1 ' Default to Medium
+            End If
+
+            ErrorHandler.LogError(New Exception("Clamp & Biscuit calculator initialized"), "InitializeClampBiscuitCalculator")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "InitializeClampBiscuitCalculator")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Initialize tooltips for Clamp Spacing and Biscuit/Domino input controls
+    ''' </summary>
+    Private Sub InitializeClampBiscuitTooltips()
+        Try
+            Dim tooltip As ToolTip = tTip
+            If tooltip Is Nothing Then
+                tooltip = New ToolTip()
+            End If
+
+            ' Clamp Spacing tooltips
+            If TxtClampPanelWidth IsNot Nothing Then
+                tooltip.SetToolTip(TxtClampPanelWidth,
+                    "Enter the width of the panel being glued up." & vbCrLf &
+                    "This is the distance across the glue joint." & vbCrLf &
+                    "Typical range: 12-60 inches" & vbCrLf &
+                    "Example: 24"" for a 2-foot wide tabletop")
+            End If
+
+            If TxtClampPanelThickness IsNot Nothing Then
+                tooltip.SetToolTip(TxtClampPanelThickness,
+                    "Enter the thickness of the boards being glued." & vbCrLf &
+                    "Thicker boards allow wider clamp spacing (12x rule)." & vbCrLf &
+                    "Common: 0.75"" (3/4), 1.0"" (4/4), 1.5"" (6/4)" & vbCrLf &
+                    "Example: 0.75 for standard hardwood stock")
+            End If
+
+            If CCboClampWoodType IsNot Nothing Then
+                tooltip.SetToolTip(CCboClampWoodType,
+                    "Select wood type:" & vbCrLf &
+                    "• Hardwood (Oak, Maple, Walnut) - Needs tighter spacing" & vbCrLf &
+                    "• Softwood (Pine, Fir, Cedar) - Can space slightly wider" & vbCrLf &
+                    "Hardwoods need more pressure for strong bonds")
+            End If
+
+            If CboGlueType IsNot Nothing Then
+                tooltip.SetToolTip(CboGlueType,
+                    "Select glue type:" & vbCrLf &
+                    "• PVA (White/Yellow Glue) - Standard, 30-45 min clamp time" & vbCrLf &
+                    "• Polyurethane - Foams, needs tighter spacing, 2-4 hours" & vbCrLf &
+                    "• Epoxy - Gap-filling, less pressure, 4-6 hours" & vbCrLf &
+                    "Different glues need different clamping strategies")
+            End If
+
+            If CboPanelWidthUnit IsNot Nothing Then
+                tooltip.SetToolTip(CboPanelWidthUnit,
+                    "Select measurement unit:" & vbCrLf &
+                    "• in - Imperial inches (US standard)" & vbCrLf &
+                    "• mm - Metric millimeters")
+            End If
+
+            ' Biscuit/Domino tooltips
+            If TxtBiscuitJointLength IsNot Nothing Then
+                tooltip.SetToolTip(TxtBiscuitJointLength,
+                    "Enter the total length of the edge joint." & vbCrLf &
+                    "This is the length of the boards being joined." & vbCrLf &
+                    "Typical range: 12-96 inches (1-8 feet)" & vbCrLf &
+                    "Example: 30"" for a 30-inch long tabletop edge")
+            End If
+
+            If CboJoineryType IsNot Nothing Then
+                tooltip.SetToolTip(CboJoineryType,
+                    "Select joinery type:" & vbCrLf &
+                    "• Biscuit - Compressed beech wafers, oval shape" & vbCrLf &
+                    "• Festool Domino - Rectangular loose tenons" & vbCrLf &
+                    "Both provide alignment; strength comes from glue")
+            End If
+
+            If CboBiscuitSize IsNot Nothing Then
+                tooltip.SetToolTip(CboBiscuitSize,
+                    "Select biscuit or domino size:" & vbCrLf &
+                    "Biscuits: #0 (1.75""), #10 (2.125""), #20 (2.375"" - most common)" & vbCrLf &
+                    "Dominos: 4x20mm through 10x50mm" & vbCrLf &
+                    "Larger sizes need thicker stock and wider spacing")
+            End If
+
+            If CboJointStrength IsNot Nothing Then
+                tooltip.SetToolTip(CboJointStrength,
+                    "Select joint strength requirement:" & vbCrLf &
+                    "• Light - Face frames, panels (wider spacing)" & vbCrLf &
+                    "• Medium - Standard edge joints (normal spacing)" & vbCrLf &
+                    "• Heavy - Structural joints (tighter spacing)" & vbCrLf &
+                    "Closer spacing = stronger joint")
+            End If
+
+            If TxtBiscuitStockThickness IsNot Nothing Then
+                tooltip.SetToolTip(TxtBiscuitStockThickness,
+                    "Enter the thickness of the boards being joined." & vbCrLf &
+                    "Must be thick enough for biscuit/domino:" & vbCrLf &
+                    "#0: 1/2"" min, #10: 5/8"" min, #20: 3/4"" min" & vbCrLf &
+                    "Too thin = blowout through face!")
+            End If
+
+            If CboJointLengthUnit IsNot Nothing Then
+                tooltip.SetToolTip(CboJointLengthUnit,
+                    "Select measurement unit:" & vbCrLf &
+                    "• in - Imperial inches (US standard)" & vbCrLf &
+                    "• mm - Metric millimeters")
+            End If
+
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "InitializeClampBiscuitTooltips")
+        End Try
+    End Sub
+
+#End Region
 
 #Region "Clamp & Biscuit Spacing - Event Handlers"
 
@@ -302,8 +466,8 @@ Partial Public Class FrmMain
         End If
 
         ' Minimum edge distance is half the joinery length + trimming allowance
-        ' Use 5/8" (0.625") padding to allow for trimming and error tolerance
-        Dim minEdge As Double = (joineryLength / 2) + 1.25
+        ' Use 1.5" (1.5") padding to allow for trimming and error tolerance
+        Dim minEdge As Double = (joineryLength / 2) + 1.5
 
         Return minEdge
     End Function
