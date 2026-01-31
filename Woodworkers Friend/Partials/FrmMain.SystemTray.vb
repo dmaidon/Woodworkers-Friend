@@ -115,6 +115,10 @@ Partial Public Class FrmMain
             ' Handle double-click on tray icon
             AddHandler NotifyIcon.DoubleClick, AddressOf NotifyIcon_DoubleClick
 
+            ' CRITICAL: Handle MouseUp to show context menu manually
+            ' ContextMenuStrip doesn't always work automatically with NotifyIcon
+            AddHandler NotifyIcon.MouseUp, AddressOf NotifyIcon_MouseUp
+
             ' Hook into form minimize to hide to tray (optional behavior)
             ' AddHandler Me.Resize, AddressOf FrmMain_Resize
 
@@ -131,15 +135,15 @@ Partial Public Class FrmMain
             Dim iconInfo = If(NotifyIcon.Icon IsNot Nothing, $"Icon: {NotifyIcon.Icon.Width}x{NotifyIcon.Icon.Height}", "Icon: NULL")
             Debug.WriteLine($"Final NotifyIcon state: Visible={NotifyIcon.Visible}, {iconInfo}, ContextMenu={NotifyIcon.ContextMenuStrip IsNot Nothing}")
 
-            ' Inform user (can remove after confirming it works)
-            MessageBox.Show($"System Tray Icon Status:{Environment.NewLine}" &
-                          $"Visible: {NotifyIcon.Visible}{Environment.NewLine}" &
-                          $"{iconInfo}{Environment.NewLine}" &
-                          $"Context Menu: {NotifyIcon.ContextMenuStrip IsNot Nothing}{Environment.NewLine}" &
-                          $"Tooltip: {NotifyIcon.Text}{Environment.NewLine}{Environment.NewLine}" &
-                          $"Look for icon in system tray (bottom-right corner){Environment.NewLine}" &
-                          $"If not visible, click '^' arrow to show hidden icons.",
-                          "System Tray Debug", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' Inform user (REMOVE THIS AFTER TESTING)
+            ' MessageBox.Show($"System Tray Icon Status:{Environment.NewLine}" &
+            '               $"Visible: {NotifyIcon.Visible}{Environment.NewLine}" &
+            '               $"{iconInfo}{Environment.NewLine}" &
+            '               $"Context Menu: {NotifyIcon.ContextMenuStrip IsNot Nothing}{Environment.NewLine}" &
+            '               $"Tooltip: {NotifyIcon.Text}{Environment.NewLine}{Environment.NewLine}" &
+            '               $"Look for icon in system tray (bottom-right corner){Environment.NewLine}" &
+            '               $"If not visible, click '^' arrow to show hidden icons.",
+            '               "System Tray Debug", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeSystemTray")
             ' Non-critical - app can function without tray icon
@@ -153,6 +157,39 @@ Partial Public Class FrmMain
     ''' </summary>
     Private Sub NotifyIcon_DoubleClick(sender As Object, e As EventArgs)
         RestoreWindow()
+    End Sub
+
+    ''' <summary>
+    ''' Handles MouseUp event on tray icon - shows context menu on right-click
+    ''' This is necessary because ContextMenuStrip doesn't always work automatically
+    ''' </summary>
+    Private Sub NotifyIcon_MouseUp(sender As Object, e As MouseEventArgs)
+        Try
+            ' Show context menu on right-click
+            If e.Button = MouseButtons.Right Then
+                ' Get the MethodInfo for "ShowContextMenu" (internal method)
+                Dim mi = GetType(NotifyIcon).GetMethod("ShowContextMenu",
+                    Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
+
+                If mi IsNot Nothing Then
+                    mi.Invoke(NotifyIcon, Nothing)
+                Else
+                    ' Fallback: Show at cursor position
+                    If CmsNotifyIcon IsNot Nothing Then
+                        CmsNotifyIcon.Show(Cursor.Position)
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            ' Fallback if reflection fails
+            Try
+                If e.Button = MouseButtons.Right AndAlso CmsNotifyIcon IsNot Nothing Then
+                    CmsNotifyIcon.Show(Cursor.Position)
+                End If
+            Catch
+                ErrorHandler.LogError(ex, "NotifyIcon_MouseUp")
+            End Try
+        End Try
     End Sub
 
     ''' <summary>
