@@ -392,9 +392,9 @@ Public Class ReferenceDataManager
     Private Function CreateJoineryTypeFromReader(reader As SQLiteDataReader) As JoineryType
         Return New JoineryType With {
             .Name = reader.GetString(1),
-            .Category = [Enum].Parse(GetType(JoineryCategory), reader.GetString(2)),
+            .Category = If(reader.IsDBNull(2), String.Empty, reader.GetString(2)),
             .StrengthRating = If(reader.IsDBNull(3), 0, reader.GetInt32(3)),
-            .DifficultyLevel = [Enum].Parse(GetType(JoineryDifficulty), reader.GetString(4)),
+            .DifficultyLevel = If(reader.IsDBNull(4), String.Empty, reader.GetString(4)),
             .Description = If(reader.IsDBNull(5), String.Empty, reader.GetString(5)),
             .TypicalUses = If(reader.IsDBNull(6), String.Empty, reader.GetString(6)),
             .RequiredTools = If(reader.IsDBNull(7), String.Empty, reader.GetString(7)),
