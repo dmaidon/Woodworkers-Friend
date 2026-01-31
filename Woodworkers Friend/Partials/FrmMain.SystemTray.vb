@@ -1,6 +1,5 @@
 Imports System.Drawing
 
-
 Partial Public Class FrmMain
 
 #Region "System Tray - NotifyIcon and Context Menu"
@@ -28,12 +27,28 @@ Partial Public Class FrmMain
 
             ' Create NotifyIcon with components container
             NotifyIcon = New NotifyIcon(Me.components)
-            NotifyIcon.Icon = Me.Icon ' Use application icon
+
+            ' Set icon - use form icon if available, otherwise use system icon
+            If Me.Icon IsNot Nothing Then
+                NotifyIcon.Icon = Me.Icon
+                Debug.WriteLine("Using form icon for NotifyIcon")
+            Else
+                ' Use default application icon or create one
+                Try
+                    NotifyIcon.Icon = SystemIcons.Application
+                    Debug.WriteLine("Form icon is Nothing, using SystemIcons.Application")
+                Catch
+                    ' Last resort - create a simple icon
+                    NotifyIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
+                    Debug.WriteLine("Using extracted icon from executable")
+                End Try
+            End If
+
             NotifyIcon.Text = $"{AppName} - {Version}" ' Tooltip
             NotifyIcon.Visible = True
 
             ' Debug log
-            Debug.WriteLine("NotifyIcon created and set to visible")
+            Debug.WriteLine($"NotifyIcon created: Icon={NotifyIcon.Icon IsNot Nothing}, Visible={NotifyIcon.Visible}")
 
             ' Create context menu
             CmsNotifyIcon = New ContextMenuStrip()
@@ -106,15 +121,25 @@ Partial Public Class FrmMain
             ' Debug and log success
             Debug.WriteLine($"System tray icon initialized successfully. Visible={NotifyIcon.Visible}, Icon={NotifyIcon.Icon IsNot Nothing}")
             ErrorHandler.LogError(New Exception("System tray icon initialized"), "InitializeSystemTray")
-            
+
             ' Force icon to show (sometimes needed)
             NotifyIcon.Visible = False
+            System.Threading.Thread.Sleep(100) ' Brief delay
             NotifyIcon.Visible = True
-            
-            ' Debug message (remove after testing)
-            MessageBox.Show($"System Tray Icon Created!{Environment.NewLine}Visible: {NotifyIcon.Visible}{Environment.NewLine}Icon Set: {NotifyIcon.Icon IsNot Nothing}{Environment.NewLine}Context Menu: {NotifyIcon.ContextMenuStrip IsNot Nothing}", 
-                          "Debug: System Tray", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+            ' Show detailed debug info
+            Dim iconInfo = If(NotifyIcon.Icon IsNot Nothing, $"Icon: {NotifyIcon.Icon.Width}x{NotifyIcon.Icon.Height}", "Icon: NULL")
+            Debug.WriteLine($"Final NotifyIcon state: Visible={NotifyIcon.Visible}, {iconInfo}, ContextMenu={NotifyIcon.ContextMenuStrip IsNot Nothing}")
+
+            ' Inform user (can remove after confirming it works)
+            MessageBox.Show($"System Tray Icon Status:{Environment.NewLine}" &
+                          $"Visible: {NotifyIcon.Visible}{Environment.NewLine}" &
+                          $"{iconInfo}{Environment.NewLine}" &
+                          $"Context Menu: {NotifyIcon.ContextMenuStrip IsNot Nothing}{Environment.NewLine}" &
+                          $"Tooltip: {NotifyIcon.Text}{Environment.NewLine}{Environment.NewLine}" &
+                          $"Look for icon in system tray (bottom-right corner){Environment.NewLine}" &
+                          $"If not visible, click '^' arrow to show hidden icons.",
+                          "System Tray Debug", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeSystemTray")
             ' Non-critical - app can function without tray icon
@@ -150,7 +175,6 @@ Partial Public Class FrmMain
             Me.Activate()
             Me.BringToFront()
             Me.Focus()
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "RestoreWindow")
         End Try
@@ -184,7 +208,6 @@ Partial Public Class FrmMain
             Me.BringToFront()
 
             ErrorHandler.LogWarning("SystemTray", "Window centered on screen via tray icon")
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "TsmiLocate_Click")
             MessageBox.Show("Error centering window: " & ex.Message,
@@ -226,7 +249,6 @@ Partial Public Class FrmMain
 
                 ErrorHandler.LogWarning("SystemTray", $"Scale changed to {_scaleManager.CurrentScale} via tray icon")
             End If
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "TsmiToggleScaleNotify_Click")
         End Try
@@ -271,7 +293,6 @@ Partial Public Class FrmMain
 
             ' Close application
             Application.Exit()
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "TsmiExitNotify_Click")
             ' Force close anyway
