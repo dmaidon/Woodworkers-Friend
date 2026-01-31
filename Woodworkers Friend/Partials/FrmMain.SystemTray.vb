@@ -109,14 +109,16 @@ Partial Public Class FrmMain
                 TsmiExitNotify
             })
 
-            ' Attach context menu to NotifyIcon
-            NotifyIcon.ContextMenuStrip = CmsNotifyIcon
+            ' DO NOT attach context menu to NotifyIcon - it causes Windows default menu to show
+            ' NotifyIcon.ContextMenuStrip = CmsNotifyIcon  ' <- This line causes the problem!
+
+            ' Instead, we'll show it manually in MouseUp event
 
             ' Handle double-click on tray icon
             AddHandler NotifyIcon.DoubleClick, AddressOf NotifyIcon_DoubleClick
 
             ' CRITICAL: Handle MouseUp to show context menu manually
-            ' ContextMenuStrip doesn't always work automatically with NotifyIcon
+            ' We must NOT set ContextMenuStrip property - show menu manually only
             AddHandler NotifyIcon.MouseUp, AddressOf NotifyIcon_MouseUp
 
             ' Hook into form minimize to hide to tray (optional behavior)
@@ -161,34 +163,20 @@ Partial Public Class FrmMain
 
     ''' <summary>
     ''' Handles MouseUp event on tray icon - shows context menu on right-click
-    ''' This is necessary because ContextMenuStrip doesn't always work automatically
+    ''' This is necessary because we cannot use ContextMenuStrip property (causes default menu)
     ''' </summary>
     Private Sub NotifyIcon_MouseUp(sender As Object, e As MouseEventArgs)
         Try
             ' Show context menu on right-click
-            If e.Button = MouseButtons.Right Then
-                ' Get the MethodInfo for "ShowContextMenu" (internal method)
-                Dim mi = GetType(NotifyIcon).GetMethod("ShowContextMenu",
-                    Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic)
-
-                If mi IsNot Nothing Then
-                    mi.Invoke(NotifyIcon, Nothing)
-                Else
-                    ' Fallback: Show at cursor position
-                    If CmsNotifyIcon IsNot Nothing Then
-                        CmsNotifyIcon.Show(Cursor.Position)
-                    End If
-                End If
+            If e.Button = MouseButtons.Right AndAlso CmsNotifyIcon IsNot Nothing Then
+                ' Show menu at cursor position
+                ' This is the only reliable way to show custom menu on NotifyIcon
+                CmsNotifyIcon.Show(Cursor.Position)
             End If
         Catch ex As Exception
-            ' Fallback if reflection fails
-            Try
-                If e.Button = MouseButtons.Right AndAlso CmsNotifyIcon IsNot Nothing Then
-                    CmsNotifyIcon.Show(Cursor.Position)
-                End If
-            Catch
-                ErrorHandler.LogError(ex, "NotifyIcon_MouseUp")
-            End Try
+            ErrorHandler.LogError(ex, "NotifyIcon_MouseUp")
+            MessageBox.Show($"Error showing context menu: {ex.Message}",
+                          "Menu Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
