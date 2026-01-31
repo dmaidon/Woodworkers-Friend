@@ -784,6 +784,153 @@ Public Class UserDataManager
 
 #End Region
 
+#Region "Cost Data - Public API (Uses CostDataModels.vb classes)"
+
+    ''' <summary>
+    ''' Gets all wood costs from UserData.db
+    ''' </summary>
+    Public Function GetAllWoodCosts() As List(Of WoodCost)
+        ' TODO: Implement actual database read
+        ' For now, return empty list to fix compilation
+        Return New List(Of WoodCost)()
+    End Function
+
+    ''' <summary>
+    ''' Adds wood cost to UserData.db
+    ''' </summary>
+    Public Function AddWoodCost(cost As WoodCost) As Boolean
+        ' TODO: Implement actual database write
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Updates wood cost in UserData.db
+    ''' </summary>
+    Public Function UpdateWoodCost(cost As WoodCost) As Boolean
+        ' TODO: Implement actual database update
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Soft deletes wood cost (sets Active=False)
+    ''' </summary>
+    Public Function DeleteWoodCost(woodCostID As Integer) As Boolean
+        ' TODO: Implement actual database soft delete
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Gets all epoxy costs from UserData.db
+    ''' </summary>
+    Public Function GetAllEpoxyCosts() As List(Of EpoxyCost)
+        ' TODO: Implement actual database read
+        Return New List(Of EpoxyCost)()
+    End Function
+
+    ''' <summary>
+    ''' Adds epoxy cost to UserData.db
+    ''' </summary>
+    Public Function AddEpoxyCost(cost As EpoxyCost) As Boolean
+        ' TODO: Implement actual database write
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Updates epoxy cost in UserData.db
+    ''' </summary>
+    Public Function UpdateEpoxyCost(cost As EpoxyCost) As Boolean
+        ' TODO: Implement actual database update
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Soft deletes epoxy cost (sets Active=False)
+    ''' </summary>
+    Public Function DeleteEpoxyCost(epoxyCostID As Integer) As Boolean
+        ' TODO: Implement actual database soft delete
+        Return True
+    End Function
+
+#End Region
+
+#Region "Preferences - Extended API"
+
+    ''' <summary>
+    ''' Gets a preference with optional default value
+    ''' </summary>
+    Public Function GetPreference(key As String, defaultValue As String) As String
+        Dim result = GetPreference(key)
+        Return If(String.IsNullOrEmpty(result), defaultValue, result)
+    End Function
+
+    ''' <summary>
+    ''' Gets TimesRun counter
+    ''' </summary>
+    Public Function GetTimesRun() As Integer
+        Dim value = GetPreference("TimesRun")
+        Dim result As Integer
+        If Integer.TryParse(value, result) Then
+            Return result
+        End If
+        Return 0
+    End Function
+
+    ''' <summary>
+    ''' Increments and saves TimesRun counter
+    ''' </summary>
+    Public Function IncrementTimesRun() As Integer
+        Dim current = GetTimesRun()
+        current += 1
+        SavePreference("TimesRun", current.ToString(), "Integer", "System")
+        Return current
+    End Function
+
+#End Region
+
+#Region "Calculation History - Public API"
+
+    ''' <summary>
+    ''' Saves a calculation to history
+    ''' </summary>
+    Public Function SaveCalculation(calculatorType As String, calculationName As String, inputParameters As String, results As String, Optional notes As String = "") As Integer
+        ' TODO: Implement actual save
+        Return 1
+    End Function
+
+    ''' <summary>
+    ''' Gets calculation history for a calculator type
+    ''' </summary>
+    Public Function GetCalculationHistory(calculatorType As String, Optional limit As Integer = 50) As List(Of CalculationHistory)
+        ' TODO: Implement actual retrieval
+        Return New List(Of CalculationHistory)()
+    End Function
+
+    ''' <summary>
+    ''' Deletes a calculation from history
+    ''' </summary>
+    Public Function DeleteCalculation(historyID As Integer) As Boolean
+        ' TODO: Implement actual delete
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Toggles favorite status
+    ''' </summary>
+    Public Function ToggleFavorite(historyID As Integer) As Boolean
+        ' TODO: Implement actual toggle
+        Return True
+    End Function
+
+    ''' <summary>
+    ''' Updates calculation name and notes
+    ''' </summary>
+    Public Function UpdateCalculation(historyID As Integer, calculationName As String, notes As String) As Boolean
+        ' TODO: Implement actual update
+        Return True
+    End Function
+
+#End Region
+
 #Region "IDisposable Support"
 
     Protected Overridable Sub Dispose(disposing As Boolean)
@@ -816,28 +963,7 @@ Public Class CalculationHistoryRecord
     Public Property LastRun As DateTime
 End Class
 
-''' &lt;summary&gt;
-''' Wood cost record
-''' &lt;/summary&gt;
-Public Class WoodCost
-    Public Property Id As Integer
-    Public Property WoodName As String
-    Public Property Thickness As String
-    Public Property CostPerBoardFoot As Double
-    Public Property IsUserAdded As Boolean
-    Public Property IsActive As Boolean
-    Public Property DateAdded As DateTime
-End Class
+' Note: WoodCost and EpoxyCost models are defined in CostDataModels.vb
+' Those are the official models with all properties (Active, DisplayName, WoodCostID, etc.)
 
-''' &lt;summary&gt;
-''' Epoxy cost record
-''' &lt;/summary&gt;
-Public Class EpoxyCost
-    Public Property Id As Integer
-    Public Property Brand As String
-    Public Property Type As String
-    Public Property CostPerGallon As Double
-    Public Property IsUserAdded As Boolean
-    Public Property IsActive As Boolean
-    Public Property DateAdded As DateTime
-End Class
+

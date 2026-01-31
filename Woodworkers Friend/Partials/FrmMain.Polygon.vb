@@ -441,7 +441,6 @@ Partial Public Class FrmMain
             ' Re-enable updates and recalculate
             _suppressDimensionUpdate = False
             CalculateAndDisplayResults()
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "OnPolygonUnitsChanged")
             _suppressDimensionUpdate = False
@@ -581,7 +580,7 @@ Partial Public Class FrmMain
 
             ' Convert area from mm² to cm² for metric display (1 cm² = 100 mm²)
             If Not isInches Then
-                area = area / 100.0
+                area /= 100.0
             End If
 
             ' Display results

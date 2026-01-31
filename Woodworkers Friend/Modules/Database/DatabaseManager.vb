@@ -23,6 +23,7 @@ Public Class DatabaseManager
 
     ' Specialized database managers (lazy-loaded singletons)
     Private _helpManager As HelpDataManager
+
     Private _referenceManager As ReferenceDataManager
     Private _userDataManager As UserDataManager
 
@@ -160,7 +161,6 @@ Public Class DatabaseManager
             Catch ex As Exception
                 ErrorHandler.LogError(ex, "PerformDatabaseSplit - Backup failed")
             End Try
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "PerformDatabaseSplit")
         End Try
@@ -340,6 +340,130 @@ Public Class DatabaseManager
     ''' </summary>
     Public Function GetAllHardwareStandards() As List(Of HardwareStandard)
         Return Reference.GetAllHardwareStandards()
+    End Function
+
+    ''' <summary>
+    ''' Adds a new hardware standard (user-added to Reference.db)
+    ''' </summary>
+    Public Function AddHardwareStandard(hardware As HardwareStandard) As Boolean
+        Return Reference.AddHardwareStandard(hardware)
+    End Function
+
+#End Region
+
+#Region "Unified API - Cost Data (Routes to UserDataManager)"
+
+    ''' <summary>
+    ''' Gets all wood costs
+    ''' </summary>
+    Public Function GetAllWoodCosts() As List(Of WoodCost)
+        Return UserData.GetAllWoodCosts()
+    End Function
+
+    ''' <summary>
+    ''' Adds a new wood cost entry
+    ''' </summary>
+    Public Function AddWoodCost(woodCost As WoodCost) As Boolean
+        Return UserData.AddWoodCost(woodCost)
+    End Function
+
+    ''' <summary>
+    ''' Updates an existing wood cost entry
+    ''' </summary>
+    Public Function UpdateWoodCost(woodCost As WoodCost) As Boolean
+        Return UserData.UpdateWoodCost(woodCost)
+    End Function
+
+    ''' <summary>
+    ''' Deletes (soft delete) a wood cost entry
+    ''' </summary>
+    Public Function DeleteWoodCost(woodCostID As Integer) As Boolean
+        Return UserData.DeleteWoodCost(woodCostID)
+    End Function
+
+    ''' <summary>
+    ''' Gets all epoxy costs
+    ''' </summary>
+    Public Function GetAllEpoxyCosts() As List(Of EpoxyCost)
+        Return UserData.GetAllEpoxyCosts()
+    End Function
+
+    ''' <summary>
+    ''' Adds a new epoxy cost entry
+    ''' </summary>
+    Public Function AddEpoxyCost(epoxyCost As EpoxyCost) As Boolean
+        Return UserData.AddEpoxyCost(epoxyCost)
+    End Function
+
+    ''' <summary>
+    ''' Updates an existing epoxy cost entry
+    ''' </summary>
+    Public Function UpdateEpoxyCost(epoxyCost As EpoxyCost) As Boolean
+        Return UserData.UpdateEpoxyCost(epoxyCost)
+    End Function
+
+    ''' <summary>
+    ''' Deletes (soft delete) an epoxy cost entry
+    ''' </summary>
+    Public Function DeleteEpoxyCost(epoxyCostID As Integer) As Boolean
+        Return UserData.DeleteEpoxyCost(epoxyCostID)
+    End Function
+
+#End Region
+
+#Region "Unified API - Wood Species Methods (Legacy Support)"
+
+    ''' <summary>
+    ''' Gets all wood species - returns WoodPropertiesData for legacy compatibility
+    ''' Maps from unified WoodSpecies to old WoodPropertiesData
+    ''' </summary>
+    Public Function GetAllWoodSpecies() As List(Of WoodPropertiesData)
+        Dim species = GetWoodSpeciesList()
+        Dim result As New List(Of WoodPropertiesData)
+
+        For Each s In species
+            result.Add(New WoodPropertiesData With {
+                .CommonName = s.CommonName,
+                .ScientificName = s.ScientificName,
+                .WoodType = s.WoodType,
+                .JankaHardness = s.JankaHardness,
+                .SpecificGravity = s.SpecificGravity,
+                .Density = CInt(s.Density),
+                .MoistureContent = s.MoistureContent,
+                .ShrinkageRadial = s.ShrinkageRadial,
+                .ShrinkageTangential = s.ShrinkageTangential,
+                .TypicalUses = s.TypicalUses,
+                .Workability = s.Workability,
+                .Cautions = s.Cautions,
+                .Notes = s.Notes
+            })
+        Next
+
+        Return result
+    End Function
+
+    ''' <summary>
+    ''' Adds a wood species - accepts WoodPropertiesData for legacy compatibility
+    ''' </summary>
+    Public Function AddWoodSpecies(species As WoodPropertiesData) As Boolean
+        ' Convert to unified WoodSpecies and add to UserData
+        Dim woodSpecies As New WoodSpecies With {
+            .CommonName = species.CommonName,
+            .ScientificName = species.ScientificName,
+            .WoodType = species.WoodType,
+            .JankaHardness = species.JankaHardness,
+            .SpecificGravity = species.SpecificGravity,
+            .Density = species.Density,
+            .MoistureContent = species.MoistureContent,
+            .ShrinkageRadial = species.ShrinkageRadial,
+            .ShrinkageTangential = species.ShrinkageTangential,
+            .TypicalUses = species.TypicalUses,
+            .Workability = species.Workability,
+            .Cautions = species.Cautions,
+            .Notes = species.Notes
+        }
+
+        Return UserData.AddCustomWoodSpecies(woodSpecies)
     End Function
 
 #End Region

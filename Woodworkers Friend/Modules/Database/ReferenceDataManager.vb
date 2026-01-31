@@ -136,22 +136,25 @@ Public Class ReferenceDataManager
                 CREATE INDEX IF NOT EXISTS idx_joinery_name ON JoineryTypes(Name);
                 CREATE INDEX IF NOT EXISTS idx_joinery_category ON JoineryTypes(Category);
 
-                -- Hardware Standards Table
+                -- Hardware Standards Table (matches HardwareModels.vb)
                 CREATE TABLE IF NOT EXISTS HardwareStandards (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT NOT NULL,
+                    HardwareID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Category TEXT NOT NULL,
-                    Specifications TEXT,
+                    Type TEXT NOT NULL,
+                    Brand TEXT,
+                    PartNumber TEXT,
+                    Description TEXT,
                     Dimensions TEXT,
                     MountingRequirements TEXT,
                     WeightCapacity TEXT,
-                    CommonBrands TEXT,
-                    PartNumbers TEXT,
-                    Notes TEXT,
-                    InstallationTips TEXT
+                    TypicalUses TEXT,
+                    InstallationNotes TEXT,
+                    PurchaseLink TEXT,
+                    IsUserAdded INTEGER DEFAULT 0,
+                    DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
                 );
 
-                CREATE INDEX IF NOT EXISTS idx_hardware_name ON HardwareStandards(Name);
+                CREATE INDEX IF NOT EXISTS idx_hardware_type ON HardwareStandards(Type);
                 CREATE INDEX IF NOT EXISTS idx_hardware_category ON HardwareStandards(Category);
 
                 -- Version Table
@@ -172,7 +175,7 @@ Public Class ReferenceDataManager
             Using conn = GetReadOnlyConnection()
                 conn.Open()
                 Using cmd As New SQLiteCommand("
-                    SELECT COUNT(*) FROM sqlite_master 
+                    SELECT COUNT(*) FROM sqlite_master
                     WHERE type='table' AND name IN ('WoodSpecies', 'JoineryTypes', 'HardwareStandards')
                 ", conn)
                     Dim tableCount = Convert.ToInt32(cmd.ExecuteScalar())
@@ -310,7 +313,7 @@ Public Class ReferenceDataManager
         Return results
     End Function
 
-    Private Function CreateWoodSpeciesFromReader(reader As SQLiteDataReader) As WoodSpecies
+    Private Shared Function CreateWoodSpeciesFromReader(reader As SQLiteDataReader) As WoodSpecies
         Return New WoodSpecies With {
             .CommonName = reader.GetString(1),
             .ScientificName = If(reader.IsDBNull(2), String.Empty, reader.GetString(2)),
@@ -389,7 +392,7 @@ Public Class ReferenceDataManager
         Return results
     End Function
 
-    Private Function CreateJoineryTypeFromReader(reader As SQLiteDataReader) As JoineryType
+    Private Shared Function CreateJoineryTypeFromReader(reader As SQLiteDataReader) As JoineryType
         Return New JoineryType With {
             .Name = reader.GetString(1),
             .Category = If(reader.IsDBNull(2), String.Empty, reader.GetString(2)),
@@ -399,7 +402,7 @@ Public Class ReferenceDataManager
             .TypicalUses = If(reader.IsDBNull(6), String.Empty, reader.GetString(6)),
             .RequiredTools = If(reader.IsDBNull(7), String.Empty, reader.GetString(7)),
             .StrengthCharacteristics = If(reader.IsDBNull(8), String.Empty, reader.GetString(8)),
-            .GlueRequired = If(reader.IsDBNull(9), False, reader.GetInt32(9) = 1),
+            .GlueRequired = Not reader.IsDBNull(9) AndAlso reader.GetInt32(9) = 1,
             .ReinforcementOptions = If(reader.IsDBNull(10), String.Empty, reader.GetString(10)),
             .HistoricalNotes = If(reader.IsDBNull(11), String.Empty, reader.GetString(11))
         }
@@ -416,10 +419,11 @@ Public Class ReferenceDataManager
             Using conn = GetReadOnlyConnection()
                 conn.Open()
                 Using cmd As New SQLiteCommand("
-                    SELECT Id, Name, Category, Specifications, Dimensions, MountingRequirements,
-                           WeightCapacity, CommonBrands, PartNumbers, Notes, InstallationTips
+                    SELECT HardwareID, Category, Type, Brand, PartNumber, Description, 
+                           Dimensions, MountingRequirements, WeightCapacity, TypicalUses, 
+                           InstallationNotes, PurchaseLink, IsUserAdded, DateAdded
                     FROM HardwareStandards
-                    ORDER BY Category, Name
+                    ORDER BY Category, Type
                 ", conn)
                     Using reader = cmd.ExecuteReader()
                         While reader.Read()
@@ -442,11 +446,12 @@ Public Class ReferenceDataManager
             Using conn = GetReadOnlyConnection()
                 conn.Open()
                 Using cmd As New SQLiteCommand("
-                    SELECT Id, Name, Category, Specifications, Dimensions, MountingRequirements,
-                           WeightCapacity, CommonBrands, PartNumbers, Notes, InstallationTips
+                    SELECT HardwareID, Category, Type, Brand, PartNumber, Description,
+                           Dimensions, MountingRequirements, WeightCapacity, TypicalUses,
+                           InstallationNotes, PurchaseLink, IsUserAdded, DateAdded
                     FROM HardwareStandards
                     WHERE Category = @Category
-                    ORDER BY Name
+                    ORDER BY Type
                 ", conn)
                     cmd.Parameters.AddWithValue("@Category", category)
 
@@ -464,20 +469,106 @@ Public Class ReferenceDataManager
         Return results
     End Function
 
-    Private Function CreateHardwareStandardFromReader(reader As SQLiteDataReader) As HardwareStandard
+    Private Shared Function CreateHardwareStandardFromReader(reader As SQLiteDataReader) As HardwareStandard
         Return New HardwareStandard With {
-            .Name = reader.GetString(1),
-            .Category = reader.GetString(2),
-            .Specifications = If(reader.IsDBNull(3), String.Empty, reader.GetString(3)),
-            .Dimensions = If(reader.IsDBNull(4), String.Empty, reader.GetString(4)),
-            .MountingRequirements = If(reader.IsDBNull(5), String.Empty, reader.GetString(5)),
-            .WeightCapacity = If(reader.IsDBNull(6), String.Empty, reader.GetString(6)),
-            .CommonBrands = If(reader.IsDBNull(7), String.Empty, reader.GetString(7)),
-            .PartNumbers = If(reader.IsDBNull(8), String.Empty, reader.GetString(8)),
-            .Notes = If(reader.IsDBNull(9), String.Empty, reader.GetString(9)),
-            .InstallationTips = If(reader.IsDBNull(10), String.Empty, reader.GetString(10))
+            .HardwareID = reader.GetInt32(0),
+            .Category = reader.GetString(1),
+            .Type = reader.GetString(2),
+            .Brand = If(reader.IsDBNull(3), String.Empty, reader.GetString(3)),
+            .PartNumber = If(reader.IsDBNull(4), String.Empty, reader.GetString(4)),
+            .Description = If(reader.IsDBNull(5), String.Empty, reader.GetString(5)),
+            .Dimensions = If(reader.IsDBNull(6), String.Empty, reader.GetString(6)),
+            .MountingRequirements = If(reader.IsDBNull(7), String.Empty, reader.GetString(7)),
+            .WeightCapacity = If(reader.IsDBNull(8), String.Empty, reader.GetString(8)),
+            .TypicalUses = If(reader.IsDBNull(9), String.Empty, reader.GetString(9)),
+            .InstallationNotes = If(reader.IsDBNull(10), String.Empty, reader.GetString(10)),
+            .PurchaseLink = If(reader.IsDBNull(11), String.Empty, reader.GetString(11)),
+            .IsUserAdded = Not reader.IsDBNull(12) AndAlso reader.GetInt32(12) = 1,
+            .DateAdded = If(reader.IsDBNull(13), DateTime.Now, reader.GetDateTime(13))
         }
     End Function
+
+    ''' <summary>
+    ''' Adds a single hardware standard (used during migration)
+    ''' </summary>
+    Public Function AddHardwareStandard(hardware As HardwareStandard) As Boolean
+        Try
+            RemoveReadOnlyAttribute()
+
+            Using conn = GetWriteConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("
+                    INSERT INTO HardwareStandards
+                    (Category, Type, Brand, PartNumber, Description, Dimensions,
+                     MountingRequirements, WeightCapacity, TypicalUses, InstallationNotes,
+                     PurchaseLink, IsUserAdded)
+                    VALUES (@Category, @Type, @Brand, @PartNumber, @Description, @Dimensions,
+                            @MountingRequirements, @WeightCapacity, @TypicalUses, @InstallationNotes,
+                            @PurchaseLink, 0)
+                ", conn)
+                    cmd.Parameters.AddWithValue("@Category", hardware.Category)
+                    cmd.Parameters.AddWithValue("@Type", hardware.Type)
+                    cmd.Parameters.AddWithValue("@Brand", If(String.IsNullOrEmpty(hardware.Brand), CObj(DBNull.Value), CObj(hardware.Brand)))
+                    cmd.Parameters.AddWithValue("@PartNumber", If(String.IsNullOrEmpty(hardware.PartNumber), CObj(DBNull.Value), CObj(hardware.PartNumber)))
+                    cmd.Parameters.AddWithValue("@Description", If(String.IsNullOrEmpty(hardware.Description), CObj(DBNull.Value), CObj(hardware.Description)))
+                    cmd.Parameters.AddWithValue("@Dimensions", If(String.IsNullOrEmpty(hardware.Dimensions), CObj(DBNull.Value), CObj(hardware.Dimensions)))
+                    cmd.Parameters.AddWithValue("@MountingRequirements", If(String.IsNullOrEmpty(hardware.MountingRequirements), CObj(DBNull.Value), CObj(hardware.MountingRequirements)))
+                    cmd.Parameters.AddWithValue("@WeightCapacity", If(String.IsNullOrEmpty(hardware.WeightCapacity), CObj(DBNull.Value), CObj(hardware.WeightCapacity)))
+                    cmd.Parameters.AddWithValue("@TypicalUses", If(String.IsNullOrEmpty(hardware.TypicalUses), CObj(DBNull.Value), CObj(hardware.TypicalUses)))
+                    cmd.Parameters.AddWithValue("@InstallationNotes", If(String.IsNullOrEmpty(hardware.InstallationNotes), CObj(DBNull.Value), CObj(hardware.InstallationNotes)))
+                    cmd.Parameters.AddWithValue("@PurchaseLink", If(String.IsNullOrEmpty(hardware.PurchaseLink), CObj(DBNull.Value), CObj(hardware.PurchaseLink)))
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddHardwareStandard")
+            Return False
+        Finally
+            SetReadOnlyAttribute()
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Adds a single joinery type (used during migration)
+    ''' </summary>
+    Public Function AddJoineryType(joinery As JoineryType) As Boolean
+        Try
+            RemoveReadOnlyAttribute()
+
+            Using conn = GetWriteConnection()
+                conn.Open()
+                Using cmd As New SQLiteCommand("
+                    INSERT INTO JoineryTypes
+                    (Name, Category, StrengthRating, DifficultyLevel, Description, TypicalUses,
+                     RequiredTools, StrengthCharacteristics, GlueRequired, ReinforcementOptions, HistoricalNotes)
+                    VALUES (@Name, @Category, @StrengthRating, @DifficultyLevel, @Description, @TypicalUses,
+                            @RequiredTools, @StrengthCharacteristics, @GlueRequired, @ReinforcementOptions, @HistoricalNotes)
+                ", conn)
+                    cmd.Parameters.AddWithValue("@Name", joinery.Name)
+                    cmd.Parameters.AddWithValue("@Category", joinery.Category)
+                    cmd.Parameters.AddWithValue("@StrengthRating", joinery.StrengthRating)
+                    cmd.Parameters.AddWithValue("@DifficultyLevel", joinery.DifficultyLevel)
+                    cmd.Parameters.AddWithValue("@Description", If(String.IsNullOrEmpty(joinery.Description), CObj(DBNull.Value), CObj(joinery.Description)))
+                    cmd.Parameters.AddWithValue("@TypicalUses", If(String.IsNullOrEmpty(joinery.TypicalUses), CObj(DBNull.Value), CObj(joinery.TypicalUses)))
+                    cmd.Parameters.AddWithValue("@RequiredTools", If(String.IsNullOrEmpty(joinery.RequiredTools), CObj(DBNull.Value), CObj(joinery.RequiredTools)))
+                    cmd.Parameters.AddWithValue("@StrengthCharacteristics", If(String.IsNullOrEmpty(joinery.StrengthCharacteristics), CObj(DBNull.Value), CObj(joinery.StrengthCharacteristics)))
+                    cmd.Parameters.AddWithValue("@GlueRequired", If(joinery.GlueRequired, 1, 0))
+                    cmd.Parameters.AddWithValue("@ReinforcementOptions", If(String.IsNullOrEmpty(joinery.ReinforcementOptions), CObj(DBNull.Value), CObj(joinery.ReinforcementOptions)))
+                    cmd.Parameters.AddWithValue("@HistoricalNotes", If(String.IsNullOrEmpty(joinery.HistoricalNotes), CObj(DBNull.Value), CObj(joinery.HistoricalNotes)))
+                    cmd.ExecuteNonQuery()
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddJoineryType")
+            Return False
+        Finally
+            SetReadOnlyAttribute()
+        End Try
+    End Function
+
+
 
 #End Region
 
@@ -607,21 +698,25 @@ Public Class ReferenceDataManager
                         For Each item In hardwareList
                             Using cmd As New SQLiteCommand("
                                 INSERT OR REPLACE INTO HardwareStandards
-                                (Name, Category, Specifications, Dimensions, MountingRequirements, WeightCapacity,
-                                 CommonBrands, PartNumbers, Notes, InstallationTips)
-                                VALUES (@Name, @Category, @Specifications, @Dimensions, @MountingRequirements, @WeightCapacity,
-                                        @CommonBrands, @PartNumbers, @Notes, @InstallationTips)
+                                (Category, Type, Brand, PartNumber, Description, Dimensions,
+                                 MountingRequirements, WeightCapacity, TypicalUses, InstallationNotes,
+                                 PurchaseLink, IsUserAdded)
+                                VALUES (@Category, @Type, @Brand, @PartNumber, @Description, @Dimensions,
+                                        @MountingRequirements, @WeightCapacity, @TypicalUses, @InstallationNotes,
+                                        @PurchaseLink, @IsUserAdded)
                             ", conn, transaction)
-                                cmd.Parameters.AddWithValue("@Name", item.Name)
                                 cmd.Parameters.AddWithValue("@Category", item.Category)
-                                cmd.Parameters.AddWithValue("@Specifications", If(String.IsNullOrEmpty(item.Specifications), CObj(DBNull.Value), CObj(item.Specifications)))
+                                cmd.Parameters.AddWithValue("@Type", item.Type)
+                                cmd.Parameters.AddWithValue("@Brand", If(String.IsNullOrEmpty(item.Brand), CObj(DBNull.Value), CObj(item.Brand)))
+                                cmd.Parameters.AddWithValue("@PartNumber", If(String.IsNullOrEmpty(item.PartNumber), CObj(DBNull.Value), CObj(item.PartNumber)))
+                                cmd.Parameters.AddWithValue("@Description", If(String.IsNullOrEmpty(item.Description), CObj(DBNull.Value), CObj(item.Description)))
                                 cmd.Parameters.AddWithValue("@Dimensions", If(String.IsNullOrEmpty(item.Dimensions), CObj(DBNull.Value), CObj(item.Dimensions)))
                                 cmd.Parameters.AddWithValue("@MountingRequirements", If(String.IsNullOrEmpty(item.MountingRequirements), CObj(DBNull.Value), CObj(item.MountingRequirements)))
                                 cmd.Parameters.AddWithValue("@WeightCapacity", If(String.IsNullOrEmpty(item.WeightCapacity), CObj(DBNull.Value), CObj(item.WeightCapacity)))
-                                cmd.Parameters.AddWithValue("@CommonBrands", If(String.IsNullOrEmpty(item.CommonBrands), CObj(DBNull.Value), CObj(item.CommonBrands)))
-                                cmd.Parameters.AddWithValue("@PartNumbers", If(String.IsNullOrEmpty(item.PartNumbers), CObj(DBNull.Value), CObj(item.PartNumbers)))
-                                cmd.Parameters.AddWithValue("@Notes", If(String.IsNullOrEmpty(item.Notes), CObj(DBNull.Value), CObj(item.Notes)))
-                                cmd.Parameters.AddWithValue("@InstallationTips", If(String.IsNullOrEmpty(item.InstallationTips), CObj(DBNull.Value), CObj(item.InstallationTips)))
+                                cmd.Parameters.AddWithValue("@TypicalUses", If(String.IsNullOrEmpty(item.TypicalUses), CObj(DBNull.Value), CObj(item.TypicalUses)))
+                                cmd.Parameters.AddWithValue("@InstallationNotes", If(String.IsNullOrEmpty(item.InstallationNotes), CObj(DBNull.Value), CObj(item.InstallationNotes)))
+                                cmd.Parameters.AddWithValue("@PurchaseLink", If(String.IsNullOrEmpty(item.PurchaseLink), CObj(DBNull.Value), CObj(item.PurchaseLink)))
+                                cmd.Parameters.AddWithValue("@IsUserAdded", If(item.IsUserAdded, 1, 0))
                                 cmd.ExecuteNonQuery()
                                 successCount += 1
                             End Using
