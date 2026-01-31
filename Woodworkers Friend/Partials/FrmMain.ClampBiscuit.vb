@@ -276,6 +276,7 @@ Partial Public Class FrmMain
     ''' <summary>
     ''' Calculate edge distance based on biscuit/domino length
     ''' Edge distance must be at least half the joinery length to prevent exposure
+    ''' Plus additional padding for trimming and error tolerance
     ''' </summary>
     Private Function CalculateEdgeDistance(stockThickness As Double, size As String) As Double
         ' Get biscuit/domino length (in inches)
@@ -300,8 +301,9 @@ Partial Public Class FrmMain
             joineryLength = 1.97
         End If
 
-        ' Minimum edge distance is half the joinery length + small safety margin
-        Dim minEdge As Double = (joineryLength / 2) + 0.25 ' Add 1/4" safety margin
+        ' Minimum edge distance is half the joinery length + trimming allowance
+        ' Use 5/8" (0.625") padding to allow for trimming and error tolerance
+        Dim minEdge As Double = (joineryLength / 2) + 0.625
 
         Return minEdge
     End Function
