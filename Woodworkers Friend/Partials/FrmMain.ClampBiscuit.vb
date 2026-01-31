@@ -274,21 +274,34 @@ Partial Public Class FrmMain
     End Function
 
     ''' <summary>
-    ''' Calculate edge distance based on stock thickness and joinery size
+    ''' Calculate edge distance based on biscuit/domino length
+    ''' Edge distance must be at least half the joinery length to prevent exposure
     ''' </summary>
     Private Function CalculateEdgeDistance(stockThickness As Double, size As String) As Double
-        ' Minimum edge distance is typically 2x the biscuit/domino height
-        Dim minEdge As Double = 2.0 ' Default 2"
+        ' Get biscuit/domino length (in inches)
+        Dim joineryLength As Double = 2.375 ' Default #20
 
-        ' Adjust based on size
-        If size.Contains("#0") Then minEdge = 1.5
-        If size.Contains("#10") Then minEdge = 1.75
-        If size.Contains("#20") OrElse size.Contains("4x") OrElse size.Contains("5x") Then minEdge = 2.0
-        If size.Contains("6x") OrElse size.Contains("8x") Then minEdge = 2.5
-        If size.Contains("10x") Then minEdge = 3.0
+        ' Biscuit sizes (length in inches)
+        If size.Contains("#0") Then
+            joineryLength = 1.75
+        ElseIf size.Contains("#10") Then
+            joineryLength = 2.125
+        ElseIf size.Contains("#20") Then
+            joineryLength = 2.375
+        ElseIf size.Contains("#FF") OrElse size.Contains("#H9") Then
+            joineryLength = 2.75
+        ElseIf size.Contains("4x") Then
+            joineryLength = 0.79
+        ElseIf size.Contains("5x") Then
+            joineryLength = 1.18
+        ElseIf size.Contains("6x") Then
+            joineryLength = 1.57
+        ElseIf size.Contains("8x") OrElse size.Contains("10x") Then
+            joineryLength = 1.97
+        End If
 
-        ' Ensure edge distance is reasonable for stock thickness
-        minEdge = Math.Min(minEdge, stockThickness / 3)
+        ' Minimum edge distance is half the joinery length + small safety margin
+        Dim minEdge As Double = (joineryLength / 2) + 0.25 ' Add 1/4" safety margin
 
         Return minEdge
     End Function
