@@ -600,6 +600,8 @@ Partial Class FrmMain
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
         TmrClock = New Timer(components)
+        Label51 = New Label()
+        NudLogKeep = New NumericUpDown()
         CmsLog.SuspendLayout()
         Ss1.SuspendLayout()
         Ss2.SuspendLayout()
@@ -729,6 +731,7 @@ Partial Class FrmMain
         PnlSgpRadioButtons.SuspendLayout()
         TpAbout.SuspendLayout()
         GbxAbout.SuspendLayout()
+        CType(NudLogKeep, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' CmsLog
@@ -6550,7 +6553,7 @@ Partial Class FrmMain
         LblGritResult.AutoSize = True
         LblGritResult.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblGritResult.ForeColor = Color.Green
-        LblGritResult.Location = New Point(13, 22)
+        LblGritResult.Location = New Point(6, 22)
         LblGritResult.Name = "LblGritResult"
         LblGritResult.Size = New Size(328, 21)
         LblGritResult.TabIndex = 0
@@ -6570,6 +6573,8 @@ Partial Class FrmMain
         ' 
         TpAbout.BackColor = Color.Gray
         TpAbout.BorderStyle = BorderStyle.Fixed3D
+        TpAbout.Controls.Add(NudLogKeep)
+        TpAbout.Controls.Add(Label51)
         TpAbout.Controls.Add(LblManageCosts)
         TpAbout.Controls.Add(BtnManageCosts)
         TpAbout.Controls.Add(GbxAbout)
@@ -6693,6 +6698,25 @@ Partial Class FrmMain
         ' TmrClock
         ' 
         TmrClock.Interval = 1000
+        ' 
+        ' Label51
+        ' 
+        Label51.AutoSize = True
+        Label51.ForeColor = SystemColors.ButtonFace
+        Label51.Location = New Point(780, 97)
+        Label51.Name = "Label51"
+        Label51.Size = New Size(191, 18)
+        Label51.TabIndex = 6
+        Label51.Text = "Days to Keep Log Files"
+        ' 
+        ' NudLogKeep
+        ' 
+        NudLogKeep.Location = New Point(971, 93)
+        NudLogKeep.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
+        NudLogKeep.Name = "NudLogKeep"
+        NudLogKeep.Size = New Size(73, 26)
+        NudLogKeep.TabIndex = 7
+        NudLogKeep.Value = New Decimal(New Integer() {3, 0, 0, 0})
         ' 
         ' FrmMain
         ' 
@@ -6903,6 +6927,7 @@ Partial Class FrmMain
         TpAbout.PerformLayout()
         GbxAbout.ResumeLayout(False)
         GbxAbout.PerformLayout()
+        CType(NudLogKeep, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -7493,5 +7518,7 @@ Partial Class FrmMain
     Friend WithEvents RbSkipGrit As RadioButton
     Friend WithEvents LblGritResult As Label
     Friend WithEvents TxtGritNotes As TextBox
+    Friend WithEvents NudLogKeep As NumericUpDown
+    Friend WithEvents Label51 As Label
 End Class
 

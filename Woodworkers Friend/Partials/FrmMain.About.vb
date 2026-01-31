@@ -485,4 +485,48 @@ Partial Public Class FrmMain
 
 #End Region
 
+#Region "Log Keep Setting (NumericUpDown)"
+
+    ''' <summary>
+    ''' Handles value change in NudLogKeep - saves the new log retention days setting
+    ''' </summary>
+    Private Sub NudLogKeep_ValueChanged(sender As Object, e As EventArgs) Handles NudLogKeep.ValueChanged
+        ' Only save if the form is fully loaded to avoid saving during initialization
+        If Me.IsHandleCreated AndAlso Me.Visible Then
+            SaveLogKeepSetting(CInt(NudLogKeep.Value))
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Handles Enter event for NudLogKeep - selects all text when entered
+    ''' </summary>
+    Private Sub NudLogKeep_Enter(sender As Object, e As EventArgs) Handles NudLogKeep.Enter
+        Try
+            ' Select all text when control is entered
+            NudLogKeep.Select(0, NudLogKeep.Text.Length)
+        Catch ex As Exception
+            ' Silently handle any selection errors
+            ErrorHandler.LogError(ex, "NudLogKeep_Enter")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Handles GotFocus event for NudLogKeep - selects all text when focused
+    ''' </summary>
+    Private Sub NudLogKeep_GotFocus(sender As Object, e As EventArgs) Handles NudLogKeep.GotFocus
+        Try
+            ' Use BeginInvoke to ensure the text is selected after the control has fully received focus
+            Me.BeginInvoke(Sub()
+                               If NudLogKeep.Focused Then
+                                   NudLogKeep.Select(0, NudLogKeep.Text.Length)
+                               End If
+                           End Sub)
+        Catch ex As Exception
+            ' Silently handle any selection errors
+            ErrorHandler.LogError(ex, "NudLogKeep_GotFocus")
+        End Try
+    End Sub
+
+#End Region
+
 End Class

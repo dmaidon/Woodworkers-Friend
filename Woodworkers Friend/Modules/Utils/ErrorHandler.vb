@@ -11,7 +11,11 @@ Imports System.IO
 ''' </summary>
 Public Class ErrorHandler
 
-    Private Const MaxLogAgeInDays As Integer = 10
+    ''' <summary>
+    ''' Maximum age in days before log files are deleted (default: 10 days)
+    ''' This value is loaded from user preferences at startup
+    ''' </summary>
+    Public Shared Property MaxLogAgeInDays As Integer = 10
 
     ''' <summary>
     ''' Gets the current log file path using the current TimesRun value

@@ -390,6 +390,9 @@ Public Class FrmMain
             End If
 
             ErrorHandler.LogError(New Exception($"Preferences loaded: Theme={savedTheme}, Scale={savedScale}"), "LoadUserPreferences")
+
+            ' Load LogKeep setting
+            LoadLogKeepSetting()
         Catch ex As Exception
             ErrorHandler.LogError(ex, "LoadUserPreferences")
             ' Continue with defaults - non-critical
@@ -424,6 +427,49 @@ Public Class FrmMain
             End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "SaveUserPreferences")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Loads the LogKeep setting from database and sets ErrorHandler.MaxLogAgeInDays
+    ''' </summary>
+    Private Sub LoadLogKeepSetting()
+        Try
+            Dim db = DatabaseManager.Instance
+            Dim logKeepDays = db.GetIntPreference("LogKeepDays", 10)
+
+            ' Ensure value is within valid range (5-100)
+            If logKeepDays < 5 Then logKeepDays = 5
+            If logKeepDays > 100 Then logKeepDays = 100
+
+            ' Set the property in ErrorHandler
+            ErrorHandler.MaxLogAgeInDays = logKeepDays
+
+            ' Update the NumericUpDown control
+            If NudLogKeep IsNot Nothing Then
+                NudLogKeep.Value = logKeepDays
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "LoadLogKeepSetting")
+            ' Use default of 10 if loading fails
+            ErrorHandler.MaxLogAgeInDays = 10
+            If NudLogKeep IsNot Nothing Then
+                NudLogKeep.Value = 10
+            End If
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Saves the LogKeep setting to database and updates ErrorHandler.MaxLogAgeInDays
+    ''' </summary>
+    Private Sub SaveLogKeepSetting(value As Integer)
+        Try
+            Dim db = DatabaseManager.Instance
+            db.SavePreference("LogKeepDays", value.ToString(), "Integer", "System")
+            ErrorHandler.MaxLogAgeInDays = value
+            ErrorHandler.LogWarning("LogKeepSetting", $"Log retention changed to {value} days")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "SaveLogKeepSetting")
         End Try
     End Sub
 
