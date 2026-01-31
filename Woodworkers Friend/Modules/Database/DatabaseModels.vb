@@ -85,34 +85,4 @@ Public Class WoodSpecies
     End Property
 End Class
 
-''' <summary>
-''' Hardware standard/specification model - unified from DatabaseManager schema
-''' Used by Reference.db for hardware reference data
-''' Maps to HardwareStandards table in database
-''' </summary>
-Public Class HardwareStandard
-    ' Database columns (primary)
-    Public Property HardwareID As Integer
-    Public Property Category As String
-    Public Property Type As String
-    Public Property Brand As String
-    Public Property PartNumber As String
-    Public Property Description As String
-    Public Property Dimensions As String
-    Public Property MountingRequirements As String
-    Public Property WeightCapacity As String
-    Public Property TypicalUses As String
-    Public Property InstallationNotes As String
-    Public Property PurchaseLink As String
-    Public Property IsUserAdded As Boolean
-    Public Property DateAdded As DateTime
-    
-    ' Extended properties (for ReferenceDataManager compatibility)
-    Public Property Name As String ' Maps to Type for backward compatibility
-    Public Property Specifications As String ' Maps to Description
-    Public Property CommonBrands As String ' CSV list of brands
-    Public Property PartNumbers As String ' CSV list of part numbers
-    Public Property Notes As String ' Additional notes
-    Public Property InstallationTips As String ' Maps to InstallationNotes
-End Class
 
