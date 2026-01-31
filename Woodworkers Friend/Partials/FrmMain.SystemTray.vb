@@ -1,10 +1,15 @@
 Imports System.Drawing
+Imports System.Runtime.InteropServices
 
 Partial Public Class FrmMain
 
 #Region "System Tray - NotifyIcon and Context Menu"
 
-    Private NotifyIcon As NotifyIcon
+    <DllImport("user32.dll", SetLastError:=True)>
+    Private Shared Function SetForegroundWindow(hWnd As IntPtr) As Boolean
+    End Function
+
+    Private _trayIcon As System.Windows.Forms.NotifyIcon
     Private CmsNotifyIcon As ContextMenuStrip
     Private TsmiRestore As ToolStripMenuItem
     Private TsmiLocate As ToolStripMenuItem
@@ -26,29 +31,29 @@ Partial Public Class FrmMain
             End If
 
             ' Create NotifyIcon with components container
-            NotifyIcon = New NotifyIcon(Me.components)
+            _trayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
 
             ' Set icon - use form icon if available, otherwise use system icon
             If Me.Icon IsNot Nothing Then
-                NotifyIcon.Icon = Me.Icon
+                _trayIcon.Icon = Me.Icon
                 Debug.WriteLine("Using form icon for NotifyIcon")
             Else
                 ' Use default application icon or create one
                 Try
-                    NotifyIcon.Icon = SystemIcons.Application
+                    _trayIcon.Icon = SystemIcons.Application
                     Debug.WriteLine("Form icon is Nothing, using SystemIcons.Application")
                 Catch
                     ' Last resort - create a simple icon
-                    NotifyIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
+                    _trayIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
                     Debug.WriteLine("Using extracted icon from executable")
                 End Try
             End If
 
-            NotifyIcon.Text = $"{AppName} - {Version}" ' Tooltip
-            NotifyIcon.Visible = True
+            _trayIcon.Text = $"{AppName} - {Version}" ' Tooltip
+            _trayIcon.Visible = True
 
             ' Debug log
-            Debug.WriteLine($"NotifyIcon created: Icon={NotifyIcon.Icon IsNot Nothing}, Visible={NotifyIcon.Visible}")
+            Debug.WriteLine($"NotifyIcon created: Icon={_trayIcon.Icon IsNot Nothing}, Visible={_trayIcon.Visible}")
 
             ' Create context menu
             CmsNotifyIcon = New ContextMenuStrip()
@@ -109,40 +114,38 @@ Partial Public Class FrmMain
                 TsmiExitNotify
             })
 
-            ' DO NOT attach context menu to NotifyIcon - it causes Windows default menu to show
-            ' NotifyIcon.ContextMenuStrip = CmsNotifyIcon  ' <- This line causes the problem!
+            ' DO NOT assign ContextMenuStrip - it doesn't work reliably!
+            ' We'll show the menu manually on right-click instead
+            ' _trayIcon.ContextMenuStrip = CmsNotifyIcon  ' <-- This doesn't work!
 
-            ' Instead, we'll show it manually in MouseUp event
+            ' Handle mouse clicks on tray icon
+            AddHandler _trayIcon.MouseClick, AddressOf TrayIcon_MouseClick
 
-            ' Handle double-click on tray icon
-            AddHandler NotifyIcon.DoubleClick, AddressOf NotifyIcon_DoubleClick
-
-            ' CRITICAL: Handle MouseUp to show context menu manually
-            ' We must NOT set ContextMenuStrip property - show menu manually only
-            AddHandler NotifyIcon.MouseUp, AddressOf NotifyIcon_MouseUp
+            ' Debug log success
+            Debug.WriteLine($"System tray initialized - Menu items: {CmsNotifyIcon.Items.Count}, Visible: {_trayIcon.Visible}")
 
             ' Hook into form minimize to hide to tray (optional behavior)
             ' AddHandler Me.Resize, AddressOf FrmMain_Resize
 
             ' Debug and log success
-            Debug.WriteLine($"System tray icon initialized successfully. Visible={NotifyIcon.Visible}, Icon={NotifyIcon.Icon IsNot Nothing}")
+            Debug.WriteLine($"System tray icon initialized successfully. Visible={_trayIcon.Visible}, Icon={_trayIcon.Icon IsNot Nothing}")
             ErrorHandler.LogError(New Exception("System tray icon initialized"), "InitializeSystemTray")
 
             ' Force icon to show (sometimes needed)
-            NotifyIcon.Visible = False
+            _trayIcon.Visible = False
             System.Threading.Thread.Sleep(100) ' Brief delay
-            NotifyIcon.Visible = True
+            _trayIcon.Visible = True
 
             ' Show detailed debug info
-            Dim iconInfo = If(NotifyIcon.Icon IsNot Nothing, $"Icon: {NotifyIcon.Icon.Width}x{NotifyIcon.Icon.Height}", "Icon: NULL")
-            Debug.WriteLine($"Final NotifyIcon state: Visible={NotifyIcon.Visible}, {iconInfo}, ContextMenu={NotifyIcon.ContextMenuStrip IsNot Nothing}")
+            Dim iconInfo = If(_trayIcon.Icon IsNot Nothing, $"Icon: {_trayIcon.Icon.Width}x{_trayIcon.Icon.Height}", "Icon: NULL")
+            Debug.WriteLine($"Final NotifyIcon state: Visible={_trayIcon.Visible}, {iconInfo}, ContextMenu={CmsNotifyIcon IsNot Nothing}")
 
             ' Inform user (REMOVE THIS AFTER TESTING)
             ' MessageBox.Show($"System Tray Icon Status:{Environment.NewLine}" &
-            '               $"Visible: {NotifyIcon.Visible}{Environment.NewLine}" &
+            '               $"Visible: {_trayIcon.Visible}{Environment.NewLine}" &
             '               $"{iconInfo}{Environment.NewLine}" &
-            '               $"Context Menu: {NotifyIcon.ContextMenuStrip IsNot Nothing}{Environment.NewLine}" &
-            '               $"Tooltip: {NotifyIcon.Text}{Environment.NewLine}{Environment.NewLine}" &
+            '               $"Context Menu: {_trayIcon.ContextMenuStrip IsNot Nothing}{Environment.NewLine}" &
+            '               $"Tooltip: {_trayIcon.Text}{Environment.NewLine}{Environment.NewLine}" &
             '               $"Look for icon in system tray (bottom-right corner){Environment.NewLine}" &
             '               $"If not visible, click '^' arrow to show hidden icons.",
             '               "System Tray Debug", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -155,28 +158,27 @@ Partial Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Handles double-click on the tray icon - restores window
+    ''' Handles mouse clicks on the tray icon.
+    ''' Left-click: restores window
+    ''' Right-click: shows context menu manually
     ''' </summary>
-    Private Sub NotifyIcon_DoubleClick(sender As Object, e As EventArgs)
-        RestoreWindow()
-    End Sub
-
-    ''' <summary>
-    ''' Handles MouseUp event on tray icon - shows context menu on right-click
-    ''' This is necessary because we cannot use ContextMenuStrip property (causes default menu)
-    ''' </summary>
-    Private Sub NotifyIcon_MouseUp(sender As Object, e As MouseEventArgs)
+    Private Sub TrayIcon_MouseClick(sender As Object, e As MouseEventArgs)
         Try
-            ' Show context menu on right-click
-            If e.Button = MouseButtons.Right AndAlso CmsNotifyIcon IsNot Nothing Then
-                ' Show menu at cursor position
-                ' This is the only reliable way to show custom menu on NotifyIcon
+            If e.Button = MouseButtons.Left Then
+                ' Left-click restores window
+                RestoreWindow()
+            ElseIf e.Button = MouseButtons.Right Then
+                ' Right-click shows context menu
+                ' CRITICAL: Must call SetForegroundWindow to make menu behave properly
+                SetForegroundWindow(Me.Handle)
+                
+                ' Show context menu at cursor position
                 CmsNotifyIcon.Show(Cursor.Position)
+                
+                Debug.WriteLine("Context menu shown at cursor position")
             End If
         Catch ex As Exception
-            ErrorHandler.LogError(ex, "NotifyIcon_MouseUp")
-            MessageBox.Show($"Error showing context menu: {ex.Message}",
-                          "Menu Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ErrorHandler.LogError(ex, "TrayIcon_MouseClick")
         End Try
     End Sub
 
@@ -311,9 +313,9 @@ Partial Public Class FrmMain
     Private Sub TsmiExitNotify_Click(sender As Object, e As EventArgs)
         Try
             ' Dispose tray icon before closing
-            If NotifyIcon IsNot Nothing Then
-                NotifyIcon.Visible = False
-                NotifyIcon.Dispose()
+            If _trayIcon IsNot Nothing Then
+                _trayIcon.Visible = False
+                _trayIcon.Dispose()
             End If
 
             ' Close application
@@ -334,7 +336,7 @@ Partial Public Class FrmMain
     '        If Me.WindowState = FormWindowState.Minimized Then
     '            ' Hide form and show only tray icon
     '            Me.Hide()
-    '            NotifyIcon.ShowBalloonTip(2000, AppName, "Application minimized to system tray", ToolTipIcon.Info)
+    '            _trayIcon.ShowBalloonTip(2000, AppName, "Application minimized to system tray", ToolTipIcon.Info)
     '        End If
     '    Catch ex As Exception
     '        ErrorHandler.LogError(ex, "FrmMain_Resize")
@@ -347,10 +349,10 @@ Partial Public Class FrmMain
     ''' </summary>
     Private Sub CleanupSystemTray()
         Try
-            If NotifyIcon IsNot Nothing Then
-                NotifyIcon.Visible = False
-                NotifyIcon.Dispose()
-                NotifyIcon = Nothing
+            If _trayIcon IsNot Nothing Then
+                _trayIcon.Visible = False
+                _trayIcon.Dispose()
+                _trayIcon = Nothing
             End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "CleanupSystemTray")
