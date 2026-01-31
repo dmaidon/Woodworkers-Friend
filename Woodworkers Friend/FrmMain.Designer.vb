@@ -586,6 +586,8 @@ Partial Class FrmMain
         LblGritResult = New Label()
         TpHelp = New TabPage()
         TpAbout = New TabPage()
+        NudLogKeep = New NumericUpDown()
+        Label51 = New Label()
         LblManageCosts = New Label()
         BtnManageCosts = New Button()
         GbxAbout = New GroupBox()
@@ -600,8 +602,6 @@ Partial Class FrmMain
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
         TmrClock = New Timer(components)
-        Label51 = New Label()
-        NudLogKeep = New NumericUpDown()
         CmsLog.SuspendLayout()
         Ss1.SuspendLayout()
         Ss2.SuspendLayout()
@@ -730,8 +730,8 @@ Partial Class FrmMain
         GbxSandingGrit.SuspendLayout()
         PnlSgpRadioButtons.SuspendLayout()
         TpAbout.SuspendLayout()
-        GbxAbout.SuspendLayout()
         CType(NudLogKeep, ComponentModel.ISupportInitialize).BeginInit()
+        GbxAbout.SuspendLayout()
         SuspendLayout()
         ' 
         ' CmsLog
@@ -1088,7 +1088,7 @@ Partial Class FrmMain
         ' 
         ' Button7
         ' 
-        Button7.BackColor = Color.DarkSalmon
+        Button7.BackColor = Color.MistyRose
         Button7.FlatAppearance.BorderColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
         Button7.Location = New Point(341, 17)
         Button7.Name = "Button7"
@@ -1099,7 +1099,7 @@ Partial Class FrmMain
         ' 
         ' Button6
         ' 
-        Button6.BackColor = Color.DarkSalmon
+        Button6.BackColor = Color.MistyRose
         Button6.FlatAppearance.BorderColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
         Button6.Location = New Point(184, 17)
         Button6.Name = "Button6"
@@ -1110,7 +1110,7 @@ Partial Class FrmMain
         ' 
         ' BtnCalculateDrawers
         ' 
-        BtnCalculateDrawers.BackColor = Color.DarkSalmon
+        BtnCalculateDrawers.BackColor = Color.MistyRose
         BtnCalculateDrawers.FlatAppearance.BorderColor = Color.FromArgb(CByte(192), CByte(64), CByte(0))
         BtnCalculateDrawers.Location = New Point(27, 17)
         BtnCalculateDrawers.Name = "BtnCalculateDrawers"
@@ -1435,13 +1435,14 @@ Partial Class FrmMain
         ' 
         ' BtnDrawDrawerImage
         ' 
+        BtnDrawDrawerImage.BackColor = Color.MistyRose
         BtnDrawDrawerImage.Enabled = False
         BtnDrawDrawerImage.Location = New Point(168, 439)
         BtnDrawDrawerImage.Name = "BtnDrawDrawerImage"
         BtnDrawDrawerImage.Size = New Size(211, 34)
         BtnDrawDrawerImage.TabIndex = 19
         BtnDrawDrawerImage.Text = "Drawer Shop Drawings"
-        BtnDrawDrawerImage.UseVisualStyleBackColor = True
+        BtnDrawDrawerImage.UseVisualStyleBackColor = False
         ' 
         ' PnlResults
         ' 
@@ -1638,12 +1639,13 @@ Partial Class FrmMain
         ' 
         ' BtnSaveProject
         ' 
+        BtnSaveProject.BackColor = Color.MistyRose
         BtnSaveProject.Location = New Point(42, 399)
         BtnSaveProject.Name = "BtnSaveProject"
         BtnSaveProject.Size = New Size(112, 29)
         BtnSaveProject.TabIndex = 7
         BtnSaveProject.Text = "Save Project"
-        BtnSaveProject.UseVisualStyleBackColor = True
+        BtnSaveProject.UseVisualStyleBackColor = False
         ' 
         ' Label34
         ' 
@@ -1774,21 +1776,23 @@ Partial Class FrmMain
         ' 
         ' BtnDeleteDoorProject
         ' 
+        BtnDeleteDoorProject.BackColor = Color.MistyRose
         BtnDeleteDoorProject.Location = New Point(372, 387)
         BtnDeleteDoorProject.Name = "BtnDeleteDoorProject"
         BtnDeleteDoorProject.Size = New Size(126, 29)
         BtnDeleteDoorProject.TabIndex = 28
         BtnDeleteDoorProject.Text = "Delete Project"
-        BtnDeleteDoorProject.UseVisualStyleBackColor = True
+        BtnDeleteDoorProject.UseVisualStyleBackColor = False
         ' 
         ' BtnLoadDoorProject
         ' 
+        BtnLoadDoorProject.BackColor = Color.MistyRose
         BtnLoadDoorProject.Location = New Point(372, 352)
         BtnLoadDoorProject.Name = "BtnLoadDoorProject"
         BtnLoadDoorProject.Size = New Size(126, 29)
         BtnLoadDoorProject.TabIndex = 27
         BtnLoadDoorProject.Text = "Load Project"
-        BtnLoadDoorProject.UseVisualStyleBackColor = True
+        BtnLoadDoorProject.UseVisualStyleBackColor = False
         ' 
         ' GroupBox12
         ' 
@@ -1805,7 +1809,7 @@ Partial Class FrmMain
         ' 
         ' BtnOfficeDoorPreset
         ' 
-        BtnOfficeDoorPreset.BackColor = Color.Linen
+        BtnOfficeDoorPreset.BackColor = Color.MistyRose
         BtnOfficeDoorPreset.FlatAppearance.BorderColor = Color.FromArgb(CByte(255), CByte(128), CByte(0))
         BtnOfficeDoorPreset.Location = New Point(164, 18)
         BtnOfficeDoorPreset.Name = "BtnOfficeDoorPreset"
@@ -1816,7 +1820,7 @@ Partial Class FrmMain
         ' 
         ' BtnBathroomDoorPreset
         ' 
-        BtnBathroomDoorPreset.BackColor = Color.Linen
+        BtnBathroomDoorPreset.BackColor = Color.MistyRose
         BtnBathroomDoorPreset.FlatAppearance.BorderColor = Color.FromArgb(CByte(255), CByte(128), CByte(0))
         BtnBathroomDoorPreset.Location = New Point(25, 53)
         BtnBathroomDoorPreset.Name = "BtnBathroomDoorPreset"
@@ -1827,7 +1831,7 @@ Partial Class FrmMain
         ' 
         ' BtnKitchenDoorPreset
         ' 
-        BtnKitchenDoorPreset.BackColor = Color.Linen
+        BtnKitchenDoorPreset.BackColor = Color.MistyRose
         BtnKitchenDoorPreset.FlatAppearance.BorderColor = Color.FromArgb(CByte(255), CByte(128), CByte(0))
         BtnKitchenDoorPreset.Location = New Point(25, 18)
         BtnKitchenDoorPreset.Name = "BtnKitchenDoorPreset"
@@ -1975,16 +1979,18 @@ Partial Class FrmMain
         ' 
         ' BtnCalculateDoors
         ' 
+        BtnCalculateDoors.BackColor = Color.MistyRose
         BtnCalculateDoors.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold)
         BtnCalculateDoors.Location = New Point(358, 486)
         BtnCalculateDoors.Name = "BtnCalculateDoors"
         BtnCalculateDoors.Size = New Size(154, 29)
         BtnCalculateDoors.TabIndex = 21
         BtnCalculateDoors.Text = "Calculate Doors"
-        BtnCalculateDoors.UseVisualStyleBackColor = True
+        BtnCalculateDoors.UseVisualStyleBackColor = False
         ' 
         ' BtnSaveDoorProject
         ' 
+        BtnSaveDoorProject.BackColor = Color.MistyRose
         BtnSaveDoorProject.Enabled = False
         BtnSaveDoorProject.FlatStyle = FlatStyle.System
         BtnSaveDoorProject.Location = New Point(372, 318)
@@ -1992,7 +1998,7 @@ Partial Class FrmMain
         BtnSaveDoorProject.Size = New Size(126, 29)
         BtnSaveDoorProject.TabIndex = 18
         BtnSaveDoorProject.Text = "Save Project"
-        BtnSaveDoorProject.UseVisualStyleBackColor = True
+        BtnSaveDoorProject.UseVisualStyleBackColor = False
         ' 
         ' Panel8
         ' 
@@ -2237,31 +2243,34 @@ Partial Class FrmMain
         ' 
         ' BtnDrawDoorImage
         ' 
+        BtnDrawDoorImage.BackColor = Color.MistyRose
         BtnDrawDoorImage.Enabled = False
         BtnDrawDoorImage.Location = New Point(204, 601)
         BtnDrawDoorImage.Name = "BtnDrawDoorImage"
         BtnDrawDoorImage.Size = New Size(190, 34)
         BtnDrawDoorImage.TabIndex = 28
         BtnDrawDoorImage.Text = "Draw Door Image"
-        BtnDrawDoorImage.UseVisualStyleBackColor = True
+        BtnDrawDoorImage.UseVisualStyleBackColor = False
         ' 
         ' BtnPrintDoorResults
         ' 
+        BtnPrintDoorResults.BackColor = Color.MistyRose
         BtnPrintDoorResults.Location = New Point(89, 548)
         BtnPrintDoorResults.Name = "BtnPrintDoorResults"
         BtnPrintDoorResults.Size = New Size(191, 29)
         BtnPrintDoorResults.TabIndex = 27
         BtnPrintDoorResults.Text = "Print Door Results"
-        BtnPrintDoorResults.UseVisualStyleBackColor = True
+        BtnPrintDoorResults.UseVisualStyleBackColor = False
         ' 
         ' BtnExportDoorResults
         ' 
+        BtnExportDoorResults.BackColor = Color.MistyRose
         BtnExportDoorResults.Location = New Point(320, 548)
         BtnExportDoorResults.Name = "BtnExportDoorResults"
         BtnExportDoorResults.Size = New Size(191, 29)
         BtnExportDoorResults.TabIndex = 26
         BtnExportDoorResults.Text = "Export Door Results"
-        BtnExportDoorResults.UseVisualStyleBackColor = True
+        BtnExportDoorResults.UseVisualStyleBackColor = False
         ' 
         ' Label50
         ' 
@@ -4956,21 +4965,23 @@ Partial Class FrmMain
         ' 
         ' BtnOptimize
         ' 
+        BtnOptimize.BackColor = Color.MistyRose
         BtnOptimize.Location = New Point(22, 92)
         BtnOptimize.Name = "BtnOptimize"
         BtnOptimize.Size = New Size(155, 28)
         BtnOptimize.TabIndex = 4
         BtnOptimize.Text = "Optimize"
-        BtnOptimize.UseVisualStyleBackColor = True
+        BtnOptimize.UseVisualStyleBackColor = False
         ' 
         ' BtnExportCutList
         ' 
+        BtnExportCutList.BackColor = Color.MistyRose
         BtnExportCutList.Location = New Point(244, 92)
         BtnExportCutList.Name = "BtnExportCutList"
         BtnExportCutList.Size = New Size(155, 28)
         BtnExportCutList.TabIndex = 5
         BtnExportCutList.Text = "Export"
-        BtnExportCutList.UseVisualStyleBackColor = True
+        BtnExportCutList.UseVisualStyleBackColor = False
         ' 
         ' GbCutListResults
         ' 
@@ -5056,12 +5067,13 @@ Partial Class FrmMain
         ' 
         ' BtnPrevPattern
         ' 
+        BtnPrevPattern.BackColor = Color.MistyRose
         BtnPrevPattern.Location = New Point(5, 5)
         BtnPrevPattern.Name = "BtnPrevPattern"
         BtnPrevPattern.Size = New Size(80, 28)
         BtnPrevPattern.TabIndex = 0
         BtnPrevPattern.Text = "< Prev"
-        BtnPrevPattern.UseVisualStyleBackColor = True
+        BtnPrevPattern.UseVisualStyleBackColor = False
         ' 
         ' LblPatternInfo
         ' 
@@ -5074,12 +5086,13 @@ Partial Class FrmMain
         ' 
         ' BtnNextPattern
         ' 
+        BtnNextPattern.BackColor = Color.MistyRose
         BtnNextPattern.Location = New Point(395, 5)
         BtnNextPattern.Name = "BtnNextPattern"
         BtnNextPattern.Size = New Size(80, 28)
         BtnNextPattern.TabIndex = 2
         BtnNextPattern.Text = "Next >"
-        BtnNextPattern.UseVisualStyleBackColor = True
+        BtnNextPattern.UseVisualStyleBackColor = False
         ' 
         ' TpReferences
         ' 
@@ -6380,7 +6393,7 @@ Partial Class FrmMain
         TpSanding.Controls.Add(SplitContainer2)
         TpSanding.Location = New Point(4, 4)
         TpSanding.Name = "TpSanding"
-        TpSanding.Size = New Size(1134, 811)
+        TpSanding.Size = New Size(1128, 811)
         TpSanding.TabIndex = 4
         TpSanding.Text = "Sanding"
         ' 
@@ -6399,8 +6412,8 @@ Partial Class FrmMain
         ' 
         SplitContainer2.Panel2.Controls.Add(TxtGritNotes)
         SplitContainer2.Panel2.Controls.Add(LblGritResult)
-        SplitContainer2.Size = New Size(1130, 807)
-        SplitContainer2.SplitterDistance = 500
+        SplitContainer2.Size = New Size(1124, 807)
+        SplitContainer2.SplitterDistance = 497
         SplitContainer2.SplitterWidth = 6
         SplitContainer2.TabIndex = 2
         ' 
@@ -6420,7 +6433,7 @@ Partial Class FrmMain
         GbxSandingGrit.Dock = DockStyle.Fill
         GbxSandingGrit.Location = New Point(0, 0)
         GbxSandingGrit.Name = "GbxSandingGrit"
-        GbxSandingGrit.Size = New Size(496, 803)
+        GbxSandingGrit.Size = New Size(493, 803)
         GbxSandingGrit.TabIndex = 0
         GbxSandingGrit.TabStop = False
         GbxSandingGrit.Text = "Sanding Grit Progression"
@@ -6534,7 +6547,7 @@ Partial Class FrmMain
         LblOptimalGritSequence.Dock = DockStyle.Top
         LblOptimalGritSequence.Location = New Point(3, 22)
         LblOptimalGritSequence.Name = "LblOptimalGritSequence"
-        LblOptimalGritSequence.Size = New Size(490, 140)
+        LblOptimalGritSequence.Size = New Size(487, 140)
         LblOptimalGritSequence.TabIndex = 0
         ' 
         ' TxtGritNotes
@@ -6545,7 +6558,7 @@ Partial Class FrmMain
         TxtGritNotes.Name = "TxtGritNotes"
         TxtGritNotes.ReadOnly = True
         TxtGritNotes.ScrollBars = ScrollBars.Both
-        TxtGritNotes.Size = New Size(620, 751)
+        TxtGritNotes.Size = New Size(617, 751)
         TxtGritNotes.TabIndex = 1
         ' 
         ' LblGritResult
@@ -6586,6 +6599,25 @@ Partial Class FrmMain
         TpAbout.Size = New Size(1170, 823)
         TpAbout.TabIndex = 11
         TpAbout.Text = "About"
+        ' 
+        ' NudLogKeep
+        ' 
+        NudLogKeep.Location = New Point(971, 93)
+        NudLogKeep.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
+        NudLogKeep.Name = "NudLogKeep"
+        NudLogKeep.Size = New Size(73, 26)
+        NudLogKeep.TabIndex = 7
+        NudLogKeep.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        ' 
+        ' Label51
+        ' 
+        Label51.AutoSize = True
+        Label51.ForeColor = SystemColors.ButtonFace
+        Label51.Location = New Point(780, 97)
+        Label51.Name = "Label51"
+        Label51.Size = New Size(191, 18)
+        Label51.TabIndex = 6
+        Label51.Text = "Days to Keep Log Files"
         ' 
         ' LblManageCosts
         ' 
@@ -6698,25 +6730,6 @@ Partial Class FrmMain
         ' TmrClock
         ' 
         TmrClock.Interval = 1000
-        ' 
-        ' Label51
-        ' 
-        Label51.AutoSize = True
-        Label51.ForeColor = SystemColors.ButtonFace
-        Label51.Location = New Point(780, 97)
-        Label51.Name = "Label51"
-        Label51.Size = New Size(191, 18)
-        Label51.TabIndex = 6
-        Label51.Text = "Days to Keep Log Files"
-        ' 
-        ' NudLogKeep
-        ' 
-        NudLogKeep.Location = New Point(971, 93)
-        NudLogKeep.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
-        NudLogKeep.Name = "NudLogKeep"
-        NudLogKeep.Size = New Size(73, 26)
-        NudLogKeep.TabIndex = 7
-        NudLogKeep.Value = New Decimal(New Integer() {3, 0, 0, 0})
         ' 
         ' FrmMain
         ' 
@@ -6925,9 +6938,9 @@ Partial Class FrmMain
         PnlSgpRadioButtons.PerformLayout()
         TpAbout.ResumeLayout(False)
         TpAbout.PerformLayout()
+        CType(NudLogKeep, ComponentModel.ISupportInitialize).EndInit()
         GbxAbout.ResumeLayout(False)
         GbxAbout.PerformLayout()
-        CType(NudLogKeep, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub

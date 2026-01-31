@@ -141,6 +141,10 @@ Public Class FrmMain
         TsslCpy.Text = GetCopyrightNotice()
         TsslVersion.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
         TsslTimesRun.Text = TimesRun.ToString
+
+        ' Initialize system tray icon
+        InitializeSystemTray()
+
         Show()
 
     End Sub
@@ -482,6 +486,7 @@ Public Class FrmMain
 
     Private Sub FrmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         SaveUserPreferences()
+        CleanupSystemTray()
     End Sub
 
 #End Region
