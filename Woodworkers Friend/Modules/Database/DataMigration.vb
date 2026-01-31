@@ -134,6 +134,9 @@ Public Class DataMigration
                 ErrorHandler.LogError(New Exception("Help content not found - seeding help database"), "PerformInitialMigration")
                 Dim helpCount = MigrateHelpContent()
                 ErrorHandler.LogError(New Exception($"Help content seeded: {helpCount} topics"), "PerformInitialMigration")
+            Else
+                ' Check for missing Definitions topic (added in later version)
+                AddMissingHelpTopics()
             End If
 
             ' Phase 5: Seed default user preferences if not yet set
@@ -178,6 +181,23 @@ Public Class DataMigration
             End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "PerformInitialMigration")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Adds help topics that were added in later versions (for existing databases)
+    ''' </summary>
+    Private Shared Sub AddMissingHelpTopics()
+        Try
+            ' Check if Definitions topic exists
+            Dim existing = DatabaseManager.Instance.GetHelpContent("definitions")
+            If existing Is Nothing Then
+                ErrorHandler.LogError(New Exception("Adding missing Definitions help topic"), "AddMissingHelpTopics")
+                ' Re-run migration to add new topics
+                MigrateHelpContent()
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddMissingHelpTopics")
         End Try
     End Sub
 
