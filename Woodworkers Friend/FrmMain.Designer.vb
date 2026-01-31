@@ -3746,7 +3746,7 @@ Partial Class FrmMain
         CboGlueType.Items.AddRange(New Object() {"PVA", "Polyurethane", "Epoxy"})
         CboGlueType.Location = New Point(178, 133)
         CboGlueType.Name = "CboGlueType"
-        CboGlueType.Size = New Size(182, 26)
+        CboGlueType.Size = New Size(141, 26)
         CboGlueType.TabIndex = 10
         ' 
         ' CCboClampWoodType
@@ -3755,7 +3755,7 @@ Partial Class FrmMain
         CCboClampWoodType.Items.AddRange(New Object() {"Hardwood", "Softwood"})
         CCboClampWoodType.Location = New Point(178, 99)
         CCboClampWoodType.Name = "CCboClampWoodType"
-        CCboClampWoodType.Size = New Size(182, 26)
+        CCboClampWoodType.Size = New Size(141, 26)
         CCboClampWoodType.TabIndex = 9
         ' 
         ' CboPanelWidthUnit
@@ -3942,7 +3942,7 @@ Partial Class FrmMain
         CboBiscuitSize.Items.AddRange(New Object() {"#0", "#10", "#20", "#FF", "#H9"})
         CboBiscuitSize.Location = New Point(171, 103)
         CboBiscuitSize.Name = "CboBiscuitSize"
-        CboBiscuitSize.Size = New Size(123, 26)
+        CboBiscuitSize.Size = New Size(126, 26)
         CboBiscuitSize.TabIndex = 8
         ' 
         ' CboJoineryType
@@ -3951,7 +3951,7 @@ Partial Class FrmMain
         CboJoineryType.Items.AddRange(New Object() {"Biscuit", "Domino"})
         CboJoineryType.Location = New Point(171, 69)
         CboJoineryType.Name = "CboJoineryType"
-        CboJoineryType.Size = New Size(182, 26)
+        CboJoineryType.Size = New Size(126, 26)
         CboJoineryType.TabIndex = 7
         ' 
         ' CboJointLengthUnit

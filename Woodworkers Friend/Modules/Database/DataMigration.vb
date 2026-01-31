@@ -1207,6 +1207,159 @@ Public Class DataMigration
 "!WARNING:Use dust collection or work outdoors when possible!" & vbLf &
 "" & vbLf &
 "?NOTE:Tip: Test your finish on scrap wood after final sanding!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "clamp_spacing",
+.Title = "Clamp Spacing Calculator",
+.Category = "Calculators",
+.SortOrder = 58,
+.Keywords = "clamp,spacing,glue-up,panel,pressure,psi,pva,polyurethane,epoxy,edge glue",
+.Content =
+"#TITLE:Clamp Spacing Calculator" & vbLf &
+"##SECTION:Purpose|Calculate optimal clamp placement for panel glue-ups to ensure even pressure distribution and flat, strong joints." & vbLf &
+"###SUBTITLE:Why Clamp Spacing Matters" & vbLf &
+"Proper clamp spacing is critical for successful glue-ups:" & vbLf &
+"" & vbLf &
+"*BULLET:Too wide = dry spots, weak joint, panel bowing" & vbLf &
+"*BULLET:Too narrow = excessive squeeze-out, wasted time" & vbLf &
+"*BULLET:Proper spacing = even pressure, flat panels" & vbLf &
+"*BULLET:Industry standard: 8-15 inches maximum spacing" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Input Parameters" & vbLf &
+"@METHOD:Panel Width|Width of panel being glued (inches or mm)" & vbLf &
+"@METHOD:Panel Thickness|Thickness affects spacing (Rule: 12x thickness)" & vbLf &
+"@METHOD:Wood Type|Hardwood or Softwood (affects pressure needs)" & vbLf &
+"@METHOD:Glue Type|PVA, Polyurethane, or Epoxy (affects spacing)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Calculation Formula" & vbLf &
+"Base Spacing = Panel Thickness × 12" & vbLf &
+"" & vbLf &
+"=FORMULA:Adjusted Spacing = Base × Wood Factor × Glue Factor" & vbLf &
+"" & vbLf &
+"*BULLET:Hardwood Factor: 1.0 (needs more pressure)" & vbLf &
+"*BULLET:Softwood Factor: 1.2 (can space slightly wider)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Glue Type Adjustments" & vbLf &
+"@METHOD:PVA (White/Yellow Glue)|Standard spacing, 30-45 min clamp time" & vbLf &
+"@METHOD:Polyurethane|0.9x spacing (needs more pressure), 2-4 hour clamp time" & vbLf &
+"@METHOD:Epoxy|1.1x spacing (less pressure needed), 4-6 hour clamp time" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Results Provided" & vbLf &
+"*BULLET:Recommended spacing between clamps" & vbLf &
+"*BULLET:Number of clamps needed" & vbLf &
+"*BULLET:Clamp pressure (PSI) recommendation" & vbLf &
+"*BULLET:Detailed clamping tips and best practices" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Best Practices" & vbLf &
+"*BULLET:Alternate clamps top/bottom to prevent panel bowing" & vbLf &
+"*BULLET:Use cauls (clamping boards) for perfectly flat panels" & vbLf &
+"*BULLET:Check for square before glue sets" & vbLf &
+"*BULLET:Don't over-tighten - minimal squeeze-out is ideal" & vbLf &
+"*BULLET:Use wax paper under cauls to prevent sticking" & vbLf &
+"" & vbLf &
+"!WARNING:Over-clamping can cause sunken joints and glue starvation!" & vbLf &
+"?NOTE:Rule of thumb: You should see a thin, even bead of glue along entire joint"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "biscuit_domino",
+.Title = "Biscuit and Domino Joinery Calculator",
+.Category = "Calculators",
+.SortOrder = 59,
+.Keywords = "biscuit,domino,joinery,edge joint,alignment,spacing,center marks,festool,plate joiner",
+.Content =
+"#TITLE:Biscuit and Domino Joinery Calculator" & vbLf &
+"##SECTION:Purpose|Calculate precise placement of biscuits or dominos for professional edge-to-edge joints with perfect alignment." & vbLf &
+"###SUBTITLE:What Are Biscuits and Dominos?" & vbLf &
+"Compressed wood wafers (biscuits) or loose tenons (dominos) used for alignment and strength in edge joints." & vbLf &
+"" & vbLf &
+"*BULLET:Biscuits: Oval compressed beech wafers, expand when wet with glue" & vbLf &
+"*BULLET:Dominos: Rectangular tenons, used with Festool Domino joiner" & vbLf &
+"*BULLET:Primary purpose: ALIGNMENT (strength is secondary)" & vbLf &
+"*BULLET:Common uses: Tabletops, panels, edge-to-edge boards" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Biscuit Sizes" & vbLf &
+"Standard sizes with dimensions:" & vbLf &
+"" & vbLf &
+"@METHOD:#0 Biscuit|1.75 inches long × 0.55 inches wide (small projects)" & vbLf &
+"@METHOD:#10 Biscuit|2.125 inches long × 0.55 inches wide (standard)" & vbLf &
+"@METHOD:#20 Biscuit|2.375 inches long × 0.68 inches wide (most common)" & vbLf &
+"@METHOD:#FF Biscuit|2.75 inches long × 0.68 inches wide (large panels)" & vbLf &
+"@METHOD:#H9 Biscuit|2.75 inches long × 0.68 inches wide (heavy duty)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Festool Domino Sizes" & vbLf &
+"@METHOD:4mm × 20mm|0.79 inches long (small face frames)" & vbLf &
+"@METHOD:5mm × 30mm|1.18 inches long (face frames)" & vbLf &
+"@METHOD:6mm × 40mm|1.57 inches long (cabinet work)" & vbLf &
+"@METHOD:8mm × 50mm|1.97 inches long (furniture, panels)" & vbLf &
+"@METHOD:10mm × 50mm|1.97 inches long (heavy duty)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Input Parameters" & vbLf &
+"@METHOD:Joint Length|Total length of edge joint being connected" & vbLf &
+"@METHOD:Joinery Type|Biscuit or Domino" & vbLf &
+"@METHOD:Size|Select from standard sizes above" & vbLf &
+"@METHOD:Joint Strength|Light, Medium, or Heavy (affects spacing)" & vbLf &
+"@METHOD:Stock Thickness|Thickness of boards being joined" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Spacing Recommendations" & vbLf &
+"Base spacing varies by size and strength requirement:" & vbLf &
+"" & vbLf &
+"*BULLET:Light Duty: 1.25x base spacing (wider)" & vbLf &
+"*BULLET:Medium Duty: Standard base spacing" & vbLf &
+"*BULLET:Heavy Duty: 0.75x base spacing (tighter)" & vbLf &
+"" & vbLf &
+"Typical base spacing:" & vbLf &
+"*BULLET:#0 / 4mm Domino: 4 inches" & vbLf &
+"*BULLET:#10 / 5mm Domino: 5 inches" & vbLf &
+"*BULLET:#20 / 6mm Domino: 6 inches" & vbLf &
+"*BULLET:#FF / 8-10mm Domino: 8-10 inches" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Edge Distance Calculation" & vbLf &
+"Edge distance prevents biscuit/domino exposure at joint ends." & vbLf &
+"" & vbLf &
+"=FORMULA:Edge Distance = (Joinery Length ÷ 2) + 0.625 inches" & vbLf &
+"" & vbLf &
+"*BULLET:Half-length prevents exposure at end" & vbLf &
+"*BULLET:5/8 inch padding allows trimming and error tolerance" & vbLf &
+"*BULLET:Example #20: (2.375 ÷ 2) + 0.625 = 1.8125 inches" & vbLf &
+"*BULLET:Practical for real-world shop work" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Results Provided" & vbLf &
+"*BULLET:Number of biscuits/dominos needed" & vbLf &
+"*BULLET:Edge distance from each end (prevents exposure)" & vbLf &
+"*BULLET:Recommended spacing between joinery" & vbLf &
+"*BULLET:Complete list of center mark positions" & vbLf &
+"*BULLET:Fractional measurements for shop layout" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using Center Mark Positions" & vbLf &
+"The calculator provides numbered center mark positions:" & vbLf &
+"" & vbLf &
+"~STEP:1:Mark Reference Edge:Choose one edge as reference (usually left/bottom)" & vbLf &
+"~STEP:2:Measure from Edge:Use tape measure from reference edge" & vbLf &
+"~STEP:3:Mark Centers:Mark each position from the list" & vbLf &
+"~STEP:4:Transfer to Mating Board:Use reference marks to align both pieces" & vbLf &
+"~STEP:5:Cut Slots:Cut biscuit/domino slots at marked positions" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Best Practices" & vbLf &
+"*BULLET:Always dry-fit before gluing (check alignment)" & vbLf &
+"*BULLET:Mark face sides to avoid reversed boards" & vbLf &
+"*BULLET:Use alignment method (spacer blocks or jig)" & vbLf &
+"*BULLET:Glue both sides of joint AND inside slots" & vbLf &
+"*BULLET:Biscuits expand - don't let glue dry before assembly" & vbLf &
+"*BULLET:Work quickly once glue is applied (5-10 min max)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Stock Thickness Requirements" & vbLf &
+"Minimum thickness for each size:" & vbLf &
+"" & vbLf &
+"*BULLET:#0: 1/2 inch minimum" & vbLf &
+"*BULLET:#10: 5/8 inch minimum" & vbLf &
+"*BULLET:#20: 3/4 inch minimum (most common)" & vbLf &
+"*BULLET:#FF / #H9: 7/8 inch minimum" & vbLf &
+"" & vbLf &
+"!WARNING:Using biscuits in thin stock will cause blow-out!" & vbLf &
+"!WARNING:Always test biscuit depth setting on scrap first!" & vbLf &
+"" & vbLf &
+"?NOTE:Pro Tip: Biscuits are for alignment - the glue joint provides the strength!" & vbLf &
+"?NOTE:For long joints (>36 inches), consider adding more biscuits near the middle"
 }
             }
 

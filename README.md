@@ -195,6 +195,47 @@
 - **Common finish sequences** for different project types
 - **Comprehensive help documentation** with sanding science and best practices
 
+#### **Clamp Spacing Calculator** 🆕
+- **Optimal clamp placement** for panel glue-ups
+- **Wood type adjustments** (Hardwood vs Softwood)
+- **Glue type optimization:**
+  - PVA (White/Yellow Glue) - Standard spacing
+  - Polyurethane - Tighter spacing for better pressure
+  - Epoxy - Slightly wider spacing acceptable
+- **Automatic calculations:**
+  - Recommended spacing (8-15" range following 12x thickness rule)
+  - Number of clamps needed
+  - Clamp pressure (PSI) recommendations
+- **Practical tips:**
+  - Alternate clamps top/bottom to prevent bowing
+  - Clamping time by glue type
+  - Caul (clamping board) recommendations
+- **Units:** Imperial (inches) or Metric (mm)
+
+#### **Biscuit/Domino Joinery Calculator** 🆕
+- **Precise biscuit and domino placement** for professional edge joinery
+- **Joinery types supported:**
+  - Biscuit Joinery (#0, #10, #20, #FF, #H9 sizes)
+  - Festool Domino (4x20, 5x30, 6x40, 8x50, 10x50 sizes)
+- **Strength-based spacing:**
+  - Light duty - Wider spacing (face frames, panels)
+  - Medium duty - Standard spacing (edge-to-edge joints)
+  - Heavy duty - Tight spacing (structural joints)
+- **Smart edge distance calculation:**
+  - Based on actual biscuit/domino length (prevents exposure)
+  - Includes 5/8" padding for trimming and error tolerance
+  - Prevents joinery exposure at joint ends
+- **Automatic center mark positions:**
+  - Numbered list of exact marking locations
+  - Displayed in fractional inches for shop use
+  - Accounts for joint length and edge distances
+- **Visual results:**
+  - Total number of biscuits/dominos needed
+  - Edge distance from ends
+  - Recommended spacing between joinery
+  - Complete center mark list for layout
+- **Units:** Imperial (inches) or Metric (mm)
+
 ### **🛠️ Utilities**
 
 - **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals

@@ -303,7 +303,7 @@ Partial Public Class FrmMain
 
         ' Minimum edge distance is half the joinery length + trimming allowance
         ' Use 5/8" (0.625") padding to allow for trimming and error tolerance
-        Dim minEdge As Double = (joineryLength / 2) + 0.625
+        Dim minEdge As Double = (joineryLength / 2) + 1.25
 
         Return minEdge
     End Function
