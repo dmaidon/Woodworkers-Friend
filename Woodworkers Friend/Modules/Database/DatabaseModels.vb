@@ -77,7 +77,10 @@ Public Class WoodSpecies
     ''' </summary>
     Public ReadOnly Property IsHardwood As Boolean
         Get
-            Return WoodType?.Equals("Hardwood", StringComparison.OrdinalIgnoreCase) = True
+            If String.IsNullOrEmpty(WoodType) Then
+                Return False
+            End If
+            Return WoodType.Equals("Hardwood", StringComparison.OrdinalIgnoreCase)
         End Get
     End Property
 End Class
@@ -113,27 +116,3 @@ Public Class HardwareStandard
     Public Property InstallationTips As String ' Maps to InstallationNotes
 End Class
 
-''' <summary>
-''' Joinery category constants (matches JoineryModels.vb)
-''' Database stores as TEXT, not enum values
-''' </summary>
-Public Class JoineryCategory
-    Public Const Frame As String = "Frame"
-    Public Const Carcass As String = "Carcass"
-    Public Const Box As String = "Box"
-    Public Const Edge As String = "Edge"
-    Public Const Corner As String = "Corner"
-    Public Const Reinforcement As String = "Reinforcement"
-    Public Const Traditional As String = "Traditional"
-    Public Const Modern As String = "Modern"
-End Class
-
-''' <summary>
-''' Joinery difficulty constants (matches JoineryModels.vb)
-''' Database stores as TEXT, not enum values
-''' </summary>
-Public Class JoineryDifficulty
-    Public Const Beginner As String = "Beginner"
-    Public Const Intermediate As String = "Intermediate"
-    Public Const Advanced As String = "Advanced"
-End Class

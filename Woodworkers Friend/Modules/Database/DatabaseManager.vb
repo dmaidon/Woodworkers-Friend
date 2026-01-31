@@ -320,11 +320,19 @@ Public Class DatabaseManager
 
 #Region "OBSOLETE METHODS - Redirecting to specialized managers"
 
-    ' Note: Methods below redirect to appropriate specialized manager.
-    ' Old monolithic database code is preserved but marked obsolete.
+    ' Note: ALL legacy monolithic database methods have been removed.
+    ' Use the specialized managers instead:
+    '   - Help.GetContent(), Help.SearchContent(), etc.
+    '   - Reference.GetAllWoodSpecies(), Reference.GetAllJoineryTypes(), etc.
+    '   - UserData.GetPreference(), UserData.SavePreference(), etc.
+    '
+    ' Old methods like GetAllWoodSpecies(), GetHelpTopics(), etc. have been
+    ' removed to prevent conflicts with the new unified API above.
 
 #End Region
-        Using transaction = conn.BeginTransaction()
+
+End Class
+
             Try
                 Using cmd = conn.CreateCommand()
                     cmd.Transaction = transaction
