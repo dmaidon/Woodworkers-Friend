@@ -283,7 +283,27 @@ Partial Class FrmMain
         Label10 = New Label()
         Label8 = New Label()
         TpCalculators = New TabPage()
-        Panel5 = New Panel()
+        PnlDadoCalc = New Panel()
+        BtnCopyResults = New Button()
+        GbxBladeCombination = New GroupBox()
+        TlpBladeCombo = New TableLayoutPanel()
+        LblResultsummary = New Label()
+        LstBladeStack = New ListBox()
+        TxtAlternatives = New TextBox()
+        BtnDadoReset = New Button()
+        BtnDadoCalculate = New Button()
+        BtnAddCustom = New Button()
+        GbxDadoSet = New GroupBox()
+        chklstAvailableChippers = New CheckedListBox()
+        GbxDadoCalc = New GroupBox()
+        TlpDadoCalc = New TableLayoutPanel()
+        Label11 = New Label()
+        Label63 = New Label()
+        Label87 = New Label()
+        NudDesiredWidth = New NumericUpDown()
+        CboDadoUnits = New ComboBox()
+        NudKerfWidth = New NumericUpDown()
+        PnlTableTip = New Panel()
         LblTippingForce = New Label()
         TxtTtTableBaseWeight = New TextBox()
         TxtTtTableBaselength = New TextBox()
@@ -297,13 +317,13 @@ Partial Class FrmMain
         Label20 = New Label()
         Label18 = New Label()
         Label15 = New Label()
-        Panel3 = New Panel()
+        PnlPolygonCalc = New Panel()
         LblPolygonPieceAngle = New Label()
         LblPolygonSideAngle = New Label()
         TxtPolygonSides = New TextBox()
-        Label11 = New Label()
+        LblPolygonSides = New Label()
         PbPolygon = New PictureBox()
-        TpClampSpacing = New TabPage()
+        TpSpacings = New TabPage()
         ScSpacings = New SplitContainer()
         GbxClampSpacing = New GroupBox()
         LblClampPressure = New Label()
@@ -691,10 +711,18 @@ Partial Class FrmMain
         GroupBox1.SuspendLayout()
         Panel2.SuspendLayout()
         TpCalculators.SuspendLayout()
-        Panel5.SuspendLayout()
-        Panel3.SuspendLayout()
+        PnlDadoCalc.SuspendLayout()
+        GbxBladeCombination.SuspendLayout()
+        TlpBladeCombo.SuspendLayout()
+        GbxDadoSet.SuspendLayout()
+        GbxDadoCalc.SuspendLayout()
+        TlpDadoCalc.SuspendLayout()
+        CType(NudDesiredWidth, ComponentModel.ISupportInitialize).BeginInit()
+        CType(NudKerfWidth, ComponentModel.ISupportInitialize).BeginInit()
+        PnlTableTip.SuspendLayout()
+        PnlPolygonCalc.SuspendLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
-        TpClampSpacing.SuspendLayout()
+        TpSpacings.SuspendLayout()
         CType(ScSpacings, ComponentModel.ISupportInitialize).BeginInit()
         ScSpacings.Panel1.SuspendLayout()
         ScSpacings.Panel2.SuspendLayout()
@@ -2648,7 +2676,7 @@ Partial Class FrmMain
         TcCalculattions.Controls.Add(TpEpoxy)
         TcCalculattions.Controls.Add(TpConversions)
         TcCalculattions.Controls.Add(TpCalculators)
-        TcCalculattions.Controls.Add(TpClampSpacing)
+        TcCalculattions.Controls.Add(TpSpacings)
         TcCalculattions.Dock = DockStyle.Fill
         TcCalculattions.Location = New Point(0, 0)
         TcCalculattions.Multiline = True
@@ -3395,36 +3423,269 @@ Partial Class FrmMain
         ' 
         TpCalculators.BackColor = Color.Silver
         TpCalculators.BorderStyle = BorderStyle.Fixed3D
-        TpCalculators.Controls.Add(Panel5)
-        TpCalculators.Controls.Add(Panel3)
+        TpCalculators.Controls.Add(PnlDadoCalc)
+        TpCalculators.Controls.Add(PnlTableTip)
+        TpCalculators.Controls.Add(PnlPolygonCalc)
         TpCalculators.Location = New Point(4, 4)
         TpCalculators.Name = "TpCalculators"
-        TpCalculators.Size = New Size(1128, 811)
+        TpCalculators.Size = New Size(1134, 811)
         TpCalculators.TabIndex = 2
         TpCalculators.Text = "Calculators"
         ' 
-        ' Panel5
+        ' PnlDadoCalc
         ' 
-        Panel5.BackColor = Color.WhiteSmoke
-        Panel5.BorderStyle = BorderStyle.Fixed3D
-        Panel5.Controls.Add(LblTippingForce)
-        Panel5.Controls.Add(TxtTtTableBaseWeight)
-        Panel5.Controls.Add(TxtTtTableBaselength)
-        Panel5.Controls.Add(TxtTtTableTopWeight)
-        Panel5.Controls.Add(TxtTtTableTopLength)
-        Panel5.Controls.Add(Label25)
-        Panel5.Controls.Add(Label24)
-        Panel5.Controls.Add(Label22)
-        Panel5.Controls.Add(Label23)
-        Panel5.Controls.Add(Label21)
-        Panel5.Controls.Add(Label20)
-        Panel5.Controls.Add(Label18)
-        Panel5.Controls.Add(Label15)
-        Panel5.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel5.Location = New Point(185, 249)
-        Panel5.Name = "Panel5"
-        Panel5.Size = New Size(356, 355)
-        Panel5.TabIndex = 6
+        PnlDadoCalc.BackColor = Color.Gray
+        PnlDadoCalc.BorderStyle = BorderStyle.Fixed3D
+        PnlDadoCalc.Controls.Add(BtnCopyResults)
+        PnlDadoCalc.Controls.Add(GbxBladeCombination)
+        PnlDadoCalc.Controls.Add(BtnDadoReset)
+        PnlDadoCalc.Controls.Add(BtnDadoCalculate)
+        PnlDadoCalc.Controls.Add(BtnAddCustom)
+        PnlDadoCalc.Controls.Add(GbxDadoSet)
+        PnlDadoCalc.Controls.Add(GbxDadoCalc)
+        PnlDadoCalc.Dock = DockStyle.Right
+        PnlDadoCalc.Location = New Point(614, 0)
+        PnlDadoCalc.Name = "PnlDadoCalc"
+        PnlDadoCalc.Size = New Size(516, 807)
+        PnlDadoCalc.TabIndex = 8
+        ' 
+        ' BtnCopyResults
+        ' 
+        BtnCopyResults.Location = New Point(268, 707)
+        BtnCopyResults.Name = "BtnCopyResults"
+        BtnCopyResults.Size = New Size(199, 34)
+        BtnCopyResults.TabIndex = 0
+        BtnCopyResults.Text = "Copy to Clipboard"
+        BtnCopyResults.UseVisualStyleBackColor = True
+        ' 
+        ' GbxBladeCombination
+        ' 
+        GbxBladeCombination.BackColor = Color.DarkGray
+        GbxBladeCombination.Controls.Add(TlpBladeCombo)
+        GbxBladeCombination.Location = New Point(45, 419)
+        GbxBladeCombination.Name = "GbxBladeCombination"
+        GbxBladeCombination.Size = New Size(422, 271)
+        GbxBladeCombination.TabIndex = 11
+        GbxBladeCombination.TabStop = False
+        GbxBladeCombination.Text = "Blade Combination"
+        ' 
+        ' TlpBladeCombo
+        ' 
+        TlpBladeCombo.ColumnCount = 1
+        TlpBladeCombo.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
+        TlpBladeCombo.Controls.Add(LblResultsummary, 0, 0)
+        TlpBladeCombo.Controls.Add(LstBladeStack, 0, 1)
+        TlpBladeCombo.Controls.Add(TxtAlternatives, 0, 2)
+        TlpBladeCombo.Dock = DockStyle.Fill
+        TlpBladeCombo.Location = New Point(3, 22)
+        TlpBladeCombo.Name = "TlpBladeCombo"
+        TlpBladeCombo.RowCount = 3
+        TlpBladeCombo.RowStyles.Add(New RowStyle(SizeType.Percent, 14.63415F))
+        TlpBladeCombo.RowStyles.Add(New RowStyle(SizeType.Percent, 42.6829262F))
+        TlpBladeCombo.RowStyles.Add(New RowStyle(SizeType.Percent, 42.6829262F))
+        TlpBladeCombo.Size = New Size(416, 246)
+        TlpBladeCombo.TabIndex = 0
+        ' 
+        ' LblResultsummary
+        ' 
+        LblResultsummary.AutoSize = True
+        LblResultsummary.BackColor = Color.Silver
+        LblResultsummary.Dock = DockStyle.Fill
+        LblResultsummary.Location = New Point(3, 0)
+        LblResultsummary.Name = "LblResultsummary"
+        LblResultsummary.Size = New Size(410, 36)
+        LblResultsummary.TabIndex = 0
+        LblResultsummary.Text = "Total Width: 0.000"
+        LblResultsummary.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' LstBladeStack
+        ' 
+        LstBladeStack.Dock = DockStyle.Fill
+        LstBladeStack.Font = New Font("Arial Narrow", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LstBladeStack.FormattingEnabled = True
+        LstBladeStack.Location = New Point(3, 39)
+        LstBladeStack.Name = "LstBladeStack"
+        LstBladeStack.Size = New Size(410, 99)
+        LstBladeStack.TabIndex = 1
+        ' 
+        ' TxtAlternatives
+        ' 
+        TxtAlternatives.Dock = DockStyle.Fill
+        TxtAlternatives.Location = New Point(3, 144)
+        TxtAlternatives.Multiline = True
+        TxtAlternatives.Name = "TxtAlternatives"
+        TxtAlternatives.ReadOnly = True
+        TxtAlternatives.ScrollBars = ScrollBars.Vertical
+        TxtAlternatives.Size = New Size(410, 99)
+        TxtAlternatives.TabIndex = 2
+        ' 
+        ' BtnDadoReset
+        ' 
+        BtnDadoReset.Location = New Point(45, 707)
+        BtnDadoReset.Name = "BtnDadoReset"
+        BtnDadoReset.Size = New Size(199, 34)
+        BtnDadoReset.TabIndex = 1
+        BtnDadoReset.Text = "Reset"
+        BtnDadoReset.UseVisualStyleBackColor = True
+        ' 
+        ' BtnDadoCalculate
+        ' 
+        BtnDadoCalculate.BackColor = Color.MistyRose
+        BtnDadoCalculate.Location = New Point(310, 378)
+        BtnDadoCalculate.Name = "BtnDadoCalculate"
+        BtnDadoCalculate.Size = New Size(157, 34)
+        BtnDadoCalculate.TabIndex = 10
+        BtnDadoCalculate.Text = "Calculate Stack"
+        BtnDadoCalculate.UseVisualStyleBackColor = False
+        ' 
+        ' BtnAddCustom
+        ' 
+        BtnAddCustom.AutoSize = True
+        BtnAddCustom.BackColor = Color.MistyRose
+        BtnAddCustom.Location = New Point(45, 378)
+        BtnAddCustom.Name = "BtnAddCustom"
+        BtnAddCustom.Size = New Size(159, 35)
+        BtnAddCustom.TabIndex = 9
+        BtnAddCustom.Text = "Add Custom Size"
+        BtnAddCustom.UseVisualStyleBackColor = False
+        ' 
+        ' GbxDadoSet
+        ' 
+        GbxDadoSet.BackColor = Color.DarkGray
+        GbxDadoSet.Controls.Add(chklstAvailableChippers)
+        GbxDadoSet.Location = New Point(45, 139)
+        GbxDadoSet.Name = "GbxDadoSet"
+        GbxDadoSet.Size = New Size(422, 233)
+        GbxDadoSet.TabIndex = 8
+        GbxDadoSet.TabStop = False
+        GbxDadoSet.Text = "My Dado Set"
+        ' 
+        ' chklstAvailableChippers
+        ' 
+        chklstAvailableChippers.Dock = DockStyle.Fill
+        chklstAvailableChippers.FormattingEnabled = True
+        chklstAvailableChippers.Items.AddRange(New Object() {"Two 1/8"" Outer Blades (0.250"")", "1/16"" Chipper (0.0625"")", "1/8"" Chipper (0.125"")", "3/16"" Chipper (0.1875"")", "1/4"" Chipper (0.250"")", "Shims (0.004"", 0.008"")"})
+        chklstAvailableChippers.Location = New Point(3, 22)
+        chklstAvailableChippers.Name = "chklstAvailableChippers"
+        chklstAvailableChippers.Size = New Size(416, 208)
+        chklstAvailableChippers.TabIndex = 0
+        ' 
+        ' GbxDadoCalc
+        ' 
+        GbxDadoCalc.BackColor = Color.DarkGray
+        GbxDadoCalc.Controls.Add(TlpDadoCalc)
+        GbxDadoCalc.Location = New Point(102, 6)
+        GbxDadoCalc.Name = "GbxDadoCalc"
+        GbxDadoCalc.Size = New Size(309, 130)
+        GbxDadoCalc.TabIndex = 7
+        GbxDadoCalc.TabStop = False
+        GbxDadoCalc.Text = "Dado Width Input"
+        ' 
+        ' TlpDadoCalc
+        ' 
+        TlpDadoCalc.BackColor = Color.Silver
+        TlpDadoCalc.ColumnCount = 2
+        TlpDadoCalc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpDadoCalc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpDadoCalc.Controls.Add(Label11, 0, 0)
+        TlpDadoCalc.Controls.Add(Label63, 0, 1)
+        TlpDadoCalc.Controls.Add(Label87, 0, 2)
+        TlpDadoCalc.Controls.Add(NudDesiredWidth, 1, 0)
+        TlpDadoCalc.Controls.Add(CboDadoUnits, 1, 1)
+        TlpDadoCalc.Controls.Add(NudKerfWidth, 1, 2)
+        TlpDadoCalc.Dock = DockStyle.Fill
+        TlpDadoCalc.Location = New Point(3, 22)
+        TlpDadoCalc.Name = "TlpDadoCalc"
+        TlpDadoCalc.RowCount = 3
+        TlpDadoCalc.RowStyles.Add(New RowStyle(SizeType.Percent, 33.3333321F))
+        TlpDadoCalc.RowStyles.Add(New RowStyle(SizeType.Percent, 33.3333321F))
+        TlpDadoCalc.RowStyles.Add(New RowStyle(SizeType.Percent, 33.3333321F))
+        TlpDadoCalc.Size = New Size(303, 105)
+        TlpDadoCalc.TabIndex = 0
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Dock = DockStyle.Fill
+        Label11.Location = New Point(3, 3)
+        Label11.Margin = New Padding(3)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(145, 28)
+        Label11.TabIndex = 0
+        Label11.Text = "Desired Width:"
+        Label11.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label63
+        ' 
+        Label63.AutoSize = True
+        Label63.Dock = DockStyle.Fill
+        Label63.Location = New Point(3, 37)
+        Label63.Margin = New Padding(3)
+        Label63.Name = "Label63"
+        Label63.Size = New Size(145, 28)
+        Label63.TabIndex = 1
+        Label63.Text = "Units:"
+        Label63.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label87
+        ' 
+        Label87.AutoSize = True
+        Label87.Dock = DockStyle.Fill
+        Label87.Location = New Point(3, 71)
+        Label87.Margin = New Padding(3)
+        Label87.Name = "Label87"
+        Label87.Size = New Size(145, 31)
+        Label87.TabIndex = 2
+        Label87.Text = "Kerf Width:"
+        Label87.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' NudDesiredWidth
+        ' 
+        NudDesiredWidth.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        NudDesiredWidth.Location = New Point(154, 3)
+        NudDesiredWidth.Name = "NudDesiredWidth"
+        NudDesiredWidth.Size = New Size(100, 26)
+        NudDesiredWidth.TabIndex = 3
+        ' 
+        ' CboDadoUnits
+        ' 
+        CboDadoUnits.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        CboDadoUnits.FormattingEnabled = True
+        CboDadoUnits.Location = New Point(154, 37)
+        CboDadoUnits.Name = "CboDadoUnits"
+        CboDadoUnits.Size = New Size(100, 26)
+        CboDadoUnits.TabIndex = 4
+        ' 
+        ' NudKerfWidth
+        ' 
+        NudKerfWidth.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        NudKerfWidth.Location = New Point(154, 71)
+        NudKerfWidth.Name = "NudKerfWidth"
+        NudKerfWidth.Size = New Size(100, 26)
+        NudKerfWidth.TabIndex = 5
+        ' 
+        ' PnlTableTip
+        ' 
+        PnlTableTip.BackColor = Color.WhiteSmoke
+        PnlTableTip.BorderStyle = BorderStyle.Fixed3D
+        PnlTableTip.Controls.Add(LblTippingForce)
+        PnlTableTip.Controls.Add(TxtTtTableBaseWeight)
+        PnlTableTip.Controls.Add(TxtTtTableBaselength)
+        PnlTableTip.Controls.Add(TxtTtTableTopWeight)
+        PnlTableTip.Controls.Add(TxtTtTableTopLength)
+        PnlTableTip.Controls.Add(Label25)
+        PnlTableTip.Controls.Add(Label24)
+        PnlTableTip.Controls.Add(Label22)
+        PnlTableTip.Controls.Add(Label23)
+        PnlTableTip.Controls.Add(Label21)
+        PnlTableTip.Controls.Add(Label20)
+        PnlTableTip.Controls.Add(Label18)
+        PnlTableTip.Controls.Add(Label15)
+        PnlTableTip.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        PnlTableTip.Location = New Point(12, 15)
+        PnlTableTip.Name = "PnlTableTip"
+        PnlTableTip.Size = New Size(356, 355)
+        PnlTableTip.TabIndex = 6
         ' 
         ' LblTippingForce
         ' 
@@ -3548,20 +3809,20 @@ Partial Class FrmMain
         Label15.TabIndex = 0
         Label15.Text = "Table Tip Force"
         ' 
-        ' Panel3
+        ' PnlPolygonCalc
         ' 
-        Panel3.BackColor = Color.WhiteSmoke
-        Panel3.BorderStyle = BorderStyle.Fixed3D
-        Panel3.Controls.Add(LblPolygonPieceAngle)
-        Panel3.Controls.Add(LblPolygonSideAngle)
-        Panel3.Controls.Add(TxtPolygonSides)
-        Panel3.Controls.Add(Label11)
-        Panel3.Controls.Add(PbPolygon)
-        Panel3.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Panel3.Location = New Point(553, 207)
-        Panel3.Name = "Panel3"
-        Panel3.Size = New Size(302, 397)
-        Panel3.TabIndex = 5
+        PnlPolygonCalc.BackColor = Color.WhiteSmoke
+        PnlPolygonCalc.BorderStyle = BorderStyle.Fixed3D
+        PnlPolygonCalc.Controls.Add(LblPolygonPieceAngle)
+        PnlPolygonCalc.Controls.Add(LblPolygonSideAngle)
+        PnlPolygonCalc.Controls.Add(TxtPolygonSides)
+        PnlPolygonCalc.Controls.Add(LblPolygonSides)
+        PnlPolygonCalc.Controls.Add(PbPolygon)
+        PnlPolygonCalc.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        PnlPolygonCalc.Location = New Point(35, 388)
+        PnlPolygonCalc.Name = "PnlPolygonCalc"
+        PnlPolygonCalc.Size = New Size(302, 397)
+        PnlPolygonCalc.TabIndex = 5
         ' 
         ' LblPolygonPieceAngle
         ' 
@@ -3593,14 +3854,14 @@ Partial Class FrmMain
         TxtPolygonSides.Size = New Size(49, 29)
         TxtPolygonSides.TabIndex = 0
         ' 
-        ' Label11
+        ' LblPolygonSides
         ' 
-        Label11.AutoSize = True
-        Label11.Location = New Point(24, 49)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(115, 21)
-        Label11.TabIndex = 1
-        Label11.Text = "Number sides"
+        LblPolygonSides.AutoSize = True
+        LblPolygonSides.Location = New Point(24, 49)
+        LblPolygonSides.Name = "LblPolygonSides"
+        LblPolygonSides.Size = New Size(115, 21)
+        LblPolygonSides.TabIndex = 1
+        LblPolygonSides.Text = "Number sides"
         ' 
         ' PbPolygon
         ' 
@@ -3612,16 +3873,16 @@ Partial Class FrmMain
         PbPolygon.TabIndex = 0
         PbPolygon.TabStop = False
         ' 
-        ' TpClampSpacing
+        ' TpSpacings
         ' 
-        TpClampSpacing.BackColor = Color.Gainsboro
-        TpClampSpacing.BorderStyle = BorderStyle.Fixed3D
-        TpClampSpacing.Controls.Add(ScSpacings)
-        TpClampSpacing.Location = New Point(4, 4)
-        TpClampSpacing.Name = "TpClampSpacing"
-        TpClampSpacing.Size = New Size(1134, 811)
-        TpClampSpacing.TabIndex = 3
-        TpClampSpacing.Text = "Clamp Spacing"
+        TpSpacings.BackColor = Color.Gainsboro
+        TpSpacings.BorderStyle = BorderStyle.Fixed3D
+        TpSpacings.Controls.Add(ScSpacings)
+        TpSpacings.Location = New Point(4, 4)
+        TpSpacings.Name = "TpSpacings"
+        TpSpacings.Size = New Size(1128, 811)
+        TpSpacings.TabIndex = 3
+        TpSpacings.Text = "Spacings"
         ' 
         ' ScSpacings
         ' 
@@ -3637,8 +3898,8 @@ Partial Class FrmMain
         ' ScSpacings.Panel2
         ' 
         ScSpacings.Panel2.Controls.Add(GbxBiscuitDomino)
-        ScSpacings.Size = New Size(1130, 807)
-        ScSpacings.SplitterDistance = 561
+        ScSpacings.Size = New Size(1124, 807)
+        ScSpacings.SplitterDistance = 558
         ScSpacings.SplitterWidth = 6
         ScSpacings.TabIndex = 0
         ' 
@@ -3664,7 +3925,7 @@ Partial Class FrmMain
         GbxClampSpacing.Dock = DockStyle.Fill
         GbxClampSpacing.Location = New Point(0, 0)
         GbxClampSpacing.Name = "GbxClampSpacing"
-        GbxClampSpacing.Size = New Size(557, 803)
+        GbxClampSpacing.Size = New Size(554, 803)
         GbxClampSpacing.TabIndex = 0
         GbxClampSpacing.TabStop = False
         GbxClampSpacing.Text = "Clamp Spacing"
@@ -3706,7 +3967,7 @@ Partial Class FrmMain
         ' 
         Label57.AutoSize = True
         Label57.Font = New Font("Georgia", 8.0F, FontStyle.Bold)
-        Label57.Location = New Point(11, 381)
+        Label57.Location = New Point(11, 369)
         Label57.Name = "Label57"
         Label57.Size = New Size(73, 18)
         Label57.TabIndex = 14
@@ -3719,7 +3980,7 @@ Partial Class FrmMain
         TxtClampNotes.Multiline = True
         TxtClampNotes.Name = "TxtClampNotes"
         TxtClampNotes.ScrollBars = ScrollBars.Both
-        TxtClampNotes.Size = New Size(551, 395)
+        TxtClampNotes.Size = New Size(548, 395)
         TxtClampNotes.TabIndex = 13
         ' 
         ' Label56
@@ -3766,7 +4027,7 @@ Partial Class FrmMain
         CboPanelWidthUnit.Items.AddRange(New Object() {"in", "mm"})
         CboPanelWidthUnit.Location = New Point(270, 31)
         CboPanelWidthUnit.Name = "CboPanelWidthUnit"
-        CboPanelWidthUnit.Size = New Size(90, 26)
+        CboPanelWidthUnit.Size = New Size(76, 26)
         CboPanelWidthUnit.TabIndex = 8
         ' 
         ' TxtClampPanelThickness
@@ -3849,7 +4110,7 @@ Partial Class FrmMain
         GbxBiscuitDomino.Dock = DockStyle.Fill
         GbxBiscuitDomino.Location = New Point(0, 0)
         GbxBiscuitDomino.Name = "GbxBiscuitDomino"
-        GbxBiscuitDomino.Size = New Size(559, 803)
+        GbxBiscuitDomino.Size = New Size(556, 803)
         GbxBiscuitDomino.TabIndex = 0
         GbxBiscuitDomino.TabStop = False
         GbxBiscuitDomino.Text = "Biscuit Domino Spacing"
@@ -3873,6 +4134,7 @@ Partial Class FrmMain
         ' LstCenterMarks
         ' 
         LstCenterMarks.FormattingEnabled = True
+        LstCenterMarks.Items.AddRange(New Object() {" "})
         LstCenterMarks.Location = New Point(28, 478)
         LstCenterMarks.Name = "LstCenterMarks"
         LstCenterMarks.Size = New Size(430, 184)
@@ -7300,12 +7562,23 @@ Partial Class FrmMain
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         TpCalculators.ResumeLayout(False)
-        Panel5.ResumeLayout(False)
-        Panel5.PerformLayout()
-        Panel3.ResumeLayout(False)
-        Panel3.PerformLayout()
+        PnlDadoCalc.ResumeLayout(False)
+        PnlDadoCalc.PerformLayout()
+        GbxBladeCombination.ResumeLayout(False)
+        TlpBladeCombo.ResumeLayout(False)
+        TlpBladeCombo.PerformLayout()
+        GbxDadoSet.ResumeLayout(False)
+        GbxDadoCalc.ResumeLayout(False)
+        TlpDadoCalc.ResumeLayout(False)
+        TlpDadoCalc.PerformLayout()
+        CType(NudDesiredWidth, ComponentModel.ISupportInitialize).EndInit()
+        CType(NudKerfWidth, ComponentModel.ISupportInitialize).EndInit()
+        PnlTableTip.ResumeLayout(False)
+        PnlTableTip.PerformLayout()
+        PnlPolygonCalc.ResumeLayout(False)
+        PnlPolygonCalc.PerformLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
-        TpClampSpacing.ResumeLayout(False)
+        TpSpacings.ResumeLayout(False)
         ScSpacings.Panel1.ResumeLayout(False)
         ScSpacings.Panel2.ResumeLayout(False)
         CType(ScSpacings, ComponentModel.ISupportInitialize).EndInit()
@@ -7681,7 +7954,7 @@ Partial Class FrmMain
     Friend WithEvents Label8 As Label
 
     ' Calculators Tab Controls
-    Friend WithEvents Panel5 As Panel
+    Friend WithEvents PnlTableTip As Panel
     Friend WithEvents LblTippingForce As Label
     Friend WithEvents TxtTtTableBaseWeight As TextBox
     Friend WithEvents TxtTtTableBaselength As TextBox
@@ -7695,11 +7968,11 @@ Partial Class FrmMain
     Friend WithEvents Label20 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents Label15 As Label
-    Friend WithEvents Panel3 As Panel
+    Friend WithEvents PnlPolygonCalc As Panel
     Friend WithEvents LblPolygonPieceAngle As Label
     Friend WithEvents LblPolygonSideAngle As Label
     Friend WithEvents TxtPolygonSides As TextBox
-    Friend WithEvents Label11 As Label
+    Friend WithEvents LblPolygonSides As Label
     Friend WithEvents PbPolygon As PictureBox
 
     ' Drawings Tab Controls
@@ -8018,7 +8291,7 @@ Partial Class FrmMain
     Friend WithEvents TxtGritNotes As TextBox
     Friend WithEvents NudLogKeep As NumericUpDown
     Friend WithEvents Label51 As Label
-    Friend WithEvents TpClampSpacing As TabPage
+    Friend WithEvents TpSpacings As TabPage
     Friend WithEvents ScSpacings As SplitContainer
     Friend WithEvents GbxClampSpacing As GroupBox
     Friend WithEvents GbxBiscuitDomino As GroupBox
@@ -8047,5 +8320,25 @@ Partial Class FrmMain
     Friend WithEvents LstCenterMarks As ListBox
     Friend WithEvents TxtEdgePadding As TextBox
     Friend WithEvents LblEdgePadding As Label
+    Friend WithEvents GbxDadoCalc As GroupBox
+    Friend WithEvents TlpDadoCalc As TableLayoutPanel
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label63 As Label
+    Friend WithEvents Label87 As Label
+    Friend WithEvents NudDesiredWidth As NumericUpDown
+    Friend WithEvents CboDadoUnits As ComboBox
+    Friend WithEvents NudKerfWidth As NumericUpDown
+    Friend WithEvents PnlDadoCalc As Panel
+    Friend WithEvents GbxDadoSet As GroupBox
+    Friend WithEvents chklstAvailableChippers As CheckedListBox
+    Friend WithEvents BtnAddCustom As Button
+    Friend WithEvents GbxBladeCombination As GroupBox
+    Friend WithEvents TlpBladeCombo As TableLayoutPanel
+    Friend WithEvents LblResultsummary As Label
+    Friend WithEvents BtnDadoCalculate As Button
+    Friend WithEvents LstBladeStack As ListBox
+    Friend WithEvents BtnCopyResults As Button
+    Friend WithEvents BtnDadoReset As Button
+    Friend WithEvents TxtAlternatives As TextBox
 End Class
 

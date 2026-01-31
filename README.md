@@ -236,6 +236,36 @@
   - Complete center mark list for layout
 - **Units:** Imperial (inches) or Metric (mm)
 
+#### **Dado Stack Calculator** 🆕
+- **Optimal blade combination calculator** for dado stack setups
+- **Smart algorithm finds best blade stack** to achieve target width
+- **Features:**
+  - Dynamic programming algorithm for optimal combinations
+  - Supports custom blade sizes and manufacturers
+  - Preset configurations (Standard 8" set, Premium with shims)
+  - Save and load custom dado set configurations
+  - Error calculation with color-coded accuracy indicators
+  - Alternative blade combinations (up to 3 options)
+- **Blade types supported:**
+  - Outer blades (required 2x 1/8" or custom)
+  - Chippers: 1/16", 1/8", 3/16", 1/4"
+  - Precision shims: 0.004", 0.008"
+  - Custom sizes via dialog
+- **Advanced features:**
+  - Context menu with copy, detailed results, presets
+  - Export configurations to JSON
+  - Import/load saved configurations
+  - Comprehensive tooltips on all inputs
+  - Error provider for validation feedback
+- **Results display:**
+  - Blade assembly order (numbered list)
+  - Total width calculation
+  - Error from target (±0.001" precision)
+  - Monospace formatting for shop printout
+  - Alternative solutions if available
+- **Units:** Imperial (inches) or Metric (mm)
+- **Tolerance:** ±0.005" default (adjustable in algorithm)
+
 ### **🛠️ Utilities**
 
 - **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals

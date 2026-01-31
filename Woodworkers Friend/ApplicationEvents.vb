@@ -5,7 +5,7 @@ Namespace My
     ' Startup: Raised when the application starts, before the startup form is created.
     ' Shutdown: Raised after all application forms are closed.  This event is not raised if the application terminates abnormally.
     ' UnhandledException: Raised if the application encounters an unhandled exception.
-    ' StartupNextInstance: Raised when launching a single-instance application and the application is already active. 
+    ' StartupNextInstance: Raised when launching a single-instance application and the application is already active.
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
 
     ' **NEW** ApplyApplicationDefaults: Raised when the application queries default values to be set for the application.
@@ -43,7 +43,7 @@ Namespace My
                     mainForm.Show()
                     mainForm.Activate()
                     mainForm.BringToFront()
-                    
+
                     ' Set focus
                     mainForm.Focus()
                 End If
@@ -59,10 +59,11 @@ Namespace My
         Private Sub MyApplication_ApplyApplicationDefaults(sender As Object, e As ApplyApplicationDefaultsEventArgs) Handles Me.ApplyApplicationDefaults
             ' Set color mode for dark mode support (.NET 9+)
             e.ColorMode = SystemColorMode.System
-            
+
             ' Set HighDPI mode
             e.HighDpiMode = HighDpiMode.SystemAware
         End Sub
 
     End Class
+
 End Namespace

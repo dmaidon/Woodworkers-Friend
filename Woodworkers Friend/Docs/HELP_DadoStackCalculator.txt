@@ -1,0 +1,250 @@
+#TITLE:Dado Stack Calculator
+
+##SECTION:Overview|Calculate optimal blade combinations for dado stack setups
+
+The Dado Stack Calculator helps you determine the perfect combination of dado blades and chippers to achieve your desired width cut. Not all dado sets come with comprehensive instructions, so this calculator uses a smart algorithm to find the best blade configuration.
+
+###SUBTITLE:Why Use This Calculator?
+
+*BULLET:Eliminates trial and error when setting up dado stacks
+*BULLET:Finds optimal blade combinations automatically
+*BULLET:Shows alternative solutions if available
+*BULLET:Prevents over-cutting by calculating exact width
+*BULLET:Supports both imperial and metric units
+*BULLET:Save and load custom dado set configurations
+
+##SECTION:Input Fields|What you need to enter
+
+###SUBTITLE:Desired Width
+Enter the target width you want to cut. This should match the thickness of the material you're housing (for shelf dados) or the desired groove width.
+
+*BULLET:Range: 0.125" to 2.0" (3mm to 50mm)
+*BULLET:Increment: 0.0625" (1/16" or 1.6mm)
+*BULLET:Common values: 1/2", 5/8", 3/4" for plywood shelves
+
+###SUBTITLE:Units
+Select your preferred measurement system:
+*BULLET:Inches (Imperial) - Standard US woodworking
+*BULLET:Millimeters (Metric) - European standard
+
+###SUBTITLE:Kerf Width
+The thickness of each blade's cutting edge. Most dado blades have a kerf of 1/8" (0.125"), but check your specific set.
+
+*BULLET:Default: 0.125" (1/8")
+*BULLET:Range: 0.001" to 0.25"
+*BULLET:Affects stacking calculations and precision
+
+###SUBTITLE:My Dado Set
+Check the blades and chippers available in your dado set:
+
+*BULLET:Two 1/8" Outer Blades - Required (always checked)
+*BULLET:1/16" Chipper - Common in premium sets
+*BULLET:1/8" Chipper - Standard size
+*BULLET:3/16" Chipper - Less common
+*BULLET:1/4" Chipper - Large chipper
+*BULLET:Shims (0.004", 0.008") - For micro-adjustments
+
+!WARNING:The outer blades must always be included - they're required for safe dado stack operation
+
+##SECTION:Calculation Algorithm|How it works
+
+The calculator uses dynamic programming with backtracking to find optimal blade combinations:
+
+#NUM:1:Always includes the two outer blades (safety requirement)
+#NUM:2:Generates all possible chipper combinations
+#NUM:3:Calculates total width for each combination
+#NUM:4:Finds closest match to target width (within ±0.005" tolerance)
+#NUM:5:Sorts results by accuracy (smallest error first)
+#NUM:6:Displays up to 3 alternative combinations
+
+=FORMULA:Total Width = Blade₁ + Chipper₁ + ... + ChipperN + Blade₂
+
+###SUBTITLE:Smart Features
+
+*BULLET:Maximum blade count limited to 10 for safety
+*BULLET:Prunes impossible combinations early
+*BULLET:Stops when exact match found (±0.001" precision)
+*BULLET:Considers actual blade widths (not nominal sizes)
+
+##SECTION:Results Display|Understanding the output
+
+###SUBTITLE:Summary Line
+Shows total width achieved and error from target:
+
+*BULLET:Green background = Exact match (error < 0.001")
+*BULLET:Yellow background = Close match (error < 0.010")
+*BULLET:Error display: +0.002" means 0.002" too wide
+
+###SUBTITLE:Blade Assembly List
+Numbered list showing exact blade order for assembly:
+
+#NUM:1:Outer Blade Left (0.1250")
+#NUM:2:1/4" Chipper (0.2500")
+#NUM:3:1/8" Chipper (0.1250")
+#NUM:4:Outer Blade Right (0.1250")
+
+?NOTE:The list shows actual measured widths, not nominal sizes
+
+###SUBTITLE:Alternatives Section
+If the calculator finds other viable combinations within tolerance, they're displayed here with their respective errors.
+
+##SECTION:Adding Custom Blades|Expand your dado set
+
+@METHOD:Add Custom Size|For non-standard or specialty blades
+
+#NUM:1:Click "Add Custom Size" button
+#NUM:2:Enter blade description and width
+#NUM:3:Format: "Description (0.XXX")"
+#NUM:4:Example: "Custom Chipper (0.156")"
+
+The custom blade is added to your available list and saved with the current session.
+
+##SECTION:Preset Management|Save and load configurations
+
+###SUBTITLE:Built-in Presets
+
+@METHOD:Standard 8" Dado Set|Basic blade configuration for most users
+Includes: Two 1/8" outer blades, 1/16", 1/8", 3/16", 1/4" chippers
+
+@METHOD:Premium 8" Dado Set with Shims|For precision work requiring micro-adjustments
+Includes: All standard blades plus 0.004" and 0.008" shims
+
+###SUBTITLE:Save Custom Preset
+
+#NUM:1:Configure your blade selection
+#NUM:2:Right-click on results area
+#NUM:3:Select "Save as Preset..."
+#NUM:4:Enter a name for your configuration
+#NUM:5:Preset saved to memory for current session
+
+###SUBTITLE:Load Saved Preset
+
+#NUM:1:Right-click on results area
+#NUM:2:Select "Load Preset..."
+#NUM:3:Choose from available presets
+#NUM:4:Your blade selection updates automatically
+
+###SUBTITLE:Export Configuration
+
+#NUM:1:Right-click on results area
+#NUM:2:Select "Export Configuration..."
+#NUM:3:Save as JSON file
+#NUM:4:Share with others or backup for future use
+
+##SECTION:Context Menu Options|Right-click features
+
+^SHORTCUT:Copy Results|Basic clipboard copy of blade list
+^SHORTCUT:Copy Detailed Results|Includes alternatives and all details
+^SHORTCUT:Save as Preset|Save current blade configuration
+^SHORTCUT:Load Preset|Load saved configuration
+^SHORTCUT:Export Configuration|Save to JSON file
+
+##SECTION:Tips and Best Practices|Getting the best results
+
+###SUBTITLE:Accuracy Tips
+
+*BULLET:Measure your actual blade widths - they may differ from nominal
+*BULLET:Clean blades before stacking - sawdust affects width
+*BULLET:Use shims for final micro-adjustments
+*BULLET:Test cut on scrap before final workpiece
+*BULLET:Stack blades in the order shown by calculator
+
+###SUBTITLE:Safety Reminders
+
+!WARNING:Never exceed maximum blade height for your saw
+!WARNING:Always use outer blades - required for balance and safety
+!WARNING:Check that arbor length accommodates your stack
+!WARNING:Tighten arbor nut properly - loose stacks are dangerous
+!WARNING:Make test cuts to verify width before cutting workpiece
+
+###SUBTITLE:Common Mistakes to Avoid
+
+&PROBLEM:Stack is too wide for arbor
+&SOLUTION:Remove smallest chipper or use shims instead of full chippers
+
+&PROBLEM:Cut width doesn't match calculation
+&SOLUTION:Verify blade widths match catalog specs - some vary by manufacturer
+
+&PROBLEM:Rough cut bottom
+&SOLUTION:Ensure outer blades are positioned correctly - flat sides out
+
+&PROBLEM:Excessive vibration
+&SOLUTION:Check blade alignment and arbor washer placement
+
+##SECTION:Tolerance and Precision|Understanding the numbers
+
+The calculator uses a default tolerance of ±0.005" (5 thousandths of an inch) when finding optimal combinations.
+
+=FORMULA:Error = Total Width - Target Width
+
+###SUBTITLE:Acceptable Tolerances
+
+*BULLET:Exact match: ±0.001" or less (1 thousandth)
+*BULLET:Excellent: ±0.002" to ±0.005" (2-5 thousandths)
+*BULLET:Acceptable: ±0.006" to ±0.010" (6-10 thousandths)
+*BULLET:Too loose: > ±0.010" (may require shims)
+
+?NOTE:For plywood dado joints, aim for snug fit - too tight and plywood may split, too loose and joint is weak
+
+##SECTION:Troubleshooting|Common issues and solutions
+
+&PROBLEM:No solution found
+&SOLUTION:Check that enough blades are selected. Try different target width or add custom sizes.
+
+&PROBLEM:Calculator shows multiple alternatives with same width
+&SOLUTION:This is normal - algorithm found different blade orders yielding same result. Choose simplest stack.
+
+&PROBLEM:Error is always positive (too wide)
+&SOLUTION:Your target may be too narrow for available blades. Add smaller chippers or use shims.
+
+&PROBLEM:Can't add custom blade
+&SOLUTION:Check format - must be "Description (0.XXX")" with width in decimal inches.
+
+&PROBLEM:Results don't match actual cut
+&SOLUTION:Verify kerf width setting matches your blades. Clean blades and check for debris between chippers.
+
+##SECTION:Units and Conversions|Working with different systems
+
+###SUBTITLE:Imperial (Inches)
+*BULLET:Display format: Fractional for values < 1", decimal for larger
+*BULLET:Example: 5/8" shown for 0.625", but 1.25" for larger values
+*BULLET:Kerf typically: 1/8" (0.125")
+
+###SUBTITLE:Metric (Millimeters)
+*BULLET:Display format: Always decimal with 1 decimal place
+*BULLET:Example: 16.0 mm
+*BULLET:Automatic conversion: 1" = 25.4mm
+*BULLET:Kerf typically: 3.2mm
+
+?NOTE:Calculator works internally in inches and converts for display. This ensures precision regardless of input units.
+
+##SECTION:Keyboard Shortcuts|Faster workflow
+
+^SHORTCUT:Calculate|Computes blade combination for current inputs
+^SHORTCUT:Reset|Clears all inputs and results to defaults
+^SHORTCUT:Copy to Clipboard|Copies current results for pasting elsewhere
+^SHORTCUT:Add Custom|Opens dialog to add non-standard blade size
+
+##SECTION:Related Calculators|Other useful tools
+
+*BULLET:Joinery Calculator - For dado depth and housing joint dimensions
+*BULLET:Board Feet Calculator - Estimate lumber for shelving projects
+*BULLET:Cut List Optimizer - Plan your cuts for shelf projects
+
+##SECTION:Technical Specifications|Algorithm details
+
+###SUBTITLE:Algorithm Performance
+*BULLET:Search method: Dynamic programming with backtracking
+*BULLET:Time complexity: O(n × m) where n=target width, m=number of blades
+*BULLET:Pruning: Early termination on exact matches
+*BULLET:Memory: Stores top 3 solutions only (minimal overhead)
+*BULLET:Tolerance: Configurable (default ±0.005")
+
+###SUBTITLE:Validation Rules
+*BULLET:Minimum width: 0.125" (one outer blade pair)
+*BULLET:Maximum width: 2.0" (safety and arbor limits)
+*BULLET:Maximum blades: 10 pieces total (safety limit)
+*BULLET:Required: Two outer blades always included
+*BULLET:Kerf range: 0.001" to 0.25"
+
+?NOTE:For advanced users: Tolerance can be adjusted in source code if higher precision is needed (line 710 in DadoStackCalculator class)

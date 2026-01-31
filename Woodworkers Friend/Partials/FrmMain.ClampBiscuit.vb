@@ -10,6 +10,12 @@ Imports System.Drawing
 
 Partial Public Class FrmMain
 
+#Region "Clamp & Biscuit Spacing - Fields"
+
+    Private _clampBiscuitToolTip As ToolTip = Nothing
+
+#End Region
+
 #Region "Clamp & Biscuit Spacing - Initialization"
 
     ''' <summary>
@@ -121,7 +127,12 @@ Partial Public Class FrmMain
     ''' </summary>
     Private Sub InitializeClampBiscuitTooltips()
         Try
-            Dim tooltip As ToolTip = If(tTip, New ToolTip())
+            ' Create or reuse tooltip instance
+            If _clampBiscuitToolTip Is Nothing Then
+                _clampBiscuitToolTip = New ToolTip()
+            End If
+
+            Dim tooltip As ToolTip = _clampBiscuitToolTip
 
             ' Clamp Spacing tooltips
             If TxtClampPanelWidth IsNot Nothing Then
@@ -258,10 +269,10 @@ Partial Public Class FrmMain
             Dim pressure As Double = CalculateClampPressure(woodType, glueType)
 
             ' Display results using Tag format strings
-            ' LblClampSpacingResult.Tag = "Recommended Spacing: {0} {1}" - needs value and unit
-            LblClampSpacingResult.Text = String.Format(LblClampSpacingResult.Tag.ToString(), spacing.ToString("F1"), unit)
+            ' LblClampSpacingResult.Tag = "Recommended Spacing: {0:F1} {1}" - pass raw value, let String.Format handle formatting
+            LblClampSpacingResult.Text = String.Format(LblClampSpacingResult.Tag.ToString(), spacing, unit)
             LblNumClampsResults.Text = String.Format(LblNumClampsResults.Tag.ToString(), numClamps)
-            LblClampPressure.Text = String.Format(LblClampPressure.Tag.ToString(), pressure.ToString("F0"))
+            LblClampPressure.Text = String.Format(LblClampPressure.Tag.ToString(), pressure)
 
             ' Update notes
             UpdateClampNotes(numClamps, spacing, woodType, glueType)
@@ -291,7 +302,9 @@ Partial Public Class FrmMain
             ' Parse edge padding (will be converted if in metric)
             Dim edgePadding As Double = 0.625 ' Default
             If Not String.IsNullOrWhiteSpace(TxtEdgePadding.Text) Then
-                Double.TryParse(TxtEdgePadding.Text, edgePadding)
+                If Not Double.TryParse(TxtEdgePadding.Text, edgePadding) Then
+                    edgePadding = 0.625 ' Reset to default if parse fails
+                End If
             End If
 
             ' Convert to inches if needed
@@ -307,10 +320,10 @@ Partial Public Class FrmMain
             Dim positions As List(Of Double) = CalculateBiscuitPositions(jointLength, spacing, edgeDistance)
 
             ' Display results using Tag format strings
-            ' Tags have format: "Label: {0} {1}" where {0}=value, {1}=unit
+            ' Tags have format: "Label: {0}" or "Label: {0:F2} {1}" where format is in Tag
             LblNumberNeeded.Text = String.Format(LblNumberNeeded.Tag.ToString(), positions.Count)
-            LblEdgeDistance.Text = String.Format(LblEdgeDistance.Tag.ToString(), edgeDistance.ToString("F2"), unit)
-            LblRecommendedSpacing.Text = String.Format(LblRecommendedSpacing.Tag.ToString(), spacing.ToString("F1"), unit)
+            LblEdgeDistance.Text = String.Format(LblEdgeDistance.Tag.ToString(), edgeDistance, unit)
+            LblRecommendedSpacing.Text = String.Format(LblRecommendedSpacing.Tag.ToString(), spacing, unit)
 
             ' Populate center mark positions
             PopulateCenterMarks(positions, unit)
@@ -403,27 +416,29 @@ Partial Public Class FrmMain
     Private Sub UpdateClampNotes(numClamps As Integer, spacing As Double, woodType As String, glueType As String)
         Dim notes As New System.Text.StringBuilder()
 
-        notes.AppendLine($"CLAMPING TIPS:")
-        notes.AppendLine()
-        notes.AppendLine($"• Use {numClamps} clamps spaced {spacing:F1}"" apart")
-        notes.AppendLine($"• Alternate clamps top/bottom to prevent bowing")
-        notes.AppendLine($"• Use cauls (clamping boards) for flat panels")
-        notes.AppendLine($"• Check for square before glue sets")
-        notes.AppendLine()
+        With notes
+            .AppendLine($"CLAMPING TIPS:")
+            .AppendLine()
+            .AppendLine($"• Use {numClamps} clamps spaced {spacing:F1}"" apart")
+            .AppendLine($"• Alternate clamps top/bottom to prevent bowing")
+            .AppendLine($"• Use cauls (clamping boards) for flat panels")
+            .AppendLine($"• Check for square before glue sets")
+            .AppendLine()
 
-        If glueType = "PVA" Then
-            notes.AppendLine($"• PVA: 30-45 min clamp time minimum")
-        ElseIf glueType = "Polyurethane" Then
-            notes.AppendLine($"• Polyurethane: 2-4 hour clamp time")
-            notes.AppendLine($"• Foams - wipe excess immediately!")
-        ElseIf glueType = "Epoxy" Then
-            notes.AppendLine($"• Epoxy: Check manufacturer specifications")
-            notes.AppendLine($"• Typically 4-6 hour clamp time")
-        End If
+            If glueType = "PVA" Then
+                .AppendLine($"• PVA: 30-45 min clamp time minimum")
+            ElseIf glueType = "Polyurethane" Then
+                .AppendLine($"• Polyurethane: 2-4 hour clamp time")
+                .AppendLine($"• Foams - wipe excess immediately!")
+            ElseIf glueType = "Epoxy" Then
+                .AppendLine($"• Epoxy: Check manufacturer specifications")
+                .AppendLine($"• Typically 4-6 hour clamp time")
+            End If
 
-        notes.AppendLine()
-        notes.AppendLine($"• Don't over-tighten - squeeze-out should be minimal")
-        notes.AppendLine($"• Use wax paper under cauls to prevent sticking")
+            .AppendLine()
+            .AppendLine($"• Don't over-tighten - squeeze-out should be minimal")
+            .AppendLine($"• Use wax paper under cauls to prevent sticking")
+        End With
 
         TxtClampNotes.Text = notes.ToString()
     End Sub
