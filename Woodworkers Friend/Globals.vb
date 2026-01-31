@@ -18,6 +18,8 @@ Friend Module Globals
     Friend ReadOnly DataDir As String = Path.Combine(Application.StartupPath, "Data")
     Friend ReadOnly TempDir As String = Path.Combine(Application.StartupPath, "$tmp")
 
+    Friend LogFile As String
+
     ' Global functions
     Friend Function GetAppInfo() As String
         Return $"{AppName} - Version {Version}"

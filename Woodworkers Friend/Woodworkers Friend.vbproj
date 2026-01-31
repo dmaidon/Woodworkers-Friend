@@ -9,20 +9,23 @@
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.1.30.495</AssemblyVersion>
-	<FileVersion>26.1.30.495</FileVersion>
+	<AssemblyVersion>26.1.31.506</AssemblyVersion>
+	<FileVersion>26.1.31.506</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
 	  <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
 	  <ImportedNamespaces>System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Woodworkers Friend=True</ImportedNamespaces>
-	  <Copyright>©2025 PAROLE Software - All rigthts reserved.</Copyright>
+	  <Copyright>©2026 PAROLE Software - All rights reserved.</Copyright>
 	  <PackageIcon>wood_128.png</PackageIcon>
 	  <ApplicationIcon>wood.ico</ApplicationIcon>
 	  <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	  <IncludeSymbols>True</IncludeSymbols>
 	  <Company>PAROLE Software</Company>
 	  <Authors>Dennis N Maidon</Authors>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/dmaidon/Woodworkers-Friend</RepositoryUrl>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -63,6 +66,14 @@
 
   <ItemGroup>
     <None Include="..\..\..\Users\dmaid\Downloads\wood_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

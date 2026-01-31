@@ -46,6 +46,8 @@ Public Class ErrorHandler
             ' Get current log file path
             Dim logFilePath = GetLogFilePath()
 
+            LogFile = logFilePath
+
             ' Ensure log directory exists
             Dim logDir As String = Path.GetDirectoryName(logFilePath)
             If Not Directory.Exists(logDir) Then

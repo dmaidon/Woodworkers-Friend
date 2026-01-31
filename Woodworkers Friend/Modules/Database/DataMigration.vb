@@ -1039,6 +1039,73 @@ Public Class DataMigration
 "" & vbLf &
 "?NOTE:Tip: Hover over any input field to see its valid range and examples!" & vbLf &
 "!WARNING:Validation prevents mistakes, but always double-check critical measurements!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "safety",
+.Title = "Safety Calculators",
+.Category = "Calculators",
+.SortOrder = 56,
+.Keywords = "safety,router,rpm,blade height,push stick,dust collection,cfm,speed,protection",
+.Content =
+"#TITLE:Safety Calculators" & vbLf &
+"##SECTION:Safety-Focused Tools|Four essential calculators to help you work more safely by providing science-based recommendations." & vbLf &
+"!WARNING:These calculators provide guidance based on industry standards. Always follow manufacturer specifications and use appropriate PPE!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Router Bit Speed Calculator" & vbLf &
+"Calculate maximum safe RPM based on bit diameter and desired surface speed." & vbLf &
+"" & vbLf &
+"=FORMULA:RPM = (Surface Speed × 12) / (π × Diameter)" & vbLf &
+"" & vbLf &
+"*BULLET:Safe surface speed range: 9,000-12,000 ft/min" & vbLf &
+"*BULLET:Large bits (>2 inches) require lower RPMs" & vbLf &
+"*BULLET:Small bits (<1/2 inch) can run faster" & vbLf &
+"*BULLET:Variable speed router essential for large bits" & vbLf &
+"!WARNING:Large bits at high RPM can explode - always check before routing!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Blade Height Recommendations" & vbLf &
+"Get safe blade height for table saw operations:" & vbLf &
+"" & vbLf &
+"*BULLET:Ripping: 1/8 to 1/4 inch above material (minimizes kickback)" & vbLf &
+"*BULLET:Crosscutting: Full tooth (≈1/4 inch) above material (cleaner cut)" & vbLf &
+"*BULLET:Dado/Groove: Just breaking through (+1/32 inch) (precise depth)" & vbLf &
+"*BULLET:Thin Stock: 1/16 inch above material (extra safety)" & vbLf &
+"" & vbLf &
+"?NOTE:Blade height affects both safety and cut quality - follow recommendations!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Push Stick Requirements" & vbLf &
+"Evaluates risk level and required safety devices:" & vbLf &
+"" & vbLf &
+"@METHOD:Risk Levels|Four-level assessment: LOW, MODERATE, HIGH, CRITICAL" & vbLf &
+"" & vbLf &
+"*BULLET:Stock < 3 inches wide = CRITICAL risk" & vbLf &
+"*BULLET:Stock < 0.5 inches thick = CRITICAL risk" & vbLf &
+"*BULLET:Stock 3-6 inches wide = HIGH risk" & vbLf &
+"*BULLET:Stock 6-12 inches wide = MODERATE risk" & vbLf &
+"*BULLET:Stock > 12 inches wide = LOW risk" & vbLf &
+"" & vbLf &
+"!WARNING:The 6-inch rule: NEVER let hands come within 6 inches of running blade!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Dust Collection CFM Calculator" & vbLf &
+"Calculate required CFM (Cubic Feet per Minute) for effective dust collection:" & vbLf &
+"" & vbLf &
+"*BULLET:Tool-specific requirements for 8 common tools" & vbLf &
+"*BULLET:Port diameter and duct length calculations" & vbLf &
+"*BULLET:Static pressure loss compensation" & vbLf &
+"*BULLET:Table Saw: 450-650 CFM recommended" & vbLf &
+"*BULLET:Planer: 600-1000 CFM recommended" & vbLf &
+"*BULLET:Drum Sander: 800-1200 CFM recommended" & vbLf &
+"" & vbLf &
+"!WARNING:Wood dust is carcinogenic! Fine dust (<10 microns) is most dangerous!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:General Safety Rules" & vbLf &
+"*BULLET:Always wear safety glasses, hearing protection, and dust mask" & vbLf &
+"*BULLET:No gloves around rotating tools" & vbLf &
+"*BULLET:Remove jewelry and tie back long hair" & vbLf &
+"*BULLET:Never reach over or behind blade" & vbLf &
+"*BULLET:Stand to the side, not behind stock" & vbLf &
+"*BULLET:If it feels unsafe, find another way" & vbLf &
+"" & vbLf &
+"?NOTE:For detailed safety information, see the Safety Calculator Help document!"
 }
             }
 

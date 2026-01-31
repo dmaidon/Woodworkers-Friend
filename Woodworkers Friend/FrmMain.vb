@@ -118,6 +118,7 @@ Public Class FrmMain
         InitializeShelfSagCalculator()
         InitializeCutListOptimizer()
         InitializeWoodPropertiesReference()
+        InitializeSafetyCalculator()
 
         ' Phase 7.1 & 7.2: Initialize to wire up Enter events (data loads on first tab visit)
         InitializeJoineryReference()

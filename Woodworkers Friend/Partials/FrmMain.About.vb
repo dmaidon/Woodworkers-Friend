@@ -33,6 +33,14 @@ Partial Public Class FrmMain
             Dim assemblyVersion As Version = assemblyName.Version
             Dim fileVersionInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location)
 
+            ' Get company and author from assembly attributes or FileVersionInfo
+            Dim companyName As String = fileVersionInfo.CompanyName
+            Dim authorName As String = fileVersionInfo.LegalCopyright
+
+            ' If company is empty, use fallback
+            If String.IsNullOrEmpty(companyName) Then companyName = "PAROLE Software"
+            If String.IsNullOrEmpty(authorName) Then authorName = "Dennis N. Maidon"
+
             ' Build the information text
             Dim sb As New Text.StringBuilder()
 
@@ -50,12 +58,12 @@ Partial Public Class FrmMain
             sb.AppendLine("enthusiasts.")
             sb.AppendLine()
 
-            ' Author & Company
+            ' Author & Company (from assembly FileVersionInfo)
             sb.AppendLine("AUTHOR:")
-            sb.AppendLine("  David Maidon")
+            sb.AppendLine($"  {authorName}")
             sb.AppendLine()
             sb.AppendLine("COMPANY:")
-            sb.AppendLine("  Woodworker's Friend Software")
+            sb.AppendLine($"  {companyName}")
             sb.AppendLine()
 
             ' Version Details
@@ -283,11 +291,11 @@ Partial Public Class FrmMain
     ''' </summary>
     Private Sub LoadCurrentLogFile()
         ' Get today's log file path (using new format: errors_MMMd.log)
-        Dim logFileName As String = $"errors_{DateTime.Now:MMMd}.log"
-        Dim logFilePath As String = Path.Combine(LogDir, logFileName)
+        ' Dim logFileName As String = $"errors_{DateTime.Now:MMMd}.log"
+        ' Dim logFilePath As String = Path.Combine(LogDir, logFileName)
 
         ' Load the current log file
-        LoadLogFile(logFilePath)
+        LoadLogFile(LogFile)
     End Sub
 
     ''' <summary>

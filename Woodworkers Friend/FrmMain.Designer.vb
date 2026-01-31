@@ -234,14 +234,11 @@ Partial Class FrmMain
         LblTcMultiplier = New Label()
         TxtTotalArea = New TextBox()
         LblTotalArea = New Label()
-        Label53 = New Label()
         PnlEpoxyPours = New Panel()
         LblEpoxyMilliliters = New Label()
-        Label54 = New Label()
         TxtEpoxyArea = New TextBox()
         LblEpoxyArea = New Label()
         TxtEpoxyDiameter = New TextBox()
-        Label52 = New Label()
         CmbEpoxyCost = New ComboBox()
         LblEpoxyCost = New Label()
         LblEpoxyLiters = New Label()
@@ -301,7 +298,6 @@ Partial Class FrmMain
         Label18 = New Label()
         Label15 = New Label()
         Panel3 = New Panel()
-        Label51 = New Label()
         LblPolygonPieceAngle = New Label()
         LblPolygonSideAngle = New Label()
         TxtPolygonSides = New TextBox()
@@ -312,11 +308,8 @@ Partial Class FrmMain
         TpJoinery = New TabPage()
         ScJoinery = New SplitContainer()
         GbxMortiseTenonInput = New GroupBox()
-        Label59 = New Label()
         TxtJointStockThickness = New TextBox()
-        Label57 = New Label()
         TxtJointStockWidth = New TextBox()
-        Label58 = New Label()
         RbTenonStandard = New RadioButton()
         RbTenonHaunched = New RadioButton()
         RbTenonThrough = New RadioButton()
@@ -484,13 +477,11 @@ Partial Class FrmMain
         Label66 = New Label()
         Label65 = New Label()
         Label64 = New Label()
-        Label63 = New Label()
         TxtJoineryReinforcement = New TextBox()
         TxtJoineryStrengthChar = New TextBox()
         TxtJoineryTools = New TextBox()
         TxtJoineryUses = New TextBox()
         TxtJoineryDescription = New TextBox()
-        Label62 = New Label()
         Panel1 = New Panel()
         LblJoineryGlue = New Label()
         LblJoineryStrength = New Label()
@@ -533,6 +524,49 @@ Partial Class FrmMain
         TxtHardwareMounting = New TextBox()
         TxtHardwareUses = New TextBox()
         TxtHardwareDescription = New TextBox()
+        TpSafety = New TabPage()
+        TlpSafety = New TableLayoutPanel()
+        GbRouterSpeed = New GroupBox()
+        LblRouterSpeedWarning = New Label()
+        LblRouterRimSpeed = New Label()
+        LblRouterRPMResult = New Label()
+        BtnCalculateRouterSpeed = New Button()
+        TxtDesiredSurfaceSpeed = New TextBox()
+        TxtRouterBitDiameter = New TextBox()
+        Label74 = New Label()
+        Label75 = New Label()
+        Label76 = New Label()
+        GbBladeHeight = New GroupBox()
+        LblBladeHeightNotes = New Label()
+        LblBladeHeightResult = New Label()
+        BtnCalculateBladeHeight = New Button()
+        CmbBladeOperation = New ComboBox()
+        TxtMaterialThickness = New TextBox()
+        Label77 = New Label()
+        Label78 = New Label()
+        Label79 = New Label()
+        GbPushStick = New GroupBox()
+        LblPushStickRequirements = New Label()
+        LblPushStickRisk = New Label()
+        BtnEvaluatePushStick = New Button()
+        CbPushStickFeatherboard = New CheckBox()
+        CbPushStickGuard = New CheckBox()
+        TxtStockThickness = New TextBox()
+        TxtStockWidth = New TextBox()
+        Label80 = New Label()
+        Label81 = New Label()
+        Label82 = New Label()
+        GbxDustCollection = New GroupBox()
+        LblCFMNotes = New Label()
+        LblCFMResult = New Label()
+        BtnCalculateCFM = New Button()
+        TxtDuctLength = New TextBox()
+        CmbToolType = New ComboBox()
+        TxtToolPort = New TextBox()
+        Label83 = New Label()
+        Label84 = New Label()
+        Label85 = New Label()
+        Label86 = New Label()
         TpHelp = New TabPage()
         TpAbout = New TabPage()
         LblManageCosts = New Label()
@@ -542,10 +576,6 @@ Partial Class FrmMain
         LbLogFiles = New ListBox()
         LblClickLoadLogFile = New Label()
         RtbLog = New RichTextBox()
-        Label55 = New Label()
-        Label56 = New Label()
-        Label60 = New Label()
-        Label61 = New Label()
         ColCutLabel = New DataGridViewTextBoxColumn()
         ColCutLength = New DataGridViewTextBoxColumn()
         ColCutWidth = New DataGridViewTextBoxColumn()
@@ -667,6 +697,12 @@ Partial Class FrmMain
         ScHardwareMain.SuspendLayout()
         CType(DgvHardware, ComponentModel.ISupportInitialize).BeginInit()
         PnlHardwareSummaryInfo.SuspendLayout()
+        TpSafety.SuspendLayout()
+        TlpSafety.SuspendLayout()
+        GbRouterSpeed.SuspendLayout()
+        GbBladeHeight.SuspendLayout()
+        GbPushStick.SuspendLayout()
+        GbxDustCollection.SuspendLayout()
         TpAbout.SuspendLayout()
         GbxAbout.SuspendLayout()
         SuspendLayout()
@@ -765,7 +801,7 @@ Partial Class FrmMain
         TsslCpy.Font = New Font("Microsoft Sans Serif", 8.28F, FontStyle.Italic)
         TsslCpy.ForeColor = Color.Brown
         TsslCpy.Name = "TsslCpy"
-        TsslCpy.Size = New Size(1070, 26)
+        TsslCpy.Size = New Size(1116, 26)
         TsslCpy.Spring = True
         TsslCpy.Text = "cpy"
         ' 
@@ -827,7 +863,7 @@ Partial Class FrmMain
         ' TsslMemoriam
         ' 
         TsslMemoriam.Name = "TsslMemoriam"
-        TsslMemoriam.Size = New Size(880, 26)
+        TsslMemoriam.Size = New Size(1070, 26)
         TsslMemoriam.Spring = True
         ' 
         ' TsslToggleDoorExploded
@@ -2625,7 +2661,6 @@ Partial Class FrmMain
         PnlStoneCoatTopCoat.Controls.Add(LblTcMultiplier)
         PnlStoneCoatTopCoat.Controls.Add(TxtTotalArea)
         PnlStoneCoatTopCoat.Controls.Add(LblTotalArea)
-        PnlStoneCoatTopCoat.Controls.Add(Label53)
         PnlStoneCoatTopCoat.Location = New Point(269, 9)
         PnlStoneCoatTopCoat.Name = "PnlStoneCoatTopCoat"
         PnlStoneCoatTopCoat.Size = New Size(334, 382)
@@ -2748,27 +2783,14 @@ Partial Class FrmMain
         LblTotalArea.TabIndex = 2
         LblTotalArea.Text = "Total Area (SqFt)"
         ' 
-        ' Label53
-        ' 
-        Label53.AutoSize = True
-        Label53.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label53.ForeColor = Color.Maroon
-        Label53.Location = New Point(17, 7)
-        Label53.Name = "Label53"
-        Label53.Size = New Size(299, 21)
-        Label53.TabIndex = 0
-        Label53.Text = "Stone Coat Top Coat Calculator"
-        ' 
         ' PnlEpoxyPours
         ' 
         PnlEpoxyPours.BackColor = Color.WhiteSmoke
         PnlEpoxyPours.BorderStyle = BorderStyle.Fixed3D
         PnlEpoxyPours.Controls.Add(LblEpoxyMilliliters)
-        PnlEpoxyPours.Controls.Add(Label54)
         PnlEpoxyPours.Controls.Add(TxtEpoxyArea)
         PnlEpoxyPours.Controls.Add(LblEpoxyArea)
         PnlEpoxyPours.Controls.Add(TxtEpoxyDiameter)
-        PnlEpoxyPours.Controls.Add(Label52)
         PnlEpoxyPours.Controls.Add(CmbEpoxyCost)
         PnlEpoxyPours.Controls.Add(LblEpoxyCost)
         PnlEpoxyPours.Controls.Add(LblEpoxyLiters)
@@ -2805,15 +2827,6 @@ Partial Class FrmMain
         LblEpoxyMilliliters.Text = "Milliliters required"
         LblEpoxyMilliliters.TextAlign = ContentAlignment.MiddleRight
         ' 
-        ' Label54
-        ' 
-        Label54.AutoSize = True
-        Label54.Location = New Point(147, 157)
-        Label54.Name = "Label54"
-        Label54.Size = New Size(43, 21)
-        Label54.TabIndex = 19
-        Label54.Text = "SqFt"
-        ' 
         ' TxtEpoxyArea
         ' 
         TxtEpoxyArea.Location = New Point(68, 153)
@@ -2837,15 +2850,6 @@ Partial Class FrmMain
         TxtEpoxyDiameter.Size = New Size(47, 29)
         TxtEpoxyDiameter.TabIndex = 16
         TxtEpoxyDiameter.Tag = "2"
-        ' 
-        ' Label52
-        ' 
-        Label52.AutoSize = True
-        Label52.Location = New Point(22, 87)
-        Label52.Name = "Label52"
-        Label52.Size = New Size(81, 21)
-        Label52.TabIndex = 15
-        Label52.Text = "Diameter"
         ' 
         ' CmbEpoxyCost
         ' 
@@ -3464,7 +3468,6 @@ Partial Class FrmMain
         ' 
         Panel3.BackColor = Color.WhiteSmoke
         Panel3.BorderStyle = BorderStyle.Fixed3D
-        Panel3.Controls.Add(Label51)
         Panel3.Controls.Add(LblPolygonPieceAngle)
         Panel3.Controls.Add(LblPolygonSideAngle)
         Panel3.Controls.Add(TxtPolygonSides)
@@ -3475,17 +3478,6 @@ Partial Class FrmMain
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(302, 397)
         Panel3.TabIndex = 5
-        ' 
-        ' Label51
-        ' 
-        Label51.AutoSize = True
-        Label51.Font = New Font("Georgia", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label51.ForeColor = Color.Maroon
-        Label51.Location = New Point(87, 9)
-        Label51.Name = "Label51"
-        Label51.Size = New Size(124, 29)
-        Label51.TabIndex = 5
-        Label51.Text = "Polygons"
         ' 
         ' LblPolygonPieceAngle
         ' 
@@ -3604,11 +3596,8 @@ Partial Class FrmMain
         ' GbxMortiseTenonInput
         ' 
         GbxMortiseTenonInput.BackColor = Color.DarkGray
-        GbxMortiseTenonInput.Controls.Add(Label59)
         GbxMortiseTenonInput.Controls.Add(TxtJointStockThickness)
-        GbxMortiseTenonInput.Controls.Add(Label57)
         GbxMortiseTenonInput.Controls.Add(TxtJointStockWidth)
-        GbxMortiseTenonInput.Controls.Add(Label58)
         GbxMortiseTenonInput.Controls.Add(RbTenonStandard)
         GbxMortiseTenonInput.Controls.Add(RbTenonHaunched)
         GbxMortiseTenonInput.Controls.Add(RbTenonThrough)
@@ -3620,16 +3609,6 @@ Partial Class FrmMain
         GbxMortiseTenonInput.TabStop = False
         GbxMortiseTenonInput.Text = "Mortise && Tenon Input"
         ' 
-        ' Label59
-        ' 
-        Label59.AutoSize = True
-        Label59.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
-        Label59.Location = New Point(15, 30)
-        Label59.Name = "Label59"
-        Label59.Size = New Size(166, 21)
-        Label59.TabIndex = 0
-        Label59.Text = "Stock Thickness:"
-        ' 
         ' TxtJointStockThickness
         ' 
         TxtJointStockThickness.Location = New Point(184, 25)
@@ -3640,16 +3619,6 @@ Partial Class FrmMain
         TxtJointStockThickness.Text = "0.75"
         TxtJointStockThickness.TextAlign = HorizontalAlignment.Center
         ' 
-        ' Label57
-        ' 
-        Label57.AutoSize = True
-        Label57.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
-        Label57.Location = New Point(50, 65)
-        Label57.Name = "Label57"
-        Label57.Size = New Size(131, 21)
-        Label57.TabIndex = 2
-        Label57.Text = "Stock Width:"
-        ' 
         ' TxtJointStockWidth
         ' 
         TxtJointStockWidth.Location = New Point(184, 62)
@@ -3659,16 +3628,6 @@ Partial Class FrmMain
         TxtJointStockWidth.TabIndex = 1
         TxtJointStockWidth.Text = "3.5"
         TxtJointStockWidth.TextAlign = HorizontalAlignment.Center
-        ' 
-        ' Label58
-        ' 
-        Label58.AutoSize = True
-        Label58.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
-        Label58.Location = New Point(15, 105)
-        Label58.Name = "Label58"
-        Label58.Size = New Size(125, 21)
-        Label58.TabIndex = 2
-        Label58.Text = "Tenon Type:"
         ' 
         ' RbTenonStandard
         ' 
@@ -5112,6 +5071,7 @@ Partial Class FrmMain
         TcReferences.Controls.Add(TpWoodProperties)
         TcReferences.Controls.Add(TpJoineryReference)
         TcReferences.Controls.Add(TpHardwareStandards)
+        TcReferences.Controls.Add(TpSafety)
         TcReferences.Dock = DockStyle.Fill
         TcReferences.Location = New Point(0, 0)
         TcReferences.Multiline = True
@@ -5325,13 +5285,11 @@ Partial Class FrmMain
         Panel11.Controls.Add(Label66)
         Panel11.Controls.Add(Label65)
         Panel11.Controls.Add(Label64)
-        Panel11.Controls.Add(Label63)
         Panel11.Controls.Add(TxtJoineryReinforcement)
         Panel11.Controls.Add(TxtJoineryStrengthChar)
         Panel11.Controls.Add(TxtJoineryTools)
         Panel11.Controls.Add(TxtJoineryUses)
         Panel11.Controls.Add(TxtJoineryDescription)
-        Panel11.Controls.Add(Label62)
         Panel11.Location = New Point(509, 324)
         Panel11.Name = "Panel11"
         Panel11.Size = New Size(609, 481)
@@ -5387,16 +5345,6 @@ Partial Class FrmMain
         Label64.TabIndex = 8
         Label64.Text = "**Required Tools:**"
         ' 
-        ' Label63
-        ' 
-        Label63.AutoSize = True
-        Label63.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label63.Location = New Point(20, 82)
-        Label63.Name = "Label63"
-        Label63.Size = New Size(149, 18)
-        Label63.TabIndex = 7
-        Label63.Text = "**Typical uses:**"
-        ' 
         ' TxtJoineryReinforcement
         ' 
         TxtJoineryReinforcement.Location = New Point(20, 348)
@@ -5446,16 +5394,6 @@ Partial Class FrmMain
         TxtJoineryDescription.ScrollBars = ScrollBars.Both
         TxtJoineryDescription.Size = New Size(570, 46)
         TxtJoineryDescription.TabIndex = 2
-        ' 
-        ' Label62
-        ' 
-        Label62.AutoSize = True
-        Label62.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label62.Location = New Point(20, 2)
-        Label62.Name = "Label62"
-        Label62.Size = New Size(143, 18)
-        Label62.TabIndex = 1
-        Label62.Text = "**Description:**"
         ' 
         ' Panel1
         ' 
@@ -5746,7 +5684,7 @@ Partial Class FrmMain
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareUses)
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareDescription)
         ScHardwareMain.Size = New Size(1124, 713)
-        ScHardwareMain.SplitterDistance = 499
+        ScHardwareMain.SplitterDistance = 498
         ScHardwareMain.SplitterWidth = 6
         ScHardwareMain.TabIndex = 0
         ' 
@@ -5757,7 +5695,7 @@ Partial Class FrmMain
         DgvHardware.Location = New Point(0, 0)
         DgvHardware.Name = "DgvHardware"
         DgvHardware.RowHeadersWidth = 62
-        DgvHardware.Size = New Size(495, 709)
+        DgvHardware.Size = New Size(494, 709)
         DgvHardware.TabIndex = 0
         ' 
         ' Label72
@@ -5816,7 +5754,7 @@ Partial Class FrmMain
         PnlHardwareSummaryInfo.Dock = DockStyle.Top
         PnlHardwareSummaryInfo.Location = New Point(0, 0)
         PnlHardwareSummaryInfo.Name = "PnlHardwareSummaryInfo"
-        PnlHardwareSummaryInfo.Size = New Size(615, 315)
+        PnlHardwareSummaryInfo.Size = New Size(616, 315)
         PnlHardwareSummaryInfo.TabIndex = 18
         ' 
         ' LblHardwareWeight
@@ -5919,6 +5857,494 @@ Partial Class FrmMain
         TxtHardwareDescription.Size = New Size(570, 46)
         TxtHardwareDescription.TabIndex = 4
         ' 
+        ' TpSafety
+        ' 
+        TpSafety.BackColor = Color.Gainsboro
+        TpSafety.BorderStyle = BorderStyle.Fixed3D
+        TpSafety.Controls.Add(TlpSafety)
+        TpSafety.Location = New Point(4, 4)
+        TpSafety.Name = "TpSafety"
+        TpSafety.Size = New Size(1134, 811)
+        TpSafety.TabIndex = 3
+        TpSafety.Text = "Safety"
+        ' 
+        ' TlpSafety
+        ' 
+        TlpSafety.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset
+        TlpSafety.ColumnCount = 2
+        TlpSafety.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpSafety.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpSafety.Controls.Add(GbRouterSpeed, 0, 0)
+        TlpSafety.Controls.Add(GbBladeHeight, 1, 0)
+        TlpSafety.Controls.Add(GbPushStick, 0, 1)
+        TlpSafety.Controls.Add(GbxDustCollection, 1, 1)
+        TlpSafety.Dock = DockStyle.Fill
+        TlpSafety.Location = New Point(0, 0)
+        TlpSafety.Name = "TlpSafety"
+        TlpSafety.Padding = New Padding(10)
+        TlpSafety.RowCount = 2
+        TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
+        TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
+        TlpSafety.Size = New Size(1130, 807)
+        TlpSafety.TabIndex = 0
+        ' 
+        ' GbRouterSpeed
+        ' 
+        GbRouterSpeed.Controls.Add(LblRouterSpeedWarning)
+        GbRouterSpeed.Controls.Add(LblRouterRimSpeed)
+        GbRouterSpeed.Controls.Add(LblRouterRPMResult)
+        GbRouterSpeed.Controls.Add(BtnCalculateRouterSpeed)
+        GbRouterSpeed.Controls.Add(TxtDesiredSurfaceSpeed)
+        GbRouterSpeed.Controls.Add(TxtRouterBitDiameter)
+        GbRouterSpeed.Controls.Add(Label74)
+        GbRouterSpeed.Controls.Add(Label75)
+        GbRouterSpeed.Controls.Add(Label76)
+        GbRouterSpeed.Dock = DockStyle.Fill
+        GbRouterSpeed.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbRouterSpeed.Location = New Point(15, 15)
+        GbRouterSpeed.Name = "GbRouterSpeed"
+        GbRouterSpeed.Padding = New Padding(10)
+        GbRouterSpeed.Size = New Size(546, 384)
+        GbRouterSpeed.TabIndex = 0
+        GbRouterSpeed.TabStop = False
+        GbRouterSpeed.Text = "Router Bit Speed Calculator"
+        ' 
+        ' LblRouterSpeedWarning
+        ' 
+        LblRouterSpeedWarning.Font = New Font("Segoe UI", 9.0F)
+        LblRouterSpeedWarning.ForeColor = Color.DarkOrange
+        LblRouterSpeedWarning.Location = New Point(15, 235)
+        LblRouterSpeedWarning.Name = "LblRouterSpeedWarning"
+        LblRouterSpeedWarning.Size = New Size(520, 140)
+        LblRouterSpeedWarning.TabIndex = 8
+        ' 
+        ' LblRouterRimSpeed
+        ' 
+        LblRouterRimSpeed.AutoSize = True
+        LblRouterRimSpeed.Font = New Font("Segoe UI", 9.0F)
+        LblRouterRimSpeed.Location = New Point(15, 205)
+        LblRouterRimSpeed.Name = "LblRouterRimSpeed"
+        LblRouterRimSpeed.Size = New Size(102, 25)
+        LblRouterRimSpeed.TabIndex = 7
+        LblRouterRimSpeed.Text = "Rim Speed:"
+        ' 
+        ' LblRouterRPMResult
+        ' 
+        LblRouterRPMResult.AutoSize = True
+        LblRouterRPMResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblRouterRPMResult.ForeColor = Color.Green
+        LblRouterRPMResult.Location = New Point(15, 175)
+        LblRouterRPMResult.Name = "LblRouterRPMResult"
+        LblRouterRPMResult.Size = New Size(228, 30)
+        LblRouterRPMResult.TabIndex = 6
+        LblRouterRPMResult.Text = "Maximum Safe RPM:"
+        ' 
+        ' BtnCalculateRouterSpeed
+        ' 
+        BtnCalculateRouterSpeed.BackColor = Color.MistyRose
+        BtnCalculateRouterSpeed.Font = New Font("Segoe UI", 9.0F)
+        BtnCalculateRouterSpeed.Location = New Point(15, 130)
+        BtnCalculateRouterSpeed.Name = "BtnCalculateRouterSpeed"
+        BtnCalculateRouterSpeed.Size = New Size(120, 35)
+        BtnCalculateRouterSpeed.TabIndex = 5
+        BtnCalculateRouterSpeed.Text = "Calculate"
+        BtnCalculateRouterSpeed.UseVisualStyleBackColor = False
+        ' 
+        ' TxtDesiredSurfaceSpeed
+        ' 
+        TxtDesiredSurfaceSpeed.Font = New Font("Segoe UI", 9.0F)
+        TxtDesiredSurfaceSpeed.Location = New Point(262, 92)
+        TxtDesiredSurfaceSpeed.Name = "TxtDesiredSurfaceSpeed"
+        TxtDesiredSurfaceSpeed.Size = New Size(100, 31)
+        TxtDesiredSurfaceSpeed.TabIndex = 4
+        TxtDesiredSurfaceSpeed.Text = "9000"
+        ' 
+        ' TxtRouterBitDiameter
+        ' 
+        TxtRouterBitDiameter.Font = New Font("Segoe UI", 9.0F)
+        TxtRouterBitDiameter.Location = New Point(262, 57)
+        TxtRouterBitDiameter.Name = "TxtRouterBitDiameter"
+        TxtRouterBitDiameter.Size = New Size(100, 31)
+        TxtRouterBitDiameter.TabIndex = 2
+        TxtRouterBitDiameter.Text = "1.0"
+        ' 
+        ' Label74
+        ' 
+        Label74.AutoSize = True
+        Label74.Font = New Font("Segoe UI", 9.0F)
+        Label74.Location = New Point(63, 60)
+        Label74.Name = "Label74"
+        Label74.Size = New Size(199, 25)
+        Label74.TabIndex = 0
+        Label74.Text = "Router Bit Diameter (in):"
+        ' 
+        ' Label75
+        ' 
+        Label75.AutoSize = True
+        Label75.Font = New Font("Segoe UI", 9.0F)
+        Label75.Location = New Point(4, 95)
+        Label75.Name = "Label75"
+        Label75.Size = New Size(258, 25)
+        Label75.TabIndex = 0
+        Label75.Text = "Desired Surface Speed (ft/min):"
+        ' 
+        ' Label76
+        ' 
+        Label76.AutoSize = True
+        Label76.Font = New Font("Segoe UI", 9.0F)
+        Label76.Location = New Point(3, 25)
+        Label76.Name = "Label76"
+        Label76.Size = New Size(490, 25)
+        Label76.TabIndex = 0
+        Label76.Text = "Calculate safe RPM based on bit diameter and surface speed"
+        ' 
+        ' GbBladeHeight
+        ' 
+        GbBladeHeight.Controls.Add(LblBladeHeightNotes)
+        GbBladeHeight.Controls.Add(LblBladeHeightResult)
+        GbBladeHeight.Controls.Add(BtnCalculateBladeHeight)
+        GbBladeHeight.Controls.Add(CmbBladeOperation)
+        GbBladeHeight.Controls.Add(TxtMaterialThickness)
+        GbBladeHeight.Controls.Add(Label77)
+        GbBladeHeight.Controls.Add(Label78)
+        GbBladeHeight.Controls.Add(Label79)
+        GbBladeHeight.Dock = DockStyle.Fill
+        GbBladeHeight.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbBladeHeight.Location = New Point(569, 15)
+        GbBladeHeight.Name = "GbBladeHeight"
+        GbBladeHeight.Padding = New Padding(10)
+        GbBladeHeight.Size = New Size(546, 384)
+        GbBladeHeight.TabIndex = 1
+        GbBladeHeight.TabStop = False
+        GbBladeHeight.Text = "Blade Height Recommendations"
+        ' 
+        ' LblBladeHeightNotes
+        ' 
+        LblBladeHeightNotes.Font = New Font("Segoe UI", 9.0F)
+        LblBladeHeightNotes.Location = New Point(15, 210)
+        LblBladeHeightNotes.Name = "LblBladeHeightNotes"
+        LblBladeHeightNotes.Size = New Size(520, 165)
+        LblBladeHeightNotes.TabIndex = 7
+        ' 
+        ' LblBladeHeightResult
+        ' 
+        LblBladeHeightResult.AutoSize = True
+        LblBladeHeightResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblBladeHeightResult.ForeColor = Color.Green
+        LblBladeHeightResult.Location = New Point(15, 175)
+        LblBladeHeightResult.Name = "LblBladeHeightResult"
+        LblBladeHeightResult.Size = New Size(250, 30)
+        LblBladeHeightResult.TabIndex = 6
+        LblBladeHeightResult.Text = "Recommended Height:"
+        ' 
+        ' BtnCalculateBladeHeight
+        ' 
+        BtnCalculateBladeHeight.BackColor = Color.MistyRose
+        BtnCalculateBladeHeight.Font = New Font("Segoe UI", 9.0F)
+        BtnCalculateBladeHeight.Location = New Point(15, 130)
+        BtnCalculateBladeHeight.Name = "BtnCalculateBladeHeight"
+        BtnCalculateBladeHeight.Size = New Size(120, 35)
+        BtnCalculateBladeHeight.TabIndex = 5
+        BtnCalculateBladeHeight.Text = "Calculate"
+        BtnCalculateBladeHeight.UseVisualStyleBackColor = False
+        ' 
+        ' CmbBladeOperation
+        ' 
+        CmbBladeOperation.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbBladeOperation.Font = New Font("Segoe UI", 9.0F)
+        CmbBladeOperation.FormattingEnabled = True
+        CmbBladeOperation.Items.AddRange(New Object() {"Ripping", "Crosscutting", "Dado/Groove", "Thin Stock (< 1/4"")"})
+        CmbBladeOperation.Location = New Point(201, 92)
+        CmbBladeOperation.Name = "CmbBladeOperation"
+        CmbBladeOperation.Size = New Size(200, 33)
+        CmbBladeOperation.TabIndex = 4
+        ' 
+        ' TxtMaterialThickness
+        ' 
+        TxtMaterialThickness.Font = New Font("Segoe UI", 9.0F)
+        TxtMaterialThickness.Location = New Point(200, 57)
+        TxtMaterialThickness.Name = "TxtMaterialThickness"
+        TxtMaterialThickness.Size = New Size(100, 31)
+        TxtMaterialThickness.TabIndex = 2
+        TxtMaterialThickness.Text = "0.75"
+        ' 
+        ' Label77
+        ' 
+        Label77.AutoSize = True
+        Label77.Font = New Font("Segoe UI", 9.0F)
+        Label77.Location = New Point(7, 25)
+        Label77.Name = "Label77"
+        Label77.Size = New Size(389, 25)
+        Label77.TabIndex = 0
+        Label77.Text = "Get recommended blade height for safe cutting"
+        ' 
+        ' Label78
+        ' 
+        Label78.AutoSize = True
+        Label78.Font = New Font("Segoe UI", 9.0F)
+        Label78.Location = New Point(13, 60)
+        Label78.Name = "Label78"
+        Label78.Size = New Size(188, 25)
+        Label78.TabIndex = 0
+        Label78.Text = "Material Thickness (in):"
+        ' 
+        ' Label79
+        ' 
+        Label79.AutoSize = True
+        Label79.Font = New Font("Segoe UI", 9.0F)
+        Label79.Location = New Point(105, 96)
+        Label79.Name = "Label79"
+        Label79.Size = New Size(96, 25)
+        Label79.TabIndex = 0
+        Label79.Text = "Operation:"
+        ' 
+        ' GbPushStick
+        ' 
+        GbPushStick.Controls.Add(LblPushStickRequirements)
+        GbPushStick.Controls.Add(LblPushStickRisk)
+        GbPushStick.Controls.Add(BtnEvaluatePushStick)
+        GbPushStick.Controls.Add(CbPushStickFeatherboard)
+        GbPushStick.Controls.Add(CbPushStickGuard)
+        GbPushStick.Controls.Add(TxtStockThickness)
+        GbPushStick.Controls.Add(TxtStockWidth)
+        GbPushStick.Controls.Add(Label80)
+        GbPushStick.Controls.Add(Label81)
+        GbPushStick.Controls.Add(Label82)
+        GbPushStick.Dock = DockStyle.Fill
+        GbPushStick.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbPushStick.Location = New Point(15, 407)
+        GbPushStick.Name = "GbPushStick"
+        GbPushStick.Padding = New Padding(10)
+        GbPushStick.Size = New Size(546, 385)
+        GbPushStick.TabIndex = 2
+        GbPushStick.TabStop = False
+        GbPushStick.Text = "Push Stick Requirements"
+        ' 
+        ' LblPushStickRequirements
+        ' 
+        LblPushStickRequirements.Font = New Font("Consolas", 8.25F)
+        LblPushStickRequirements.Location = New Point(15, 275)
+        LblPushStickRequirements.Name = "LblPushStickRequirements"
+        LblPushStickRequirements.Size = New Size(520, 111)
+        LblPushStickRequirements.TabIndex = 9
+        ' 
+        ' LblPushStickRisk
+        ' 
+        LblPushStickRisk.AutoSize = True
+        LblPushStickRisk.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblPushStickRisk.ForeColor = Color.Green
+        LblPushStickRisk.Location = New Point(15, 240)
+        LblPushStickRisk.Name = "LblPushStickRisk"
+        LblPushStickRisk.Size = New Size(133, 30)
+        LblPushStickRisk.TabIndex = 8
+        LblPushStickRisk.Text = "RISK LEVEL:"
+        ' 
+        ' BtnEvaluatePushStick
+        ' 
+        BtnEvaluatePushStick.BackColor = Color.MistyRose
+        BtnEvaluatePushStick.Font = New Font("Segoe UI", 9.0F)
+        BtnEvaluatePushStick.Location = New Point(15, 195)
+        BtnEvaluatePushStick.Name = "BtnEvaluatePushStick"
+        BtnEvaluatePushStick.Size = New Size(120, 35)
+        BtnEvaluatePushStick.TabIndex = 7
+        BtnEvaluatePushStick.Text = "Evaluate"
+        BtnEvaluatePushStick.UseVisualStyleBackColor = False
+        ' 
+        ' CbPushStickFeatherboard
+        ' 
+        CbPushStickFeatherboard.AutoSize = True
+        CbPushStickFeatherboard.Font = New Font("Segoe UI", 9.0F)
+        CbPushStickFeatherboard.Location = New Point(15, 160)
+        CbPushStickFeatherboard.Name = "CbPushStickFeatherboard"
+        CbPushStickFeatherboard.Size = New Size(202, 29)
+        CbPushStickFeatherboard.TabIndex = 6
+        CbPushStickFeatherboard.Text = "Using Featherboards"
+        CbPushStickFeatherboard.UseVisualStyleBackColor = True
+        ' 
+        ' CbPushStickGuard
+        ' 
+        CbPushStickGuard.AutoSize = True
+        CbPushStickGuard.Checked = True
+        CbPushStickGuard.CheckState = CheckState.Checked
+        CbPushStickGuard.Font = New Font("Segoe UI", 9.0F)
+        CbPushStickGuard.Location = New Point(15, 130)
+        CbPushStickGuard.Name = "CbPushStickGuard"
+        CbPushStickGuard.Size = New Size(198, 29)
+        CbPushStickGuard.TabIndex = 5
+        CbPushStickGuard.Text = "Blade Guard in Place"
+        CbPushStickGuard.UseVisualStyleBackColor = True
+        ' 
+        ' TxtStockThickness
+        ' 
+        TxtStockThickness.Font = New Font("Segoe UI", 9.0F)
+        TxtStockThickness.Location = New Point(188, 94)
+        TxtStockThickness.Name = "TxtStockThickness"
+        TxtStockThickness.Size = New Size(100, 31)
+        TxtStockThickness.TabIndex = 4
+        ' 
+        ' TxtStockWidth
+        ' 
+        TxtStockWidth.Font = New Font("Segoe UI", 9.0F)
+        TxtStockWidth.Location = New Point(188, 57)
+        TxtStockWidth.Name = "TxtStockWidth"
+        TxtStockWidth.Size = New Size(100, 31)
+        TxtStockWidth.TabIndex = 2
+        ' 
+        ' Label80
+        ' 
+        Label80.AutoSize = True
+        Label80.Font = New Font("Segoe UI", 9.0F)
+        Label80.Location = New Point(4, 25)
+        Label80.Name = "Label80"
+        Label80.Size = New Size(390, 25)
+        Label80.TabIndex = 0
+        Label80.Text = "Evaluate when a push stick is required for safety"
+        ' 
+        ' Label81
+        ' 
+        Label81.AutoSize = True
+        Label81.Font = New Font("Segoe UI", 9.0F)
+        Label81.Location = New Point(47, 60)
+        Label81.Name = "Label81"
+        Label81.Size = New Size(141, 25)
+        Label81.TabIndex = 0
+        Label81.Text = "Stock Width (in):"
+        ' 
+        ' Label82
+        ' 
+        Label82.AutoSize = True
+        Label82.Font = New Font("Segoe UI", 9.0F)
+        Label82.Location = New Point(20, 97)
+        Label82.Name = "Label82"
+        Label82.Size = New Size(168, 25)
+        Label82.TabIndex = 0
+        Label82.Text = "Stock Thickness (in):"
+        ' 
+        ' GbxDustCollection
+        ' 
+        GbxDustCollection.Controls.Add(LblCFMNotes)
+        GbxDustCollection.Controls.Add(LblCFMResult)
+        GbxDustCollection.Controls.Add(BtnCalculateCFM)
+        GbxDustCollection.Controls.Add(TxtDuctLength)
+        GbxDustCollection.Controls.Add(CmbToolType)
+        GbxDustCollection.Controls.Add(TxtToolPort)
+        GbxDustCollection.Controls.Add(Label83)
+        GbxDustCollection.Controls.Add(Label84)
+        GbxDustCollection.Controls.Add(Label85)
+        GbxDustCollection.Controls.Add(Label86)
+        GbxDustCollection.Dock = DockStyle.Fill
+        GbxDustCollection.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbxDustCollection.Location = New Point(569, 407)
+        GbxDustCollection.Name = "GbxDustCollection"
+        GbxDustCollection.Padding = New Padding(10)
+        GbxDustCollection.Size = New Size(546, 385)
+        GbxDustCollection.TabIndex = 3
+        GbxDustCollection.TabStop = False
+        GbxDustCollection.Text = "Dust Collection CFM Calculator"
+        ' 
+        ' LblCFMNotes
+        ' 
+        LblCFMNotes.Font = New Font("Consolas", 7.5F)
+        LblCFMNotes.Location = New Point(14, 251)
+        LblCFMNotes.Name = "LblCFMNotes"
+        LblCFMNotes.Size = New Size(520, 138)
+        LblCFMNotes.TabIndex = 9
+        ' 
+        ' LblCFMResult
+        ' 
+        LblCFMResult.AutoSize = True
+        LblCFMResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblCFMResult.ForeColor = Color.Green
+        LblCFMResult.Location = New Point(15, 210)
+        LblCFMResult.Name = "LblCFMResult"
+        LblCFMResult.Size = New Size(164, 30)
+        LblCFMResult.TabIndex = 8
+        LblCFMResult.Text = "Required CFM:"
+        ' 
+        ' BtnCalculateCFM
+        ' 
+        BtnCalculateCFM.BackColor = Color.MistyRose
+        BtnCalculateCFM.Font = New Font("Segoe UI", 9.0F)
+        BtnCalculateCFM.Location = New Point(25, 172)
+        BtnCalculateCFM.Name = "BtnCalculateCFM"
+        BtnCalculateCFM.Size = New Size(120, 35)
+        BtnCalculateCFM.TabIndex = 7
+        BtnCalculateCFM.Text = "Calculate"
+        BtnCalculateCFM.UseVisualStyleBackColor = False
+        ' 
+        ' TxtDuctLength
+        ' 
+        TxtDuctLength.Font = New Font("Segoe UI", 9.0F)
+        TxtDuctLength.Location = New Point(155, 132)
+        TxtDuctLength.Name = "TxtDuctLength"
+        TxtDuctLength.Size = New Size(100, 31)
+        TxtDuctLength.TabIndex = 6
+        TxtDuctLength.Text = "10"
+        ' 
+        ' CmbToolType
+        ' 
+        CmbToolType.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbToolType.Font = New Font("Segoe UI", 9.0F)
+        CmbToolType.FormattingEnabled = True
+        CmbToolType.Items.AddRange(New Object() {"Table Saw", "Router Table", "Miter Saw", "Planer", "Jointer", "Bandsaw", "Drum Sander", "Thickness Sander"})
+        CmbToolType.Location = New Point(155, 98)
+        CmbToolType.Name = "CmbToolType"
+        CmbToolType.Size = New Size(200, 33)
+        CmbToolType.TabIndex = 4
+        ' 
+        ' TxtToolPort
+        ' 
+        TxtToolPort.Font = New Font("Segoe UI", 9.0F)
+        TxtToolPort.Location = New Point(155, 62)
+        TxtToolPort.Name = "TxtToolPort"
+        TxtToolPort.Size = New Size(100, 31)
+        TxtToolPort.TabIndex = 2
+        TxtToolPort.Text = "4.0"
+        ' 
+        ' Label83
+        ' 
+        Label83.AutoSize = True
+        Label83.Font = New Font("Segoe UI", 9.0F)
+        Label83.ImageAlign = ContentAlignment.MiddleLeft
+        Label83.Location = New Point(13, 25)
+        Label83.Name = "Label83"
+        Label83.Size = New Size(413, 25)
+        Label83.TabIndex = 0
+        Label83.Text = "Calculate required CFM for effective dust collection"
+        ' 
+        ' Label84
+        ' 
+        Label84.AutoSize = True
+        Label84.Font = New Font("Segoe UI", 9.0F)
+        Label84.Location = New Point(64, 65)
+        Label84.Name = "Label84"
+        Label84.Size = New Size(91, 25)
+        Label84.TabIndex = 0
+        Label84.Text = "Tool Port: "
+        Label84.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label85
+        ' 
+        Label85.AutoSize = True
+        Label85.Font = New Font("Segoe UI", 9.0F)
+        Label85.Location = New Point(59, 102)
+        Label85.Name = "Label85"
+        Label85.Size = New Size(96, 25)
+        Label85.TabIndex = 0
+        Label85.Text = "Tool Type: "
+        Label85.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' Label86
+        ' 
+        Label86.AutoSize = True
+        Label86.Font = New Font("Segoe UI", 9.0F)
+        Label86.Location = New Point(43, 135)
+        Label86.Name = "Label86"
+        Label86.Size = New Size(112, 25)
+        Label86.TabIndex = 0
+        Label86.Text = "Duct Length:"
+        Label86.TextAlign = ContentAlignment.MiddleRight
+        ' 
         ' TpHelp
         ' 
         TpHelp.BackColor = Color.LightGray
@@ -6020,61 +6446,6 @@ Partial Class FrmMain
         RtbLog.Size = New Size(832, 397)
         RtbLog.TabIndex = 0
         RtbLog.Text = ""
-        ' 
-        ' Label55
-        ' 
-        Label55.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        Label55.AutoSize = True
-        Label55.BackColor = Color.Silver
-        Label55.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label55.ForeColor = Color.Maroon
-        Label55.Location = New Point(3, 0)
-        Label55.Name = "Label55"
-        Label55.Size = New Size(1160, 51)
-        Label55.TabIndex = 0
-        Label55.Text = "Joinery Calculator"
-        Label55.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' Label56
-        ' 
-        Label56.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        Label56.AutoSize = True
-        Label56.BackColor = Color.Silver
-        Label56.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
-        Label56.Location = New Point(3, 102)
-        Label56.Name = "Label56"
-        Label56.Size = New Size(285, 51)
-        Label56.TabIndex = 2
-        Label56.Text = "Input (Left)"
-        Label56.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' Label60
-        ' 
-        Label60.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        Label60.AutoSize = True
-        Label60.BackColor = Color.Silver
-        Label60.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
-        Label60.ForeColor = Color.DarkBlue
-        Label60.Location = New Point(352, 102)
-        Label60.Name = "Label60"
-        Label60.Size = New Size(370, 51)
-        Label60.TabIndex = 11
-        Label60.Text = "RESULTS & DIAGRAM (Right)"
-        Label60.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' Label61
-        ' 
-        Label61.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        Label61.AutoSize = True
-        Label61.BackColor = Color.Silver
-        Label61.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
-        Label61.ForeColor = Color.DarkBlue
-        Label61.Location = New Point(352, 204)
-        Label61.Name = "Label61"
-        Label61.Size = New Size(200, 51)
-        Label61.TabIndex = 12
-        Label61.Text = "Results Labels:"
-        Label61.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' ColCutLabel
         ' 
@@ -6297,6 +6668,16 @@ Partial Class FrmMain
         ScHardwareMain.ResumeLayout(False)
         CType(DgvHardware, ComponentModel.ISupportInitialize).EndInit()
         PnlHardwareSummaryInfo.ResumeLayout(False)
+        TpSafety.ResumeLayout(False)
+        TlpSafety.ResumeLayout(False)
+        GbRouterSpeed.ResumeLayout(False)
+        GbRouterSpeed.PerformLayout()
+        GbBladeHeight.ResumeLayout(False)
+        GbBladeHeight.PerformLayout()
+        GbPushStick.ResumeLayout(False)
+        GbPushStick.PerformLayout()
+        GbxDustCollection.ResumeLayout(False)
+        GbxDustCollection.PerformLayout()
         TpAbout.ResumeLayout(False)
         TpAbout.PerformLayout()
         GbxAbout.ResumeLayout(False)
@@ -6572,7 +6953,6 @@ Partial Class FrmMain
     Friend WithEvents Label18 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents Label51 As Label
     Friend WithEvents LblPolygonPieceAngle As Label
     Friend WithEvents LblPolygonSideAngle As Label
     Friend WithEvents TxtPolygonSides As TextBox
@@ -6833,4 +7213,48 @@ Partial Class FrmMain
     Friend WithEvents LblManageCosts As Label
     Friend WithEvents BtnManageCosts As Button
     Friend WithEvents TsslTimesRun As ToolStripStatusLabel
+    Friend WithEvents TpSafety As TabPage
+    Friend WithEvents TlpSafety As TableLayoutPanel
+    Friend WithEvents GbRouterSpeed As GroupBox
+    Friend WithEvents LblRouterSpeedWarning As Label
+    Friend WithEvents LblRouterRimSpeed As Label
+    Friend WithEvents LblRouterRPMResult As Label
+    Friend WithEvents BtnCalculateRouterSpeed As Button
+    Friend WithEvents TxtDesiredSurfaceSpeed As TextBox
+    Friend WithEvents TxtRouterBitDiameter As TextBox
+    Friend WithEvents Label74 As Label
+    Friend WithEvents Label75 As Label
+    Friend WithEvents Label76 As Label
+    Friend WithEvents GbBladeHeight As GroupBox
+    Friend WithEvents LblBladeHeightNotes As Label
+    Friend WithEvents LblBladeHeightResult As Label
+    Friend WithEvents BtnCalculateBladeHeight As Button
+    Friend WithEvents CmbBladeOperation As ComboBox
+    Friend WithEvents TxtMaterialThickness As TextBox
+    Friend WithEvents Label77 As Label
+    Friend WithEvents Label78 As Label
+    Friend WithEvents Label79 As Label
+    Friend WithEvents GbPushStick As GroupBox
+    Friend WithEvents LblPushStickRequirements As Label
+    Friend WithEvents LblPushStickRisk As Label
+    Friend WithEvents BtnEvaluatePushStick As Button
+    Friend WithEvents CbPushStickFeatherboard As CheckBox
+    Friend WithEvents CbPushStickGuard As CheckBox
+    Friend WithEvents TxtStockThickness As TextBox
+    Friend WithEvents TxtStockWidth As TextBox
+    Friend WithEvents Label80 As Label
+    Friend WithEvents Label81 As Label
+    Friend WithEvents Label82 As Label
+    Friend WithEvents GbxDustCollection As GroupBox
+    Friend WithEvents LblCFMNotes As Label
+    Friend WithEvents LblCFMResult As Label
+    Friend WithEvents BtnCalculateCFM As Button
+    Friend WithEvents TxtDuctLength As TextBox
+    Friend WithEvents CmbToolType As ComboBox
+    Friend WithEvents TxtToolPort As TextBox
+    Friend WithEvents Label83 As Label
+    Friend WithEvents Label84 As Label
+    Friend WithEvents Label85 As Label
+    Friend WithEvents Label86 As Label
 End Class
+

@@ -3,8 +3,8 @@
   <PropertyGroup>
     <RootNamespace>Woodworkers_Friend.Help</RootNamespace>
     <TargetFramework>net10.0</TargetFramework>
-    <AssemblyVersion>26.1.30.7</AssemblyVersion>
-    <FileVersion>26.1.30.7</FileVersion>
+    <AssemblyVersion>26.1.30.10</AssemblyVersion>
+    <FileVersion>26.1.30.10</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

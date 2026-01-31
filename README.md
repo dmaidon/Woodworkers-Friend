@@ -148,6 +148,36 @@
 - Track user-added vs system entries
 - Audit trail with date tracking
 
+#### **Safety Calculators** 🆕
+- **Router Bit Speed Calculator**
+  - Calculate safe RPM based on bit diameter and surface speed
+  - Industry-standard formula: RPM = (Surface Speed × 12) / (π × Diameter)
+  - Safety warnings for dangerous speeds
+  - Rim speed calculation in MPH
+  - Recommended range: 9,000-12,000 ft/min surface speed
+  
+- **Blade Height Recommendations**
+  - Safe blade height for table saw operations
+  - Operation-specific recommendations (Ripping, Crosscutting, Dado/Groove, Thin Stock)
+  - Detailed safety notes for thin and thick stock
+  - Critical safety warnings and best practices
+  
+- **Push Stick Requirements Evaluator**
+  - Risk assessment based on stock dimensions
+  - 4-level risk analysis: LOW, MODERATE, HIGH, CRITICAL
+  - Safety device requirements (push sticks, featherboards, guards)
+  - Comprehensive safety checklists
+  - Adjusts recommendations based on guard and featherboard usage
+  
+- **Dust Collection CFM Calculator**
+  - Calculate required CFM (Cubic Feet per Minute) for effective dust collection
+  - Tool-specific requirements for 8 common tools:
+    - Table Saw, Router Table, Miter Saw, Planer, Jointer, Bandsaw, Drum Sander, Thickness Sander
+  - Port diameter and duct length calculations
+  - Static pressure loss compensation
+  - Health and safety warnings for wood dust exposure
+  - General dust collection system tips and best practices
+
 ### **🛠️ Utilities**
 
 - **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals
