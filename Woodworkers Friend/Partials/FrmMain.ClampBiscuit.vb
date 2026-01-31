@@ -1,8 +1,13 @@
+' ============================================================================
+' Last Updated: January 31, 2026
+' Changes: Added Clamp Spacing and Biscuit/Domino Spacing calculators.
+'          User-configurable edge padding for biscuit/domino placement.
+'          Comprehensive tooltips for all input controls.
+'          Automatic unit conversion between Imperial and Metric.
+' ============================================================================
+
 Imports System.Drawing
 
-''' <summary>
-''' Partial class for FrmMain - Clamp Spacing & Biscuit/Domino Spacing Calculators
-''' </summary>
 Partial Public Class FrmMain
 
 #Region "Clamp & Biscuit Spacing - Initialization"
@@ -53,9 +58,61 @@ Partial Public Class FrmMain
                 CboJointStrength.SelectedIndex = 1 ' Default to Medium
             End If
 
+            ' Set default edge padding based on initial unit
+            If String.IsNullOrWhiteSpace(TxtEdgePadding.Text) Then
+                UpdateEdgePaddingDefault()
+            End If
+
+            ' Add event handler for unit change
+            AddHandler CboJointLengthUnit.SelectedIndexChanged, AddressOf CboJointLengthUnit_SelectedIndexChanged
+
             ErrorHandler.LogError(New Exception("Clamp & Biscuit calculator initialized"), "InitializeClampBiscuitCalculator")
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeClampBiscuitCalculator")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Update edge padding default when unit changes
+    ''' </summary>
+    Private Sub CboJointLengthUnit_SelectedIndexChanged(sender As Object, e As EventArgs)
+        UpdateEdgePaddingDefault()
+    End Sub
+
+    ''' <summary>
+    ''' Set default edge padding value based on selected unit
+    ''' </summary>
+    Private Sub UpdateEdgePaddingDefault()
+        Try
+            If CboJointLengthUnit IsNot Nothing AndAlso TxtEdgePadding IsNot Nothing Then
+                Dim unit As String = If(CboJointLengthUnit.SelectedItem IsNot Nothing,
+                                       CboJointLengthUnit.SelectedItem.ToString(), "in")
+
+                Dim currentValue As Double
+                If Double.TryParse(TxtEdgePadding.Text, currentValue) Then
+                    ' User has entered a value, convert it
+                    If unit = "mm" Then
+                        ' If current value looks like imperial (< 5), convert to mm
+                        If currentValue < 5 Then
+                            TxtEdgePadding.Text = (currentValue * 25.4).ToString("F0")
+                        End If
+                    Else
+                        ' If current value looks like metric (> 5), convert to inches
+                        If currentValue > 5 Then
+                            TxtEdgePadding.Text = (currentValue / 25.4).ToString("F3")
+                        End If
+                    End If
+                Else
+                    ' No valid value, set default
+                    If unit = "mm" Then
+                        TxtEdgePadding.Text = "16"  ' 16mm ≈ 5/8"
+                    Else
+                        TxtEdgePadding.Text = "0.625"  ' 5/8"
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "UpdateEdgePaddingDefault")
         End Try
     End Sub
 
@@ -64,10 +121,7 @@ Partial Public Class FrmMain
     ''' </summary>
     Private Sub InitializeClampBiscuitTooltips()
         Try
-            Dim tooltip As ToolTip = tTip
-            If tooltip Is Nothing Then
-                tooltip = New ToolTip()
-            End If
+            Dim tooltip As ToolTip = If(tTip, New ToolTip())
 
             ' Clamp Spacing tooltips
             If TxtClampPanelWidth IsNot Nothing Then
@@ -152,13 +206,22 @@ Partial Public Class FrmMain
                     "Too thin = blowout through face!")
             End If
 
+            If TxtEdgePadding IsNot Nothing Then
+                tooltip.SetToolTip(TxtEdgePadding,
+                    "Enter extra padding distance from edge." & vbCrLf &
+                    "This adds to half the biscuit/domino length." & vbCrLf &
+                    "Default: 0.625"" (5/8"") or 16mm in metric" & vbCrLf &
+                    "Purpose: Allows room for trimming and error tolerance" & vbCrLf &
+                    "Larger value = safer, but uses more board length")
+            End If
+
             If CboJointLengthUnit IsNot Nothing Then
                 tooltip.SetToolTip(CboJointLengthUnit,
                     "Select measurement unit:" & vbCrLf &
                     "• in - Imperial inches (US standard)" & vbCrLf &
-                    "• mm - Metric millimeters")
+                    "• mm - Metric millimeters" & vbCrLf &
+                    "Changes edge padding default automatically")
             End If
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeClampBiscuitTooltips")
         End Try
@@ -225,10 +288,17 @@ Partial Public Class FrmMain
             Dim strength As String = If(CboJointStrength.SelectedItem IsNot Nothing, CboJointStrength.SelectedItem.ToString(), "Medium")
             Dim unit As String = If(CboJointLengthUnit.SelectedItem IsNot Nothing, CboJointLengthUnit.SelectedItem.ToString(), "in")
 
+            ' Parse edge padding (will be converted if in metric)
+            Dim edgePadding As Double = 0.625 ' Default
+            If Not String.IsNullOrWhiteSpace(TxtEdgePadding.Text) Then
+                Double.TryParse(TxtEdgePadding.Text, edgePadding)
+            End If
+
             ' Convert to inches if needed
             If unit = "mm" Then
                 jointLength /= 25.4
                 stockThickness /= 25.4
+                edgePadding /= 25.4 ' Convert edge padding too
             End If
 
             ' Calculate spacing and positions
@@ -440,7 +510,7 @@ Partial Public Class FrmMain
     ''' <summary>
     ''' Calculate edge distance based on biscuit/domino length
     ''' Edge distance must be at least half the joinery length to prevent exposure
-    ''' Plus additional padding for trimming and error tolerance
+    ''' Plus additional padding for trimming and error tolerance (from user input)
     ''' </summary>
     Private Function CalculateEdgeDistance(stockThickness As Double, size As String) As Double
         ' Get biscuit/domino length (in inches)
@@ -465,9 +535,20 @@ Partial Public Class FrmMain
             joineryLength = 1.97
         End If
 
-        ' Minimum edge distance is half the joinery length + trimming allowance
-        ' Use 1.5" (1.5") padding to allow for trimming and error tolerance
-        Dim minEdge As Double = (joineryLength / 2) + 1.5
+        ' Get user-defined padding value (default 0.625" / 16mm)
+        Dim padding As Double = 0.625 ' Default
+        If Not String.IsNullOrWhiteSpace(TxtEdgePadding.Text) Then
+            If Double.TryParse(TxtEdgePadding.Text, padding) Then
+                ' Check if value is in metric (convert if needed in BtnCalcBiscuit_Click)
+                ' Padding value should already be in inches at this point
+            Else
+                ' Invalid input, use default
+                padding = 0.625
+            End If
+        End If
+
+        ' Minimum edge distance is half the joinery length + user-defined padding
+        Dim minEdge As Double = (joineryLength / 2) + padding
 
         Return minEdge
     End Function

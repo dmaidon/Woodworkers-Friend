@@ -323,6 +323,8 @@ Partial Class FrmMain
         Label53 = New Label()
         LblClampPanelWidth = New Label()
         GbxBiscuitDomino = New GroupBox()
+        TxtEdgePadding = New TextBox()
+        LblEdgePadding = New Label()
         LstCenterMarks = New ListBox()
         LblCenterMarkPositions = New Label()
         LblNumberNeeded = New Label()
@@ -3824,6 +3826,8 @@ Partial Class FrmMain
         ' GbxBiscuitDomino
         ' 
         GbxBiscuitDomino.BackColor = Color.Silver
+        GbxBiscuitDomino.Controls.Add(TxtEdgePadding)
+        GbxBiscuitDomino.Controls.Add(LblEdgePadding)
         GbxBiscuitDomino.Controls.Add(LstCenterMarks)
         GbxBiscuitDomino.Controls.Add(LblCenterMarkPositions)
         GbxBiscuitDomino.Controls.Add(LblNumberNeeded)
@@ -3849,6 +3853,22 @@ Partial Class FrmMain
         GbxBiscuitDomino.TabIndex = 0
         GbxBiscuitDomino.TabStop = False
         GbxBiscuitDomino.Text = "Biscuit Domino Spacing"
+        ' 
+        ' TxtEdgePadding
+        ' 
+        TxtEdgePadding.Location = New Point(233, 210)
+        TxtEdgePadding.Name = "TxtEdgePadding"
+        TxtEdgePadding.Size = New Size(84, 26)
+        TxtEdgePadding.TabIndex = 19
+        ' 
+        ' LblEdgePadding
+        ' 
+        LblEdgePadding.AutoSize = True
+        LblEdgePadding.Location = New Point(13, 214)
+        LblEdgePadding.Name = "LblEdgePadding"
+        LblEdgePadding.Size = New Size(222, 18)
+        LblEdgePadding.TabIndex = 18
+        LblEdgePadding.Text = "Biscuit/Domino Padding: "
         ' 
         ' LstCenterMarks
         ' 
@@ -3913,7 +3933,7 @@ Partial Class FrmMain
         ' BtnCalcBiscuit
         ' 
         BtnCalcBiscuit.BackColor = Color.MistyRose
-        BtnCalcBiscuit.Location = New Point(235, 244)
+        BtnCalcBiscuit.Location = New Point(235, 253)
         BtnCalcBiscuit.Name = "BtnCalcBiscuit"
         BtnCalcBiscuit.Size = New Size(112, 34)
         BtnCalcBiscuit.TabIndex = 11
@@ -8025,5 +8045,7 @@ Partial Class FrmMain
     Friend WithEvents Label52 As Label
     Friend WithEvents LblCenterMarkPositions As Label
     Friend WithEvents LstCenterMarks As ListBox
+    Friend WithEvents TxtEdgePadding As TextBox
+    Friend WithEvents LblEdgePadding As Label
 End Class
 
