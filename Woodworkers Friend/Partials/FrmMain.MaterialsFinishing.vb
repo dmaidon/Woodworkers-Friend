@@ -156,7 +156,9 @@ Partial Public Class FrmMain
 
             If TxtSharedAreaLength IsNot Nothing Then TxtSharedAreaLength.Text = ""
             If TxtSharedAreaWidth IsNot Nothing Then TxtSharedAreaWidth.Text = ""
+            If TxtKnownArea IsNot Nothing Then TxtKnownArea.Text = ""
             If LblSharedArea IsNot Nothing Then LblSharedArea.Text = "Total Area: -- sq ft"
+            If LblKnownArea IsNot Nothing Then UpdateKnownAreaLabel()
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeSharedAreaControls")
         End Try
@@ -234,6 +236,7 @@ Partial Public Class FrmMain
             ' Shared Area tooltips
             tTip.SetToolTip(TxtSharedAreaLength, "Enter the length of your project surface")
             tTip.SetToolTip(TxtSharedAreaWidth, "Enter the width of your project surface")
+            tTip.SetToolTip(TxtKnownArea, "If you already know the total area, enter it here (clears Length × Width)")
             tTip.SetToolTip(CmbSharedAreaUnits, "Select your measurement units")
             tTip.SetToolTip(BtnApplyAreaToAll, "Calculate all three calculators with current area")
 
@@ -277,12 +280,55 @@ Partial Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Shared area inputs changed
+    ''' Shared area inputs changed (Length x Width)
     ''' </summary>
-    Private Sub SharedArea_Changed(sender As Object, e As EventArgs) Handles TxtSharedAreaLength.TextChanged, TxtSharedAreaWidth.TextChanged, CmbSharedAreaUnits.SelectedIndexChanged
+    Private Sub SharedArea_Changed(sender As Object, e As EventArgs) Handles TxtSharedAreaLength.TextChanged, TxtSharedAreaWidth.TextChanged
         If _suppressMaterialsCalculation Then Return
+        
+        ' Clear known area when using L x W
+        If TxtKnownArea IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(TxtSharedAreaLength?.Text) AndAlso Not String.IsNullOrWhiteSpace(TxtSharedAreaWidth?.Text) Then
+            _suppressMaterialsCalculation = True
+            TxtKnownArea.Text = ""
+            _suppressMaterialsCalculation = False
+        End If
+        
         CalculateSharedArea()
         UpdateCoverageLabel()
+    End Sub
+
+    ''' <summary>
+    ''' Known area direct input changed
+    ''' </summary>
+    Private Sub TxtKnownArea_TextChanged(sender As Object, e As EventArgs) Handles TxtKnownArea.TextChanged
+        If _suppressMaterialsCalculation Then Return
+        
+        ' Clear L x W when using known area
+        If Not String.IsNullOrWhiteSpace(TxtKnownArea?.Text) Then
+            _suppressMaterialsCalculation = True
+            If TxtSharedAreaLength IsNot Nothing Then TxtSharedAreaLength.Text = ""
+            If TxtSharedAreaWidth IsNot Nothing Then TxtSharedAreaWidth.Text = ""
+            _suppressMaterialsCalculation = False
+        End If
+        
+        CalculateFromKnownArea()
+        UpdateCoverageLabel()
+    End Sub
+
+    ''' <summary>
+    ''' Units changed - update labels and recalculate
+    ''' </summary>
+    Private Sub CmbSharedAreaUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbSharedAreaUnits.SelectedIndexChanged
+        If _suppressMaterialsCalculation Then Return
+        
+        UpdateKnownAreaLabel()
+        UpdateCoverageLabel()
+        
+        ' Recalculate based on which input has data
+        If Not String.IsNullOrWhiteSpace(TxtKnownArea?.Text) Then
+            CalculateFromKnownArea()
+        Else
+            CalculateSharedArea()
+        End If
     End Sub
 
     ''' <summary>
@@ -347,6 +393,53 @@ Partial Public Class FrmMain
 
 #Region "Calculation Logic"
 
+''' <summary>
+''' Calculate from directly entered known area
+''' </summary>
+Private Sub CalculateFromKnownArea()
+    Try
+        Dim knownArea As Double = 0
+
+        If TxtKnownArea Is Nothing OrElse Not Double.TryParse(TxtKnownArea.Text, knownArea) OrElse knownArea <= 0 Then
+            LblSharedArea.Text = "Total Area: --"
+            _currentSharedAreaSqFt = 0
+            _currentSharedAreaSqIn = 0
+            Return
+        End If
+
+        ' Convert known area to sq inches based on units
+        Dim areaSqIn As Double = 0
+        Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
+
+        Select Case units
+            Case "Inches"
+                ' Input is sq inches
+                areaSqIn = knownArea
+            Case "Feet"
+                ' Input is sq feet, convert to sq inches
+                areaSqIn = knownArea * 144
+            Case "Millimeters"
+                ' Input is sq mm, convert to sq inches
+                areaSqIn = knownArea / (25.4 * 25.4)
+            Case "Centimeters"
+                ' Input is sq cm, convert to sq inches
+                areaSqIn = knownArea / (2.54 * 2.54)
+        End Select
+
+        _currentSharedAreaSqIn = areaSqIn
+        _currentSharedAreaSqFt = areaSqIn / 144
+
+        ' Display in appropriate units
+        DisplayAreaResult(units)
+
+        ' Auto-calculate all materials
+        CalculateAllMaterials()
+    Catch ex As Exception
+        ErrorHandler.LogError(ex, "CalculateFromKnownArea")
+        LblSharedArea.Text = "Total Area: Error"
+    End Try
+End Sub
+
     ''' <summary>
     ''' Calculate shared area from inputs
     ''' </summary>
@@ -388,6 +481,18 @@ Partial Public Class FrmMain
             _currentSharedAreaSqFt = areaSqIn / 144
 
             ' Display in appropriate units
+            DisplayAreaResult(units)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CalculateSharedArea")
+            LblSharedArea.Text = "Total Area: Error"
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Display the calculated area in appropriate units
+    ''' </summary>
+    Private Sub DisplayAreaResult(units As String)
+        Try
             Dim areaSqM = _currentSharedAreaSqFt * 0.092903 ' sq ft to sq m
             Dim areaSqCm = areaSqM * 10000 ' sq m to sq cm
 
@@ -403,8 +508,7 @@ Partial Public Class FrmMain
                 LblSharedArea.Text = $"Total Area: {_currentSharedAreaSqFt:F2} sq ft ({_currentSharedAreaSqIn:F0} sq in)"
             End If
         Catch ex As Exception
-            ErrorHandler.LogError(ex, "CalculateSharedArea")
-            LblSharedArea.Text = "Total Area: Error"
+            ErrorHandler.LogError(ex, "DisplayAreaResult")
         End Try
     End Sub
 
@@ -468,7 +572,7 @@ Partial Public Class FrmMain
             Dim isMetric = (units = "Millimeters" OrElse units = "Centimeters")
 
             LblVeneerSheetsNeeded.Text = $"Sheets Needed: {sheetsNeeded:F0}"
-            
+
             If isMetric Then
                 Dim areaSqM = totalAreaWithWaste * 0.092903
                 LblVeneerTotalArea.Text = $"Total Area (with {wastePercent:F0}% waste): {areaSqM:F2} sq m"
@@ -641,27 +745,51 @@ Partial Public Class FrmMain
 
 #Region "Helper Methods"
 
-''' <summary>
-''' Updates the coverage label based on selected units
-''' </summary>
-Private Sub UpdateCoverageLabel()
-    Try
-        If LblFinishCoverage Is Nothing Then Return
+    ''' <summary>
+    ''' Updates the known area label based on selected units
+    ''' </summary>
+    Private Sub UpdateKnownAreaLabel()
+        Try
+            If LblKnownArea Is Nothing Then Return
 
-        Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
-        Dim isMetric = (units = "Millimeters" OrElse units = "Centimeters")
+            Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
 
-        If isMetric Then
-            LblFinishCoverage.Text = "Coverage (sq m/L): "
-        Else
-            LblFinishCoverage.Text = "Coverage (sq ft/qt): "
-        End If
-    Catch ex As Exception
-        ErrorHandler.LogError(ex, "UpdateCoverageLabel")
-    End Try
-End Sub
+            Select Case units
+                Case "Inches"
+                    LblKnownArea.Text = "Or enter area (sq in):"
+                Case "Feet"
+                    LblKnownArea.Text = "Or enter area (sq ft):"
+                Case "Millimeters"
+                    LblKnownArea.Text = "Or enter area (sq mm):"
+                Case "Centimeters"
+                    LblKnownArea.Text = "Or enter area (sq cm):"
+            End Select
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "UpdateKnownAreaLabel")
+        End Try
+    End Sub
 
-Private Function GetFinishTips(finishType As String) As String
+    ''' <summary>
+    ''' Updates the coverage label based on selected units
+    ''' </summary>
+    Private Sub UpdateCoverageLabel()
+        Try
+            If LblFinishCoverage Is Nothing Then Return
+
+            Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
+            Dim isMetric = (units = "Millimeters" OrElse units = "Centimeters")
+
+            If isMetric Then
+                LblFinishCoverage.Text = "Coverage (sq m/L): "
+            Else
+                LblFinishCoverage.Text = "Coverage (sq ft/qt): "
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "UpdateCoverageLabel")
+        End Try
+    End Sub
+
+    Private Function GetFinishTips(finishType As String) As String
         Select Case finishType
             Case "Stain"
                 Return "Wipe off excess. Test on scrap first."

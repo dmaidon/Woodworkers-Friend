@@ -408,6 +408,8 @@ Partial Class FrmMain
         LblMiterNumSides = New Label()
         TpFinishing = New TabPage()
         GbxSharedArea = New GroupBox()
+        TxtKnownArea = New TextBox()
+        LblKnownArea = New Label()
         LblSharedArea = New Label()
         BtnApplyAreaToAll = New Button()
         CmbSharedAreaUnits = New ComboBox()
@@ -4947,6 +4949,8 @@ Partial Class FrmMain
         ' GbxSharedArea
         ' 
         GbxSharedArea.BackColor = Color.DimGray
+        GbxSharedArea.Controls.Add(TxtKnownArea)
+        GbxSharedArea.Controls.Add(LblKnownArea)
         GbxSharedArea.Controls.Add(LblSharedArea)
         GbxSharedArea.Controls.Add(BtnApplyAreaToAll)
         GbxSharedArea.Controls.Add(CmbSharedAreaUnits)
@@ -4964,6 +4968,22 @@ Partial Class FrmMain
         GbxSharedArea.TabStop = False
         GbxSharedArea.Text = "Shared Area"
         ' 
+        ' TxtKnownArea
+        ' 
+        TxtKnownArea.Location = New Point(559, 65)
+        TxtKnownArea.Name = "TxtKnownArea"
+        TxtKnownArea.Size = New Size(70, 26)
+        TxtKnownArea.TabIndex = 9
+        ' 
+        ' LblKnownArea
+        ' 
+        LblKnownArea.AutoSize = True
+        LblKnownArea.Location = New Point(359, 69)
+        LblKnownArea.Name = "LblKnownArea"
+        LblKnownArea.Size = New Size(200, 18)
+        LblKnownArea.TabIndex = 8
+        LblKnownArea.Text = "Input area (If known): "
+        ' 
         ' LblSharedArea
         ' 
         LblSharedArea.AutoSize = True
@@ -4978,7 +4998,7 @@ Partial Class FrmMain
         ' 
         BtnApplyAreaToAll.BackColor = Color.MistyRose
         BtnApplyAreaToAll.ForeColor = Color.Black
-        BtnApplyAreaToAll.Location = New Point(471, 61)
+        BtnApplyAreaToAll.Location = New Point(876, 61)
         BtnApplyAreaToAll.Name = "BtnApplyAreaToAll"
         BtnApplyAreaToAll.Size = New Size(156, 34)
         BtnApplyAreaToAll.TabIndex = 6
@@ -4989,7 +5009,7 @@ Partial Class FrmMain
         ' 
         CmbSharedAreaUnits.FormattingEnabled = True
         CmbSharedAreaUnits.Items.AddRange(New Object() {"Inches", "Feet", "Millimeters", "Centimeters"})
-        CmbSharedAreaUnits.Location = New Point(454, 21)
+        CmbSharedAreaUnits.Location = New Point(645, 21)
         CmbSharedAreaUnits.Name = "CmbSharedAreaUnits"
         CmbSharedAreaUnits.Size = New Size(182, 26)
         CmbSharedAreaUnits.TabIndex = 5
@@ -4997,7 +5017,7 @@ Partial Class FrmMain
         ' LblSharedAreaUnits
         ' 
         LblSharedAreaUnits.AutoSize = True
-        LblSharedAreaUnits.Location = New Point(391, 25)
+        LblSharedAreaUnits.Location = New Point(582, 25)
         LblSharedAreaUnits.Name = "LblSharedAreaUnits"
         LblSharedAreaUnits.Size = New Size(63, 18)
         LblSharedAreaUnits.TabIndex = 4
@@ -9610,5 +9630,7 @@ Partial Class FrmMain
     Friend WithEvents LblGlueTips As Label
     Friend WithEvents LblGlueClampTime As Label
     Friend WithEvents LblGlueOpenTime As Label
+    Friend WithEvents TxtKnownArea As TextBox
+    Friend WithEvents LblKnownArea As Label
 End Class
 
