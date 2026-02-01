@@ -5375,7 +5375,7 @@ Partial Class FrmMain
         ' LblPct
         ' 
         LblPct.AutoSize = True
-        LblPct.Location = New Point(783, 24)
+        LblPct.Location = New Point(1025, 24)
         LblPct.Name = "LblPct"
         LblPct.Size = New Size(23, 18)
         LblPct.TabIndex = 8
@@ -5405,13 +5405,13 @@ Partial Class FrmMain
         LblVeneerSheetWidth.AutoSize = True
         LblVeneerSheetWidth.Location = New Point(574, 24)
         LblVeneerSheetWidth.Name = "LblVeneerSheetWidth"
-        LblVeneerSheetWidth.Size = New Size(139, 18)
+        LblVeneerSheetWidth.Size = New Size(143, 18)
         LblVeneerSheetWidth.TabIndex = 5
-        LblVeneerSheetWidth.Text = "x  Sheet Width: "
+        LblVeneerSheetWidth.Text = " x  Sheet Width: "
         ' 
         ' TxtVeneerSheetWidth
         ' 
-        TxtVeneerSheetWidth.Location = New Point(713, 20)
+        TxtVeneerSheetWidth.Location = New Point(717, 20)
         TxtVeneerSheetWidth.Name = "TxtVeneerSheetWidth"
         TxtVeneerSheetWidth.Size = New Size(65, 26)
         TxtVeneerSheetWidth.TabIndex = 4

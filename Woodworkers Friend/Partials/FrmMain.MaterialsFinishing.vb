@@ -282,6 +282,7 @@ Partial Public Class FrmMain
     Private Sub SharedArea_Changed(sender As Object, e As EventArgs) Handles TxtSharedAreaLength.TextChanged, TxtSharedAreaWidth.TextChanged, CmbSharedAreaUnits.SelectedIndexChanged
         If _suppressMaterialsCalculation Then Return
         CalculateSharedArea()
+        UpdateCoverageLabel()
     End Sub
 
     ''' <summary>
@@ -355,14 +356,14 @@ Partial Public Class FrmMain
             Dim width As Double = 0
 
             If TxtSharedAreaLength Is Nothing OrElse Not Double.TryParse(TxtSharedAreaLength.Text, length) OrElse length <= 0 Then
-                LblSharedArea.Text = "Total Area: -- sq ft"
+                LblSharedArea.Text = "Total Area: --"
                 _currentSharedAreaSqFt = 0
                 _currentSharedAreaSqIn = 0
                 Return
             End If
 
             If TxtSharedAreaWidth Is Nothing OrElse Not Double.TryParse(TxtSharedAreaWidth.Text, width) OrElse width <= 0 Then
-                LblSharedArea.Text = "Total Area: -- sq ft"
+                LblSharedArea.Text = "Total Area: --"
                 _currentSharedAreaSqFt = 0
                 _currentSharedAreaSqIn = 0
                 Return
@@ -386,7 +387,21 @@ Partial Public Class FrmMain
             _currentSharedAreaSqIn = areaSqIn
             _currentSharedAreaSqFt = areaSqIn / 144
 
-            LblSharedArea.Text = $"Total Area: {_currentSharedAreaSqFt:F2} sq ft ({_currentSharedAreaSqIn:F0} sq in)"
+            ' Display in appropriate units
+            Dim areaSqM = _currentSharedAreaSqFt * 0.092903 ' sq ft to sq m
+            Dim areaSqCm = areaSqM * 10000 ' sq m to sq cm
+
+            If units = "Millimeters" OrElse units = "Centimeters" Then
+                ' Metric display
+                If areaSqM >= 1 Then
+                    LblSharedArea.Text = $"Total Area: {areaSqM:F2} sq m ({areaSqCm:F0} sq cm)"
+                Else
+                    LblSharedArea.Text = $"Total Area: {areaSqCm:F0} sq cm ({areaSqM:F4} sq m)"
+                End If
+            Else
+                ' Imperial display
+                LblSharedArea.Text = $"Total Area: {_currentSharedAreaSqFt:F2} sq ft ({_currentSharedAreaSqIn:F0} sq in)"
+            End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "CalculateSharedArea")
             LblSharedArea.Text = "Total Area: Error"
@@ -448,9 +463,18 @@ Partial Public Class FrmMain
             Dim sheetsNeeded = Math.Ceiling(areaNeeded / sheetArea)
             Dim totalAreaWithWaste = _currentSharedAreaSqFt * wasteFactor
 
-            ' Display results
+            ' Display results based on unit system
+            Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
+            Dim isMetric = (units = "Millimeters" OrElse units = "Centimeters")
+
             LblVeneerSheetsNeeded.Text = $"Sheets Needed: {sheetsNeeded:F0}"
-            LblVeneerTotalArea.Text = $"Total Area (with {wastePercent:F0}% waste): {totalAreaWithWaste:F2} sq ft"
+            
+            If isMetric Then
+                Dim areaSqM = totalAreaWithWaste * 0.092903
+                LblVeneerTotalArea.Text = $"Total Area (with {wastePercent:F0}% waste): {areaSqM:F2} sq m"
+            Else
+                LblVeneerTotalArea.Text = $"Total Area (with {wastePercent:F0}% waste): {totalAreaWithWaste:F2} sq ft"
+            End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "CalculateVeneer")
             ClearVeneerResults()
@@ -467,12 +491,16 @@ Partial Public Class FrmMain
                 Return
             End If
 
-            ' Get coverage rate
-            Dim coverageRate As Double = 125
+            ' Determine if metric
+            Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
+            Dim isMetric = (units = "Millimeters" OrElse units = "Centimeters")
+
+            ' Get coverage rate (stored internally as sq ft per quart)
+            Dim coverageRateSqFtPerQt As Double = 125
             If TxtFinishCoverage IsNot Nothing Then
-                Dim parsed = Double.TryParse(TxtFinishCoverage.Text, coverageRate)
+                Dim parsed = Double.TryParse(TxtFinishCoverage.Text, coverageRateSqFtPerQt)
             End If
-            If coverageRate <= 0 Then coverageRate = 125
+            If coverageRateSqFtPerQt <= 0 Then coverageRateSqFtPerQt = 125
 
             ' Get number of coats
             Dim numCoats = If(NudFinishCoats IsNot Nothing, CInt(NudFinishCoats.Value), 1)
@@ -483,8 +511,10 @@ Partial Public Class FrmMain
 
             ' Calculate quantity needed
             Dim totalAreaToFinish = _currentSharedAreaSqFt * numCoats
-            Dim quartsNeeded = totalAreaToFinish / coverageRate
+            Dim quartsNeeded = totalAreaToFinish / coverageRateSqFtPerQt
             Dim gallonsNeeded = quartsNeeded / 4
+            Dim litersNeeded = quartsNeeded * 0.946353 ' quarts to liters
+            Dim mlNeeded = litersNeeded * 1000
 
             ' Calculate time
             Dim totalDryTime = dryTime * (numCoats - 1) ' No dry time after last coat
@@ -500,13 +530,23 @@ Partial Public Class FrmMain
 
             Dim estimatedCost = quartsNeeded * costPerQuart
 
-            ' Display results
-            If quartsNeeded < 1 Then
-                LblFinishQuantityNeeded.Text = $"Quantity Needed: {quartsNeeded * 32:F1} oz ({quartsNeeded:F2} qt)"
-            ElseIf gallonsNeeded >= 1 Then
-                LblFinishQuantityNeeded.Text = $"Quantity Needed: {gallonsNeeded:F2} gallons ({quartsNeeded:F1} qt)"
+            ' Display results based on unit system
+            If isMetric Then
+                ' Metric display
+                If litersNeeded < 1 Then
+                    LblFinishQuantityNeeded.Text = $"Quantity Needed: {mlNeeded:F0} ml ({litersNeeded:F2} L)"
+                Else
+                    LblFinishQuantityNeeded.Text = $"Quantity Needed: {litersNeeded:F2} liters ({mlNeeded:F0} ml)"
+                End If
             Else
-                LblFinishQuantityNeeded.Text = $"Quantity Needed: {quartsNeeded:F2} quarts"
+                ' Imperial display
+                If quartsNeeded < 1 Then
+                    LblFinishQuantityNeeded.Text = $"Quantity Needed: {quartsNeeded * 32:F1} oz ({quartsNeeded:F2} qt)"
+                ElseIf gallonsNeeded >= 1 Then
+                    LblFinishQuantityNeeded.Text = $"Quantity Needed: {gallonsNeeded:F2} gallons ({quartsNeeded:F1} qt)"
+                Else
+                    LblFinishQuantityNeeded.Text = $"Quantity Needed: {quartsNeeded:F2} quarts"
+                End If
             End If
 
             LblFinishTotalTime.Text = $"Total Time: {totalTime:F1} hours ({totalDays:F1} days)"
@@ -601,7 +641,27 @@ Partial Public Class FrmMain
 
 #Region "Helper Methods"
 
-    Private Function GetFinishTips(finishType As String) As String
+''' <summary>
+''' Updates the coverage label based on selected units
+''' </summary>
+Private Sub UpdateCoverageLabel()
+    Try
+        If LblFinishCoverage Is Nothing Then Return
+
+        Dim units = If(CmbSharedAreaUnits?.SelectedItem IsNot Nothing, CmbSharedAreaUnits.SelectedItem.ToString(), "Inches")
+        Dim isMetric = (units = "Millimeters" OrElse units = "Centimeters")
+
+        If isMetric Then
+            LblFinishCoverage.Text = "Coverage (sq m/L): "
+        Else
+            LblFinishCoverage.Text = "Coverage (sq ft/qt): "
+        End If
+    Catch ex As Exception
+        ErrorHandler.LogError(ex, "UpdateCoverageLabel")
+    End Try
+End Sub
+
+Private Function GetFinishTips(finishType As String) As String
         Select Case finishType
             Case "Stain"
                 Return "Wipe off excess. Test on scrap first."
