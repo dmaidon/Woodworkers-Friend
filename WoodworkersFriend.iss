@@ -5,6 +5,7 @@
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Dennis Maidon"
 #define MyAppURL "https://github.com/dmaidon/Woodworkers-Friend"
+#define MyAppSupportEmail "support@woodworkersfriend.com"
 #define MyAppExeName "Woodworkers Friend.exe"
 
 [Setup]
@@ -17,6 +18,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}/issues
 AppUpdatesURL={#MyAppURL}/releases
+AppContact={#MyAppSupportEmail}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 LicenseFile=LICENSE

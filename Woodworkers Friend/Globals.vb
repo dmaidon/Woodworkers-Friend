@@ -7,6 +7,8 @@ Friend Module Globals
 
     Friend Const Version As String = "1.0.0"
 
+    Friend Const SupportEmail As String = "support@woodworkersfriend.com"  ' TODO: Update with your actual support email
+
     ' TimesRun tracks the number of application starts (stored in database)
     Friend TimesRun As Integer
 

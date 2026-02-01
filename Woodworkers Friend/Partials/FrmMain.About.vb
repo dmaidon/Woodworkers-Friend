@@ -117,6 +117,7 @@ Partial Public Class FrmMain
 
             ' Contact & Support
             sb.AppendLine("SUPPORT:")
+            sb.AppendLine("  Email: " & SupportEmail)
             sb.AppendLine("  GitHub: https://github.com/dmaidon/Woodworkers-Friend")
             sb.AppendLine("  Issues: Report bugs via GitHub Issues")
             sb.AppendLine("  Discussions: Feature requests via GitHub Discussions")
@@ -710,7 +711,6 @@ Partial Public Class FrmMain
             If LbLogFiles.Items.Count = 0 OrElse LbLogFiles.SelectedIndex < 0 Then
                 ClearLogDisplay()
             End If
-
         Catch ex As UnauthorizedAccessException
             ErrorHandler.LogError(ex, "CmsLogFilesDelete_Click")
             MessageBox.Show(

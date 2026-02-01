@@ -30,6 +30,7 @@ Partial Class FrmAbout
         Me.TxtDescription = New TextBox()
         Me.LnkGitHub = New LinkLabel()
         Me.LnkLicense = New LinkLabel()
+        Me.LnkEmail = New LinkLabel()
         Me.BtnOK = New Button()
         Me.Label1 = New Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,6 +117,16 @@ Partial Class FrmAbout
         Me.LnkLicense.TabStop = True
         Me.LnkLicense.Text = "View License"
         '
+        'LnkEmail
+        '
+        Me.LnkEmail.AutoSize = True
+        Me.LnkEmail.Location = New Point(230, 280)
+        Me.LnkEmail.Name = "LnkEmail"
+        Me.LnkEmail.Size = New Size(95, 15)
+        Me.LnkEmail.TabIndex = 9
+        Me.LnkEmail.TabStop = True
+        Me.LnkEmail.Text = "Email Support"
+        '
         'BtnOK
         '
         Me.BtnOK.Location = New Point(397, 270)
@@ -144,6 +155,7 @@ Partial Class FrmAbout
         Me.ClientSize = New Size(484, 326)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BtnOK)
+        Me.Controls.Add(Me.LnkEmail)
         Me.Controls.Add(Me.LnkLicense)
         Me.Controls.Add(Me.LnkGitHub)
         Me.Controls.Add(Me.TxtDescription)
@@ -171,6 +183,7 @@ Partial Class FrmAbout
     Friend WithEvents TxtDescription As TextBox
     Friend WithEvents LnkGitHub As LinkLabel
     Friend WithEvents LnkLicense As LinkLabel
+    Friend WithEvents LnkEmail As LinkLabel
     Friend WithEvents BtnOK As Button
     Friend WithEvents Label1 As Label
 End Class

@@ -45,6 +45,15 @@ Public Class FrmAbout
         End Try
     End Sub
 
+    Private Sub LnkEmail_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LnkEmail.LinkClicked
+        Try
+            Process.Start(New ProcessStartInfo($"mailto:{SupportEmail}?subject=Woodworker's Friend Support") With {.UseShellExecute = True})
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "LnkEmail_LinkClicked")
+            MessageBox.Show($"Please send support inquiries to:{vbCrLf}{SupportEmail}", "Email Support", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End Try
+    End Sub
+
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles BtnOK.Click
         Me.Close()
     End Sub
