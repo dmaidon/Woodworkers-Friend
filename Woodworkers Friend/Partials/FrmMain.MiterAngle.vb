@@ -206,6 +206,40 @@ Partial Public Class FrmMain
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Alternative handler for when tab becomes visible
+    ''' </summary>
+    Private Sub TpAngles_VisibleChanged(sender As Object, e As EventArgs) Handles TpAngles.VisibleChanged
+        Try
+            If TpAngles IsNot Nothing AndAlso TpAngles.Visible Then
+                ErrorHandler.LogError(New Exception($"TpAngles_VisibleChanged: Visible=True, Initialized={_miterCalculatorInitialized}"), "MiterAngle Debug")
+                
+                If Not _miterCalculatorInitialized Then
+                    InitializeMiterAngleCalculator()
+                End If
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "TpAngles_VisibleChanged")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Handler for parent TabControl selection change
+    ''' </summary>
+    Private Sub TcCalculattions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TcCalculattions.SelectedIndexChanged
+        Try
+            If TcCalculattions IsNot Nothing AndAlso TcCalculattions.SelectedTab Is TpAngles Then
+                ErrorHandler.LogError(New Exception($"TcCalculattions_SelectedIndexChanged: Angles tab selected, Initialized={_miterCalculatorInitialized}"), "MiterAngle Debug")
+                
+                If Not _miterCalculatorInitialized Then
+                    InitializeMiterAngleCalculator()
+                End If
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "TcCalculattions_SelectedIndexChanged")
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Calculation Logic"
@@ -221,7 +255,7 @@ Partial Public Class FrmMain
 
         Try
             ErrorHandler.LogError(New Exception("CalculateMiterAngles: Starting"), "MiterAngle Debug")
-            
+
             ' Validate required controls exist
             If TxtMiterNumSides Is Nothing OrElse RbMiterFrameFlat Is Nothing OrElse RbMiterFrameTilted Is Nothing Then
                 ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Controls null - TxtSides={TxtMiterNumSides Is Nothing}, RbFlat={RbMiterFrameFlat Is Nothing}, RbTilted={RbMiterFrameTilted Is Nothing}"), "MiterAngle Debug")
@@ -269,12 +303,12 @@ Partial Public Class FrmMain
 
             ' Calculate angles
             Dim result = CalculateMiterAnglesCore(numSides, isFlat, tiltAngle)
-            
+
             ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Result - Miter={result.MiterAngle:F2}°, Bevel={result.BevelAngle:F2}°"), "MiterAngle Debug")
 
             ' Display results
             DisplayMiterResults(result)
-            
+
             ErrorHandler.LogError(New Exception("CalculateMiterAngles: Completed successfully"), "MiterAngle Debug")
         Catch ex As Exception
             ErrorHandler.LogError(ex, "CalculateMiterAngles")

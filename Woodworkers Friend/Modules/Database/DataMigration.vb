@@ -199,9 +199,13 @@ Public Class DataMigration
 
             ' Check if Miter Angle Calculator help exists (added January 31, 2026)
             Dim miterHelp = DatabaseManager.Instance.GetHelpContent("MiterAngle")
+            ErrorHandler.LogError(New Exception($"AddMissingHelpTopics: MiterAngle help check - IsNull={miterHelp Is Nothing}"), "MiterAngle Debug")
+            
             If miterHelp Is Nothing Then
                 ErrorHandler.LogError(New Exception("Adding Miter Angle Calculator help topic"), "AddMissingHelpTopics")
                 AddMiterAngleHelp()
+            Else
+                ErrorHandler.LogError(New Exception($"Miter Angle help already exists: Title='{miterHelp.Title}', Category='{miterHelp.Category}'"), "MiterAngle Debug")
             End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "AddMissingHelpTopics")
