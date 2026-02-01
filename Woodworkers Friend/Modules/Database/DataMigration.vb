@@ -207,6 +207,13 @@ Public Class DataMigration
             Else
                 ErrorHandler.LogError(New Exception($"Miter Angle help already exists: Title='{miterHelp.Title}', Category='{miterHelp.Category}'"), "MiterAngle Debug")
             End If
+
+            ' Check if Materials & Finishing help exists (added February 1, 2026)
+            Dim materialsHelp = DatabaseManager.Instance.GetHelpContent("MaterialsFinishing")
+            If materialsHelp Is Nothing Then
+                ErrorHandler.LogError(New Exception("Adding Materials & Finishing Calculator help topic"), "AddMissingHelpTopics")
+                AddMaterialsFinishingHelp()
+            End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "AddMissingHelpTopics")
         End Try
@@ -461,6 +468,167 @@ Where:
             ErrorHandler.LogError(New Exception($"Miter Angle Calculator help added: {count} topic"), "AddMiterAngleHelp")
         Catch ex As Exception
             ErrorHandler.LogError(ex, "AddMiterAngleHelp")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Adds Materials and Finishing Calculator help content to the database
+    ''' Added: February 1, 2026
+    ''' </summary>
+    Private Shared Sub AddMaterialsFinishingHelp()
+        Try
+            Dim helpContent As New List(Of DatabaseManager.HelpContentData) From {
+                New DatabaseManager.HelpContentData With {
+                    .ModuleName = "MaterialsFinishing",
+                    .Title = "Materials and Finishing Calculators",
+                    .Category = "Calculators",
+                    .SortOrder = 145,
+                    .Version = "1.0",
+                    .Keywords = "veneer,inlay,finish,finishing,stain,polyurethane,lacquer,oil,wax,shellac,varnish,glue,adhesive,titebond,epoxy,coverage,coat,dry,clamp",
+                    .Content = "
+# Materials and Finishing Calculators
+
+## Overview
+The Materials and Finishing tab provides three integrated calculators that share a common area input, making it easy to plan all your material needs for a project at once.
+
+## Shared Area Input
+Enter your project dimensions once, and all three calculators use the same area.
+
+### Two Input Methods
+**Method 1: Length x Width**
+- Enter length and width separately
+- Calculator computes the area automatically
+
+**Method 2: Known Area**
+- If you already know the total area, enter it directly
+- Useful when you have irregular shapes or multiple surfaces
+
+### Unit Support
+- **Imperial:** Inches, Feet
+- **Metric:** Millimeters, Centimeters
+- All results display in appropriate units for your selection
+
+---
+
+## Veneer and Inlay Calculator
+
+### Purpose
+Calculate how many veneer sheets you need for your project, accounting for pattern matching waste.
+
+### Pattern Types and Waste Factors
+| Pattern | Waste % | Description |
+|---------|---------|-------------|
+| Book Match | 20% | Mirror image pairs, requires careful matching |
+| Slip Match | 15% | Repeating pattern, moderate waste |
+| Random | 10% | No matching needed, minimal waste |
+| Radial | 25% | Sunburst patterns, high waste |
+| Diamond | 30% | Complex matching, highest waste |
+
+### Inputs
+- **Sheet Length:** Standard veneer sheet length (default 96 inches)
+- **Sheet Width:** Standard veneer sheet width (default 48 inches)
+- **Pattern Type:** Automatically adjusts waste factor
+- **Waste %:** Can be manually adjusted
+
+### Results
+- **Sheets Needed:** Total veneer sheets to purchase
+- **Total Area with Waste:** Actual coverage including waste allowance
+
+---
+
+## Finishing Materials Calculator
+
+### Purpose
+Calculate how much finish you need and estimate the total finishing time.
+
+### Finish Types
+| Finish | Coverage | Dry Time | Cost/Qt | Tips |
+|--------|----------|----------|---------|------|
+| Stain | 200 sq ft/gal | 4 hrs | $12 | Wipe off excess, test on scrap |
+| Polyurethane | 125 sq ft/qt | 6 hrs | $16 | Thin first coat 10%, sand with 320 |
+| Lacquer | 150 sq ft/qt | 30 min | $20 | Thin coats, good ventilation! |
+| Danish Oil | 200 sq ft/qt | 8 hrs | $14 | Wipe on, wait 15 min, wipe off |
+| Tung Oil | 150 sq ft/qt | 24 hrs | $18 | Pure tung takes 5-7 coats |
+| Wax | 300 sq ft/lb | 15 min | $10 | Apply thin, buff when dry |
+| Shellac | 175 sq ft/qt | 2 hrs | $15 | Dewaxed for topcoat compatibility |
+| Varnish | 100 sq ft/qt | 8 hrs | $18 | Thin coats, best for exterior |
+
+### Inputs
+- **Finish Type:** Select from dropdown (auto-fills coverage and dry time)
+- **Coverage:** Can be manually adjusted
+- **Number of Coats:** 1-10 coats
+- **Dry Time:** Hours between coats
+- **Sand Between Coats:** Adds sanding time to total
+
+### Results
+- **Quantity Needed:** In oz/quarts/gallons (or ml/liters for metric)
+- **Total Time:** Including application and drying time
+- **Estimated Cost:** Based on typical prices
+
+---
+
+## Glue Coverage Calculator
+
+### Purpose
+Calculate how much glue you need and understand working times.
+
+### Glue Types
+| Glue | Open Time | Clamp Time | Best For |
+|------|-----------|------------|----------|
+| PVA (White) | 10 min | 1 hr | Interior, general purpose |
+| Yellow (Titebond) | 8 min | 45 min | Furniture, stronger than wood |
+| Titebond III | 10 min | 1 hr | Waterproof, cutting boards |
+| Polyurethane | 15 min | 4 hrs | Gap-filling, waterproof |
+| Epoxy | 30 min | 24 hrs | Structural, gap-filling |
+| Hide Glue | 5 min | 2 hrs | Traditional, reversible |
+| CA (Super Glue) | 1 min | Instant | Quick repairs, turnings |
+
+### Joint Type Multipliers
+Different joints need different amounts of glue:
+- **Edge-to-Edge (1.0x):** Standard panel glue-ups
+- **Face-to-Face (1.0x):** Laminations, veneering
+- **End Grain (2.0x):** Requires double coverage (pre-seal recommended)
+- **Mortise and Tenon (1.5x):** Multiple surfaces to coat
+- **Dovetail (1.3x):** Complex mating surfaces
+- **Biscuit/Domino (0.8x):** Less exposed surface area
+
+### Application Methods
+- Brush, Roller, Squeeze Bottle, Spreader
+
+### Results
+- **Amount Needed:** In oz and ml
+- **Open Time:** Working time before glue starts to set
+- **Clamp Time:** Minimum time to keep clamps on
+- **Tips:** Joint and glue-specific advice
+
+---
+
+## Tips for Best Results
+
+### Veneer Work
+- Always order 10-30% extra depending on pattern
+- Book match requires the most careful planning
+- Keep veneer flat and avoid moisture
+
+### Finishing
+- Thin first coats for better penetration
+- Sand between coats with 320 grit
+- Allow full dry time for best results
+- Work in a dust-free environment
+
+### Gluing
+- Pre-seal end grain before gluing
+- Apply glue to both surfaces for best bond
+- Alternate clamps top and bottom to prevent bowing
+- Remove squeeze-out before it dries completely
+"
+                }
+            }
+
+            Dim count = DatabaseManager.Instance.BulkInsertHelpContent(helpContent)
+            ErrorHandler.LogError(New Exception($"Materials and Finishing help added: {count} topic"), "AddMaterialsFinishingHelp")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddMaterialsFinishingHelp")
         End Try
     End Sub
 
@@ -1745,7 +1913,30 @@ Where:
 "@METHOD:Grit Progression|Sequence of sandpaper grits used when smoothing wood, typically doubling or increasing by 50% between grits." & vbLf &
 "*BULLET:Typical progression: 80 → 120 → 180 → 220 → 320" & vbLf &
 "!WARNING:Skipping grits leaves scratches from coarser paper that show through finish!" & vbLf &
-"?NOTE:Each grit should remove the scratches from previous grit."
+"?NOTE:Each grit should remove the scratches from previous grit." & vbLf &
+"" & vbLf &
+"@METHOD:Open Time|Working time available after applying glue before it begins to set." & vbLf &
+"*BULLET:PVA/Yellow Glue: 5-10 minutes" & vbLf &
+"*BULLET:Polyurethane: 15-20 minutes" & vbLf &
+"*BULLET:Epoxy: 5-60 minutes (varies by formula)" & vbLf &
+"?NOTE:Temperature affects open time - cold extends it, heat shortens it." & vbLf &
+"" & vbLf &
+"@METHOD:Clamp Time|Minimum time joints should remain clamped for glue to achieve handling strength." & vbLf &
+"*BULLET:PVA Glue: 30-60 minutes" & vbLf &
+"*BULLET:Polyurethane: 4-6 hours" & vbLf &
+"*BULLET:Epoxy: Varies (check manufacturer)" & vbLf &
+"!WARNING:Full cure strength (24-72 hours) is much longer than clamp time!" & vbLf &
+"" & vbLf &
+"@METHOD:Book Match|Veneer matching technique where consecutive sheets are opened like a book to create mirror-image patterns." & vbLf &
+"?NOTE:Creates symmetrical grain patterns, commonly used for tabletops and door panels." & vbLf &
+"" & vbLf &
+"@METHOD:Slip Match|Veneer matching technique where consecutive sheets are laid side-by-side without flipping." & vbLf &
+"?NOTE:Creates repeating patterns, useful when you want grain to flow in same direction." & vbLf &
+"" & vbLf &
+"@METHOD:Coverage Rate|Amount of surface area a finish will cover per unit volume, typically sq ft per quart or gallon." & vbLf &
+"*BULLET:Polyurethane: ~125 sq ft/qt" & vbLf &
+"*BULLET:Stain: ~200 sq ft/gal" & vbLf &
+"?NOTE:Porous woods absorb more finish, reducing effective coverage."
 }
             }
 

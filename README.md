@@ -309,6 +309,80 @@
 - **Units:** Imperial (inches) or Metric (mm)
 - **Tolerance:** ±0.005" default (adjustable in algorithm)
 
+#### **Materials & Finishing Calculators** 🆕
+Three integrated calculators sharing a common area input for efficient material planning:
+
+##### **Veneer & Inlay Calculator**
+- **Calculate veneer sheets needed** for any project
+- **Pattern-specific waste factors:**
+  - Book Match (20%) - Mirror image pairs
+  - Slip Match (15%) - Repeat pattern
+  - Random (10%) - No matching required
+  - Radial (25%) - Sunburst patterns
+  - Diamond (30%) - Complex matching
+- **Inputs:**
+  - Project area (Length × Width or direct sq ft/sq m entry)
+  - Veneer sheet dimensions (default 96" × 48")
+  - Pattern type (auto-adjusts waste factor)
+- **Results:**
+  - Number of sheets needed
+  - Total area including waste allowance
+
+##### **Finishing Materials Calculator**
+- **Calculate finish quantities** for any surface area
+- **8 finish types** with auto-filled coverage rates:
+  - Stain (200 sq ft/gal)
+  - Polyurethane (125 sq ft/qt)
+  - Lacquer (150 sq ft/qt)
+  - Danish Oil (200 sq ft/qt)
+  - Tung Oil (150 sq ft/qt)
+  - Wax (300 sq ft/lb)
+  - Shellac (175 sq ft/qt)
+  - Varnish (100 sq ft/qt)
+- **Comprehensive calculations:**
+  - Quantity needed (oz, quarts, gallons, or ml, liters)
+  - Total finishing time (including dry time between coats)
+  - Estimated cost
+- **Options:**
+  - Number of coats (1-10)
+  - Dry time between coats
+  - Sanding between coats (adds time estimate)
+- **Application tips** for each finish type
+
+##### **Glue Coverage Calculator**
+- **Calculate glue quantities** for any joint area
+- **7 glue types** with open/clamp times:
+  - PVA White (10 min open, 1 hr clamp)
+  - Yellow/Titebond (8 min open, 45 min clamp)
+  - Titebond III (10 min open, 1 hr clamp)
+  - Polyurethane (15 min open, 4 hr clamp)
+  - Epoxy (30 min open, 24 hr clamp)
+  - Hide Glue (5 min open, 2 hr clamp)
+  - CA/Super Glue (1 min open, instant clamp)
+- **Joint type multipliers:**
+  - Edge-to-Edge (1.0×) - Standard consumption
+  - Face-to-Face (1.0×) - Standard consumption
+  - End Grain (2.0×) - Double coverage needed
+  - Mortise & Tenon (1.5×) - Extra for multiple surfaces
+  - Dovetail (1.3×) - Complex surfaces
+  - Biscuit/Domino (0.8×) - Less area exposed
+- **Results:**
+  - Amount needed (oz and ml)
+  - Open time (working time)
+  - Clamp time requirement
+  - Application tips per glue/joint combination
+
+##### **Shared Features**
+- **Two input methods:**
+  - Length × Width for calculated area
+  - Direct area entry (if already known)
+- **Full metric support:**
+  - Inches, Feet, Millimeters, Centimeters
+  - All results display in appropriate units
+  - Labels update dynamically (sq ft/qt vs sq m/L)
+- **"Calculate All" button** runs all three calculators at once
+- **Real-time updates** as you change inputs
+
 ### **🛠️ Utilities**
 
 - **Unit Conversions** - Inches ↔ Millimeters, Fractions ↔ Decimals
