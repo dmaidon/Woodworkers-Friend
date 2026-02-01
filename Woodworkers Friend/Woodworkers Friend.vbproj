@@ -9,8 +9,8 @@
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.2.1.618</AssemblyVersion>
-	<FileVersion>26.2.1.618</FileVersion>
+	<AssemblyVersion>26.2.1.619</AssemblyVersion>
+	<FileVersion>26.2.1.619</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>

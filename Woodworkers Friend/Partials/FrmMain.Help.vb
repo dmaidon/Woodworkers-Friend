@@ -173,6 +173,7 @@ Partial Public Class FrmMain
         nodeCalculators.Nodes.Add("boardfeet", "Board Feet Calculator")
         nodeCalculators.Nodes.Add("epoxy", "Epoxy Pour Calculator")
         nodeCalculators.Nodes.Add("polygon", "Polygon Calculator")
+        nodeCalculators.Nodes.Add("MiterAngle", "Miter Angle Calculator")
 
         Dim nodeJoinery = treeView.Nodes.Add("joinery_main", "Joinery & Structure")
         nodeJoinery.Nodes.Add("joinery", "Joinery Calculator")
