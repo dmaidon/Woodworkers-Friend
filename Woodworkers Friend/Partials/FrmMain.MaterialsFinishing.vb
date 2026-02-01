@@ -115,7 +115,7 @@ Partial Public Class FrmMain
 #Region "Initialization"
 
     ''' <summary>
-    ''' Initializes the Materials & Finishing calculators
+    ''' Initializes the Materials and Finishing calculators
     ''' </summary>
     Private Sub InitializeMaterialsFinishing()
         If _materialsFinishingInitialized Then Return
@@ -300,10 +300,16 @@ Partial Public Class FrmMain
 
         Try
             Dim finishType = CmbFinishType.SelectedItem?.ToString()
-            If Not String.IsNullOrEmpty(finishType) AndAlso FINISH_COVERAGE.ContainsKey(finishType) Then
-                TxtFinishCoverage.Text = FINISH_COVERAGE(finishType).ToString()
-                If NudDryTimeBetween IsNot Nothing AndAlso FINISH_DRY_TIME.ContainsKey(finishType) Then
-                    NudDryTimeBetween.Value = CDec(FINISH_DRY_TIME(finishType))
+
+            Dim value As Double = Nothing
+
+            If Not String.IsNullOrEmpty(finishType) AndAlso FINISH_COVERAGE.TryGetValue(finishType, value) Then
+                TxtFinishCoverage.Text = value.ToString()
+
+                Dim value1 As Double = Nothing
+
+                If NudDryTimeBetween IsNot Nothing AndAlso FINISH_DRY_TIME.TryGetValue(finishType, value1) Then
+                    NudDryTimeBetween.Value = CDec(value1)
                 End If
             End If
             CalculateFinishing()
@@ -409,8 +415,12 @@ Partial Public Class FrmMain
             ' Get sheet dimensions
             Dim sheetLength As Double = 96
             Dim sheetWidth As Double = 48
-            If TxtVeneerSheetLength IsNot Nothing Then Double.TryParse(TxtVeneerSheetLength.Text, sheetLength)
-            If TxtVeneerSheetWidth IsNot Nothing Then Double.TryParse(TxtVeneerSheetWidth.Text, sheetWidth)
+            If TxtVeneerSheetLength IsNot Nothing Then
+                Dim parsed = Double.TryParse(TxtVeneerSheetLength.Text, sheetLength)
+            End If
+            If TxtVeneerSheetWidth IsNot Nothing Then
+                Dim parsed = Double.TryParse(TxtVeneerSheetWidth.Text, sheetWidth)
+            End If
 
             If sheetLength <= 0 OrElse sheetWidth <= 0 Then
                 ClearVeneerResults()
@@ -422,8 +432,9 @@ Partial Public Class FrmMain
             Dim pattern = If(CmbVeneerPattern?.SelectedItem IsNot Nothing, CmbVeneerPattern.SelectedItem.ToString(), "Random")
 
             ' If pattern selected, use pattern-specific waste
-            If VENEER_WASTE.ContainsKey(pattern) Then
-                wastePercent = VENEER_WASTE(pattern)
+            Dim patternWaste As Double
+            If VENEER_WASTE.TryGetValue(pattern, patternWaste) Then
+                wastePercent = patternWaste
                 _suppressMaterialsCalculation = True
                 NudVeneerWaste.Value = CDec(wastePercent)
                 _suppressMaterialsCalculation = False
@@ -458,7 +469,9 @@ Partial Public Class FrmMain
 
             ' Get coverage rate
             Dim coverageRate As Double = 125
-            If TxtFinishCoverage IsNot Nothing Then Double.TryParse(TxtFinishCoverage.Text, coverageRate)
+            If TxtFinishCoverage IsNot Nothing Then
+                Dim parsed = Double.TryParse(TxtFinishCoverage.Text, coverageRate)
+            End If
             If coverageRate <= 0 Then coverageRate = 125
 
             ' Get number of coats
@@ -482,7 +495,9 @@ Partial Public Class FrmMain
 
             ' Estimate cost
             Dim finishType = If(CmbFinishType?.SelectedItem IsNot Nothing, CmbFinishType.SelectedItem.ToString(), "Polyurethane")
-            Dim costPerQuart = If(FINISH_COST.ContainsKey(finishType), FINISH_COST(finishType), 15)
+            Dim costPerQuart As Double = 15
+            FINISH_COST.TryGetValue(finishType, costPerQuart)
+
             Dim estimatedCost = quartsNeeded * costPerQuart
 
             ' Display results
@@ -521,20 +536,24 @@ Partial Public Class FrmMain
 
             ' Get joint type multiplier
             Dim jointType = If(CmbJointType?.SelectedItem IsNot Nothing, CmbJointType.SelectedItem.ToString(), "Edge-to-Edge")
-            Dim jointMultiplier = If(JOINT_MULTIPLIER.ContainsKey(jointType), JOINT_MULTIPLIER(jointType), 1.0)
+            Dim jointMultiplier As Double = 1.0
+            JOINT_MULTIPLIER.TryGetValue(jointType, jointMultiplier)
 
             ' Get waste factor
             Dim wastePercent = If(NudGlueWaste IsNot Nothing, CDbl(NudGlueWaste.Value), 10)
             Dim wasteFactor = 1 + (wastePercent / 100)
 
             ' Calculate glue needed
-            Dim coverageRate = If(GLUE_COVERAGE.ContainsKey(glueType), GLUE_COVERAGE(glueType), 6)
+            Dim coverageRate As Double = 6
+            GLUE_COVERAGE.TryGetValue(glueType, coverageRate)
             Dim glueOz = (_currentSharedAreaSqIn / coverageRate) * jointMultiplier * wasteFactor
             Dim glueMl = glueOz * 29.5735
 
             ' Get timing info
-            Dim openTime = If(GLUE_OPEN_TIME.ContainsKey(glueType), GLUE_OPEN_TIME(glueType), 10)
-            Dim clampTime = If(GLUE_CLAMP_TIME.ContainsKey(glueType), GLUE_CLAMP_TIME(glueType), 1)
+            Dim openTime As Integer = 10
+            GLUE_OPEN_TIME.TryGetValue(glueType, openTime)
+            Dim clampTime As Double = 1
+            GLUE_CLAMP_TIME.TryGetValue(glueType, clampTime)
 
             ' Display results
             LblGlueAmount.Text = $"Amount Needed: {glueOz:F1} oz ({glueMl:F0} ml)"
