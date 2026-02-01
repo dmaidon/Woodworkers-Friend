@@ -17,13 +17,13 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}/issues
 AppUpdatesURL={#MyAppURL}/releases
-DefaultDirName={autopf}\{#MyAppName}
+DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 LicenseFile=LICENSE
 InfoBeforeFile=README.md
 OutputDir=Installer
 OutputBaseFilename=WoodworkersFriend-Setup-v{#MyAppVersion}
-SetupIconFile="Woodworkers Friend\Resources\app_icon.ico"
+SetupIconFile="Woodworkers Friend\Resources\wood.ico"
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
@@ -38,7 +38,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; Application files
-Source: "Woodworkers Friend\bin\Release\net10.0-windows\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\VB18\Release\WwFriend\net10.0-windows10.0.26100.0"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Documentation
 Source: "README.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
@@ -66,6 +66,8 @@ begin
 end;
 
 function InitializeSetup(): Boolean;
+var
+  ResultCode: Integer;
 begin
   Result := True;
   
