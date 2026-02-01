@@ -72,7 +72,10 @@ Partial Public Class FrmMain
         End Try
 
         ' Perform initial calculation with default values
-        CalculateMiterAngles()
+        ' Use BeginInvoke to ensure UI is fully initialized
+        If TxtMiterNumSides IsNot Nothing Then
+            BeginInvoke(Sub() CalculateMiterAngles())
+        End If
     End Sub
 
     ''' <summary>
@@ -205,13 +208,22 @@ Partial Public Class FrmMain
         If _suppressMiterCalculation Then Return
 
         Try
+            ' Validate required controls exist
+            If TxtMiterNumSides Is Nothing OrElse RbMiterFrameFlat Is Nothing OrElse RbMiterFrameTilted Is Nothing Then
+                Return
+            End If
+
             ' Validate inputs
-            If Not Integer.TryParse(TxtMiterNumSides.Text, Nothing) Then
+            If String.IsNullOrWhiteSpace(TxtMiterNumSides.Text) Then
                 ClearMiterResults()
                 Return
             End If
 
-            Dim numSides As Integer = Integer.Parse(TxtMiterNumSides.Text)
+            Dim numSides As Integer
+            If Not Integer.TryParse(TxtMiterNumSides.Text, numSides) Then
+                ClearMiterResults()
+                Return
+            End If
 
             If numSides < MIN_MITER_SIDES OrElse numSides > MAX_MITER_SIDES Then
                 ClearMiterResults()
@@ -222,6 +234,11 @@ Partial Public Class FrmMain
             Dim tiltAngle As Decimal = 0D
 
             If Not isFlat Then
+                If TxtMiterTiltAngle Is Nothing OrElse String.IsNullOrWhiteSpace(TxtMiterTiltAngle.Text) Then
+                    ClearMiterResults()
+                    Return
+                End If
+
                 If Not Decimal.TryParse(TxtMiterTiltAngle.Text, tiltAngle) Then
                     ClearMiterResults()
                     Return
