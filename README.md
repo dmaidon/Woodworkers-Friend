@@ -98,6 +98,31 @@
 - Material cost estimation
 - Export cutting plans
 
+#### **Miter Angle Calculator** 🆕
+- **Calculate precise miter and bevel angles** for perfect joints
+- **Frame types supported:**
+  - **Flat frames** (picture frames, table tops, mirrors)
+  - **Tilted frames** (crown molding, cove molding, compound angles)
+- **Polygon support:** 3-24 sides for any polygonal project
+- **Common applications:**
+  - Picture frames (4 sides, 45° miters)
+  - Hexagon tables (6 sides, 30° miters)
+  - Octagon frames (8 sides, 22.5° miters)
+  - Crown molding (compound cuts with spring angle)
+- **Results displayed:**
+  - **Miter (Saw) Angle** - Set your miter saw to this angle
+  - **Bevel Angle** - Set blade tilt for compound cuts (tilted frames only)
+  - **Complementary Angle** - Reference angle for verification
+  - **Interior Angle** - Polygon's interior angle at each vertex
+- **Tilt angle presets:**
+  - 38° - Standard crown molding (52/38 spring angle)
+  - 45° - Common for 45/45 crown molding
+  - Custom angles 0-90°
+- **Visual diagram** shows miter joint configuration
+- **Real-time calculation** as you type
+- **Tooltips with usage examples** for quick reference
+- **Perfect for:** Crown molding installation, picture frame building, polygon-shaped furniture, box lids
+
 #### **Polygon Calculator**
 - Calculate dimensions for **regular polygons (3-25 sides)**
 - **Dual input modes:**

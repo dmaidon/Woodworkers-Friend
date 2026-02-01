@@ -694,7 +694,8 @@ Public Class UserDataManager
     ''' <summary>
     ''' Saves a calculation to history
     ''' </summary>
-    Public Function SaveCalculation(calculatorType As String, calculationName As String, inputParameters As String, results As String, Optional notes As String = "") As Integer
+    Public Shared Function SaveCalculation(calculatorType As String, calculationName As String, inputParameters As String, results As String, Optional notes As String = "") As Integer
+        ArgumentNullException.ThrowIfNull(inputParameters)
         ' TODO: Implement actual save
         Return 1
     End Function
@@ -702,7 +703,7 @@ Public Class UserDataManager
     ''' <summary>
     ''' Gets calculation history for a calculator type
     ''' </summary>
-    Public Function GetCalculationHistory(calculatorType As String, Optional limit As Integer = 50) As List(Of CalculationHistory)
+    Public Shared Function GetCalculationHistory(calculatorType As String, Optional limit As Integer = 50) As List(Of CalculationHistory)
         ' TODO: Implement actual retrieval
         Return New List(Of CalculationHistory)()
     End Function
@@ -710,7 +711,7 @@ Public Class UserDataManager
     ''' <summary>
     ''' Deletes a calculation from history
     ''' </summary>
-    Public Function DeleteCalculation(historyID As Integer) As Boolean
+    Public Shared Function DeleteCalculation(historyID As Integer) As Boolean
         ' TODO: Implement actual delete
         Return True
     End Function
@@ -718,7 +719,7 @@ Public Class UserDataManager
     ''' <summary>
     ''' Toggles favorite status
     ''' </summary>
-    Public Function ToggleFavorite(historyID As Integer) As Boolean
+    Public Shared Function ToggleFavorite(historyID As Integer) As Boolean
         ' TODO: Implement actual toggle
         Return True
     End Function
@@ -726,7 +727,7 @@ Public Class UserDataManager
     ''' <summary>
     ''' Updates calculation name and notes
     ''' </summary>
-    Public Function UpdateCalculation(historyID As Integer, calculationName As String, notes As String) As Boolean
+    Public Shared Function UpdateCalculation(historyID As Integer, calculationName As String, notes As String) As Boolean
         ' TODO: Implement actual update
         Return True
     End Function

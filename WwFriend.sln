@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Woodworkers Friend", "Woodworkers Friend\Woodworkers Friend.vbproj", "{5407B0B9-FB65-4352-9121-C0FB93CF9936}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Woodworkers Friend.Help", "Woodworkers Friend.Help\Woodworkers Friend.Help.vbproj", "{9029304A-2D42-4666-877B-C26371081D39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{586756D8-606A-4ACA-B8D8-5D58432E5CD6}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\dmaid\Downloads\Ww_Friend_TODO.md = ..\..\Users\dmaid\Downloads\Ww_Friend_TODO.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

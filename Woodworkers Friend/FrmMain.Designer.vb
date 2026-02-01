@@ -389,6 +389,23 @@ Partial Class FrmMain
         TxtPolygonSides = New TextBox()
         LblPolygonSides = New Label()
         PbPolygon = New PictureBox()
+        GbxMiterAngleCalc = New GroupBox()
+        PictureBox1 = New PictureBox()
+        GbxMiterOutput = New GroupBox()
+        LblComplementaryAngle = New Label()
+        LblMiterBevelAngle = New Label()
+        LblMiterSawAngle = New Label()
+        GbxMiterInput = New GroupBox()
+        TxtMiterMaterialThickness = New TextBox()
+        LblMiterMaterialThickness = New Label()
+        Label92 = New Label()
+        TxtMiterTiltAngle = New TextBox()
+        LblMiterTiltAngle = New Label()
+        RbMiterFrameTilted = New RadioButton()
+        RbMiterFrameFlat = New RadioButton()
+        Label91 = New Label()
+        TxtMiterNumSides = New TextBox()
+        LblMiterNumSides = New Label()
         TpDrawings = New TabPage()
         PbOutputDrawing = New PictureBox()
         TpJoinery = New TabPage()
@@ -756,12 +773,17 @@ Partial Class FrmMain
         TpAngles.SuspendLayout()
         CType(ScAngles, ComponentModel.ISupportInitialize).BeginInit()
         ScAngles.Panel1.SuspendLayout()
+        ScAngles.Panel2.SuspendLayout()
         ScAngles.SuspendLayout()
         GbxPolygonCalculations.SuspendLayout()
         PnlPolygonCalc.SuspendLayout()
         CType(NudPolygonDimension, ComponentModel.ISupportInitialize).BeginInit()
         TlpPolygonResults.SuspendLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).BeginInit()
+        GbxMiterAngleCalc.SuspendLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        GbxMiterOutput.SuspendLayout()
+        GbxMiterInput.SuspendLayout()
         TpDrawings.SuspendLayout()
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).BeginInit()
         TpJoinery.SuspendLayout()
@@ -4304,6 +4326,10 @@ Partial Class FrmMain
         ' ScAngles.Panel1
         ' 
         ScAngles.Panel1.Controls.Add(GbxPolygonCalculations)
+        ' 
+        ' ScAngles.Panel2
+        ' 
+        ScAngles.Panel2.Controls.Add(GbxMiterAngleCalc)
         ScAngles.Size = New Size(1130, 807)
         ScAngles.SplitterDistance = 497
         ScAngles.SplitterWidth = 6
@@ -4662,6 +4688,185 @@ Partial Class FrmMain
         PbPolygon.Size = New Size(460, 375)
         PbPolygon.TabIndex = 0
         PbPolygon.TabStop = False
+        ' 
+        ' GbxMiterAngleCalc
+        ' 
+        GbxMiterAngleCalc.BackColor = Color.Silver
+        GbxMiterAngleCalc.Controls.Add(PictureBox1)
+        GbxMiterAngleCalc.Controls.Add(GbxMiterOutput)
+        GbxMiterAngleCalc.Controls.Add(GbxMiterInput)
+        GbxMiterAngleCalc.Dock = DockStyle.Fill
+        GbxMiterAngleCalc.Location = New Point(0, 0)
+        GbxMiterAngleCalc.Name = "GbxMiterAngleCalc"
+        GbxMiterAngleCalc.Size = New Size(623, 803)
+        GbxMiterAngleCalc.TabIndex = 0
+        GbxMiterAngleCalc.TabStop = False
+        GbxMiterAngleCalc.Text = "Miter Angle Calculator"
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.BorderStyle = BorderStyle.Fixed3D
+        PictureBox1.Location = New Point(129, 402)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(350, 350)
+        PictureBox1.TabIndex = 2
+        PictureBox1.TabStop = False
+        ' 
+        ' GbxMiterOutput
+        ' 
+        GbxMiterOutput.BackColor = Color.WhiteSmoke
+        GbxMiterOutput.Controls.Add(LblComplementaryAngle)
+        GbxMiterOutput.Controls.Add(LblMiterBevelAngle)
+        GbxMiterOutput.Controls.Add(LblMiterSawAngle)
+        GbxMiterOutput.Dock = DockStyle.Top
+        GbxMiterOutput.Location = New Point(3, 207)
+        GbxMiterOutput.Name = "GbxMiterOutput"
+        GbxMiterOutput.Size = New Size(617, 150)
+        GbxMiterOutput.TabIndex = 1
+        GbxMiterOutput.TabStop = False
+        GbxMiterOutput.Text = "Output Section: "
+        ' 
+        ' LblComplementaryAngle
+        ' 
+        LblComplementaryAngle.AutoSize = True
+        LblComplementaryAngle.Location = New Point(18, 105)
+        LblComplementaryAngle.Name = "LblComplementaryAngle"
+        LblComplementaryAngle.Size = New Size(235, 18)
+        LblComplementaryAngle.TabIndex = 2
+        LblComplementaryAngle.Text = "Complementary Angle: {0}°"
+        ' 
+        ' LblMiterBevelAngle
+        ' 
+        LblMiterBevelAngle.AutoSize = True
+        LblMiterBevelAngle.Location = New Point(18, 69)
+        LblMiterBevelAngle.Name = "LblMiterBevelAngle"
+        LblMiterBevelAngle.Size = New Size(250, 18)
+        LblMiterBevelAngle.TabIndex = 1
+        LblMiterBevelAngle.Tag = "Bevel Angle (Tilted Frames): {0}°"
+        LblMiterBevelAngle.Text = "Bevel Angle (Tilted Frames): "
+        ' 
+        ' LblMiterSawAngle
+        ' 
+        LblMiterSawAngle.AutoSize = True
+        LblMiterSawAngle.Location = New Point(18, 33)
+        LblMiterSawAngle.Name = "LblMiterSawAngle"
+        LblMiterSawAngle.Size = New Size(151, 18)
+        LblMiterSawAngle.TabIndex = 0
+        LblMiterSawAngle.Tag = "Saw Miter Angle: {0}°"
+        LblMiterSawAngle.Text = "Saw Miter Angle: "
+        ' 
+        ' GbxMiterInput
+        ' 
+        GbxMiterInput.BackColor = Color.DarkGray
+        GbxMiterInput.Controls.Add(TxtMiterMaterialThickness)
+        GbxMiterInput.Controls.Add(LblMiterMaterialThickness)
+        GbxMiterInput.Controls.Add(Label92)
+        GbxMiterInput.Controls.Add(TxtMiterTiltAngle)
+        GbxMiterInput.Controls.Add(LblMiterTiltAngle)
+        GbxMiterInput.Controls.Add(RbMiterFrameTilted)
+        GbxMiterInput.Controls.Add(RbMiterFrameFlat)
+        GbxMiterInput.Controls.Add(Label91)
+        GbxMiterInput.Controls.Add(TxtMiterNumSides)
+        GbxMiterInput.Controls.Add(LblMiterNumSides)
+        GbxMiterInput.Dock = DockStyle.Top
+        GbxMiterInput.Location = New Point(3, 22)
+        GbxMiterInput.Name = "GbxMiterInput"
+        GbxMiterInput.Size = New Size(617, 185)
+        GbxMiterInput.TabIndex = 0
+        GbxMiterInput.TabStop = False
+        GbxMiterInput.Text = "Input Section: "
+        ' 
+        ' TxtMiterMaterialThickness
+        ' 
+        TxtMiterMaterialThickness.Location = New Point(192, 126)
+        TxtMiterMaterialThickness.Name = "TxtMiterMaterialThickness"
+        TxtMiterMaterialThickness.Size = New Size(62, 26)
+        TxtMiterMaterialThickness.TabIndex = 11
+        ' 
+        ' LblMiterMaterialThickness
+        ' 
+        LblMiterMaterialThickness.AutoSize = True
+        LblMiterMaterialThickness.Location = New Point(15, 130)
+        LblMiterMaterialThickness.Name = "LblMiterMaterialThickness"
+        LblMiterMaterialThickness.Size = New Size(177, 18)
+        LblMiterMaterialThickness.TabIndex = 10
+        LblMiterMaterialThickness.Text = "Material Thickness: "
+        ' 
+        ' Label92
+        ' 
+        Label92.AutoSize = True
+        Label92.Location = New Point(254, 96)
+        Label92.Name = "Label92"
+        Label92.Size = New Size(15, 18)
+        Label92.TabIndex = 9
+        Label92.Text = "°"
+        Label92.TextAlign = ContentAlignment.TopCenter
+        ' 
+        ' TxtMiterTiltAngle
+        ' 
+        TxtMiterTiltAngle.Location = New Point(192, 92)
+        TxtMiterTiltAngle.MaxLength = 5
+        TxtMiterTiltAngle.Name = "TxtMiterTiltAngle"
+        TxtMiterTiltAngle.Size = New Size(62, 26)
+        TxtMiterTiltAngle.TabIndex = 8
+        ' 
+        ' LblMiterTiltAngle
+        ' 
+        LblMiterTiltAngle.AutoSize = True
+        LblMiterTiltAngle.Location = New Point(92, 96)
+        LblMiterTiltAngle.Name = "LblMiterTiltAngle"
+        LblMiterTiltAngle.Size = New Size(100, 18)
+        LblMiterTiltAngle.TabIndex = 7
+        LblMiterTiltAngle.Text = "Tilt Angle: "
+        LblMiterTiltAngle.TextAlign = ContentAlignment.TopRight
+        ' 
+        ' RbMiterFrameTilted
+        ' 
+        RbMiterFrameTilted.AutoSize = True
+        RbMiterFrameTilted.Location = New Point(285, 60)
+        RbMiterFrameTilted.Name = "RbMiterFrameTilted"
+        RbMiterFrameTilted.Size = New Size(84, 22)
+        RbMiterFrameTilted.TabIndex = 6
+        RbMiterFrameTilted.TabStop = True
+        RbMiterFrameTilted.Text = "Tilted"
+        RbMiterFrameTilted.UseVisualStyleBackColor = True
+        ' 
+        ' RbMiterFrameFlat
+        ' 
+        RbMiterFrameFlat.AutoSize = True
+        RbMiterFrameFlat.Location = New Point(205, 60)
+        RbMiterFrameFlat.Name = "RbMiterFrameFlat"
+        RbMiterFrameFlat.Size = New Size(67, 22)
+        RbMiterFrameFlat.TabIndex = 5
+        RbMiterFrameFlat.TabStop = True
+        RbMiterFrameFlat.Text = "Flat"
+        RbMiterFrameFlat.UseVisualStyleBackColor = True
+        ' 
+        ' Label91
+        ' 
+        Label91.AutoSize = True
+        Label91.Location = New Point(75, 62)
+        Label91.Name = "Label91"
+        Label91.Size = New Size(117, 18)
+        Label91.TabIndex = 4
+        Label91.Text = "Frame Type: "
+        ' 
+        ' TxtMiterNumSides
+        ' 
+        TxtMiterNumSides.Location = New Point(192, 24)
+        TxtMiterNumSides.MaxLength = 5
+        TxtMiterNumSides.Name = "TxtMiterNumSides"
+        TxtMiterNumSides.Size = New Size(49, 26)
+        TxtMiterNumSides.TabIndex = 2
+        ' 
+        ' LblMiterNumSides
+        ' 
+        LblMiterNumSides.AutoSize = True
+        LblMiterNumSides.Location = New Point(59, 28)
+        LblMiterNumSides.Name = "LblMiterNumSides"
+        LblMiterNumSides.Size = New Size(133, 18)
+        LblMiterNumSides.TabIndex = 3
+        LblMiterNumSides.Text = "Number Sides: "
         ' 
         ' TpDrawings
         ' 
@@ -7947,6 +8152,7 @@ Partial Class FrmMain
         GbxBiscuitDomino.PerformLayout()
         TpAngles.ResumeLayout(False)
         ScAngles.Panel1.ResumeLayout(False)
+        ScAngles.Panel2.ResumeLayout(False)
         CType(ScAngles, ComponentModel.ISupportInitialize).EndInit()
         ScAngles.ResumeLayout(False)
         GbxPolygonCalculations.ResumeLayout(False)
@@ -7956,6 +8162,12 @@ Partial Class FrmMain
         TlpPolygonResults.ResumeLayout(False)
         TlpPolygonResults.PerformLayout()
         CType(PbPolygon, ComponentModel.ISupportInitialize).EndInit()
+        GbxMiterAngleCalc.ResumeLayout(False)
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        GbxMiterOutput.ResumeLayout(False)
+        GbxMiterOutput.PerformLayout()
+        GbxMiterInput.ResumeLayout(False)
+        GbxMiterInput.PerformLayout()
         TpDrawings.ResumeLayout(False)
         CType(PbOutputDrawing, ComponentModel.ISupportInitialize).EndInit()
         TpJoinery.ResumeLayout(False)
@@ -8735,5 +8947,22 @@ Partial Class FrmMain
     Friend WithEvents BtnResetPolygon As Button
     Friend WithEvents NudPolygonDimension As NumericUpDown
     Friend WithEvents BtnPolyCalc As Button
+    Friend WithEvents GbxMiterAngleCalc As GroupBox
+    Friend WithEvents GbxMiterInput As GroupBox
+    Friend WithEvents TxtMiterNumSides As TextBox
+    Friend WithEvents LblMiterNumSides As Label
+    Friend WithEvents LblMiterMaterialThickness As Label
+    Friend WithEvents Label92 As Label
+    Friend WithEvents TxtMiterTiltAngle As TextBox
+    Friend WithEvents LblMiterTiltAngle As Label
+    Friend WithEvents RbMiterFrameTilted As RadioButton
+    Friend WithEvents RbMiterFrameFlat As RadioButton
+    Friend WithEvents Label91 As Label
+    Friend WithEvents TxtMiterMaterialThickness As TextBox
+    Friend WithEvents GbxMiterOutput As GroupBox
+    Friend WithEvents LblComplementaryAngle As Label
+    Friend WithEvents LblMiterBevelAngle As Label
+    Friend WithEvents LblMiterSawAngle As Label
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
 
