@@ -9,8 +9,8 @@
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.2.1.640</AssemblyVersion>
-	<FileVersion>26.2.1.640</FileVersion>
+	<AssemblyVersion>26.2.1.641</AssemblyVersion>
+	<FileVersion>26.2.1.641</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
@@ -21,7 +21,7 @@
 	  <ApplicationIcon>wood.ico</ApplicationIcon>
 	  <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	  <IncludeSymbols>True</IncludeSymbols>
-	  <Company>PAROLE Software</Company>
+	  <Company>Maidon Woodworking</Company>
 	  <Authors>Dennis N Maidon</Authors>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/dmaidon/Woodworkers-Friend</RepositoryUrl>

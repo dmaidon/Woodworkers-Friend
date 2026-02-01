@@ -54,6 +54,14 @@ Public Class FrmAbout
         End Try
     End Sub
 
+    Private Sub LnkWebsite_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LnkWebsite.LinkClicked
+        Try
+            Process.Start(New ProcessStartInfo("https://www.maidonww.com") With {.UseShellExecute = True})
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "LnkWebsite_LinkClicked")
+        End Try
+    End Sub
+
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles BtnOK.Click
         Me.Close()
     End Sub

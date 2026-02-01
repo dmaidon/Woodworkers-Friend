@@ -3,9 +3,9 @@
 
 #define MyAppName "Woodworker's Friend"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "Dennis Maidon"
-#define MyAppURL "https://github.com/dmaidon/Woodworkers-Friend"
-#define MyAppSupportEmail "support@woodworkersfriend.com"
+#define MyAppPublisher "Dennis N. Maidon"
+#define MyAppURL "https://www.maidonww.com"
+#define MyAppSupportEmail "support@maidonww.com"
 #define MyAppExeName "Woodworkers Friend.exe"
 
 [Setup]

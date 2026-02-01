@@ -7,7 +7,7 @@ Friend Module Globals
 
     Friend Const Version As String = "1.0.0"
 
-    Friend Const SupportEmail As String = "support@woodworkersfriend.com"  ' TODO: Update with your actual support email
+    Friend Const SupportEmail As String = "support@maidonww.com"
 
     ' TimesRun tracks the number of application starts (stored in database)
     Friend TimesRun As Integer
@@ -32,7 +32,7 @@ Friend Module Globals
     End Function
 
     Friend Function GetCopyrightNotice() As String
-        Return $"© {DateTime.Now.Year} Dennis Maidon. All rights reserved."
+        Return $"© {DateTime.Now.Year} Dennis N. Maidon. All rights reserved."
     End Function
 
     ' AppTheme enum is defined in ThemeManager.vb (Light, Dark, System)

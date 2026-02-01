@@ -31,6 +31,7 @@ Partial Class FrmAbout
         Me.LnkGitHub = New LinkLabel()
         Me.LnkLicense = New LinkLabel()
         Me.LnkEmail = New LinkLabel()
+        Me.LnkWebsite = New LinkLabel()
         Me.BtnOK = New Button()
         Me.Label1 = New Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -127,6 +128,16 @@ Partial Class FrmAbout
         Me.LnkEmail.TabStop = True
         Me.LnkEmail.Text = "Email Support"
         '
+        'LnkWebsite
+        '
+        Me.LnkWebsite.AutoSize = True
+        Me.LnkWebsite.Location = New Point(12, 260)
+        Me.LnkWebsite.Name = "LnkWebsite"
+        Me.LnkWebsite.Size = New Size(120, 15)
+        Me.LnkWebsite.TabIndex = 10
+        Me.LnkWebsite.TabStop = True
+        Me.LnkWebsite.Text = "Visit maidonww.com"
+        '
         'BtnOK
         '
         Me.BtnOK.Location = New Point(397, 270)
@@ -155,6 +166,7 @@ Partial Class FrmAbout
         Me.ClientSize = New Size(484, 326)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BtnOK)
+        Me.Controls.Add(Me.LnkWebsite)
         Me.Controls.Add(Me.LnkEmail)
         Me.Controls.Add(Me.LnkLicense)
         Me.Controls.Add(Me.LnkGitHub)
@@ -184,6 +196,7 @@ Partial Class FrmAbout
     Friend WithEvents LnkGitHub As LinkLabel
     Friend WithEvents LnkLicense As LinkLabel
     Friend WithEvents LnkEmail As LinkLabel
+    Friend WithEvents LnkWebsite As LinkLabel
     Friend WithEvents BtnOK As Button
     Friend WithEvents Label1 As Label
 End Class

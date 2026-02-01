@@ -39,8 +39,8 @@ Partial Public Class FrmMain
             Dim authorName As String = fileVersionInfo.LegalCopyright
 
             ' If company is empty, use fallback
-            If String.IsNullOrEmpty(companyName) Then companyName = "Woodworker's Friend Software"
-            If String.IsNullOrEmpty(authorName) Then authorName = "Dennis Maidon"
+            If String.IsNullOrEmpty(companyName) Then companyName = "Maidon Woodworking"
+            If String.IsNullOrEmpty(authorName) Then authorName = "Dennis N. Maidon"
 
             ' Build the information text
             Dim sb As New Text.StringBuilder()
@@ -117,6 +117,7 @@ Partial Public Class FrmMain
 
             ' Contact & Support
             sb.AppendLine("SUPPORT:")
+            sb.AppendLine("  Website: https://www.maidonww.com")
             sb.AppendLine("  Email: " & SupportEmail)
             sb.AppendLine("  GitHub: https://github.com/dmaidon/Woodworkers-Friend")
             sb.AppendLine("  Issues: Report bugs via GitHub Issues")
