@@ -9,8 +9,8 @@
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.2.1.619</AssemblyVersion>
-	<FileVersion>26.2.1.619</FileVersion>
+	<AssemblyVersion>26.2.1.622</AssemblyVersion>
+	<FileVersion>26.2.1.622</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
@@ -78,7 +78,6 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="C:\VB18\WwFriend\Woodworkers Friend\.editorconfig" />
-    <None Include="Partials\FrmMain.MiterAngle.vb" />
   </ItemGroup>
 
   <ItemGroup>
@@ -124,10 +123,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Help\*.md" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Partials\FrmMain.MiterAngle.vb" />
   </ItemGroup>
 
   <ItemGroup>
