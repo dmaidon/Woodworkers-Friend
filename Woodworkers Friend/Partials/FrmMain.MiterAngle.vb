@@ -213,7 +213,7 @@ Partial Public Class FrmMain
         Try
             If TpAngles IsNot Nothing AndAlso TpAngles.Visible Then
                 ErrorHandler.LogError(New Exception($"TpAngles_VisibleChanged: Visible=True, Initialized={_miterCalculatorInitialized}"), "MiterAngle Debug")
-                
+
                 If Not _miterCalculatorInitialized Then
                     InitializeMiterAngleCalculator()
                 End If
@@ -230,13 +230,38 @@ Partial Public Class FrmMain
         Try
             If TcCalculattions IsNot Nothing AndAlso TcCalculattions.SelectedTab Is TpAngles Then
                 ErrorHandler.LogError(New Exception($"TcCalculattions_SelectedIndexChanged: Angles tab selected, Initialized={_miterCalculatorInitialized}"), "MiterAngle Debug")
-                
+
                 If Not _miterCalculatorInitialized Then
                     InitializeMiterAngleCalculator()
                 End If
             End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "TcCalculattions_SelectedIndexChanged")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Force initialization on form load if Angles tab is selected
+    ''' </summary>
+    Private Sub ForceMiterAngleInitialization() Handles MyBase.Load
+        Try
+            ' Give form time to fully initialize
+            BeginInvoke(Sub()
+                            Try
+                                If TpAngles IsNot Nothing AndAlso TpAngles.Visible Then
+                                    ErrorHandler.LogError(New Exception("ForceMiterAngleInitialization: TpAngles is visible on load"), "MiterAngle Debug")
+                                    If Not _miterCalculatorInitialized Then
+                                        InitializeMiterAngleCalculator()
+                                    End If
+                                Else
+                                    ErrorHandler.LogError(New Exception($"ForceMiterAngleInitialization: TpAngles.Visible={TpAngles?.Visible}, waiting for tab selection"), "MiterAngle Debug")
+                                End If
+                            Catch ex As Exception
+                                ErrorHandler.LogError(ex, "ForceMiterAngleInitialization BeginInvoke")
+                            End Try
+                        End Sub)
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "ForceMiterAngleInitialization")
         End Try
     End Sub
 
