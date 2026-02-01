@@ -64,11 +64,15 @@ Partial Public Class FrmMain
             ClearMiterResults()
 
             _miterCalculatorInitialized = True
+
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeMiterAngleCalculator")
         Finally
             _suppressMiterCalculation = False
         End Try
+
+        ' Perform initial calculation with default values
+        CalculateMiterAngles()
     End Sub
 
     ''' <summary>
