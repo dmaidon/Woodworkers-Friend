@@ -30,7 +30,7 @@ Friend Module Globals
     End Function
 
     Friend Function GetCopyrightNotice() As String
-        Return $"© {DateTime.Now.Year} Woodworker's Friend. All rights reserved."
+        Return $"© {DateTime.Now.Year} Dennis Maidon. All rights reserved."
     End Function
 
     ' AppTheme enum is defined in ThemeManager.vb (Light, Dark, System)

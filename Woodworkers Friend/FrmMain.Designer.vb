@@ -4942,7 +4942,7 @@ Partial Class FrmMain
         TpFinishing.Controls.Add(GbxVeneerCalculator)
         TpFinishing.Location = New Point(4, 4)
         TpFinishing.Name = "TpFinishing"
-        TpFinishing.Size = New Size(1134, 811)
+        TpFinishing.Size = New Size(1128, 811)
         TpFinishing.TabIndex = 5
         TpFinishing.Text = "Finishing"
         ' 
@@ -4963,7 +4963,7 @@ Partial Class FrmMain
         GbxSharedArea.ForeColor = Color.WhiteSmoke
         GbxSharedArea.Location = New Point(0, 0)
         GbxSharedArea.Name = "GbxSharedArea"
-        GbxSharedArea.Size = New Size(1130, 112)
+        GbxSharedArea.Size = New Size(1124, 112)
         GbxSharedArea.TabIndex = 3
         GbxSharedArea.TabStop = False
         GbxSharedArea.Text = "Shared Area"
@@ -8551,7 +8551,7 @@ Partial Class FrmMain
         GbxAbout.ForeColor = SystemColors.ButtonHighlight
         GbxAbout.Location = New Point(6, 3)
         GbxAbout.Name = "GbxAbout"
-        GbxAbout.Size = New Size(655, 339)
+        GbxAbout.Size = New Size(655, 374)
         GbxAbout.TabIndex = 3
         GbxAbout.TabStop = False
         GbxAbout.Text = "Application Information"
@@ -8567,7 +8567,7 @@ Partial Class FrmMain
         TxtAppAbout.Name = "TxtAppAbout"
         TxtAppAbout.ReadOnly = True
         TxtAppAbout.ScrollBars = ScrollBars.Vertical
-        TxtAppAbout.Size = New Size(649, 314)
+        TxtAppAbout.Size = New Size(649, 349)
         TxtAppAbout.TabIndex = 0
         TxtAppAbout.WordWrap = False
         ' 
