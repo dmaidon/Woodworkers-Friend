@@ -8,9 +8,10 @@
 	<UseWindowsForms>true</UseWindowsForms>
 	<MyType>WindowsForms</MyType>
 	<OptionStrict>On</OptionStrict>
+	<AssemblyName>WwFriend</AssemblyName>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.2.1.642</AssemblyVersion>
-	<FileVersion>26.2.1.642</FileVersion>
+	<AssemblyVersion>26.2.1.643</AssemblyVersion>
+	<FileVersion>26.2.1.643</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>
@@ -26,6 +27,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/dmaidon/Woodworkers-Friend</RepositoryUrl>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <AssemblyTitle>WwFriend</AssemblyTitle>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

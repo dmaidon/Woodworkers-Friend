@@ -6,7 +6,7 @@
 #define MyAppPublisher "Dennis N. Maidon"
 #define MyAppURL "https://www.maidonww.com"
 #define MyAppSupportEmail "support@maidonww.com"
-#define MyAppExeName "Woodworkers Friend.exe"
+#define MyAppExeName "WwFriend.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
