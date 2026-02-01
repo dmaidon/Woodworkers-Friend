@@ -934,7 +934,7 @@ Partial Class FrmMain
         ' 
         ' Ss1
         ' 
-        Ss1.Font = New Font("Microsoft Sans Serif", 8.0F)
+        Ss1.Font = New Font("Microsoft Sans Serif", 8F)
         Ss1.GripMargin = New Padding(0)
         Ss1.ImageScalingSize = New Size(24, 24)
         Ss1.Items.AddRange(New ToolStripItem() {TsslVersion, TsslCpy, TsslError, TsslClock})
@@ -977,7 +977,7 @@ Partial Class FrmMain
         ' Ss2
         ' 
         Ss2.AutoSize = False
-        Ss2.Font = New Font("Microsoft Sans Serif", 8.0F)
+        Ss2.Font = New Font("Microsoft Sans Serif", 8F)
         Ss2.GripMargin = New Padding(0)
         Ss2.ImageScalingSize = New Size(24, 24)
         Ss2.Items.AddRange(New ToolStripItem() {TsslTimesRun})
@@ -1000,7 +1000,7 @@ Partial Class FrmMain
         ' Ss3
         ' 
         Ss3.AutoSize = False
-        Ss3.Font = New Font("Microsoft Sans Serif", 8.0F)
+        Ss3.Font = New Font("Microsoft Sans Serif", 8F)
         Ss3.GripMargin = New Padding(0)
         Ss3.ImageScalingSize = New Size(24, 24)
         Ss3.Items.AddRange(New ToolStripItem() {TsslToggleTheme, TsslMemoriam, TsslToggleDoorExploded, TsslScale})
@@ -1030,7 +1030,7 @@ Partial Class FrmMain
         TsslToggleDoorExploded.BorderSides = ToolStripStatusLabelBorderSides.Left Or ToolStripStatusLabelBorderSides.Top Or ToolStripStatusLabelBorderSides.Right Or ToolStripStatusLabelBorderSides.Bottom
         TsslToggleDoorExploded.BorderStyle = Border3DStyle.Raised
         TsslToggleDoorExploded.Enabled = False
-        TsslToggleDoorExploded.Font = New Font("Microsoft Sans Serif", 8.0F, FontStyle.Bold)
+        TsslToggleDoorExploded.Font = New Font("Microsoft Sans Serif", 8F, FontStyle.Bold)
         TsslToggleDoorExploded.IsLink = True
         TsslToggleDoorExploded.Name = "TsslToggleDoorExploded"
         TsslToggleDoorExploded.Size = New Size(190, 26)
@@ -1059,7 +1059,7 @@ Partial Class FrmMain
         Tc.Controls.Add(TpHelp)
         Tc.Controls.Add(TpAbout)
         Tc.Dock = DockStyle.Top
-        Tc.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Tc.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Tc.Location = New Point(0, 0)
         Tc.Name = "Tc"
         Tc.SelectedIndex = 0
@@ -1100,7 +1100,7 @@ Partial Class FrmMain
         SplitContainer1.Panel1.Controls.Add(Label32)
         SplitContainer1.Panel1.Controls.Add(GroupBox6)
         SplitContainer1.Panel1.Controls.Add(GroupBox5)
-        SplitContainer1.Panel1.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        SplitContainer1.Panel1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         ' 
         ' SplitContainer1.Panel2
         ' 
@@ -1189,7 +1189,7 @@ Partial Class FrmMain
         DgvDrawerHeights.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = SystemColors.Control
-        DataGridViewCellStyle2.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.Font = New Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
@@ -1402,7 +1402,7 @@ Partial Class FrmMain
         ' Label32
         ' 
         Label32.AutoSize = True
-        Label32.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label32.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label32.ForeColor = Color.Maroon
         Label32.Location = New Point(81, 11)
         Label32.Name = "Label32"
@@ -1609,7 +1609,7 @@ Partial Class FrmMain
         GroupBox11.Controls.Add(RbCustomRatio)
         GroupBox11.Controls.Add(RbExponential)
         GroupBox11.Controls.Add(RbLogarithmic)
-        GroupBox11.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox11.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox11.Location = New Point(12, 51)
         GroupBox11.Name = "GroupBox11"
         GroupBox11.Size = New Size(523, 315)
@@ -1748,7 +1748,7 @@ Partial Class FrmMain
         ' Label47
         ' 
         Label47.AutoSize = True
-        Label47.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label47.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label47.ForeColor = Color.Maroon
         Label47.Location = New Point(210, 500)
         Label47.Name = "Label47"
@@ -1759,7 +1759,7 @@ Partial Class FrmMain
         ' Label33
         ' 
         Label33.AutoSize = True
-        Label33.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label33.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label33.ForeColor = Color.Maroon
         Label33.Location = New Point(96, 13)
         Label33.Name = "Label33"
@@ -1780,7 +1780,7 @@ Partial Class FrmMain
         ' Label34
         ' 
         Label34.AutoSize = True
-        Label34.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label34.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label34.Location = New Point(237, 405)
         Label34.Name = "Label34"
         Label34.Size = New Size(114, 21)
@@ -1973,7 +1973,7 @@ Partial Class FrmMain
         ' Label48
         ' 
         Label48.AutoSize = True
-        Label48.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label48.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label48.ForeColor = Color.Maroon
         Label48.Location = New Point(126, 15)
         Label48.Name = "Label48"
@@ -2056,7 +2056,7 @@ Partial Class FrmMain
         ' LblPanelWidth
         ' 
         LblPanelWidth.AutoSize = True
-        LblPanelWidth.Font = New Font("Georgia", 8.0F)
+        LblPanelWidth.Font = New Font("Georgia", 8F)
         LblPanelWidth.Location = New Point(248, 63)
         LblPanelWidth.Name = "LblPanelWidth"
         LblPanelWidth.Size = New Size(51, 18)
@@ -2066,7 +2066,7 @@ Partial Class FrmMain
         ' LblPanelHeight
         ' 
         LblPanelHeight.AutoSize = True
-        LblPanelHeight.Font = New Font("Georgia", 8.0F)
+        LblPanelHeight.Font = New Font("Georgia", 8F)
         LblPanelHeight.Location = New Point(248, 38)
         LblPanelHeight.Name = "LblPanelHeight"
         LblPanelHeight.Size = New Size(55, 18)
@@ -2076,7 +2076,7 @@ Partial Class FrmMain
         ' Label46
         ' 
         Label46.AutoSize = True
-        Label46.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold)
+        Label46.Font = New Font("Segoe UI", 7F, FontStyle.Bold)
         Label46.Location = New Point(248, 12)
         Label46.Name = "Label46"
         Label46.Size = New Size(77, 19)
@@ -2086,7 +2086,7 @@ Partial Class FrmMain
         ' LblStileLength
         ' 
         LblStileLength.AutoSize = True
-        LblStileLength.Font = New Font("Georgia", 8.0F)
+        LblStileLength.Font = New Font("Georgia", 8F)
         LblStileLength.Location = New Point(13, 52)
         LblStileLength.Name = "LblStileLength"
         LblStileLength.Size = New Size(46, 18)
@@ -2098,7 +2098,7 @@ Partial Class FrmMain
         ' LblRailLength
         ' 
         LblRailLength.AutoSize = True
-        LblRailLength.Font = New Font("Georgia", 8.0F)
+        LblRailLength.Font = New Font("Georgia", 8F)
         LblRailLength.Location = New Point(13, 23)
         LblRailLength.Name = "LblRailLength"
         LblRailLength.Size = New Size(42, 18)
@@ -2110,7 +2110,7 @@ Partial Class FrmMain
         ' BtnCalculateDoors
         ' 
         BtnCalculateDoors.BackColor = Color.MistyRose
-        BtnCalculateDoors.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold)
+        BtnCalculateDoors.Font = New Font("Segoe UI", 7F, FontStyle.Bold)
         BtnCalculateDoors.Location = New Point(358, 486)
         BtnCalculateDoors.Name = "BtnCalculateDoors"
         BtnCalculateDoors.Size = New Size(154, 29)
@@ -2190,7 +2190,7 @@ Partial Class FrmMain
         ' 
         ' Label42
         ' 
-        Label42.Font = New Font("Segoe UI", 7.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label42.Font = New Font("Segoe UI", 7F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label42.ImageAlign = ContentAlignment.MiddleRight
         Label42.Location = New Point(8, 216)
         Label42.Name = "Label42"
@@ -2405,7 +2405,7 @@ Partial Class FrmMain
         ' Label50
         ' 
         Label50.AutoSize = True
-        Label50.Font = New Font("Georgia", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label50.Font = New Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label50.ForeColor = Color.Maroon
         Label50.Location = New Point(248, 164)
         Label50.Name = "Label50"
@@ -2416,7 +2416,7 @@ Partial Class FrmMain
         ' Label49
         ' 
         Label49.AutoSize = True
-        Label49.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        Label49.Font = New Font("Georgia", 16F, FontStyle.Bold)
         Label49.ForeColor = Color.Maroon
         Label49.Location = New Point(144, 15)
         Label49.Name = "Label49"
@@ -2545,7 +2545,7 @@ Partial Class FrmMain
         ' 
         ' Label12
         ' 
-        Label12.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        Label12.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label12.Location = New Point(851, 321)
         Label12.Name = "Label12"
         Label12.Size = New Size(175, 27)
@@ -2576,7 +2576,7 @@ Partial Class FrmMain
         ' 
         ' Label9
         ' 
-        Label9.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label9.Location = New Point(611, 321)
         Label9.Name = "Label9"
         Label9.Size = New Size(175, 27)
@@ -2607,7 +2607,7 @@ Partial Class FrmMain
         ' 
         ' Label6
         ' 
-        Label6.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label6.Location = New Point(371, 321)
         Label6.Name = "Label6"
         Label6.Size = New Size(175, 27)
@@ -2646,7 +2646,7 @@ Partial Class FrmMain
         ' lblCalculateBoardfeet
         ' 
         lblCalculateBoardfeet.AutoSize = True
-        lblCalculateBoardfeet.Font = New Font("Georgia", 16.0F, FontStyle.Bold)
+        lblCalculateBoardfeet.Font = New Font("Georgia", 16F, FontStyle.Bold)
         lblCalculateBoardfeet.Location = New Point(425, 24)
         lblCalculateBoardfeet.Name = "lblCalculateBoardfeet"
         lblCalculateBoardfeet.Size = New Size(341, 38)
@@ -2879,7 +2879,7 @@ Partial Class FrmMain
         ' LblTcWastePct
         ' 
         LblTcWastePct.AutoSize = True
-        LblTcWastePct.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblTcWastePct.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblTcWastePct.ForeColor = Color.Maroon
         LblTcWastePct.Location = New Point(84, 305)
         LblTcWastePct.Name = "LblTcWastePct"
@@ -2978,7 +2978,7 @@ Partial Class FrmMain
         PnlEpoxyPours.Controls.Add(Label4)
         PnlEpoxyPours.Controls.Add(Label3)
         PnlEpoxyPours.Controls.Add(Label2)
-        PnlEpoxyPours.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        PnlEpoxyPours.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         PnlEpoxyPours.Location = New Point(8, 9)
         PnlEpoxyPours.Name = "PnlEpoxyPours"
         PnlEpoxyPours.Size = New Size(250, 532)
@@ -3021,7 +3021,7 @@ Partial Class FrmMain
         ' 
         ' CmbEpoxyCost
         ' 
-        CmbEpoxyCost.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        CmbEpoxyCost.Font = New Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         CmbEpoxyCost.FormattingEnabled = True
         CmbEpoxyCost.Location = New Point(10, 195)
         CmbEpoxyCost.Name = "CmbEpoxyCost"
@@ -3096,7 +3096,7 @@ Partial Class FrmMain
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label7.ForeColor = Color.Maroon
         Label7.Location = New Point(41, 458)
         Label7.Name = "Label7"
@@ -3205,7 +3205,7 @@ Partial Class FrmMain
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Georgia", 14.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Georgia", 14F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.Maroon
         Label2.Location = New Point(26, 11)
         Label2.Name = "Label2"
@@ -3246,7 +3246,7 @@ Partial Class FrmMain
         GroupBox4.Controls.Add(LblFraction2Decimal)
         GroupBox4.Controls.Add(TxtFraction2Decimal)
         GroupBox4.Controls.Add(Label16)
-        GroupBox4.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox4.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox4.Location = New Point(20, 346)
         GroupBox4.Name = "GroupBox4"
         GroupBox4.Size = New Size(257, 99)
@@ -3287,7 +3287,7 @@ Partial Class FrmMain
         GroupBox3.Controls.Add(LblDecimal2Fraction)
         GroupBox3.Controls.Add(TxtDecimal2Fraction)
         GroupBox3.Controls.Add(Label19)
-        GroupBox3.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox3.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox3.Location = New Point(20, 242)
         GroupBox3.Name = "GroupBox3"
         GroupBox3.Size = New Size(257, 99)
@@ -3327,7 +3327,7 @@ Partial Class FrmMain
         GroupBox2.Controls.Add(LblMM2Inches)
         GroupBox2.Controls.Add(TxtMm2Inches)
         GroupBox2.Controls.Add(Label17)
-        GroupBox2.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox2.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox2.Location = New Point(20, 138)
         GroupBox2.Name = "GroupBox2"
         GroupBox2.Size = New Size(257, 99)
@@ -3367,7 +3367,7 @@ Partial Class FrmMain
         GroupBox1.Controls.Add(LblInches2MM)
         GroupBox1.Controls.Add(TxtInches2Mm)
         GroupBox1.Controls.Add(Label14)
-        GroupBox1.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox1.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox1.Location = New Point(20, 35)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(257, 99)
@@ -3404,7 +3404,7 @@ Partial Class FrmMain
         ' Label13
         ' 
         Label13.AutoSize = True
-        Label13.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label13.Font = New Font("Georgia", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label13.ForeColor = Color.Maroon
         Label13.Location = New Point(87, 9)
         Label13.Name = "Label13"
@@ -3456,7 +3456,7 @@ Partial Class FrmMain
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold)
+        Label10.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
         Label10.ForeColor = Color.Maroon
         Label10.Location = New Point(286, 18)
         Label10.Name = "Label10"
@@ -3467,7 +3467,7 @@ Partial Class FrmMain
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold)
+        Label8.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
         Label8.ForeColor = Color.Maroon
         Label8.Location = New Point(43, 18)
         Label8.Name = "Label8"
@@ -3508,7 +3508,7 @@ Partial Class FrmMain
         ' LblDadoCalctitle
         ' 
         LblDadoCalctitle.AutoSize = True
-        LblDadoCalctitle.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblDadoCalctitle.Font = New Font("Georgia", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblDadoCalctitle.ForeColor = Color.SandyBrown
         LblDadoCalctitle.Location = New Point(126, 3)
         LblDadoCalctitle.Name = "LblDadoCalctitle"
@@ -3539,7 +3539,7 @@ Partial Class FrmMain
         ' TlpBladeCombo
         ' 
         TlpBladeCombo.ColumnCount = 1
-        TlpBladeCombo.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
+        TlpBladeCombo.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
         TlpBladeCombo.Controls.Add(LblResultsummary, 0, 0)
         TlpBladeCombo.Controls.Add(LstBladeStack, 0, 1)
         TlpBladeCombo.Controls.Add(TxtAlternatives, 0, 2)
@@ -3568,7 +3568,7 @@ Partial Class FrmMain
         ' LstBladeStack
         ' 
         LstBladeStack.Dock = DockStyle.Fill
-        LstBladeStack.Font = New Font("Arial Narrow", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LstBladeStack.Font = New Font("Arial Narrow", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LstBladeStack.FormattingEnabled = True
         LstBladeStack.Location = New Point(3, 39)
         LstBladeStack.Name = "LstBladeStack"
@@ -3652,8 +3652,8 @@ Partial Class FrmMain
         ' 
         TlpDadoCalc.BackColor = Color.Silver
         TlpDadoCalc.ColumnCount = 2
-        TlpDadoCalc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
-        TlpDadoCalc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpDadoCalc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        TlpDadoCalc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         TlpDadoCalc.Controls.Add(Label11, 0, 0)
         TlpDadoCalc.Controls.Add(Label63, 0, 1)
         TlpDadoCalc.Controls.Add(Label87, 0, 2)
@@ -3748,7 +3748,7 @@ Partial Class FrmMain
         PnlTableTip.Controls.Add(Label20)
         PnlTableTip.Controls.Add(Label18)
         PnlTableTip.Controls.Add(Label15)
-        PnlTableTip.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        PnlTableTip.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         PnlTableTip.Location = New Point(12, 5)
         PnlTableTip.Name = "PnlTableTip"
         PnlTableTip.Size = New Size(356, 355)
@@ -3756,7 +3756,7 @@ Partial Class FrmMain
         ' 
         ' LblTippingForce
         ' 
-        LblTippingForce.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblTippingForce.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblTippingForce.ForeColor = Color.DodgerBlue
         LblTippingForce.Location = New Point(15, 272)
         LblTippingForce.Name = "LblTippingForce"
@@ -3797,7 +3797,7 @@ Partial Class FrmMain
         ' Label25
         ' 
         Label25.AutoSize = True
-        Label25.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        Label25.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label25.ForeColor = Color.OrangeRed
         Label25.Location = New Point(86, 162)
         Label25.Name = "Label25"
@@ -3808,7 +3808,7 @@ Partial Class FrmMain
         ' Label24
         ' 
         Label24.AutoSize = True
-        Label24.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
+        Label24.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label24.ForeColor = Color.OrangeRed
         Label24.Location = New Point(97, 62)
         Label24.Name = "Label24"
@@ -3868,7 +3868,7 @@ Partial Class FrmMain
         ' Label15
         ' 
         Label15.AutoSize = True
-        Label15.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.Font = New Font("Georgia", 16F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label15.ForeColor = Color.Maroon
         Label15.Location = New Point(41, 20)
         Label15.Name = "Label15"
@@ -3969,7 +3969,7 @@ Partial Class FrmMain
         ' Label57
         ' 
         Label57.AutoSize = True
-        Label57.Font = New Font("Georgia", 8.0F, FontStyle.Bold)
+        Label57.Font = New Font("Georgia", 8F, FontStyle.Bold)
         Label57.Location = New Point(11, 369)
         Label57.Name = "Label57"
         Label57.Size = New Size(73, 18)
@@ -3989,7 +3989,7 @@ Partial Class FrmMain
         ' Label56
         ' 
         Label56.AutoSize = True
-        Label56.Font = New Font("Georgia", 8.0F, FontStyle.Bold)
+        Label56.Font = New Font("Georgia", 8F, FontStyle.Bold)
         Label56.Location = New Point(11, 231)
         Label56.Name = "Label56"
         Label56.Size = New Size(93, 18)
@@ -4188,7 +4188,7 @@ Partial Class FrmMain
         ' Label62
         ' 
         Label62.AutoSize = True
-        Label62.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label62.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label62.Location = New Point(9, 304)
         Label62.Name = "Label62"
         Label62.Size = New Size(93, 18)
@@ -4367,7 +4367,7 @@ Partial Class FrmMain
         PnlPolygonCalc.Controls.Add(LblPolygonSides)
         PnlPolygonCalc.Controls.Add(PbPolygon)
         PnlPolygonCalc.Dock = DockStyle.Fill
-        PnlPolygonCalc.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        PnlPolygonCalc.Font = New Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         PnlPolygonCalc.Location = New Point(3, 22)
         PnlPolygonCalc.Name = "PnlPolygonCalc"
         PnlPolygonCalc.Size = New Size(487, 778)
@@ -4384,8 +4384,8 @@ Partial Class FrmMain
         ' 
         TlpPolygonResults.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
         TlpPolygonResults.ColumnCount = 2
-        TlpPolygonResults.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
-        TlpPolygonResults.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpPolygonResults.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        TlpPolygonResults.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         TlpPolygonResults.Controls.Add(Label90, 0, 0)
         TlpPolygonResults.Controls.Add(LblPolygonInteriorAngle, 0, 1)
         TlpPolygonResults.Controls.Add(LblPolygonSideAngle, 0, 2)
@@ -4408,7 +4408,7 @@ Partial Class FrmMain
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
-        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Absolute, 20.0F))
+        TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
         TlpPolygonResults.Size = New Size(483, 223)
         TlpPolygonResults.TabIndex = 23
         ' 
@@ -4731,29 +4731,30 @@ Partial Class FrmMain
         LblComplementaryAngle.AutoSize = True
         LblComplementaryAngle.Location = New Point(18, 105)
         LblComplementaryAngle.Name = "LblComplementaryAngle"
-        LblComplementaryAngle.Size = New Size(235, 18)
+        LblComplementaryAngle.Size = New Size(277, 18)
         LblComplementaryAngle.TabIndex = 2
-        LblComplementaryAngle.Text = "Complementary Angle: {0}°"
+        LblComplementaryAngle.Tag = "Complementary: {0}° | Interior: {1}°"
+        LblComplementaryAngle.Text = "Complementary: -- | Interior: --°"
         ' 
         ' LblMiterBevelAngle
         ' 
         LblMiterBevelAngle.AutoSize = True
         LblMiterBevelAngle.Location = New Point(18, 69)
         LblMiterBevelAngle.Name = "LblMiterBevelAngle"
-        LblMiterBevelAngle.Size = New Size(250, 18)
+        LblMiterBevelAngle.Size = New Size(131, 18)
         LblMiterBevelAngle.TabIndex = 1
-        LblMiterBevelAngle.Tag = "Bevel Angle (Tilted Frames): {0}°"
-        LblMiterBevelAngle.Text = "Bevel Angle (Tilted Frames): "
+        LblMiterBevelAngle.Tag = "Bevel Angle: {0}°"
+        LblMiterBevelAngle.Text = "Bevel Angle: -- "
         ' 
         ' LblMiterSawAngle
         ' 
         LblMiterSawAngle.AutoSize = True
         LblMiterSawAngle.Location = New Point(18, 33)
         LblMiterSawAngle.Name = "LblMiterSawAngle"
-        LblMiterSawAngle.Size = New Size(151, 18)
+        LblMiterSawAngle.Size = New Size(181, 18)
         LblMiterSawAngle.TabIndex = 0
-        LblMiterSawAngle.Tag = "Saw Miter Angle: {0}°"
-        LblMiterSawAngle.Text = "Saw Miter Angle: "
+        LblMiterSawAngle.Tag = "Miter (Saw) Angle: {0}°"
+        LblMiterSawAngle.Text = "Miter (Saw) Angle: --"
         ' 
         ' GbxMiterInput
         ' 
@@ -4941,7 +4942,7 @@ Partial Class FrmMain
         GbxMortiseTenonInput.Controls.Add(RbTenonStandard)
         GbxMortiseTenonInput.Controls.Add(RbTenonHaunched)
         GbxMortiseTenonInput.Controls.Add(RbTenonThrough)
-        GbxMortiseTenonInput.Font = New Font("Georgia", 10.0F, FontStyle.Bold)
+        GbxMortiseTenonInput.Font = New Font("Georgia", 10F, FontStyle.Bold)
         GbxMortiseTenonInput.Location = New Point(45, 19)
         GbxMortiseTenonInput.Name = "GbxMortiseTenonInput"
         GbxMortiseTenonInput.Size = New Size(316, 236)
@@ -4973,7 +4974,7 @@ Partial Class FrmMain
         ' 
         RbTenonStandard.AutoSize = True
         RbTenonStandard.Checked = True
-        RbTenonStandard.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        RbTenonStandard.Font = New Font("Georgia", 9F, FontStyle.Bold)
         RbTenonStandard.Location = New Point(30, 130)
         RbTenonStandard.Name = "RbTenonStandard"
         RbTenonStandard.Size = New Size(122, 25)
@@ -4985,7 +4986,7 @@ Partial Class FrmMain
         ' RbTenonHaunched
         ' 
         RbTenonHaunched.AutoSize = True
-        RbTenonHaunched.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        RbTenonHaunched.Font = New Font("Georgia", 9F, FontStyle.Bold)
         RbTenonHaunched.Location = New Point(30, 160)
         RbTenonHaunched.Name = "RbTenonHaunched"
         RbTenonHaunched.Size = New Size(133, 25)
@@ -4996,7 +4997,7 @@ Partial Class FrmMain
         ' RbTenonThrough
         ' 
         RbTenonThrough.AutoSize = True
-        RbTenonThrough.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        RbTenonThrough.Font = New Font("Georgia", 9F, FontStyle.Bold)
         RbTenonThrough.Location = New Point(30, 190)
         RbTenonThrough.Name = "RbTenonThrough"
         RbTenonThrough.Size = New Size(116, 25)
@@ -5011,7 +5012,7 @@ Partial Class FrmMain
         GbxDado.Controls.Add(LblDadoStockThickness)
         GbxDado.Controls.Add(TxtDadoShelfThickness)
         GbxDado.Controls.Add(LblDadoShelfThickness)
-        GbxDado.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        GbxDado.Font = New Font("Georgia", 9F, FontStyle.Bold)
         GbxDado.Location = New Point(45, 626)
         GbxDado.Name = "GbxDado"
         GbxDado.Size = New Size(316, 106)
@@ -5061,7 +5062,7 @@ Partial Class FrmMain
         GbxDovetails.Controls.Add(LblDovetailSpacing)
         GbxDovetails.Controls.Add(TxtDovetailThickness)
         GbxDovetails.Controls.Add(LblDovetailWidth)
-        GbxDovetails.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        GbxDovetails.Font = New Font("Georgia", 9F, FontStyle.Bold)
         GbxDovetails.Location = New Point(45, 273)
         GbxDovetails.Name = "GbxDovetails"
         GbxDovetails.Size = New Size(316, 217)
@@ -5133,7 +5134,7 @@ Partial Class FrmMain
         GbxBoxJoint.Controls.Add(LblBoxJointThickness)
         GbxBoxJoint.Controls.Add(TxtBoxJointWidth)
         GbxBoxJoint.Controls.Add(LblBoxJointWidth)
-        GbxBoxJoint.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        GbxBoxJoint.Font = New Font("Georgia", 9F, FontStyle.Bold)
         GbxBoxJoint.Location = New Point(45, 508)
         GbxBoxJoint.Name = "GbxBoxJoint"
         GbxBoxJoint.Size = New Size(316, 100)
@@ -5176,7 +5177,7 @@ Partial Class FrmMain
         ' BtnCalculateJoinery
         ' 
         BtnCalculateJoinery.BackColor = Color.MistyRose
-        BtnCalculateJoinery.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        BtnCalculateJoinery.Font = New Font("Georgia", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         BtnCalculateJoinery.Location = New Point(68, 754)
         BtnCalculateJoinery.Name = "BtnCalculateJoinery"
         BtnCalculateJoinery.Size = New Size(265, 40)
@@ -5193,7 +5194,7 @@ Partial Class FrmMain
         GbxMortiseTenonResults.Controls.Add(LblTenonWidth)
         GbxMortiseTenonResults.Controls.Add(LblTenonThickness)
         GbxMortiseTenonResults.Controls.Add(LblTenonLength)
-        GbxMortiseTenonResults.Font = New Font("Georgia", 10.0F, FontStyle.Bold)
+        GbxMortiseTenonResults.Font = New Font("Georgia", 10F, FontStyle.Bold)
         GbxMortiseTenonResults.Location = New Point(34, 11)
         GbxMortiseTenonResults.Name = "GbxMortiseTenonResults"
         GbxMortiseTenonResults.Size = New Size(420, 256)
@@ -5204,7 +5205,7 @@ Partial Class FrmMain
         ' LblShoulderOffset
         ' 
         LblShoulderOffset.AutoSize = True
-        LblShoulderOffset.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblShoulderOffset.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblShoulderOffset.ForeColor = Color.DarkBlue
         LblShoulderOffset.Location = New Point(15, 215)
         LblShoulderOffset.Name = "LblShoulderOffset"
@@ -5215,7 +5216,7 @@ Partial Class FrmMain
         ' LblMortiseWidth
         ' 
         LblMortiseWidth.AutoSize = True
-        LblMortiseWidth.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblMortiseWidth.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblMortiseWidth.ForeColor = Color.DarkBlue
         LblMortiseWidth.Location = New Point(15, 178)
         LblMortiseWidth.Name = "LblMortiseWidth"
@@ -5226,7 +5227,7 @@ Partial Class FrmMain
         ' LblMortiseDepth
         ' 
         LblMortiseDepth.AutoSize = True
-        LblMortiseDepth.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblMortiseDepth.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblMortiseDepth.ForeColor = Color.DarkBlue
         LblMortiseDepth.Location = New Point(15, 141)
         LblMortiseDepth.Name = "LblMortiseDepth"
@@ -5237,7 +5238,7 @@ Partial Class FrmMain
         ' LblTenonWidth
         ' 
         LblTenonWidth.AutoSize = True
-        LblTenonWidth.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblTenonWidth.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblTenonWidth.ForeColor = Color.DarkBlue
         LblTenonWidth.Location = New Point(15, 104)
         LblTenonWidth.Name = "LblTenonWidth"
@@ -5248,7 +5249,7 @@ Partial Class FrmMain
         ' LblTenonThickness
         ' 
         LblTenonThickness.AutoSize = True
-        LblTenonThickness.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblTenonThickness.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblTenonThickness.ForeColor = Color.DarkBlue
         LblTenonThickness.Location = New Point(15, 30)
         LblTenonThickness.Name = "LblTenonThickness"
@@ -5259,7 +5260,7 @@ Partial Class FrmMain
         ' LblTenonLength
         ' 
         LblTenonLength.AutoSize = True
-        LblTenonLength.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblTenonLength.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblTenonLength.ForeColor = Color.DarkBlue
         LblTenonLength.Location = New Point(15, 67)
         LblTenonLength.Name = "LblTenonLength"
@@ -5283,7 +5284,7 @@ Partial Class FrmMain
         GbxDovetailResults.Controls.Add(LblDovetailAngle)
         GbxDovetailResults.Controls.Add(LblDovetailPinWidth)
         GbxDovetailResults.Controls.Add(LblDovetailTailWidth)
-        GbxDovetailResults.Font = New Font("Georgia", 10.0F, FontStyle.Bold)
+        GbxDovetailResults.Font = New Font("Georgia", 10F, FontStyle.Bold)
         GbxDovetailResults.Location = New Point(34, 276)
         GbxDovetailResults.Name = "GbxDovetailResults"
         GbxDovetailResults.Size = New Size(420, 198)
@@ -5294,7 +5295,7 @@ Partial Class FrmMain
         ' LblDovetailCount
         ' 
         LblDovetailCount.AutoSize = True
-        LblDovetailCount.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblDovetailCount.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblDovetailCount.Location = New Point(18, 77)
         LblDovetailCount.Name = "LblDovetailCount"
         LblDovetailCount.Size = New Size(133, 21)
@@ -5304,7 +5305,7 @@ Partial Class FrmMain
         ' LblDovetailAngle
         ' 
         LblDovetailAngle.AutoSize = True
-        LblDovetailAngle.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblDovetailAngle.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblDovetailAngle.Location = New Point(18, 38)
         LblDovetailAngle.Name = "LblDovetailAngle"
         LblDovetailAngle.Size = New Size(89, 21)
@@ -5314,7 +5315,7 @@ Partial Class FrmMain
         ' LblDovetailPinWidth
         ' 
         LblDovetailPinWidth.AutoSize = True
-        LblDovetailPinWidth.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblDovetailPinWidth.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblDovetailPinWidth.Location = New Point(18, 153)
         LblDovetailPinWidth.Name = "LblDovetailPinWidth"
         LblDovetailPinWidth.Size = New Size(131, 21)
@@ -5324,7 +5325,7 @@ Partial Class FrmMain
         ' LblDovetailTailWidth
         ' 
         LblDovetailTailWidth.AutoSize = True
-        LblDovetailTailWidth.Font = New Font("Georgia", 9.0F, FontStyle.Bold)
+        LblDovetailTailWidth.Font = New Font("Georgia", 9F, FontStyle.Bold)
         LblDovetailTailWidth.Location = New Point(18, 116)
         LblDovetailTailWidth.Name = "LblDovetailTailWidth"
         LblDovetailTailWidth.Size = New Size(134, 21)
@@ -5446,7 +5447,7 @@ Partial Class FrmMain
         ' LblMovementResult
         ' 
         LblMovementResult.AutoSize = True
-        LblMovementResult.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        LblMovementResult.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         LblMovementResult.Location = New Point(15, 30)
         LblMovementResult.Name = "LblMovementResult"
         LblMovementResult.Size = New Size(141, 28)
@@ -6304,7 +6305,7 @@ Partial Class FrmMain
         ' LblBoardsNeeded
         ' 
         LblBoardsNeeded.AutoSize = True
-        LblBoardsNeeded.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        LblBoardsNeeded.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         LblBoardsNeeded.Location = New Point(15, 30)
         LblBoardsNeeded.Name = "LblBoardsNeeded"
         LblBoardsNeeded.Size = New Size(183, 28)
@@ -6505,7 +6506,7 @@ Partial Class FrmMain
         ' LblWoodDetailsHeader
         ' 
         LblWoodDetailsHeader.AutoSize = True
-        LblWoodDetailsHeader.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblWoodDetailsHeader.Font = New Font("Georgia", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblWoodDetailsHeader.Location = New Point(16, 10)
         LblWoodDetailsHeader.Name = "LblWoodDetailsHeader"
         LblWoodDetailsHeader.Size = New Size(130, 24)
@@ -6591,7 +6592,7 @@ Partial Class FrmMain
         ' LblWoodPropertiesReference
         ' 
         LblWoodPropertiesReference.AutoSize = True
-        LblWoodPropertiesReference.Font = New Font("Georgia", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblWoodPropertiesReference.Font = New Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblWoodPropertiesReference.Location = New Point(17, 9)
         LblWoodPropertiesReference.Name = "LblWoodPropertiesReference"
         LblWoodPropertiesReference.Size = New Size(354, 29)
@@ -6643,7 +6644,7 @@ Partial Class FrmMain
         ' Label67
         ' 
         Label67.AutoSize = True
-        Label67.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label67.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label67.Location = New Point(20, 404)
         Label67.Name = "Label67"
         Label67.Size = New Size(181, 18)
@@ -6663,7 +6664,7 @@ Partial Class FrmMain
         ' Label66
         ' 
         Label66.AutoSize = True
-        Label66.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label66.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label66.Location = New Point(20, 322)
         Label66.Name = "Label66"
         Label66.Size = New Size(239, 18)
@@ -6673,7 +6674,7 @@ Partial Class FrmMain
         ' Label65
         ' 
         Label65.AutoSize = True
-        Label65.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label65.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label65.Location = New Point(20, 242)
         Label65.Name = "Label65"
         Label65.Size = New Size(249, 18)
@@ -6683,7 +6684,7 @@ Partial Class FrmMain
         ' Label64
         ' 
         Label64.AutoSize = True
-        Label64.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label64.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label64.Location = New Point(20, 162)
         Label64.Name = "Label64"
         Label64.Size = New Size(172, 18)
@@ -6803,7 +6804,7 @@ Partial Class FrmMain
         ' LblSummary
         ' 
         LblSummary.AutoSize = True
-        LblSummary.Font = New Font("Georgia", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblSummary.Font = New Font("Georgia", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblSummary.Location = New Point(18, 7)
         LblSummary.Name = "LblSummary"
         LblSummary.Size = New Size(157, 24)
@@ -7105,7 +7106,7 @@ Partial Class FrmMain
         ' LblHardwareWeight
         ' 
         LblHardwareWeight.BackColor = Color.Silver
-        LblHardwareWeight.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareWeight.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblHardwareWeight.Location = New Point(17, 257)
         LblHardwareWeight.Name = "LblHardwareWeight"
         LblHardwareWeight.Size = New Size(570, 47)
@@ -7115,7 +7116,7 @@ Partial Class FrmMain
         ' LblHardwareDimensions
         ' 
         LblHardwareDimensions.BackColor = Color.Silver
-        LblHardwareDimensions.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareDimensions.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblHardwareDimensions.Location = New Point(17, 194)
         LblHardwareDimensions.Name = "LblHardwareDimensions"
         LblHardwareDimensions.Size = New Size(570, 47)
@@ -7125,7 +7126,7 @@ Partial Class FrmMain
         ' LblhardwareBrand
         ' 
         LblhardwareBrand.BackColor = Color.Silver
-        LblhardwareBrand.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblhardwareBrand.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblhardwareBrand.Location = New Point(17, 131)
         LblhardwareBrand.Name = "LblhardwareBrand"
         LblhardwareBrand.Size = New Size(570, 47)
@@ -7135,7 +7136,7 @@ Partial Class FrmMain
         ' LblHardwareCategory
         ' 
         LblHardwareCategory.BackColor = Color.Silver
-        LblHardwareCategory.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareCategory.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblHardwareCategory.Location = New Point(17, 68)
         LblHardwareCategory.Name = "LblHardwareCategory"
         LblHardwareCategory.Size = New Size(570, 47)
@@ -7145,7 +7146,7 @@ Partial Class FrmMain
         ' LblHardwareType
         ' 
         LblHardwareType.BackColor = Color.Silver
-        LblHardwareType.Font = New Font("Georgia", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblHardwareType.Font = New Font("Georgia", 8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblHardwareType.Location = New Point(17, 5)
         LblHardwareType.Name = "LblHardwareType"
         LblHardwareType.Size = New Size(570, 47)
@@ -7217,8 +7218,8 @@ Partial Class FrmMain
         ' 
         TlpSafety.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset
         TlpSafety.ColumnCount = 2
-        TlpSafety.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
-        TlpSafety.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TlpSafety.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        TlpSafety.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         TlpSafety.Controls.Add(GbRouterSpeed, 0, 0)
         TlpSafety.Controls.Add(GbBladeHeight, 1, 0)
         TlpSafety.Controls.Add(GbPushStick, 0, 1)
@@ -7228,8 +7229,8 @@ Partial Class FrmMain
         TlpSafety.Name = "TlpSafety"
         TlpSafety.Padding = New Padding(10)
         TlpSafety.RowCount = 2
-        TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
-        TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
+        TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
+        TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
         TlpSafety.Size = New Size(1124, 807)
         TlpSafety.TabIndex = 0
         ' 
@@ -7245,7 +7246,7 @@ Partial Class FrmMain
         GbRouterSpeed.Controls.Add(Label75)
         GbRouterSpeed.Controls.Add(Label76)
         GbRouterSpeed.Dock = DockStyle.Fill
-        GbRouterSpeed.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbRouterSpeed.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         GbRouterSpeed.Location = New Point(15, 15)
         GbRouterSpeed.Name = "GbRouterSpeed"
         GbRouterSpeed.Padding = New Padding(10)
@@ -7256,7 +7257,7 @@ Partial Class FrmMain
         ' 
         ' LblRouterSpeedWarning
         ' 
-        LblRouterSpeedWarning.Font = New Font("Segoe UI", 9.0F)
+        LblRouterSpeedWarning.Font = New Font("Segoe UI", 9F)
         LblRouterSpeedWarning.ForeColor = Color.DarkOrange
         LblRouterSpeedWarning.Location = New Point(15, 235)
         LblRouterSpeedWarning.Name = "LblRouterSpeedWarning"
@@ -7266,7 +7267,7 @@ Partial Class FrmMain
         ' LblRouterRimSpeed
         ' 
         LblRouterRimSpeed.AutoSize = True
-        LblRouterRimSpeed.Font = New Font("Segoe UI", 9.0F)
+        LblRouterRimSpeed.Font = New Font("Segoe UI", 9F)
         LblRouterRimSpeed.Location = New Point(15, 205)
         LblRouterRimSpeed.Name = "LblRouterRimSpeed"
         LblRouterRimSpeed.Size = New Size(102, 25)
@@ -7276,7 +7277,7 @@ Partial Class FrmMain
         ' LblRouterRPMResult
         ' 
         LblRouterRPMResult.AutoSize = True
-        LblRouterRPMResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblRouterRPMResult.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
         LblRouterRPMResult.ForeColor = Color.Green
         LblRouterRPMResult.Location = New Point(15, 175)
         LblRouterRPMResult.Name = "LblRouterRPMResult"
@@ -7287,7 +7288,7 @@ Partial Class FrmMain
         ' BtnCalculateRouterSpeed
         ' 
         BtnCalculateRouterSpeed.BackColor = Color.MistyRose
-        BtnCalculateRouterSpeed.Font = New Font("Segoe UI", 9.0F)
+        BtnCalculateRouterSpeed.Font = New Font("Segoe UI", 9F)
         BtnCalculateRouterSpeed.Location = New Point(15, 130)
         BtnCalculateRouterSpeed.Name = "BtnCalculateRouterSpeed"
         BtnCalculateRouterSpeed.Size = New Size(120, 35)
@@ -7297,7 +7298,7 @@ Partial Class FrmMain
         ' 
         ' TxtDesiredSurfaceSpeed
         ' 
-        TxtDesiredSurfaceSpeed.Font = New Font("Segoe UI", 9.0F)
+        TxtDesiredSurfaceSpeed.Font = New Font("Segoe UI", 9F)
         TxtDesiredSurfaceSpeed.Location = New Point(262, 92)
         TxtDesiredSurfaceSpeed.Name = "TxtDesiredSurfaceSpeed"
         TxtDesiredSurfaceSpeed.Size = New Size(100, 31)
@@ -7306,7 +7307,7 @@ Partial Class FrmMain
         ' 
         ' TxtRouterBitDiameter
         ' 
-        TxtRouterBitDiameter.Font = New Font("Segoe UI", 9.0F)
+        TxtRouterBitDiameter.Font = New Font("Segoe UI", 9F)
         TxtRouterBitDiameter.Location = New Point(262, 57)
         TxtRouterBitDiameter.Name = "TxtRouterBitDiameter"
         TxtRouterBitDiameter.Size = New Size(100, 31)
@@ -7316,7 +7317,7 @@ Partial Class FrmMain
         ' Label74
         ' 
         Label74.AutoSize = True
-        Label74.Font = New Font("Segoe UI", 9.0F)
+        Label74.Font = New Font("Segoe UI", 9F)
         Label74.Location = New Point(63, 60)
         Label74.Name = "Label74"
         Label74.Size = New Size(199, 25)
@@ -7326,7 +7327,7 @@ Partial Class FrmMain
         ' Label75
         ' 
         Label75.AutoSize = True
-        Label75.Font = New Font("Segoe UI", 9.0F)
+        Label75.Font = New Font("Segoe UI", 9F)
         Label75.Location = New Point(4, 95)
         Label75.Name = "Label75"
         Label75.Size = New Size(258, 25)
@@ -7336,7 +7337,7 @@ Partial Class FrmMain
         ' Label76
         ' 
         Label76.AutoSize = True
-        Label76.Font = New Font("Segoe UI", 9.0F)
+        Label76.Font = New Font("Segoe UI", 9F)
         Label76.Location = New Point(3, 25)
         Label76.Name = "Label76"
         Label76.Size = New Size(490, 25)
@@ -7354,7 +7355,7 @@ Partial Class FrmMain
         GbBladeHeight.Controls.Add(Label78)
         GbBladeHeight.Controls.Add(Label79)
         GbBladeHeight.Dock = DockStyle.Fill
-        GbBladeHeight.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbBladeHeight.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         GbBladeHeight.Location = New Point(566, 15)
         GbBladeHeight.Name = "GbBladeHeight"
         GbBladeHeight.Padding = New Padding(10)
@@ -7365,7 +7366,7 @@ Partial Class FrmMain
         ' 
         ' LblBladeHeightNotes
         ' 
-        LblBladeHeightNotes.Font = New Font("Segoe UI", 9.0F)
+        LblBladeHeightNotes.Font = New Font("Segoe UI", 9F)
         LblBladeHeightNotes.Location = New Point(15, 210)
         LblBladeHeightNotes.Name = "LblBladeHeightNotes"
         LblBladeHeightNotes.Size = New Size(520, 165)
@@ -7374,7 +7375,7 @@ Partial Class FrmMain
         ' LblBladeHeightResult
         ' 
         LblBladeHeightResult.AutoSize = True
-        LblBladeHeightResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblBladeHeightResult.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
         LblBladeHeightResult.ForeColor = Color.Green
         LblBladeHeightResult.Location = New Point(15, 175)
         LblBladeHeightResult.Name = "LblBladeHeightResult"
@@ -7385,7 +7386,7 @@ Partial Class FrmMain
         ' BtnCalculateBladeHeight
         ' 
         BtnCalculateBladeHeight.BackColor = Color.MistyRose
-        BtnCalculateBladeHeight.Font = New Font("Segoe UI", 9.0F)
+        BtnCalculateBladeHeight.Font = New Font("Segoe UI", 9F)
         BtnCalculateBladeHeight.Location = New Point(15, 130)
         BtnCalculateBladeHeight.Name = "BtnCalculateBladeHeight"
         BtnCalculateBladeHeight.Size = New Size(120, 35)
@@ -7396,7 +7397,7 @@ Partial Class FrmMain
         ' CmbBladeOperation
         ' 
         CmbBladeOperation.DropDownStyle = ComboBoxStyle.DropDownList
-        CmbBladeOperation.Font = New Font("Segoe UI", 9.0F)
+        CmbBladeOperation.Font = New Font("Segoe UI", 9F)
         CmbBladeOperation.FormattingEnabled = True
         CmbBladeOperation.Items.AddRange(New Object() {"Ripping", "Crosscutting", "Dado/Groove", "Thin Stock (< 1/4"")"})
         CmbBladeOperation.Location = New Point(201, 92)
@@ -7406,7 +7407,7 @@ Partial Class FrmMain
         ' 
         ' TxtMaterialThickness
         ' 
-        TxtMaterialThickness.Font = New Font("Segoe UI", 9.0F)
+        TxtMaterialThickness.Font = New Font("Segoe UI", 9F)
         TxtMaterialThickness.Location = New Point(200, 57)
         TxtMaterialThickness.Name = "TxtMaterialThickness"
         TxtMaterialThickness.Size = New Size(100, 31)
@@ -7416,7 +7417,7 @@ Partial Class FrmMain
         ' Label77
         ' 
         Label77.AutoSize = True
-        Label77.Font = New Font("Segoe UI", 9.0F)
+        Label77.Font = New Font("Segoe UI", 9F)
         Label77.Location = New Point(7, 25)
         Label77.Name = "Label77"
         Label77.Size = New Size(389, 25)
@@ -7426,7 +7427,7 @@ Partial Class FrmMain
         ' Label78
         ' 
         Label78.AutoSize = True
-        Label78.Font = New Font("Segoe UI", 9.0F)
+        Label78.Font = New Font("Segoe UI", 9F)
         Label78.Location = New Point(13, 60)
         Label78.Name = "Label78"
         Label78.Size = New Size(188, 25)
@@ -7436,7 +7437,7 @@ Partial Class FrmMain
         ' Label79
         ' 
         Label79.AutoSize = True
-        Label79.Font = New Font("Segoe UI", 9.0F)
+        Label79.Font = New Font("Segoe UI", 9F)
         Label79.Location = New Point(105, 96)
         Label79.Name = "Label79"
         Label79.Size = New Size(96, 25)
@@ -7456,7 +7457,7 @@ Partial Class FrmMain
         GbPushStick.Controls.Add(Label81)
         GbPushStick.Controls.Add(Label82)
         GbPushStick.Dock = DockStyle.Fill
-        GbPushStick.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbPushStick.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         GbPushStick.Location = New Point(15, 407)
         GbPushStick.Name = "GbPushStick"
         GbPushStick.Padding = New Padding(10)
@@ -7476,7 +7477,7 @@ Partial Class FrmMain
         ' LblPushStickRisk
         ' 
         LblPushStickRisk.AutoSize = True
-        LblPushStickRisk.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblPushStickRisk.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
         LblPushStickRisk.ForeColor = Color.Green
         LblPushStickRisk.Location = New Point(15, 240)
         LblPushStickRisk.Name = "LblPushStickRisk"
@@ -7487,7 +7488,7 @@ Partial Class FrmMain
         ' BtnEvaluatePushStick
         ' 
         BtnEvaluatePushStick.BackColor = Color.MistyRose
-        BtnEvaluatePushStick.Font = New Font("Segoe UI", 9.0F)
+        BtnEvaluatePushStick.Font = New Font("Segoe UI", 9F)
         BtnEvaluatePushStick.Location = New Point(15, 195)
         BtnEvaluatePushStick.Name = "BtnEvaluatePushStick"
         BtnEvaluatePushStick.Size = New Size(120, 35)
@@ -7498,7 +7499,7 @@ Partial Class FrmMain
         ' CbPushStickFeatherboard
         ' 
         CbPushStickFeatherboard.AutoSize = True
-        CbPushStickFeatherboard.Font = New Font("Segoe UI", 9.0F)
+        CbPushStickFeatherboard.Font = New Font("Segoe UI", 9F)
         CbPushStickFeatherboard.Location = New Point(15, 160)
         CbPushStickFeatherboard.Name = "CbPushStickFeatherboard"
         CbPushStickFeatherboard.Size = New Size(202, 29)
@@ -7511,7 +7512,7 @@ Partial Class FrmMain
         CbPushStickGuard.AutoSize = True
         CbPushStickGuard.Checked = True
         CbPushStickGuard.CheckState = CheckState.Checked
-        CbPushStickGuard.Font = New Font("Segoe UI", 9.0F)
+        CbPushStickGuard.Font = New Font("Segoe UI", 9F)
         CbPushStickGuard.Location = New Point(15, 130)
         CbPushStickGuard.Name = "CbPushStickGuard"
         CbPushStickGuard.Size = New Size(198, 29)
@@ -7521,7 +7522,7 @@ Partial Class FrmMain
         ' 
         ' TxtStockThickness
         ' 
-        TxtStockThickness.Font = New Font("Segoe UI", 9.0F)
+        TxtStockThickness.Font = New Font("Segoe UI", 9F)
         TxtStockThickness.Location = New Point(188, 94)
         TxtStockThickness.Name = "TxtStockThickness"
         TxtStockThickness.Size = New Size(100, 31)
@@ -7529,7 +7530,7 @@ Partial Class FrmMain
         ' 
         ' TxtStockWidth
         ' 
-        TxtStockWidth.Font = New Font("Segoe UI", 9.0F)
+        TxtStockWidth.Font = New Font("Segoe UI", 9F)
         TxtStockWidth.Location = New Point(188, 57)
         TxtStockWidth.Name = "TxtStockWidth"
         TxtStockWidth.Size = New Size(100, 31)
@@ -7538,7 +7539,7 @@ Partial Class FrmMain
         ' Label80
         ' 
         Label80.AutoSize = True
-        Label80.Font = New Font("Segoe UI", 9.0F)
+        Label80.Font = New Font("Segoe UI", 9F)
         Label80.Location = New Point(4, 25)
         Label80.Name = "Label80"
         Label80.Size = New Size(390, 25)
@@ -7548,7 +7549,7 @@ Partial Class FrmMain
         ' Label81
         ' 
         Label81.AutoSize = True
-        Label81.Font = New Font("Segoe UI", 9.0F)
+        Label81.Font = New Font("Segoe UI", 9F)
         Label81.Location = New Point(47, 60)
         Label81.Name = "Label81"
         Label81.Size = New Size(141, 25)
@@ -7558,7 +7559,7 @@ Partial Class FrmMain
         ' Label82
         ' 
         Label82.AutoSize = True
-        Label82.Font = New Font("Segoe UI", 9.0F)
+        Label82.Font = New Font("Segoe UI", 9F)
         Label82.Location = New Point(20, 97)
         Label82.Name = "Label82"
         Label82.Size = New Size(168, 25)
@@ -7578,7 +7579,7 @@ Partial Class FrmMain
         GbxDustCollection.Controls.Add(Label85)
         GbxDustCollection.Controls.Add(Label86)
         GbxDustCollection.Dock = DockStyle.Fill
-        GbxDustCollection.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
+        GbxDustCollection.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         GbxDustCollection.Location = New Point(566, 407)
         GbxDustCollection.Name = "GbxDustCollection"
         GbxDustCollection.Padding = New Padding(10)
@@ -7598,7 +7599,7 @@ Partial Class FrmMain
         ' LblCFMResult
         ' 
         LblCFMResult.AutoSize = True
-        LblCFMResult.Font = New Font("Segoe UI", 11.0F, FontStyle.Bold)
+        LblCFMResult.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
         LblCFMResult.ForeColor = Color.Green
         LblCFMResult.Location = New Point(15, 210)
         LblCFMResult.Name = "LblCFMResult"
@@ -7609,7 +7610,7 @@ Partial Class FrmMain
         ' BtnCalculateCFM
         ' 
         BtnCalculateCFM.BackColor = Color.MistyRose
-        BtnCalculateCFM.Font = New Font("Segoe UI", 9.0F)
+        BtnCalculateCFM.Font = New Font("Segoe UI", 9F)
         BtnCalculateCFM.Location = New Point(25, 172)
         BtnCalculateCFM.Name = "BtnCalculateCFM"
         BtnCalculateCFM.Size = New Size(120, 35)
@@ -7619,7 +7620,7 @@ Partial Class FrmMain
         ' 
         ' TxtDuctLength
         ' 
-        TxtDuctLength.Font = New Font("Segoe UI", 9.0F)
+        TxtDuctLength.Font = New Font("Segoe UI", 9F)
         TxtDuctLength.Location = New Point(155, 132)
         TxtDuctLength.Name = "TxtDuctLength"
         TxtDuctLength.Size = New Size(100, 31)
@@ -7629,7 +7630,7 @@ Partial Class FrmMain
         ' CmbToolType
         ' 
         CmbToolType.DropDownStyle = ComboBoxStyle.DropDownList
-        CmbToolType.Font = New Font("Segoe UI", 9.0F)
+        CmbToolType.Font = New Font("Segoe UI", 9F)
         CmbToolType.FormattingEnabled = True
         CmbToolType.Items.AddRange(New Object() {"Table Saw", "Router Table", "Miter Saw", "Planer", "Jointer", "Bandsaw", "Drum Sander", "Thickness Sander"})
         CmbToolType.Location = New Point(155, 98)
@@ -7639,7 +7640,7 @@ Partial Class FrmMain
         ' 
         ' TxtToolPort
         ' 
-        TxtToolPort.Font = New Font("Segoe UI", 9.0F)
+        TxtToolPort.Font = New Font("Segoe UI", 9F)
         TxtToolPort.Location = New Point(155, 62)
         TxtToolPort.Name = "TxtToolPort"
         TxtToolPort.Size = New Size(100, 31)
@@ -7649,7 +7650,7 @@ Partial Class FrmMain
         ' Label83
         ' 
         Label83.AutoSize = True
-        Label83.Font = New Font("Segoe UI", 9.0F)
+        Label83.Font = New Font("Segoe UI", 9F)
         Label83.ImageAlign = ContentAlignment.MiddleLeft
         Label83.Location = New Point(13, 25)
         Label83.Name = "Label83"
@@ -7660,7 +7661,7 @@ Partial Class FrmMain
         ' Label84
         ' 
         Label84.AutoSize = True
-        Label84.Font = New Font("Segoe UI", 9.0F)
+        Label84.Font = New Font("Segoe UI", 9F)
         Label84.Location = New Point(64, 65)
         Label84.Name = "Label84"
         Label84.Size = New Size(91, 25)
@@ -7671,7 +7672,7 @@ Partial Class FrmMain
         ' Label85
         ' 
         Label85.AutoSize = True
-        Label85.Font = New Font("Segoe UI", 9.0F)
+        Label85.Font = New Font("Segoe UI", 9F)
         Label85.Location = New Point(59, 102)
         Label85.Name = "Label85"
         Label85.Size = New Size(96, 25)
@@ -7682,7 +7683,7 @@ Partial Class FrmMain
         ' Label86
         ' 
         Label86.AutoSize = True
-        Label86.Font = New Font("Segoe UI", 9.0F)
+        Label86.Font = New Font("Segoe UI", 9F)
         Label86.Location = New Point(43, 135)
         Label86.Name = "Label86"
         Label86.Size = New Size(112, 25)
@@ -7868,7 +7869,7 @@ Partial Class FrmMain
         ' LblGritResult
         ' 
         LblGritResult.AutoSize = True
-        LblGritResult.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblGritResult.Font = New Font("Georgia", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         LblGritResult.ForeColor = Color.Green
         LblGritResult.Location = New Point(6, 22)
         LblGritResult.Name = "LblGritResult"
@@ -7958,7 +7959,7 @@ Partial Class FrmMain
         ' 
         TxtAppAbout.BackColor = Color.WhiteSmoke
         TxtAppAbout.Dock = DockStyle.Fill
-        TxtAppAbout.Font = New Font("Consolas", 9.0F)
+        TxtAppAbout.Font = New Font("Consolas", 9F)
         TxtAppAbout.ForeColor = Color.Black
         TxtAppAbout.Location = New Point(3, 22)
         TxtAppAbout.Multiline = True
@@ -8037,14 +8038,14 @@ Partial Class FrmMain
         ' 
         ' FrmMain
         ' 
-        AutoScaleDimensions = New SizeF(9.0F, 18.0F)
+        AutoScaleDimensions = New SizeF(9F, 18F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1178, 958)
         Controls.Add(Tc)
         Controls.Add(Ss3)
         Controls.Add(Ss2)
         Controls.Add(Ss1)
-        Font = New Font("Georgia", 8.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Font = New Font("Georgia", 8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximizeBox = False
         MinimumSize = New Size(1200, 900)

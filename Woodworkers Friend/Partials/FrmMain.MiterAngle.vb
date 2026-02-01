@@ -64,7 +64,6 @@ Partial Public Class FrmMain
             ClearMiterResults()
 
             _miterCalculatorInitialized = True
-
         Catch ex As Exception
             ErrorHandler.LogError(ex, "InitializeMiterAngleCalculator")
         Finally
@@ -192,9 +191,19 @@ Partial Public Class FrmMain
     ''' Handles Angles tab entry to initialize calculator
     ''' </summary>
     Private Sub TpAngles_Enter(sender As Object, e As EventArgs) Handles TpAngles.Enter
-        If Not _miterCalculatorInitialized Then
-            InitializeMiterAngleCalculator()
-        End If
+        Try
+            ErrorHandler.LogError(New Exception($"TpAngles_Enter: Initialized={_miterCalculatorInitialized}"), "MiterAngle Debug")
+
+            If Not _miterCalculatorInitialized Then
+                InitializeMiterAngleCalculator()
+            Else
+                ' If already initialized, try calculating
+                ErrorHandler.LogError(New Exception("TpAngles_Enter: Already initialized, recalculating"), "MiterAngle Debug")
+                CalculateMiterAngles()
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "TpAngles_Enter")
+        End Try
     End Sub
 
 #End Region
@@ -205,27 +214,38 @@ Partial Public Class FrmMain
     ''' Calculates miter and bevel angles based on current inputs
     ''' </summary>
     Private Sub CalculateMiterAngles()
-        If _suppressMiterCalculation Then Return
+        If _suppressMiterCalculation Then
+            ErrorHandler.LogError(New Exception("CalculateMiterAngles: Suppressed"), "MiterAngle Debug")
+            Return
+        End If
 
         Try
+            ErrorHandler.LogError(New Exception("CalculateMiterAngles: Starting"), "MiterAngle Debug")
+            
             ' Validate required controls exist
             If TxtMiterNumSides Is Nothing OrElse RbMiterFrameFlat Is Nothing OrElse RbMiterFrameTilted Is Nothing Then
+                ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Controls null - TxtSides={TxtMiterNumSides Is Nothing}, RbFlat={RbMiterFrameFlat Is Nothing}, RbTilted={RbMiterFrameTilted Is Nothing}"), "MiterAngle Debug")
                 Return
             End If
 
             ' Validate inputs
             If String.IsNullOrWhiteSpace(TxtMiterNumSides.Text) Then
+                ErrorHandler.LogError(New Exception("CalculateMiterAngles: TxtMiterNumSides is empty"), "MiterAngle Debug")
                 ClearMiterResults()
                 Return
             End If
 
             Dim numSides As Integer
             If Not Integer.TryParse(TxtMiterNumSides.Text, numSides) Then
+                ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Failed to parse sides '{TxtMiterNumSides.Text}'"), "MiterAngle Debug")
                 ClearMiterResults()
                 Return
             End If
 
+            ErrorHandler.LogError(New Exception($"CalculateMiterAngles: NumSides={numSides}, IsFlat={RbMiterFrameFlat.Checked}"), "MiterAngle Debug")
+
             If numSides < MIN_MITER_SIDES OrElse numSides > MAX_MITER_SIDES Then
+                ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Sides out of range: {numSides}"), "MiterAngle Debug")
                 ClearMiterResults()
                 Return
             End If
@@ -235,11 +255,13 @@ Partial Public Class FrmMain
 
             If Not isFlat Then
                 If TxtMiterTiltAngle Is Nothing OrElse String.IsNullOrWhiteSpace(TxtMiterTiltAngle.Text) Then
+                    ErrorHandler.LogError(New Exception("CalculateMiterAngles: Tilted frame but no tilt angle"), "MiterAngle Debug")
                     ClearMiterResults()
                     Return
                 End If
 
                 If Not Decimal.TryParse(TxtMiterTiltAngle.Text, tiltAngle) Then
+                    ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Failed to parse tilt '{TxtMiterTiltAngle.Text}'"), "MiterAngle Debug")
                     ClearMiterResults()
                     Return
                 End If
@@ -247,9 +269,13 @@ Partial Public Class FrmMain
 
             ' Calculate angles
             Dim result = CalculateMiterAnglesCore(numSides, isFlat, tiltAngle)
+            
+            ErrorHandler.LogError(New Exception($"CalculateMiterAngles: Result - Miter={result.MiterAngle:F2}°, Bevel={result.BevelAngle:F2}°"), "MiterAngle Debug")
 
             ' Display results
             DisplayMiterResults(result)
+            
+            ErrorHandler.LogError(New Exception("CalculateMiterAngles: Completed successfully"), "MiterAngle Debug")
         Catch ex As Exception
             ErrorHandler.LogError(ex, "CalculateMiterAngles")
             ClearMiterResults()
