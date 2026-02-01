@@ -758,6 +758,7 @@ Partial Class FrmMain
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
         TmrClock = New Timer(components)
+        PbMwwLogo = New PictureBox()
         CmsLog.SuspendLayout()
         Ss1.SuspendLayout()
         Ss2.SuspendLayout()
@@ -924,6 +925,7 @@ Partial Class FrmMain
         TpAbout.SuspendLayout()
         CType(NudLogKeep, ComponentModel.ISupportInitialize).BeginInit()
         GbxAbout.SuspendLayout()
+        CType(PbMwwLogo, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' CmsLog
@@ -8492,6 +8494,7 @@ Partial Class FrmMain
         ' 
         TpAbout.BackColor = Color.Gray
         TpAbout.BorderStyle = BorderStyle.Fixed3D
+        TpAbout.Controls.Add(PbMwwLogo)
         TpAbout.Controls.Add(NudLogKeep)
         TpAbout.Controls.Add(Label51)
         TpAbout.Controls.Add(LblManageCosts)
@@ -8636,6 +8639,18 @@ Partial Class FrmMain
         ' TmrClock
         ' 
         TmrClock.Interval = 1000
+        ' 
+        ' PbMwwLogo
+        ' 
+        PbMwwLogo.Image = My.Resources.Resources.MWW_logo_250
+        PbMwwLogo.InitialImage = CType(resources.GetObject("PbMwwLogo.InitialImage"), Image)
+        PbMwwLogo.Location = New Point(999, 243)
+        PbMwwLogo.Name = "PbMwwLogo"
+        PbMwwLogo.Size = New Size(150, 150)
+        PbMwwLogo.SizeMode = PictureBoxSizeMode.StretchImage
+        PbMwwLogo.TabIndex = 8
+        PbMwwLogo.TabStop = False
+        PbMwwLogo.Tag = "Maidon Woodworking"
         ' 
         ' FrmMain
         ' 
@@ -8895,6 +8910,7 @@ Partial Class FrmMain
         CType(NudLogKeep, ComponentModel.ISupportInitialize).EndInit()
         GbxAbout.ResumeLayout(False)
         GbxAbout.PerformLayout()
+        CType(PbMwwLogo, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -9632,5 +9648,6 @@ Partial Class FrmMain
     Friend WithEvents LblGlueOpenTime As Label
     Friend WithEvents TxtKnownArea As TextBox
     Friend WithEvents LblKnownArea As Label
+    Friend WithEvents PbMwwLogo As PictureBox
 End Class
 
