@@ -29,7 +29,8 @@ SetupIconFile="Woodworkers Friend\Resources\wood.ico"
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
-PrivilegesRequired=lowest
+PrivilegesRequired=admin
+PrivilegesRequiredOverridesAllowed=dialog
 ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
