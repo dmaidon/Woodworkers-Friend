@@ -410,7 +410,7 @@ Partial Public Class FrmMain
             ' Display complementary angle
             If LblComplementaryAngle IsNot Nothing Then
                 LblComplementaryAngle.Text = $"Complementary: {result.ComplementaryAngle:F2}° | Interior: {result.InteriorAngle:F2}°"
-                LblComplementaryAngle.Font = New Font(LblComplementaryAngle.Font, FontStyle.Regular)
+                LblComplementaryAngle.Font = New Font(LblComplementaryAngle.Font, FontStyle.Bold)
             End If
 
             ' Update diagram if PictureBox exists
