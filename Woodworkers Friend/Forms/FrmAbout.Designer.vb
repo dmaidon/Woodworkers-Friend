@@ -83,14 +83,23 @@ Partial Class FrmAbout
         Me.TxtDescription.Name = "TxtDescription"
         Me.TxtDescription.ReadOnly = True
         Me.TxtDescription.ScrollBars = ScrollBars.Vertical
-        Me.TxtDescription.Size = New Size(460, 100)
+        Me.TxtDescription.Size = New Size(460, 140)
         Me.TxtDescription.TabIndex = 4
-        Me.TxtDescription.Text = "A comprehensive woodworking calculator and planning tool for professional woodworkers and enthusiasts. Calculate drawer heights, door dimensions, board feet, epoxy volumes, joinery, wood movement, shelf sag, and much more with precision and ease."
+        Me.TxtDescription.Text = "A comprehensive woodworking calculator and planning tool for professional woodworkers and enthusiasts. Features 18+ specialized calculators including:" & vbCrLf & vbCrLf & _
+            "• Drawer & Door Calculators" & vbCrLf & _
+            "• Board Feet & Epoxy Pour Calculators" & vbCrLf & _
+            "• Joinery Suite (Mortise/Tenon, Dovetails, Box Joints, Biscuits)" & vbCrLf & _
+            "• Materials & Finishing (Veneer, Glue, Finish Coverage)" & vbCrLf & _
+            "• Wood Movement & Shelf Sag Calculators" & vbCrLf & _
+            "• Miter Angle & Polygon Calculators" & vbCrLf & _
+            "• Safety Tools (Router Speed, Blade Height, Dust Collection)" & vbCrLf & _
+            "• Cut List Optimizer & Sanding Grit Progression" & vbCrLf & vbCrLf & _
+            "Plus 50+ wood species database, hardware standards, and comprehensive help system."
         '
         'LnkGitHub
         '
         Me.LnkGitHub.AutoSize = True
-        Me.LnkGitHub.Location = New Point(12, 240)
+        Me.LnkGitHub.Location = New Point(12, 280)
         Me.LnkGitHub.Name = "LnkGitHub"
         Me.LnkGitHub.Size = New Size(106, 15)
         Me.LnkGitHub.TabIndex = 5
@@ -100,7 +109,7 @@ Partial Class FrmAbout
         'LnkLicense
         '
         Me.LnkLicense.AutoSize = True
-        Me.LnkLicense.Location = New Point(130, 240)
+        Me.LnkLicense.Location = New Point(130, 280)
         Me.LnkLicense.Name = "LnkLicense"
         Me.LnkLicense.Size = New Size(83, 15)
         Me.LnkLicense.TabIndex = 6
@@ -109,7 +118,7 @@ Partial Class FrmAbout
         '
         'BtnOK
         '
-        Me.BtnOK.Location = New Point(397, 230)
+        Me.BtnOK.Location = New Point(397, 270)
         Me.BtnOK.Name = "BtnOK"
         Me.BtnOK.Size = New Size(75, 30)
         Me.BtnOK.TabIndex = 7
@@ -121,7 +130,7 @@ Partial Class FrmAbout
         Me.Label1.AutoSize = True
         Me.Label1.Font = New Font("Segoe UI", 9.0F, FontStyle.Italic, GraphicsUnit.Point)
         Me.Label1.ForeColor = SystemColors.GrayText
-        Me.Label1.Location = New Point(12, 260)
+        Me.Label1.Location = New Point(12, 300)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New Size(373, 15)
         Me.Label1.TabIndex = 8
@@ -132,7 +141,7 @@ Partial Class FrmAbout
         Me.AcceptButton = Me.BtnOK
         Me.AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         Me.AutoScaleMode = AutoScaleMode.Font
-        Me.ClientSize = New Size(484, 286)
+        Me.ClientSize = New Size(484, 326)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BtnOK)
         Me.Controls.Add(Me.LnkLicense)
