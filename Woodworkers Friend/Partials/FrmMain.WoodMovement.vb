@@ -56,11 +56,12 @@ Partial Public Class FrmMain
     End Sub
 
     ''' <summary>
-    ''' Converts a WoodPropertiesData object to a WoodSpecies object for the calculator.
-    ''' WoodPropertiesData stores shrinkage as decimals (0.108), WoodSpecies uses raw % (10.8).
+    ''' Converts a WoodPropertiesData object to a WoodSpeciesLegacy object for the calculator.
+    ''' WoodPropertiesData stores shrinkage as decimals (0.108), WoodSpeciesLegacy uses raw % (10.8).
+    ''' Uses the legacy model since WoodMovementCalculator expects writable properties.
     ''' </summary>
-    Private Shared Function ConvertToWoodSpecies(data As WoodPropertiesData) As WoodSpecies
-        Return New WoodSpecies With {
+    Private Shared Function ConvertToWoodSpecies(data As WoodPropertiesData) As WoodSpeciesLegacy
+        Return New WoodSpeciesLegacy With {
             .Name = data.CommonName,
             .TangentialShrinkage = data.ShrinkageTangential * 100,
             .RadialShrinkage = data.ShrinkageRadial * 100,

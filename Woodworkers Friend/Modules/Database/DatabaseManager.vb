@@ -468,6 +468,45 @@ Public Class DatabaseManager
 
 #End Region
 
+#Region "Unified API - Calculation History (Routes to UserDataManager)"
+
+    ''' <summary>
+    ''' Saves a calculation to history
+    ''' </summary>
+    Public Function SaveCalculation(calculatorType As String, calculationName As String, inputParameters As String, results As String, Optional notes As String = "") As Integer
+        Return UserData.SaveCalculation(calculatorType, calculationName, inputParameters, results, notes)
+    End Function
+
+    ''' <summary>
+    ''' Gets calculation history for a calculator type
+    ''' </summary>
+    Public Function GetCalculationHistory(calculatorType As String, Optional limit As Integer = 50) As List(Of CalculationHistory)
+        Return UserData.GetCalculationHistory(calculatorType, limit)
+    End Function
+
+    ''' <summary>
+    ''' Deletes a calculation from history
+    ''' </summary>
+    Public Function DeleteCalculation(historyID As Integer) As Boolean
+        Return UserData.DeleteCalculation(historyID)
+    End Function
+
+    ''' <summary>
+    ''' Toggles favorite status
+    ''' </summary>
+    Public Function ToggleFavorite(historyID As Integer) As Boolean
+        Return UserData.ToggleFavorite(historyID)
+    End Function
+
+    ''' <summary>
+    ''' Updates calculation name and notes
+    ''' </summary>
+    Public Function UpdateCalculation(historyID As Integer, calculationName As String, notes As String) As Boolean
+        Return UserData.UpdateCalculation(historyID, calculationName, notes)
+    End Function
+
+#End Region
+
 #Region "Data Models (Kept for compatibility)"
 
     ''' <summary>

@@ -196,7 +196,7 @@ Public Class UserDataManager
             Using conn As New SQLiteConnection(_connectionString)
                 conn.Open()
                 Using cmd As New SQLiteCommand("
-                    SELECT COUNT(*) FROM sqlite_master 
+                    SELECT COUNT(*) FROM sqlite_master
                     WHERE type='table' AND name IN ('WoodCosts', 'EpoxyCosts', 'Preferences', 'CalculationHistory')
                 ", conn)
                     Dim tableCount = Convert.ToInt32(cmd.ExecuteScalar())
@@ -216,204 +216,6 @@ Public Class UserDataManager
 
     Private Function GetConnection() As SQLiteConnection
         Return New SQLiteConnection(_connectionString)
-    End Function
-
-#End Region
-
-#Region "Public API - Wood Costs"
-
-    Public Function GetWoodCost(woodName As String, thickness As String) As WoodCost
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    SELECT Id, WoodName, Thickness, CostPerBoardFoot, IsUserAdded, IsActive, DateAdded
-                    FROM WoodCosts
-                    WHERE WoodName = @WoodName AND Thickness = @Thickness AND IsActive = 1
-                ", conn)
-                    cmd.Parameters.AddWithValue("@WoodName", woodName)
-                    cmd.Parameters.AddWithValue("@Thickness", thickness)
-
-                    Using reader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            Return New WoodCost With {
-                                .Id = reader.GetInt32(0),
-                                .WoodName = reader.GetString(1),
-                                .Thickness = reader.GetString(2),
-                                .CostPerBoardFoot = reader.GetDouble(3),
-                                .IsUserAdded = reader.GetInt32(4) = 1,
-                                .IsActive = True,
-                                .DateAdded = reader.GetDateTime(6)
-                            }
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, $"GetWoodCost - {woodName}, {thickness}")
-        End Try
-
-        Return Nothing
-    End Function
-
-    Public Function GetAllWoodCosts() As List(Of WoodCost)
-        Dim results As New List(Of WoodCost)
-
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    SELECT Id, WoodName, Thickness, CostPerBoardFoot, IsUserAdded, IsActive, DateAdded
-                    FROM WoodCosts
-                    WHERE IsActive = 1
-                    ORDER BY WoodName, Thickness
-                ", conn)
-                    Using reader = cmd.ExecuteReader()
-                        While reader.Read()
-                            results.Add(New WoodCost With {
-                                .Id = reader.GetInt32(0),
-                                .WoodName = reader.GetString(1),
-                                .Thickness = reader.GetString(2),
-                                .CostPerBoardFoot = reader.GetDouble(3),
-                                .IsUserAdded = reader.GetInt32(4) = 1,
-                                .IsActive = True,
-                                .DateAdded = reader.GetDateTime(6)
-                            })
-                        End While
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, "GetAllWoodCosts")
-        End Try
-
-        Return results
-    End Function
-
-    Public Function SaveWoodCost(cost As WoodCost) As Boolean
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    INSERT OR REPLACE INTO WoodCosts
-                    (WoodName, Thickness, CostPerBoardFoot, IsUserAdded, IsActive, DateAdded, LastModified)
-                    VALUES (@WoodName, @Thickness, @CostPerBoardFoot, @IsUserAdded, @IsActive,
-                            COALESCE((SELECT DateAdded FROM WoodCosts WHERE WoodName = @WoodName AND Thickness = @Thickness), CURRENT_TIMESTAMP),
-                            CURRENT_TIMESTAMP)
-                ", conn)
-                    cmd.Parameters.AddWithValue("@WoodName", cost.WoodName)
-                    cmd.Parameters.AddWithValue("@Thickness", cost.Thickness)
-                    cmd.Parameters.AddWithValue("@CostPerBoardFoot", cost.CostPerBoardFoot)
-                    cmd.Parameters.AddWithValue("@IsUserAdded", If(cost.IsUserAdded, 1, 0))
-                    cmd.Parameters.AddWithValue("@IsActive", If(cost.IsActive, 1, 0))
-                    cmd.ExecuteNonQuery()
-                    Return True
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, $"SaveWoodCost - {cost.WoodName}")
-            Return False
-        End Try
-    End Function
-
-    Public Function DeleteWoodCost(id As Integer) As Boolean
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    UPDATE WoodCosts SET IsActive = 0, LastModified = CURRENT_TIMESTAMP WHERE Id = @Id
-                ", conn)
-                    cmd.Parameters.AddWithValue("@Id", id)
-                    cmd.ExecuteNonQuery()
-                    Return True
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, $"DeleteWoodCost - ID: {id}")
-            Return False
-        End Try
-    End Function
-
-#End Region
-
-#Region "Public API - Epoxy Costs"
-
-    Public Function GetAllEpoxyCosts() As List(Of EpoxyCost)
-        Dim results As New List(Of EpoxyCost)
-
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    SELECT Id, Brand, Type, CostPerGallon, IsUserAdded, IsActive, DateAdded
-                    FROM EpoxyCosts
-                    WHERE IsActive = 1
-                    ORDER BY Brand, Type
-                ", conn)
-                    Using reader = cmd.ExecuteReader()
-                        While reader.Read()
-                            results.Add(New EpoxyCost With {
-                                .Id = reader.GetInt32(0),
-                                .Brand = reader.GetString(1),
-                                .Type = reader.GetString(2),
-                                .CostPerGallon = reader.GetDouble(3),
-                                .IsUserAdded = reader.GetInt32(4) = 1,
-                                .IsActive = True,
-                                .DateAdded = reader.GetDateTime(6)
-                            })
-                        End While
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, "GetAllEpoxyCosts")
-        End Try
-
-        Return results
-    End Function
-
-    Public Function SaveEpoxyCost(cost As EpoxyCost) As Boolean
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    INSERT OR REPLACE INTO EpoxyCosts
-                    (Brand, Type, CostPerGallon, IsUserAdded, IsActive, DateAdded, LastModified)
-                    VALUES (@Brand, @Type, @CostPerGallon, @IsUserAdded, @IsActive,
-                            COALESCE((SELECT DateAdded FROM EpoxyCosts WHERE Brand = @Brand AND Type = @Type), CURRENT_TIMESTAMP),
-                            CURRENT_TIMESTAMP)
-                ", conn)
-                    cmd.Parameters.AddWithValue("@Brand", cost.Brand)
-                    cmd.Parameters.AddWithValue("@Type", cost.Type)
-                    cmd.Parameters.AddWithValue("@CostPerGallon", cost.CostPerGallon)
-                    cmd.Parameters.AddWithValue("@IsUserAdded", If(cost.IsUserAdded, 1, 0))
-                    cmd.Parameters.AddWithValue("@IsActive", If(cost.IsActive, 1, 0))
-                    cmd.ExecuteNonQuery()
-                    Return True
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, $"SaveEpoxyCost - {cost.Brand}")
-            Return False
-        End Try
-    End Function
-
-    Public Function DeleteEpoxyCost(id As Integer) As Boolean
-        Try
-            Using conn = GetConnection()
-                conn.Open()
-                Using cmd As New SQLiteCommand("
-                    UPDATE EpoxyCosts SET IsActive = 0, LastModified = CURRENT_TIMESTAMP WHERE Id = @Id
-                ", conn)
-                    cmd.Parameters.AddWithValue("@Id", id)
-                    cmd.ExecuteNonQuery()
-                    Return True
-                End Using
-            End Using
-        Catch ex As Exception
-            ErrorHandler.LogError(ex, $"DeleteEpoxyCost - ID: {id}")
-            Return False
-        End Try
     End Function
 
 #End Region
@@ -724,7 +526,7 @@ Public Class UserDataManager
                                 cmd.Parameters.AddWithValue("@Thickness", cost.Thickness)
                                 cmd.Parameters.AddWithValue("@CostPerBoardFoot", cost.CostPerBoardFoot)
                                 cmd.Parameters.AddWithValue("@IsUserAdded", If(cost.IsUserAdded, 1, 0))
-                                cmd.Parameters.AddWithValue("@IsActive", If(cost.IsActive, 1, 0))
+                                cmd.Parameters.AddWithValue("@IsActive", If(cost.Active, 1, 0))
                                 cmd.ExecuteNonQuery()
                                 successCount += 1
                             End Using
@@ -762,7 +564,7 @@ Public Class UserDataManager
                                 cmd.Parameters.AddWithValue("@Type", cost.Type)
                                 cmd.Parameters.AddWithValue("@CostPerGallon", cost.CostPerGallon)
                                 cmd.Parameters.AddWithValue("@IsUserAdded", If(cost.IsUserAdded, 1, 0))
-                                cmd.Parameters.AddWithValue("@IsActive", If(cost.IsActive, 1, 0))
+                                cmd.Parameters.AddWithValue("@IsActive", If(cost.Active, 1, 0))
                                 cmd.ExecuteNonQuery()
                                 successCount += 1
                             End Using
@@ -965,5 +767,3 @@ End Class
 
 ' Note: WoodCost and EpoxyCost models are defined in CostDataModels.vb
 ' Those are the official models with all properties (Active, DisplayName, WoodCostID, etc.)
-
-

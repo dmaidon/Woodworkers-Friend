@@ -27,7 +27,7 @@ Public Class WoodMovementCalculator
     ''' <param name="orientation">Grain orientation</param>
     ''' <returns>Movement in inches (positive = expansion, negative = shrinkage)</returns>
     Public Shared Function CalculateMovement(
-        species As WoodSpecies,
+        species As WoodSpeciesLegacy,
         widthInches As Double,
         initialHumidity As Double,
         finalHumidity As Double,
@@ -109,7 +109,7 @@ Public Class WoodMovementCalculator
     ''' Calculates recommended gap allowance for panel in frame
     ''' </summary>
     Public Shared Function CalculatePanelGap(
-        species As WoodSpecies,
+        species As WoodSpeciesLegacy,
         panelWidth As Double,
         currentHumidity As Double,
         orientation As GrainOrientation) As (MinGap As Double, MaxGap As Double)
