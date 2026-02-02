@@ -75,11 +75,19 @@ Public Class ReferenceDataManager
 
     Private Sub InitializeDatabase()
         Try
-            If Not File.Exists(_databasePath) Then
+            Dim needsCreation = Not File.Exists(_databasePath)
+            
+            If needsCreation Then
                 CreateDatabaseSchema()
                 ErrorHandler.LogError(New Exception("Reference.db created successfully"), "ReferenceDataManager.InitializeDatabase")
             Else
-                VerifyDatabaseSchema()
+                ' File exists - verify it has tables. If schema is invalid, recreate it.
+                If Not VerifyDatabaseSchema() Then
+                    ErrorHandler.LogError(New Exception("Reference.db schema invalid - recreating"), "ReferenceDataManager.InitializeDatabase")
+                    File.Delete(_databasePath)
+                    CreateDatabaseSchema()
+                    ErrorHandler.LogError(New Exception("Reference.db schema recreated"), "ReferenceDataManager.InitializeDatabase")
+                End If
             End If
 
             ' NOTE: Do NOT set read-only here! 
@@ -198,7 +206,7 @@ Public Class ReferenceDataManager
         End Using
     End Sub
 
-    Private Sub VerifyDatabaseSchema()
+    Private Function VerifyDatabaseSchema() As Boolean
         Try
             Using conn = GetReadOnlyConnection()
                 conn.Open()
@@ -208,14 +216,17 @@ Public Class ReferenceDataManager
                 ", conn)
                     Dim tableCount = Convert.ToInt32(cmd.ExecuteScalar())
                     If tableCount < 3 Then
-                        ErrorHandler.LogError(New Exception("Reference.db schema invalid - needs recreation"), "VerifyDatabaseSchema")
+                        ErrorHandler.LogError(New Exception($"Reference.db schema invalid - found {tableCount}/3 tables"), "VerifyDatabaseSchema")
+                        Return False
                     End If
+                    Return True
                 End Using
             End Using
         Catch ex As Exception
             ErrorHandler.LogError(ex, "VerifyDatabaseSchema")
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Sub SetReadOnlyAttribute()
         Try
