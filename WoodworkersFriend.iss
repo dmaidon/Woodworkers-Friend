@@ -40,8 +40,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-; Application files
-Source: "C:\VB18\Release\WwFriend\net10.0-windows10.0.26100.0\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Application files (exclude log files and debug symbols)
+Source: "C:\VB18\Release\WwFriend\net10.0-windows10.0.26100.0\*"; DestDir: "{app}"; Excludes: "*.log,*.pdb"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Documentation (root level)
 Source: "README.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
