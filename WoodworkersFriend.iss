@@ -19,7 +19,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}/issues
 AppUpdatesURL={#MyAppURL}/releases
 AppContact={#MyAppSupportEmail}
-DefaultDirName={autopf}\{#MyAppName}
+DefaultDirName={commonpf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 LicenseFile=LICENSE
 InfoBeforeFile=README.md
@@ -29,8 +29,8 @@ SetupIconFile="Woodworkers Friend\Resources\wood.ico"
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
-PrivilegesRequired=admin
-PrivilegesRequiredOverridesAllowed=dialog
+PrivilegesRequired=lowest
+PrivilegesRequiredOverridesAllowed=commandline
 ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
