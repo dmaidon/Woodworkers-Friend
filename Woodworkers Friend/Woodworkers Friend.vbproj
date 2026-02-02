@@ -10,8 +10,8 @@
 	<OptionStrict>On</OptionStrict>
 	<AssemblyName>WwFriend</AssemblyName>
 	<Title>Woodworkers Friend</Title>
-	<AssemblyVersion>26.2.2.662</AssemblyVersion>
-	<FileVersion>26.2.2.662</FileVersion>
+	<AssemblyVersion>26.2.2.664</AssemblyVersion>
+	<FileVersion>26.2.2.664</FileVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	  <NeutralLanguage>en-US</NeutralLanguage>

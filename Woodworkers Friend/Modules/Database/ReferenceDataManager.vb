@@ -105,77 +105,94 @@ Public Class ReferenceDataManager
         Using conn As New SQLiteConnection(createConnectionString)
             conn.Open()
 
-            Using cmd As New SQLiteCommand("
-                -- Wood Species Table
-                CREATE TABLE IF NOT EXISTS WoodSpecies (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    CommonName TEXT NOT NULL,
-                    ScientificName TEXT,
-                    WoodType TEXT NOT NULL,
-                    JankaHardness INTEGER,
-                    SpecificGravity REAL,
-                    Density REAL,
-                    MoistureContent REAL,
-                    ShrinkageRadial REAL,
-                    ShrinkageTangential REAL,
-                    TypicalUses TEXT,
-                    Workability TEXT,
-                    Cautions TEXT,
-                    Notes TEXT,
-                    DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
-                );
+            ' Execute each CREATE TABLE separately - SQLite.NET doesn't support multi-statement commands
+            Using cmd As New SQLiteCommand(conn)
+                ' Wood Species Table
+                cmd.CommandText = "
+                    CREATE TABLE IF NOT EXISTS WoodSpecies (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        CommonName TEXT NOT NULL,
+                        ScientificName TEXT,
+                        WoodType TEXT NOT NULL,
+                        JankaHardness INTEGER,
+                        SpecificGravity REAL,
+                        Density REAL,
+                        MoistureContent REAL,
+                        ShrinkageRadial REAL,
+                        ShrinkageTangential REAL,
+                        TypicalUses TEXT,
+                        Workability TEXT,
+                        Cautions TEXT,
+                        Notes TEXT,
+                        DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
+                    );"
+                cmd.ExecuteNonQuery()
 
-                CREATE INDEX IF NOT EXISTS idx_wood_common_name ON WoodSpecies(CommonName);
-                CREATE INDEX IF NOT EXISTS idx_wood_type ON WoodSpecies(WoodType);
+                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_wood_common_name ON WoodSpecies(CommonName);"
+                cmd.ExecuteNonQuery()
 
-                -- Joinery Types Table
-                CREATE TABLE IF NOT EXISTS JoineryTypes (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT NOT NULL UNIQUE,
-                    Category TEXT NOT NULL,
-                    StrengthRating INTEGER,
-                    DifficultyLevel TEXT,
-                    Description TEXT,
-                    TypicalUses TEXT,
-                    RequiredTools TEXT,
-                    StrengthCharacteristics TEXT,
-                    GlueRequired INTEGER,
-                    ReinforcementOptions TEXT,
-                    HistoricalNotes TEXT
-                );
+                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_wood_type ON WoodSpecies(WoodType);"
+                cmd.ExecuteNonQuery()
 
-                CREATE INDEX IF NOT EXISTS idx_joinery_name ON JoineryTypes(Name);
-                CREATE INDEX IF NOT EXISTS idx_joinery_category ON JoineryTypes(Category);
+                ' Joinery Types Table
+                cmd.CommandText = "
+                    CREATE TABLE IF NOT EXISTS JoineryTypes (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Name TEXT NOT NULL UNIQUE,
+                        Category TEXT NOT NULL,
+                        StrengthRating INTEGER,
+                        DifficultyLevel TEXT,
+                        Description TEXT,
+                        TypicalUses TEXT,
+                        RequiredTools TEXT,
+                        StrengthCharacteristics TEXT,
+                        GlueRequired INTEGER,
+                        ReinforcementOptions TEXT,
+                        HistoricalNotes TEXT
+                    );"
+                cmd.ExecuteNonQuery()
 
-                -- Hardware Standards Table (matches HardwareModels.vb)
-                CREATE TABLE IF NOT EXISTS HardwareStandards (
-                    HardwareID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Category TEXT NOT NULL,
-                    Type TEXT NOT NULL,
-                    Brand TEXT,
-                    PartNumber TEXT,
-                    Description TEXT,
-                    Dimensions TEXT,
-                    MountingRequirements TEXT,
-                    WeightCapacity TEXT,
-                    TypicalUses TEXT,
-                    InstallationNotes TEXT,
-                    PurchaseLink TEXT,
-                    IsUserAdded INTEGER DEFAULT 0,
-                    DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
-                );
+                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_joinery_name ON JoineryTypes(Name);"
+                cmd.ExecuteNonQuery()
 
-                CREATE INDEX IF NOT EXISTS idx_hardware_type ON HardwareStandards(Type);
-                CREATE INDEX IF NOT EXISTS idx_hardware_category ON HardwareStandards(Category);
+                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_joinery_category ON JoineryTypes(Category);"
+                cmd.ExecuteNonQuery()
 
-                -- Version Table
-                CREATE TABLE IF NOT EXISTS DatabaseVersion (
-                    Version TEXT NOT NULL,
-                    UpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
-                );
+                ' Hardware Standards Table
+                cmd.CommandText = "
+                    CREATE TABLE IF NOT EXISTS HardwareStandards (
+                        HardwareID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Category TEXT NOT NULL,
+                        Type TEXT NOT NULL,
+                        Brand TEXT,
+                        PartNumber TEXT,
+                        Description TEXT,
+                        Dimensions TEXT,
+                        MountingRequirements TEXT,
+                        WeightCapacity TEXT,
+                        TypicalUses TEXT,
+                        InstallationNotes TEXT,
+                        PurchaseLink TEXT,
+                        IsUserAdded INTEGER DEFAULT 0,
+                        DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
+                    );"
+                cmd.ExecuteNonQuery()
 
-                INSERT INTO DatabaseVersion (Version) VALUES ('1.0');
-            ", conn)
+                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_hardware_type ON HardwareStandards(Type);"
+                cmd.ExecuteNonQuery()
+
+                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_hardware_category ON HardwareStandards(Category);"
+                cmd.ExecuteNonQuery()
+
+                ' Version Table
+                cmd.CommandText = "
+                    CREATE TABLE IF NOT EXISTS DatabaseVersion (
+                        Version TEXT NOT NULL,
+                        UpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP
+                    );"
+                cmd.ExecuteNonQuery()
+
+                cmd.CommandText = "INSERT INTO DatabaseVersion (Version) VALUES ('1.0');"
                 cmd.ExecuteNonQuery()
             End Using
         End Using
