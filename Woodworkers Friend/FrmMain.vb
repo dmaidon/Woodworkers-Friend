@@ -80,6 +80,43 @@ Public Class FrmMain
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Creates required program folders (Logs, Data, Settings, Projects, Temp)
+    ''' </summary>
+    Private Sub CreateProgramFolders()
+        Try
+            ' Create all required directories using paths from Globals
+            If Not IO.Directory.Exists(LogDir) Then
+                IO.Directory.CreateDirectory(LogDir)
+            End If
+
+            If Not IO.Directory.Exists(DataDir) Then
+                IO.Directory.CreateDirectory(DataDir)
+            End If
+
+            If Not IO.Directory.Exists(SetDir) Then
+                IO.Directory.CreateDirectory(SetDir)
+            End If
+
+            If Not IO.Directory.Exists(ProjectDir) Then
+                IO.Directory.CreateDirectory(ProjectDir)
+            End If
+
+            If Not IO.Directory.Exists(TempDir) Then
+                IO.Directory.CreateDirectory(TempDir)
+            End If
+
+            ' Create Resources subfolder under Data
+            Dim resourcesDir = IO.Path.Combine(DataDir, "Resources")
+            If Not IO.Directory.Exists(resourcesDir) Then
+                IO.Directory.CreateDirectory(resourcesDir)
+            End If
+        Catch ex As Exception
+            ' If folder creation fails, log it (but ErrorHandler might not work yet!)
+            Debug.WriteLine($"Failed to create program folders: {ex.Message}")
+        End Try
+    End Sub
+
     Private Sub InitializeSystem()
         CreateProgramFolders()
 
