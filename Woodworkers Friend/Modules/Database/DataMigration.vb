@@ -214,6 +214,20 @@ Public Class DataMigration
                 ErrorHandler.LogError(New Exception("Adding Materials & Finishing Calculator help topic"), "AddMissingHelpTopics")
                 AddMaterialsFinishingHelp()
             End If
+
+            ' Check if Epoxy Area Calculator help exists (added February 1, 2026)
+            Dim areaCalcHelp = DatabaseManager.Instance.GetHelpContent("areacalc")
+            If areaCalcHelp Is Nothing Then
+                ErrorHandler.LogError(New Exception("Adding Epoxy Area Calculator help topic"), "AddMissingHelpTopics")
+                AddEpoxyAreaCalculatorHelp()
+            End If
+
+            ' Check if Stone Coat Top Coat help exists (added February 1, 2026)
+            Dim stoneCoatHelp = DatabaseManager.Instance.GetHelpContent("stonecoat")
+            If stoneCoatHelp Is Nothing Then
+                ErrorHandler.LogError(New Exception("Adding Stone Coat Top Coat help topic"), "AddMissingHelpTopics")
+                AddStoneCoatHelp()
+            End If
         Catch ex As Exception
             ErrorHandler.LogError(ex, "AddMissingHelpTopics")
         End Try
@@ -629,6 +643,145 @@ Different joints need different amounts of glue:
             ErrorHandler.LogError(New Exception($"Materials and Finishing help added: {count} topic"), "AddMaterialsFinishingHelp")
         Catch ex As Exception
             ErrorHandler.LogError(ex, "AddMaterialsFinishingHelp")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Adds Epoxy Area Calculator help content to the database
+    ''' Added: February 1, 2026
+    ''' </summary>
+    Private Shared Sub AddEpoxyAreaCalculatorHelp()
+        Try
+            Dim helpContent As New List(Of DatabaseManager.HelpContentData) From {
+                New DatabaseManager.HelpContentData With {
+                    .ModuleName = "areacalc",
+                    .Title = "Epoxy Area Calculator",
+                    .Category = "Calculators",
+                    .SortOrder = 13,
+                    .Version = "1.0",
+                    .Keywords = "area,calculator,epoxy,topcoat,stone coat,surface,multiple,table,grid,pour",
+                    .Content = "See MigrateHelpContent for full content"
+                }
+            }
+
+            ' Get the full content from MigrateHelpContent
+            Dim fullContent = "
+#TITLE:Epoxy Area Calculator
+##SECTION:Purpose|Calculate total surface area for epoxy projects with multiple surfaces or zones. Integrates with both Epoxy Pour and Stone Coat Top Coat calculators.
+###SUBTITLE:What It Does
+The Area Calculator is a shared workspace table at the top of the Epoxy tab that helps:
+*BULLET:Calculate area for multiple rectangular surfaces
+*BULLET:Track different zones in a single project
+*BULLET:Separate base pour quantities from top coat quantities
+*BULLET:Get automatic totals across all entries
+
+###SUBTITLE:Calculation Types
+Use the three radio buttons to control how area is calculated:
+
+@METHOD:Pour (Base Epoxy)|Calculates area for base flood coat or river table pour. Total feeds into Epoxy Pour Calculator for volume calculation.
+@METHOD:TopCoat (Stone Coat)|Calculates area for Stone Coat top coat surface coverage. Total feeds into Stone Coat Calculator for mixing instructions.
+@METHOD:Both|Calculates combined area for projects needing both layers. Shows total for complete project planning and budgeting.
+
+###SUBTITLE:Using the Grid
+#NUM:1:Click in any empty row to start entry
+#NUM:2:Enter surface name/description (optional, for tracking)
+#NUM:3:Enter Length in inches
+#NUM:4:Enter Width in inches
+#NUM:5:Area automatically calculates (Length × Width ÷ 144 = sq ft)
+#NUM:6:Add more rows for additional surfaces
+#NUM:7:Total area displays at bottom and feeds selected calculator
+
+###SUBTITLE:Integration Examples
+
+@METHOD:Example 1 - Kitchen Counter TopCoat|Enter all counter sections in grid. Select TopCoat. Total area feeds Stone Coat calculator which shows Part A + Part B + Water amounts.
+
+@METHOD:Example 2 - River Table Pour|Enter table top dimensions in grid. Select Pour. Total area feeds Epoxy Pour calculator. Enter depth to get volume.
+
+@METHOD:Example 3 - Complete Project|Enter all surfaces. Select Both. See total material needs for both pour layer and top coat layer.
+
+###SUBTITLE:Tips for Accuracy
+*BULLET:Label each zone clearly for future reference
+*BULLET:Measure installed dimensions (not cabinet opening)
+*BULLET:Break irregular shapes into rectangles
+*BULLET:Add 5% to waste factor for curved edges
+*BULLET:Clear old project data before starting new calculation
+
+?NOTE:The Area Calculator automatically sums ALL rows in the grid regardless of which radio button is selected. The radio button controls which calculator receives the total."
+
+            helpContent(0).Content = fullContent
+
+            Dim count = DatabaseManager.Instance.BulkInsertHelpContent(helpContent)
+            ErrorHandler.LogError(New Exception($"Epoxy Area Calculator help added: {count} topic"), "AddEpoxyAreaCalculatorHelp")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddEpoxyAreaCalculatorHelp")
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Adds Stone Coat Top Coat Calculator help content to the database
+    ''' Added: February 1, 2026
+    ''' </summary>
+    Private Shared Sub AddStoneCoatHelp()
+        Try
+            Dim helpContent As New List(Of DatabaseManager.HelpContentData) From {
+                New DatabaseManager.HelpContentData With {
+                    .ModuleName = "stonecoat",
+                    .Title = "Stone Coat Top Coat Calculator",
+                    .Category = "Calculators",
+                    .SortOrder = 13,
+                    .Version = "1.0",
+                    .Keywords = "stone coat,topcoat,epoxy,countertop,finish,matte,gloss,water,mixing,coverage",
+                    .Content = "See MigrateHelpContent for full content"
+                }
+            }
+
+            ' Get the full content from MigrateHelpContent (abbreviated for brevity, use actual content from migration)
+            Dim fullContent = "
+#TITLE:Stone Coat Top Coat Calculator
+##SECTION:Purpose|Calculate precise amounts of Stone Coat Countertop epoxy top coat needed for kitchen counters, bar tops, and table surfaces. Stone Coat uses a unique water-based mixing formula.
+
+###SUBTITLE:What is Stone Coat?
+Stone Coat Countertops produces a specialized epoxy top coat system:
+*BULLET:Water-activated formula (requires room temperature water)
+*BULLET:Two-part system: Part A (resin) + Part B (hardener) + Water
+*BULLET:Matte or Gloss finish options with different ratios
+*BULLET:Self-leveling for perfectly smooth surfaces
+*BULLET:Coverage: Approximately 150-200 sq ft per gallon
+
+###SUBTITLE:Using the Calculator
+#NUM:1:Calculate total area using Area Calculator table (select TopCoat or Both)
+#NUM:2:Enter Total Area in square feet (auto-populates from Area Calculator)
+#NUM:3:Select waste percentage (0%, 10%, 15%, or 20%)
+#NUM:4:Review mixing instructions for both Matte and Gloss finishes
+
+###SUBTITLE:Mixing Ratios
+
+@METHOD:Matte Finish (Most Popular)|Ratio 2A:1B:0.5W - 2 parts Part A, 1 part Part B, 0.5 parts room temp water. Creates elegant satin finish.
+
+@METHOD:Gloss Finish (High Shine)|Ratio 2A:1B:0.35W - 2 parts Part A, 1 part Part B, 0.35 parts room temp water. Creates mirror-like glossy finish.
+
+###SUBTITLE:Calculator Results
+The calculator displays exact amounts in both ounces and milliliters:
+*BULLET:Part A amount (for selected finish)
+*BULLET:Part B amount (for selected finish)
+*BULLET:Room temperature water amount
+*BULLET:Total mixture volume
+*BULLET:Top Coat Multiplier (coverage rate: ~0.7 oz per sq ft)
+
+###SUBTITLE:Critical Warnings
+!WARNING:Water Temperature - MUST be room temperature (65-75°F). Cold water slows cure, hot water can cause flash cure!
+!WARNING:Mixing Precision - Use scale or precise measuring. Off-ratio mix may not cure properly or remain tacky!
+!WARNING:Environmental Conditions - Apply at 65-85°F with 30-70% humidity. Avoid fans blowing on surface during self-leveling!
+
+?NOTE:Use Area Calculator table to sum multiple surfaces, then select TopCoat radio button to feed total area to this calculator!
+?NOTE:Two thin coats are better than one thick coat. Sand between coats with 400 grit for perfect adhesion."
+
+            helpContent(0).Content = fullContent
+
+            Dim count = DatabaseManager.Instance.BulkInsertHelpContent(helpContent)
+            ErrorHandler.LogError(New Exception($"Stone Coat Top Coat help added: {count} topic"), "AddStoneCoatHelp")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "AddStoneCoatHelp")
         End Try
     End Sub
 
