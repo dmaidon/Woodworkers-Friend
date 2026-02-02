@@ -59,8 +59,8 @@ Public Class ReferenceDataManager
 #Region "Constructor"
 
     Private Sub New()
-        ' Database location: %AppData%\WoodworkersFriend\Resources\Reference.db
-        Dim resourcesDir = Path.Combine(Globals.DataDir, "Resources")
+        ' Database location: Program Files\Woodworkers Friend\Data\Resources\Reference.db
+        Dim resourcesDir = Globals.AppResourcesDir
         Directory.CreateDirectory(resourcesDir)
 
         _databasePath = Path.Combine(resourcesDir, "Reference.db")

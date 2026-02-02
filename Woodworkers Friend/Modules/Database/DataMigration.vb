@@ -28,8 +28,8 @@ Public Class DataMigration
             Dim successCount = 0
             Dim failCount = 0
 
-            ' Get database connection - Use Reference.db (not legacy monolithic database)
-            Dim refDbPath = IO.Path.Combine(DataDir, "Resources", "Reference.db")
+            ' Get database connection - Use Reference.db in installation folder
+            Dim refDbPath = IO.Path.Combine(AppResourcesDir, "Reference.db")
             Using conn As New SQLiteConnection($"Data Source={refDbPath};Version=3;")
                 conn.Open()
 
@@ -98,8 +98,8 @@ Public Class DataMigration
     ''' </summary>
     Public Shared Function IsWoodSpeciesMigrated() As Boolean
         Try
-            ' Check Reference.db (not legacy monolithic database)
-            Dim refDbPath = IO.Path.Combine(DataDir, "Resources", "Reference.db")
+            ' Check Reference.db in installation folder
+            Dim refDbPath = IO.Path.Combine(AppResourcesDir, "Reference.db")
             Using conn As New SQLiteConnection($"Data Source={refDbPath};Version=3;")
                 conn.Open()
                 Using cmd As New SQLiteCommand("SELECT COUNT(*) FROM WoodSpecies", conn)

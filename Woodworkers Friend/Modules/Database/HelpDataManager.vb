@@ -58,8 +58,8 @@ Public Class HelpDataManager
 #Region "Constructor"
 
     Private Sub New()
-        ' Database location: %AppData%\WoodworkersFriend\Resources\Help.db
-        Dim resourcesDir = Path.Combine(Globals.DataDir, "Resources")
+        ' Database location: Program Files\Woodworkers Friend\Data\Resources\Help.db
+        Dim resourcesDir = Globals.AppResourcesDir
         Directory.CreateDirectory(resourcesDir)
 
         _databasePath = Path.Combine(resourcesDir, "Help.db")

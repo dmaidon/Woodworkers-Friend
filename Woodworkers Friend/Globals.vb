@@ -16,18 +16,21 @@ Friend Module Globals
     ' Default is 3 days (minimum), loaded from UserPreferences at startup
     Friend MaxLogAgeInDays As Integer = 3
 
-    ' Directory paths - Use AppData for user-specific files
-    ' This ensures the app works without admin rights and data persists across updates
-    Private ReadOnly AppDataRoot As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WoodworkersFriend")
-    
-    Friend ReadOnly LogDir As String = Path.Combine(AppDataRoot, "Logs")
-    Friend ReadOnly SetDir As String = Path.Combine(AppDataRoot, "Settings")
-    Friend ReadOnly ProjectDir As String = Path.Combine(AppDataRoot, "Projects")
-    Friend ReadOnly DataDir As String = Path.Combine(AppDataRoot, "Data")
-    Friend ReadOnly TempDir As String = Path.Combine(AppDataRoot, "$tmp")
-    
-    ' Installation folder (for read-only template files like Help.db)
+    ' Directory paths
+    ' Application data (Help.db, Reference.db) - Read-only, in installation folder
     Friend ReadOnly InstallDir As String = Application.StartupPath
+
+    Friend ReadOnly AppDataDir As String = Path.Combine(InstallDir, "Data")
+    Friend ReadOnly AppResourcesDir As String = Path.Combine(AppDataDir, "Resources")
+
+    ' User-specific data - Read-write, in AppData
+    Private ReadOnly UserAppDataRoot As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WoodworkersFriend")
+
+    Friend ReadOnly LogDir As String = Path.Combine(UserAppDataRoot, "Logs")
+    Friend ReadOnly SetDir As String = Path.Combine(UserAppDataRoot, "Settings")
+    Friend ReadOnly ProjectDir As String = Path.Combine(UserAppDataRoot, "Projects")
+    Friend ReadOnly DataDir As String = Path.Combine(UserAppDataRoot, "Data")
+    Friend ReadOnly TempDir As String = Path.Combine(UserAppDataRoot, "$tmp")
 
     Friend LogFile As String
 
