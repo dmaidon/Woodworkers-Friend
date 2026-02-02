@@ -87,7 +87,7 @@ for cabinetmakers, furniture makers, and woodworking
 enthusiasts.
 
 AUTHOR:
-  David Maidon
+  Dennis N. Maidon
 
 COMPANY:
   Woodworker's Friend Software
@@ -121,7 +121,7 @@ KEY FEATURES:
   ✓ Dark/Light Themes
 
 COPYRIGHT:
-  © 2026 Woodworker's Friend. All rights reserved.
+  © 2026 Dennis N. Maidon. All rights reserved.
 
 LICENSE:
   This software is open source and provided 'as-is'

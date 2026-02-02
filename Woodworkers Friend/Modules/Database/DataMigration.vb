@@ -200,7 +200,7 @@ Public Class DataMigration
             ' Check if Miter Angle Calculator help exists (added January 31, 2026)
             Dim miterHelp = DatabaseManager.Instance.GetHelpContent("MiterAngle")
             ErrorHandler.LogError(New Exception($"AddMissingHelpTopics: MiterAngle help check - IsNull={miterHelp Is Nothing}"), "MiterAngle Debug")
-            
+
             If miterHelp Is Nothing Then
                 ErrorHandler.LogError(New Exception("Adding Miter Angle Calculator help topic"), "AddMissingHelpTopics")
                 AddMiterAngleHelp()
@@ -840,6 +840,144 @@ Different joints need different amounts of glue:
 "" & vbLf &
 "!WARNING:Important: Always mix resin in small batches to avoid excessive heat buildup!" & vbLf &
 "?NOTE:Tip: For deep pours, consider multiple thin layers instead of one thick pour!"
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "areacalc",
+.Title = "Epoxy Area Calculator",
+.Category = "Calculators",
+.SortOrder = 13,
+.Keywords = "area,calculator,epoxy,topcoat,stone coat,surface,multiple,table,grid,pour",
+.Content =
+"#TITLE:Epoxy Area Calculator" & vbLf &
+"##SECTION:Purpose|Calculate total surface area for epoxy projects with multiple surfaces or zones. Integrates with both Epoxy Pour and Stone Coat Top Coat calculators." & vbLf &
+"###SUBTITLE:What It Does" & vbLf &
+"The Area Calculator is a shared workspace table at the top of the Epoxy tab that helps:" & vbLf &
+"*BULLET:Calculate area for multiple rectangular surfaces" & vbLf &
+"*BULLET:Track different zones in a single project" & vbLf &
+"*BULLET:Separate base pour quantities from top coat quantities" & vbLf &
+"*BULLET:Get automatic totals across all entries" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Calculation Types" & vbLf &
+"Use the three radio buttons to control how area is calculated:" & vbLf &
+"" & vbLf &
+"@METHOD:Pour (Base Epoxy)|Calculates area for base flood coat or river table pour. Total feeds into Epoxy Pour Calculator for volume calculation." & vbLf &
+"@METHOD:TopCoat (Stone Coat)|Calculates area for Stone Coat top coat surface coverage. Total feeds into Stone Coat Calculator for mixing instructions." & vbLf &
+"@METHOD:Both|Calculates combined area for projects needing both layers. Shows total for complete project planning and budgeting." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using the Grid" & vbLf &
+"#NUM:1:Click in any empty row to start entry" & vbLf &
+"#NUM:2:Enter surface name/description (optional, for tracking)" & vbLf &
+"#NUM:3:Enter Length in inches" & vbLf &
+"#NUM:4:Enter Width in inches" & vbLf &
+"#NUM:5:Area automatically calculates (Length × Width ÷ 144 = sq ft)" & vbLf &
+"#NUM:6:Add more rows for additional surfaces" & vbLf &
+"#NUM:7:Total area displays at bottom and feeds selected calculator" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Integration Examples" & vbLf &
+"" & vbLf &
+"@METHOD:Example 1 - Kitchen Counter TopCoat|Enter all counter sections in grid. Select TopCoat. Total area feeds Stone Coat calculator which shows Part A + Part B + Water amounts." & vbLf &
+"" & vbLf &
+"@METHOD:Example 2 - River Table Pour|Enter table top dimensions in grid. Select Pour. Total area feeds Epoxy Pour calculator. Enter depth to get volume." & vbLf &
+"" & vbLf &
+"@METHOD:Example 3 - Complete Project|Enter all surfaces. Select Both. See total material needs for both pour layer and top coat layer." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Tips for Accuracy" & vbLf &
+"*BULLET:Label each zone clearly for future reference" & vbLf &
+"*BULLET:Measure installed dimensions (not cabinet opening)" & vbLf &
+"*BULLET:Break irregular shapes into rectangles" & vbLf &
+"*BULLET:Add 5% to waste factor for curved edges" & vbLf &
+"*BULLET:Clear old project data before starting new calculation" & vbLf &
+"" & vbLf &
+"?NOTE:The Area Calculator automatically sums ALL rows in the grid regardless of which radio button is selected. The radio button controls which calculator receives the total."
+},
+                New DatabaseManager.HelpContentData With {
+.ModuleName = "stonecoat",
+.Title = "Stone Coat Top Coat Calculator",
+.Category = "Calculators",
+.SortOrder = 13,
+.Keywords = "stone coat,topcoat,epoxy,countertop,finish,matte,gloss,water,mixing,coverage",
+.Content =
+"#TITLE:Stone Coat Top Coat Calculator" & vbLf &
+"##SECTION:Purpose|Calculate precise amounts of Stone Coat Countertop epoxy top coat needed for kitchen counters, bar tops, and table surfaces. Stone Coat uses a unique water-based mixing formula." & vbLf &
+"" & vbLf &
+"###SUBTITLE:What is Stone Coat?" & vbLf &
+"Stone Coat Countertops produces a specialized epoxy top coat system:" & vbLf &
+"*BULLET:Water-activated formula (requires room temperature water)" & vbLf &
+"*BULLET:Two-part system: Part A (resin) + Part B (hardener) + Water" & vbLf &
+"*BULLET:Matte or Gloss finish options with different ratios" & vbLf &
+"*BULLET:Self-leveling for perfectly smooth surfaces" & vbLf &
+"*BULLET:Coverage: Approximately 150-200 sq ft per gallon" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Using the Calculator" & vbLf &
+"#NUM:1:Calculate total area using Area Calculator table (select TopCoat or Both)" & vbLf &
+"#NUM:2:Enter Total Area in square feet (auto-populates from Area Calculator)" & vbLf &
+"#NUM:3:Select waste percentage (0%, 10%, 15%, or 20%)" & vbLf &
+"#NUM:4:Review mixing instructions for both Matte and Gloss finishes" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Mixing Ratios" & vbLf &
+"" & vbLf &
+"@METHOD:Matte Finish (Most Popular)|Ratio 2A:1B:0.5W - 2 parts Part A, 1 part Part B, 0.5 parts room temp water. Creates elegant satin finish." & vbLf &
+"" & vbLf &
+"@METHOD:Gloss Finish (High Shine)|Ratio 2A:1B:0.35W - 2 parts Part A, 1 part Part B, 0.35 parts room temp water. Creates mirror-like glossy finish." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Calculator Results" & vbLf &
+"The calculator displays exact amounts in both ounces and milliliters:" & vbLf &
+"*BULLET:Part A amount (for selected finish)" & vbLf &
+"*BULLET:Part B amount (for selected finish)" & vbLf &
+"*BULLET:Room temperature water amount" & vbLf &
+"*BULLET:Total mixture volume" & vbLf &
+"*BULLET:Top Coat Multiplier (coverage rate: ~0.7 oz per sq ft)" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Application Process" & vbLf &
+"#NUM:1:Clean surface thoroughly - remove all dust, grease, oils" & vbLf &
+"#NUM:2:Apply Stone Coat Primer if surface is porous (allow 24 hours cure)" & vbLf &
+"#NUM:3:Light sand with 220 grit, wipe with tack cloth" & vbLf &
+"#NUM:4:Mix Part A + Part B for 2 minutes, scraping sides" & vbLf &
+"#NUM:5:Add room temp water slowly while mixing" & vbLf &
+"#NUM:6:Mix for 3 more minutes (5 minutes total mixing time)" & vbLf &
+"#NUM:7:Let rest 2 minutes for bubbles to rise" & vbLf &
+"#NUM:8:Pour in ribbons and spread with notched squeegee" & vbLf &
+"#NUM:9:Back-roll with foam roller to remove bubbles" & vbLf &
+"#NUM:10:Torch lightly to pop remaining surface bubbles" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Critical Warnings" & vbLf &
+"!WARNING:Water Temperature - MUST be room temperature (65-75°F). Cold water slows cure, hot water can cause flash cure!" & vbLf &
+"!WARNING:Mixing Precision - Use scale or precise measuring. Off-ratio mix may not cure properly or remain tacky!" & vbLf &
+"!WARNING:Environmental Conditions - Apply at 65-85°F with 30-70% humidity. Avoid fans blowing on surface during self-leveling!" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Waste Factors" & vbLf &
+"*BULLET:0% - Exact calculation (experienced users, simple shapes)" & vbLf &
+"*BULLET:10% - Small rectangular projects" & vbLf &
+"*BULLET:15% - Standard recommendation for most projects" & vbLf &
+"*BULLET:20% - Complex shapes, first-time Stone Coat users" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Curing Time" & vbLf &
+"*BULLET:Initial cure: 24 hours (no contact)" & vbLf &
+"*BULLET:Light use: 48 hours" & vbLf &
+"*BULLET:Full cure: 7 days (maximum hardness)" & vbLf &
+"*BULLET:Temperature affects cure speed: 65-85°F optimal" & vbLf &
+"" & vbLf &
+"###SUBTITLE:Common Project Examples" & vbLf &
+"" & vbLf &
+"@METHOD:Kitchen Counter (60"" × 25.5"")|Area: 10.625 sq ft. Matte needs ~8 oz Part A, 4 oz Part B, 2 oz Water. Buy 1 quart kit." & vbLf &
+"" & vbLf &
+"@METHOD:Bar Top (96"" × 24"")|Area: 16 sq ft. Matte needs ~12 oz Part A, 6 oz Part B, 3 oz Water. Buy 1 quart kit." & vbLf &
+"" & vbLf &
+"@METHOD:Large Island (120"" × 42"")|Area: 35 sq ft. Matte needs ~25 oz Part A, 12.5 oz Part B, 6 oz Water. Buy 1 gallon kit." & vbLf &
+"" & vbLf &
+"###SUBTITLE:Troubleshooting" & vbLf &
+"" & vbLf &
+"&PROBLEM:Tacky surface after 24 hours" & vbLf &
+"&SOLUTION:Most common cause is ratio error. Check mixing precision. Verify hardener shelf life. Ensure room temp water used. Check cure temperature (must be 65-85°F)." & vbLf &
+"" & vbLf &
+"&PROBLEM:Top coat won't level properly" & vbLf &
+"&SOLUTION:Temperature too cold - warm surface to 70-75°F. Mixed incorrectly - ensure exact ratios. Applied too thick - use recommended squeegee notch size." & vbLf &
+"" & vbLf &
+"&PROBLEM:Bubbles won't pop" & vbLf &
+"&SOLUTION:Torch too far away (6-8"" recommended) or too close (can burn). Don't over-torch - causes fish-eyes." & vbLf &
+"" & vbLf &
+"?NOTE:Use Area Calculator table to sum multiple surfaces, then select TopCoat radio button to feed total area to this calculator!" & vbLf &
+"?NOTE:Two thin coats are better than one thick coat. Sand between coats with 400 grit for perfect adhesion."
 },
                 New DatabaseManager.HelpContentData With {
 .ModuleName = "polygon",

@@ -36,7 +36,8 @@ Partial Public Class FrmMain
 
             ' Get company and author from assembly attributes or FileVersionInfo
             Dim companyName As String = fileVersionInfo.CompanyName
-            Dim authorName As String = fileVersionInfo.LegalCopyright
+            'Dim authorName As String = fileVersionInfo.LegalCopyright
+            Dim authorName As String = "Dennis N. Maidon"
 
             ' If company is empty, use fallback
             If String.IsNullOrEmpty(companyName) Then companyName = "Maidon Woodworking"
