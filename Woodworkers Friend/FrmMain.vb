@@ -111,9 +111,33 @@ Public Class FrmMain
             If Not IO.Directory.Exists(resourcesDir) Then
                 IO.Directory.CreateDirectory(resourcesDir)
             End If
+            
+            ' Copy Help.db from installation folder to user AppData on first run
+            CopyHelpDatabaseOnFirstRun(resourcesDir)
         Catch ex As Exception
             ' If folder creation fails, log it (but ErrorHandler might not work yet!)
             Debug.WriteLine($"Failed to create program folders: {ex.Message}")
+        End Try
+    End Sub
+    
+    ''' <summary>
+    ''' Copies Help.db from installation folder to user AppData on first run
+    ''' </summary>
+    Private Sub CopyHelpDatabaseOnFirstRun(resourcesDir As String)
+        Try
+            Dim userHelpDb = IO.Path.Combine(resourcesDir, "Help.db")
+            Dim installHelpDb = IO.Path.Combine(InstallDir, "Data", "Help.db")
+            
+            ' If user doesn't have Help.db but installer does, copy it
+            If Not IO.File.Exists(userHelpDb) AndAlso IO.File.Exists(installHelpDb) Then
+                IO.File.Copy(installHelpDb, userHelpDb, overwrite:=False)
+                ErrorHandler.LogError(New Exception($"Copied Help.db from installation to user AppData"), "CopyHelpDatabaseOnFirstRun")
+            ElseIf Not IO.File.Exists(userHelpDb) Then
+                ErrorHandler.LogError(New Exception($"WARNING: Help.db not found in installation folder: {installHelpDb}"), "CopyHelpDatabaseOnFirstRun")
+            End If
+        Catch ex As Exception
+            Debug.WriteLine($"Failed to copy Help.db: {ex.Message}")
+            ErrorHandler.LogError(ex, "CopyHelpDatabaseOnFirstRun")
         End Try
     End Sub
 

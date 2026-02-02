@@ -28,8 +28,9 @@ Public Class DataMigration
             Dim successCount = 0
             Dim failCount = 0
 
-            ' Get database connection
-            Using conn As New SQLiteConnection($"Data Source={DatabaseManager.Instance.DatabasePath};Version=3;")
+            ' Get database connection - Use Reference.db (not legacy monolithic database)
+            Dim refDbPath = IO.Path.Combine(DataDir, "Resources", "Reference.db")
+            Using conn As New SQLiteConnection($"Data Source={refDbPath};Version=3;")
                 conn.Open()
 
                 Using transaction = conn.BeginTransaction()
@@ -41,14 +42,12 @@ Public Class DataMigration
                                         CommonName, ScientificName, WoodType,
                                         JankaHardness, SpecificGravity, Density, MoistureContent,
                                         ShrinkageRadial, ShrinkageTangential,
-                                        TypicalUses, Workability, Cautions, Notes,
-                                        IsUserAdded
+                                        TypicalUses, Workability, Cautions, Notes
                                     ) VALUES (
                                         @CommonName, @ScientificName, @WoodType,
                                         @JankaHardness, @SpecificGravity, @Density, @MoistureContent,
                                         @ShrinkageRadial, @ShrinkageTangential,
-                                        @TypicalUses, @Workability, @Cautions, @Notes,
-                                        0
+                                        @TypicalUses, @Workability, @Cautions, @Notes
                                     )", conn, transaction)
 
                                     cmd.Parameters.AddWithValue("@CommonName", species.CommonName)
@@ -99,7 +98,9 @@ Public Class DataMigration
     ''' </summary>
     Public Shared Function IsWoodSpeciesMigrated() As Boolean
         Try
-            Using conn As New SQLiteConnection($"Data Source={DatabaseManager.Instance.DatabasePath};Version=3;")
+            ' Check Reference.db (not legacy monolithic database)
+            Dim refDbPath = IO.Path.Combine(DataDir, "Resources", "Reference.db")
+            Using conn As New SQLiteConnection($"Data Source={refDbPath};Version=3;")
                 conn.Open()
                 Using cmd As New SQLiteCommand("SELECT COUNT(*) FROM WoodSpecies", conn)
                     Dim count = Convert.ToInt32(cmd.ExecuteScalar())
@@ -2663,9 +2664,15 @@ The calculator displays exact amounts in both ounces and milliliters:
         Try
             ErrorHandler.LogError(New Exception("Starting wood costs migration from CSV..."), "MigrateWoodCosts")
 
+            ' Try AppData location first (for upgraded users), then installation folder
             Dim csvPath As String = IO.Path.Combine(SetDir, "bfCost.csv")
             If Not IO.File.Exists(csvPath) Then
-                ErrorHandler.LogError(New Exception($"CSV file not found: {csvPath}"), "MigrateWoodCosts")
+                ' Fallback: Check installation folder
+                csvPath = IO.Path.Combine(InstallDir, "Settings", "bfCost.csv")
+            End If
+            
+            If Not IO.File.Exists(csvPath) Then
+                ErrorHandler.LogError(New Exception($"CSV file not found in AppData or Installation folder"), "MigrateWoodCosts")
                 Return 0
             End If
 
@@ -2725,9 +2732,15 @@ The calculator displays exact amounts in both ounces and milliliters:
         Try
             ErrorHandler.LogError(New Exception("Starting epoxy costs migration from CSV..."), "MigrateEpoxyCosts")
 
+            ' Try AppData location first (for upgraded users), then installation folder
             Dim csvPath As String = IO.Path.Combine(SetDir, "epoxyCost.csv")
             If Not IO.File.Exists(csvPath) Then
-                ErrorHandler.LogError(New Exception($"CSV file not found: {csvPath}"), "MigrateEpoxyCosts")
+                ' Fallback: Check installation folder
+                csvPath = IO.Path.Combine(InstallDir, "Settings", "epoxyCost.csv")
+            End If
+            
+            If Not IO.File.Exists(csvPath) Then
+                ErrorHandler.LogError(New Exception($"CSV file not found in AppData or Installation folder"), "MigrateEpoxyCosts")
                 Return 0
             End If
 
