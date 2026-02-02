@@ -270,6 +270,12 @@ Partial Public Class FrmMain
                     ShowBoardFeetHelp(rtb)
                 Case "epoxy"
                     ShowEpoxyHelp(rtb)
+                Case "areacalc"
+                    ' Epoxy Area Calculator - should load from database
+                    ShowUnknownTopicHelp(rtb, "areacalc - Epoxy Area Calculator")
+                Case "stonecoat"
+                    ' Stone Coat Top Coat Calculator - should load from database
+                    ShowUnknownTopicHelp(rtb, "stonecoat - Stone Coat Top Coat Calculator")
                 Case "polygon"
                     ShowPolygonHelp(rtb)
                 Case "units"
@@ -302,6 +308,12 @@ Partial Public Class FrmMain
                     ShowTroubleshootingHelp(rtb)
                 Case "version"
                     ShowVersionHelp(rtb)
+                Case "MiterAngle"
+                    ' Miter Angle Calculator - should load from database
+                    ShowUnknownTopicHelp(rtb, "MiterAngle - Miter Angle Calculator")
+                Case "MaterialsFinishing"
+                    ' Materials & Finishing Calculator - should load from database
+                    ShowUnknownTopicHelp(rtb, "MaterialsFinishing - Materials & Finishing Calculator")
                 Case Else
                     ' Show a default message for unknown topics
                     ShowUnknownTopicHelp(rtb, topic)
