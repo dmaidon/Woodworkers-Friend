@@ -29,9 +29,11 @@ SetupIconFile="Woodworkers Friend\Resources\wood.ico"
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
-PrivilegesRequired=lowest
+PrivilegesRequired=admin
 PrivilegesRequiredOverridesAllowed=dialog
 ArchitecturesInstallIn64BitMode=x64compatible
+; Note: Requires admin to install to Program Files, but app itself runs without admin
+; User data is stored in %AppData% so no admin rights needed at runtime
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
