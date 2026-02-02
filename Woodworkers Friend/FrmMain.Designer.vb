@@ -742,6 +742,7 @@ Partial Class FrmMain
         LblGritResult = New Label()
         TpHelp = New TabPage()
         TpAbout = New TabPage()
+        PbMwwLogo = New PictureBox()
         NudLogKeep = New NumericUpDown()
         Label51 = New Label()
         LblManageCosts = New Label()
@@ -758,7 +759,7 @@ Partial Class FrmMain
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
         TmrClock = New Timer(components)
-        PbMwwLogo = New PictureBox()
+        LblTopCoat = New Label()
         CmsLog.SuspendLayout()
         Ss1.SuspendLayout()
         Ss2.SuspendLayout()
@@ -923,9 +924,9 @@ Partial Class FrmMain
         GbxSandingGrit.SuspendLayout()
         PnlSgpRadioButtons.SuspendLayout()
         TpAbout.SuspendLayout()
+        CType(PbMwwLogo, ComponentModel.ISupportInitialize).BeginInit()
         CType(NudLogKeep, ComponentModel.ISupportInitialize).BeginInit()
         GbxAbout.SuspendLayout()
-        CType(PbMwwLogo, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' CmsLog
@@ -2882,6 +2883,7 @@ Partial Class FrmMain
         ' 
         PnlStoneCoatTopCoat.BackColor = Color.WhiteSmoke
         PnlStoneCoatTopCoat.BorderStyle = BorderStyle.FixedSingle
+        PnlStoneCoatTopCoat.Controls.Add(LblTopCoat)
         PnlStoneCoatTopCoat.Controls.Add(RbTcWaste20)
         PnlStoneCoatTopCoat.Controls.Add(RbTcWaste15)
         PnlStoneCoatTopCoat.Controls.Add(RbTcWaste10)
@@ -3967,7 +3969,7 @@ Partial Class FrmMain
         ' 
         ScSpacings.Panel2.Controls.Add(GbxBiscuitDomino)
         ScSpacings.Size = New Size(1124, 807)
-        ScSpacings.SplitterDistance = 555
+        ScSpacings.SplitterDistance = 554
         ScSpacings.SplitterWidth = 6
         ScSpacings.TabIndex = 0
         ' 
@@ -3993,7 +3995,7 @@ Partial Class FrmMain
         GbxClampSpacing.Dock = DockStyle.Fill
         GbxClampSpacing.Location = New Point(0, 0)
         GbxClampSpacing.Name = "GbxClampSpacing"
-        GbxClampSpacing.Size = New Size(551, 803)
+        GbxClampSpacing.Size = New Size(550, 803)
         GbxClampSpacing.TabIndex = 0
         GbxClampSpacing.TabStop = False
         GbxClampSpacing.Text = "Clamp Spacing"
@@ -4048,7 +4050,7 @@ Partial Class FrmMain
         TxtClampNotes.Multiline = True
         TxtClampNotes.Name = "TxtClampNotes"
         TxtClampNotes.ScrollBars = ScrollBars.Both
-        TxtClampNotes.Size = New Size(545, 395)
+        TxtClampNotes.Size = New Size(544, 395)
         TxtClampNotes.TabIndex = 13
         ' 
         ' Label56
@@ -4178,7 +4180,7 @@ Partial Class FrmMain
         GbxBiscuitDomino.Dock = DockStyle.Fill
         GbxBiscuitDomino.Location = New Point(0, 0)
         GbxBiscuitDomino.Name = "GbxBiscuitDomino"
-        GbxBiscuitDomino.Size = New Size(559, 803)
+        GbxBiscuitDomino.Size = New Size(560, 803)
         GbxBiscuitDomino.TabIndex = 0
         GbxBiscuitDomino.TabStop = False
         GbxBiscuitDomino.Text = "Biscuit Domino Spacing"
@@ -4396,7 +4398,7 @@ Partial Class FrmMain
         ' 
         ScAngles.Panel2.Controls.Add(GbxMiterAngleCalc)
         ScAngles.Size = New Size(1124, 807)
-        ScAngles.SplitterDistance = 493
+        ScAngles.SplitterDistance = 492
         ScAngles.SplitterWidth = 6
         ScAngles.TabIndex = 0
         ' 
@@ -4407,7 +4409,7 @@ Partial Class FrmMain
         GbxPolygonCalculations.Dock = DockStyle.Fill
         GbxPolygonCalculations.Location = New Point(0, 0)
         GbxPolygonCalculations.Name = "GbxPolygonCalculations"
-        GbxPolygonCalculations.Size = New Size(489, 803)
+        GbxPolygonCalculations.Size = New Size(488, 803)
         GbxPolygonCalculations.TabIndex = 0
         GbxPolygonCalculations.TabStop = False
         GbxPolygonCalculations.Text = "Polygon Calculations"
@@ -4435,7 +4437,7 @@ Partial Class FrmMain
         PnlPolygonCalc.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         PnlPolygonCalc.Location = New Point(3, 22)
         PnlPolygonCalc.Name = "PnlPolygonCalc"
-        PnlPolygonCalc.Size = New Size(483, 778)
+        PnlPolygonCalc.Size = New Size(482, 778)
         PnlPolygonCalc.TabIndex = 6
         ' 
         ' NudPolygonDimension
@@ -4474,7 +4476,7 @@ Partial Class FrmMain
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Absolute, 20.0F))
-        TlpPolygonResults.Size = New Size(479, 223)
+        TlpPolygonResults.Size = New Size(478, 223)
         TlpPolygonResults.TabIndex = 23
         ' 
         ' Label90
@@ -4484,7 +4486,7 @@ Partial Class FrmMain
         Label90.Location = New Point(4, 4)
         Label90.Margin = New Padding(3)
         Label90.Name = "Label90"
-        Label90.Size = New Size(232, 29)
+        Label90.Size = New Size(231, 29)
         Label90.TabIndex = 16
         Label90.Text = "RESULTS:"
         Label90.TextAlign = ContentAlignment.MiddleLeft
@@ -4496,7 +4498,7 @@ Partial Class FrmMain
         LblPolygonInteriorAngle.Location = New Point(4, 40)
         LblPolygonInteriorAngle.Margin = New Padding(3)
         LblPolygonInteriorAngle.Name = "LblPolygonInteriorAngle"
-        LblPolygonInteriorAngle.Size = New Size(232, 29)
+        LblPolygonInteriorAngle.Size = New Size(231, 29)
         LblPolygonInteriorAngle.TabIndex = 17
         LblPolygonInteriorAngle.Tag = "Interior Angle: {0:N2}°"
         LblPolygonInteriorAngle.Text = "Interior Angle: "
@@ -4509,7 +4511,7 @@ Partial Class FrmMain
         LblPolygonSideAngle.Location = New Point(4, 76)
         LblPolygonSideAngle.Margin = New Padding(3)
         LblPolygonSideAngle.Name = "LblPolygonSideAngle"
-        LblPolygonSideAngle.Size = New Size(232, 29)
+        LblPolygonSideAngle.Size = New Size(231, 29)
         LblPolygonSideAngle.TabIndex = 3
         LblPolygonSideAngle.Tag = "Exterior Angle: {0:N2}°"
         LblPolygonSideAngle.Text = "Exterior Angle:"
@@ -4522,7 +4524,7 @@ Partial Class FrmMain
         LblPolygonPieceAngle.Location = New Point(4, 112)
         LblPolygonPieceAngle.Margin = New Padding(3)
         LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
-        LblPolygonPieceAngle.Size = New Size(232, 29)
+        LblPolygonPieceAngle.Size = New Size(231, 29)
         LblPolygonPieceAngle.TabIndex = 4
         LblPolygonPieceAngle.Tag = "Miter Cut Angle: {0:N2}°"
         LblPolygonPieceAngle.Text = "Miter Cut Angle:"
@@ -4535,7 +4537,7 @@ Partial Class FrmMain
         LblPolygonSideLengthResult.Location = New Point(4, 148)
         LblPolygonSideLengthResult.Margin = New Padding(3)
         LblPolygonSideLengthResult.Name = "LblPolygonSideLengthResult"
-        LblPolygonSideLengthResult.Size = New Size(232, 29)
+        LblPolygonSideLengthResult.Size = New Size(231, 29)
         LblPolygonSideLengthResult.TabIndex = 18
         LblPolygonSideLengthResult.Tag = "Side Length: {0:N2} {1}"
         LblPolygonSideLengthResult.Text = "Side Length: "
@@ -4547,7 +4549,7 @@ Partial Class FrmMain
         BtnCopyPolyResults.Dock = DockStyle.Fill
         BtnCopyPolyResults.Location = New Point(4, 184)
         BtnCopyPolyResults.Name = "BtnCopyPolyResults"
-        BtnCopyPolyResults.Size = New Size(232, 35)
+        BtnCopyPolyResults.Size = New Size(231, 35)
         BtnCopyPolyResults.TabIndex = 1
         BtnCopyPolyResults.Text = "Copy Results"
         BtnCopyPolyResults.UseVisualStyleBackColor = False
@@ -4556,7 +4558,7 @@ Partial Class FrmMain
         ' 
         BtnResetPolygon.BackColor = Color.MistyRose
         BtnResetPolygon.Dock = DockStyle.Fill
-        BtnResetPolygon.Location = New Point(243, 184)
+        BtnResetPolygon.Location = New Point(242, 184)
         BtnResetPolygon.Name = "BtnResetPolygon"
         BtnResetPolygon.Size = New Size(232, 35)
         BtnResetPolygon.TabIndex = 2
@@ -4567,7 +4569,7 @@ Partial Class FrmMain
         ' 
         LblPolygonArea.AutoSize = True
         LblPolygonArea.Dock = DockStyle.Fill
-        LblPolygonArea.Location = New Point(243, 148)
+        LblPolygonArea.Location = New Point(242, 148)
         LblPolygonArea.Margin = New Padding(3)
         LblPolygonArea.Name = "LblPolygonArea"
         LblPolygonArea.Size = New Size(232, 29)
@@ -4580,7 +4582,7 @@ Partial Class FrmMain
         ' 
         LblPolygonPerimeter.AutoSize = True
         LblPolygonPerimeter.Dock = DockStyle.Fill
-        LblPolygonPerimeter.Location = New Point(243, 112)
+        LblPolygonPerimeter.Location = New Point(242, 112)
         LblPolygonPerimeter.Margin = New Padding(3)
         LblPolygonPerimeter.Name = "LblPolygonPerimeter"
         LblPolygonPerimeter.Size = New Size(232, 29)
@@ -4593,7 +4595,7 @@ Partial Class FrmMain
         ' 
         LblPolygonApothem.AutoSize = True
         LblPolygonApothem.Dock = DockStyle.Fill
-        LblPolygonApothem.Location = New Point(243, 76)
+        LblPolygonApothem.Location = New Point(242, 76)
         LblPolygonApothem.Margin = New Padding(3)
         LblPolygonApothem.Name = "LblPolygonApothem"
         LblPolygonApothem.Size = New Size(232, 29)
@@ -4606,7 +4608,7 @@ Partial Class FrmMain
         ' 
         LblPolygonRadiusResult.AutoSize = True
         LblPolygonRadiusResult.Dock = DockStyle.Fill
-        LblPolygonRadiusResult.Location = New Point(243, 40)
+        LblPolygonRadiusResult.Location = New Point(242, 40)
         LblPolygonRadiusResult.Margin = New Padding(3)
         LblPolygonRadiusResult.Name = "LblPolygonRadiusResult"
         LblPolygonRadiusResult.Size = New Size(232, 29)
@@ -4619,7 +4621,7 @@ Partial Class FrmMain
         ' 
         BtnPolyCalc.BackColor = Color.MistyRose
         BtnPolyCalc.Dock = DockStyle.Fill
-        BtnPolyCalc.Location = New Point(243, 4)
+        BtnPolyCalc.Location = New Point(242, 4)
         BtnPolyCalc.Name = "BtnPolyCalc"
         BtnPolyCalc.Size = New Size(232, 29)
         BtnPolyCalc.TabIndex = 0
@@ -4763,7 +4765,7 @@ Partial Class FrmMain
         GbxMiterAngleCalc.Dock = DockStyle.Fill
         GbxMiterAngleCalc.Location = New Point(0, 0)
         GbxMiterAngleCalc.Name = "GbxMiterAngleCalc"
-        GbxMiterAngleCalc.Size = New Size(621, 803)
+        GbxMiterAngleCalc.Size = New Size(622, 803)
         GbxMiterAngleCalc.TabIndex = 0
         GbxMiterAngleCalc.TabStop = False
         GbxMiterAngleCalc.Text = "Miter Angle Calculator"
@@ -4786,7 +4788,7 @@ Partial Class FrmMain
         GbxMiterOutput.Dock = DockStyle.Top
         GbxMiterOutput.Location = New Point(3, 207)
         GbxMiterOutput.Name = "GbxMiterOutput"
-        GbxMiterOutput.Size = New Size(615, 150)
+        GbxMiterOutput.Size = New Size(616, 150)
         GbxMiterOutput.TabIndex = 1
         GbxMiterOutput.TabStop = False
         GbxMiterOutput.Text = "Output Section: "
@@ -4837,7 +4839,7 @@ Partial Class FrmMain
         GbxMiterInput.Dock = DockStyle.Top
         GbxMiterInput.Location = New Point(3, 22)
         GbxMiterInput.Name = "GbxMiterInput"
-        GbxMiterInput.Size = New Size(615, 185)
+        GbxMiterInput.Size = New Size(616, 185)
         GbxMiterInput.TabIndex = 0
         GbxMiterInput.TabStop = False
         GbxMiterInput.Text = "Input Section: "
@@ -8509,6 +8511,18 @@ Partial Class FrmMain
         TpAbout.TabIndex = 11
         TpAbout.Text = "About"
         ' 
+        ' PbMwwLogo
+        ' 
+        PbMwwLogo.Image = CType(resources.GetObject("PbMwwLogo.Image"), Image)
+        PbMwwLogo.InitialImage = CType(resources.GetObject("PbMwwLogo.InitialImage"), Image)
+        PbMwwLogo.Location = New Point(999, 243)
+        PbMwwLogo.Name = "PbMwwLogo"
+        PbMwwLogo.Size = New Size(150, 150)
+        PbMwwLogo.SizeMode = PictureBoxSizeMode.StretchImage
+        PbMwwLogo.TabIndex = 8
+        PbMwwLogo.TabStop = False
+        PbMwwLogo.Tag = "Maidon Woodworking"
+        ' 
         ' NudLogKeep
         ' 
         NudLogKeep.Location = New Point(971, 93)
@@ -8640,17 +8654,16 @@ Partial Class FrmMain
         ' 
         TmrClock.Interval = 1000
         ' 
-        ' PbMwwLogo
+        ' LblTopCoat
         ' 
-        PbMwwLogo.Image = My.Resources.Resources.MWW_logo_250
-        PbMwwLogo.InitialImage = CType(resources.GetObject("PbMwwLogo.InitialImage"), Image)
-        PbMwwLogo.Location = New Point(999, 243)
-        PbMwwLogo.Name = "PbMwwLogo"
-        PbMwwLogo.Size = New Size(150, 150)
-        PbMwwLogo.SizeMode = PictureBoxSizeMode.StretchImage
-        PbMwwLogo.TabIndex = 8
-        PbMwwLogo.TabStop = False
-        PbMwwLogo.Tag = "Maidon Woodworking"
+        LblTopCoat.AutoSize = True
+        LblTopCoat.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblTopCoat.ForeColor = Color.Maroon
+        LblTopCoat.Location = New Point(53, 12)
+        LblTopCoat.Name = "LblTopCoat"
+        LblTopCoat.Size = New Size(197, 21)
+        LblTopCoat.TabIndex = 9
+        LblTopCoat.Text = "Stone Coat Top Coat"
         ' 
         ' FrmMain
         ' 
@@ -8907,10 +8920,10 @@ Partial Class FrmMain
         PnlSgpRadioButtons.PerformLayout()
         TpAbout.ResumeLayout(False)
         TpAbout.PerformLayout()
+        CType(PbMwwLogo, ComponentModel.ISupportInitialize).EndInit()
         CType(NudLogKeep, ComponentModel.ISupportInitialize).EndInit()
         GbxAbout.ResumeLayout(False)
         GbxAbout.PerformLayout()
-        CType(PbMwwLogo, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -9649,5 +9662,6 @@ Partial Class FrmMain
     Friend WithEvents TxtKnownArea As TextBox
     Friend WithEvents LblKnownArea As Label
     Friend WithEvents PbMwwLogo As PictureBox
+    Friend WithEvents LblTopCoat As Label
 End Class
 
