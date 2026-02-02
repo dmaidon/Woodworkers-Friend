@@ -1,10 +1,30 @@
 # 🪚 Woodworker's Friend v1.0.0 - Release Notes
 
-**Release Date:** February 1, 2026
+**Release Date:** February 2, 2026
 
 ## 🎉 Welcome to Woodworker's Friend!
 
 We're excited to announce the first public release of Woodworker's Friend - a comprehensive woodworking calculator and planning tool designed to make your woodworking projects easier, more accurate, and more efficient.
+
+---
+
+## 🔥 Critical Updates (February 2, 2026)
+
+### Fixed - Critical Startup Issues
+- **Fixed missing `CreateProgramFolders()` method** that prevented application startup
+- **Fixed database schema creation** - SQLite.NET multi-statement command issue resolved
+- **Fixed database migration timing** - Reference.db no longer set to read-only before data insertion
+- **Added automatic schema validation** - Invalid databases are now automatically recreated
+
+### Enhanced - Help System
+- Added **Epoxy Area Calculator** help topic with comprehensive guide
+- Added **Stone Coat Top Coat Calculator** help topic with detailed instructions
+- New topics integrated into navigation tree and search
+
+### Changed - Installation
+- Application now installs to `C:\Woodworkers Friend\` for full write permissions
+- All data (logs, databases, settings) stored in installation folder
+- Single-folder architecture for easy backup and portability
 
 ---
 
@@ -26,7 +46,7 @@ From drawer heights to miter angles, from wood movement to finish coverage - we'
 - Unit conversions and project management
 
 ### 📖 Built-in Help System
-Searchable documentation with 30+ help topics, definitions, formulas, and tips.
+Searchable documentation with 31 help topics including calculator guides, definitions, formulas, and woodworking tips.
 
 ---
 

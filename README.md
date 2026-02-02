@@ -39,6 +39,30 @@
 
 ---
 
+## 🚀 Quick Start
+
+### Installation
+
+1. **Download** the latest installer from [Releases](https://github.com/dmaidon/Woodworkers-Friend/releases)
+2. **Run** `WoodworkersFriend-Setup-v1.0.0.exe` with administrator privileges
+3. **Install** to `C:\Woodworker's Friend\` (default location)
+4. **Launch** from Desktop or Start Menu
+
+**Requirements:**
+- Windows 10 (1809+) or Windows 11
+- .NET 10.0 Desktop Runtime (installer will prompt if missing)
+- 100 MB disk space
+
+**First Run:**
+- Databases created automatically in `C:\Woodworker's Friend\Data\`
+- 31 help topics loaded
+- 25 wood species, 12 joinery types, 11+ hardware standards initialized
+- 68 wood costs and 7 epoxy costs migrated
+
+For detailed installation instructions, see [INSTALL.md](INSTALL.md)
+
+---
+
 ## ✨ Features
 
 ### **🔧 Calculators**

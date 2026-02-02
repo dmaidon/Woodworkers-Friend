@@ -28,15 +28,17 @@
 2. **Run the Installer**
    - Double-click the downloaded `.exe` file
    - If Windows SmartScreen appears, click "More info" → "Run anyway"
+   - **Administrator rights required** for installation to `C:\` drive
    - Follow the installation wizard:
      - Accept the license agreement
-     - Choose installation location (default: `C:\Program Files\WoodworkersFriend`)
+     - Choose installation location (default: `C:\Woodworker's Friend`)
      - Select start menu folder
      - Choose desktop shortcut option
 
 3. **Launch the Application**
    - Start from Desktop shortcut or Start Menu
-   - First launch will create user database at `%APPDATA%\WoodworkersFriend`
+   - First launch will create databases and initialize data
+   - All data stored in installation folder: `C:\Woodworker's Friend\Data\`
 
 ### Method 2: Portable Version
 
@@ -108,23 +110,22 @@ Look for `Microsoft.WindowsDesktop.App 10.0.x`
 
 ### Initial Configuration
 
-1. **Welcome Screen**
-   - Choose theme (Light/Dark)
-   - Select unit system (Imperial/Metric)
-   - Set default wood species
-
-2. **Database Initialization**
-   - Application creates SQLite databases automatically
-   - Location: `%APPDATA%\WoodworkersFriend\`
+1. **Database Initialization** (Automatic)
+   - Application creates SQLite databases on first run
+   - Location: `C:\Woodworker's Friend\Data\`
    - Includes:
-     - `WoodworkersMain.db` - User data and projects
-     - `Help.db` - Help content and documentation
-     - `Resources.db` - Wood species, joinery, hardware data
+     - `Help.db` - 31 help topics and documentation
+     - `Reference.db` - 25 wood species, 12 joinery types, 11+ hardware standards
+     - `UserData.db` - User preferences, 68 wood costs, 7 epoxy costs
 
-3. **Cost Database (Optional)**
-   - Navigate to **Settings** → **Cost Management**
-   - Import wood costs CSV or enter manually
-   - Import epoxy costs or use defaults
+2. **Theme and Units**
+   - Default theme: Light (toggle in status bar)
+   - Default units: Imperial (toggle in each calculator)
+
+3. **Logs and Settings**
+   - Logs created in `C:\Woodworker's Friend\Logs\`
+   - Settings stored in `C:\Woodworker's Friend\Settings\`
+   - Projects saved to `C:\Woodworker's Friend\Projects\`
 
 ---
 
@@ -144,8 +145,9 @@ dotnet --version
 - Open `Settings` → `System` → `About`
 - Ensure Windows 10 version 1809+ or Windows 11
 
-**Solution 3:** Run as Administrator
-- Right-click `Woodworkers Friend.exe`
+**Solution 3:** Check folder permissions
+- Ensure `C:\Woodworker's Friend\` folder has write permissions
+- Run installer as Administrator
 - Select "Run as administrator"
 
 ### Issue: Database errors on launch

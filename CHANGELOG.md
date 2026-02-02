@@ -9,23 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-- Renamed executable from `Woodworkers Friend.exe` to `WwFriend.exe` for cleaner file naming
-- Updated installer to request administrator privileges for Program Files installation
+### Added
+- **Help System Enhancements**
+  - Added "Epoxy Area Calculator" help topic with comprehensive calculator guide
+  - Added "Stone Coat Top Coat Calculator" help topic with detailed instructions
+  - Topics integrated into navigation tree under Calculators section
+  - Full search support for new topics
 
 ### Fixed
-- Installer "Error 5: Access is denied" when installing to Program Files directory
-- Added `PrivilegesRequiredOverridesAllowed=dialog` to allow user choice of install location
+- **Critical Startup Bug**: Added missing `CreateProgramFolders()` method that prevented app from initializing
+- **Database Schema Issues**:
+  - Fixed Reference.db schema creation (SQLite.NET doesn't support multi-statement commands)
+  - Fixed Reference.db being set to read-only before data migration
+  - Added schema validation and automatic recreation for invalid databases
+  - Separate ExecuteNonQuery() calls for each CREATE TABLE statement
+- **Path Configuration**: All data paths correctly use Application.StartupPath for single-folder architecture
+
+### Changed
+- Installer now installs to `C:\Woodworkers Friend\` instead of Program Files for full write permissions
+- All databases (Help.db, Reference.db, UserData.db) created in installation folder
+- Logs, settings, and projects stored in installation folder
+- Classic single-folder architecture maintained
 
 ### Infrastructure
-- Excluded `Installer/` directory and `.exe` files from version control
-- Installer binaries removed from Git repository (build locally or via CI/CD)
-
-### Planned
-- Cloud sync for projects across devices
-- Mobile companion app
-- 3D visualizations for cabinets
-- Plugin system for community calculators
+- Updated installer script for C:\ root installation
+- Renamed executable from `Woodworkers Friend.exe` to `WwFriend.exe` for cleaner file naming
+- Updated installer to request administrator privileges for C:\ root installation
 
 ---
 
