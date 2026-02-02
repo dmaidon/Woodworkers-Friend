@@ -166,10 +166,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Perimeter and area calculations
   - Rotating visual display
   
+- **Miter Angle Calculator**
+  - Miter (saw) angle calculations for polygonal frames
+  - Bevel angle for tilted frames
+  - Flat and tilted frame support
+  - Material thickness compensation
+  - Complementary and interior angle display
+  
+- **Dado Stack Calculator**
+  - Blade combination calculator for precise dado widths
+  - Standard and custom chipper sizes
+  - Kerf width compensation
+  - Multiple alternative configurations
+  - Shim calculation support
+  
 - **Table Tipping Force Calculator**
   - Safety calculator for furniture stability
   - Force required to tip calculation
   - Important for child safety
+
+- **Clamp Spacing Calculator**
+  - Recommended clamp spacing for glue-ups
+  - Wood type considerations (hardwood/softwood)
+  - Glue type factors (PVA, Polyurethane, Epoxy)
+  - Panel thickness and width inputs
+  - Clamp pressure calculations
+  - Number of clamps needed
+  
+- **Biscuit/Domino Spacing Calculator**
+  - Spacing calculations for biscuit and domino joinery
+  - Multiple biscuit sizes (#0, #10, #20, #FF, #H9)
+  - Joint strength settings (Light, Medium, Heavy)
+  - Edge distance and center mark positions
+  - Stock thickness considerations
+  
+- **Finishing Materials Calculator**
+  - Coverage calculations for stains, oils, and finishes
+  - Multiple finish types (Polyurethane, Lacquer, Danish Oil, Tung Oil, Wax, Shellac, Varnish)
+  - Multi-coat coverage and quantity needed
+  - Dry time between coats calculator
+  - Total project time estimation
+  - Sand-between-coats option
+  - Cost estimation
+  
+- **Glue Coverage Calculator**
+  - Glue quantity needed for various joint types
+  - Multiple glue types (PVA, Yellow, TiteBond III, Polyurethane, Epoxy, Hide Glue, CA)
+  - Joint type considerations (Edge-to-Edge, Face-to-Face, End Grain, M&T, Dovetail, Biscuit/Domino)
+  - Application method factors (Brush, Roller, Squeeze Bottle, Spreader)
+  - Waste factor settings
+  - Open time and clamp time recommendations
+  - Application tips
+  
+- **Veneer & Inlay Calculator**
+  - Sheet count calculations for veneer projects
+  - Pattern type support (Book Match, Slip Match, Random, Radial, Diamond)
+  - Custom sheet dimensions
+  - Waste factor (5-50%)
+  - Total area calculations with waste
+  - Pattern-specific matching notes
+
+- **Sanding Grit Progression Calculator**
+  - Optimal sanding grit sequences
+  - Wood type-specific recommendations
+  - Sequential vs skip-grit progressions
+  - Custom starting and ending grits
+  - Detailed progression notes
+  
+- **Safety Calculators**
+  - **Router Speed Calculator**: Maximum safe RPM for router bits based on diameter and surface speed
+  - **Blade Height Calculator**: Recommended table saw blade height for different operations (ripping, crosscutting, dado, thin stock)
+  - **Push Stick Requirements**: Risk evaluation for when push sticks are required
+  - **Dust Collection CFM Calculator**: Required CFM for various tools with duct length compensation
 
 ### Added - Core Features
 - **Wood Properties Reference**
