@@ -82,10 +82,21 @@ Public Class ReferenceDataManager
                 VerifyDatabaseSchema()
             End If
 
-            SetReadOnlyAttribute()
+            ' NOTE: Do NOT set read-only here! 
+            ' Migrations need to write data AFTER schema creation.
+            ' Read-only attribute will be set in DataMigration.PerformInitialMigration() after all data is seeded.
         Catch ex As Exception
             ErrorHandler.LogError(ex, "ReferenceDataManager.InitializeDatabase")
         End Try
+    End Sub
+    
+    ''' <summary>
+    ''' Sets Reference.db to read-only after all migrations complete.
+    ''' Called by DataMigration.PerformInitialMigration() after seeding data.
+    ''' </summary>
+    Public Sub FinalizeDatabase()
+        SetReadOnlyAttribute()
+        ErrorHandler.LogError(New Exception("Reference.db finalized as read-only"), "ReferenceDataManager.FinalizeDatabase")
     End Sub
 
     Private Sub CreateDatabaseSchema()

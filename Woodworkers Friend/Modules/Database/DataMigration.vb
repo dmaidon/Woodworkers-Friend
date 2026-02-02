@@ -180,6 +180,9 @@ Public Class DataMigration
                     ErrorHandler.LogError(New Exception($"Epoxy costs migrated: {epoxyCostCount} items"), "PerformInitialMigration")
                 End If
             End If
+            
+            ' Finalize Reference.db as read-only AFTER all migrations complete
+            DatabaseManager.Instance.Reference.FinalizeDatabase()
         Catch ex As Exception
             ErrorHandler.LogError(ex, "PerformInitialMigration")
         End Try
@@ -2670,7 +2673,7 @@ The calculator displays exact amounts in both ounces and milliliters:
                 ' Fallback: Check installation folder
                 csvPath = IO.Path.Combine(InstallDir, "Settings", "bfCost.csv")
             End If
-            
+
             If Not IO.File.Exists(csvPath) Then
                 ErrorHandler.LogError(New Exception($"CSV file not found in AppData or Installation folder"), "MigrateWoodCosts")
                 Return 0
@@ -2738,7 +2741,7 @@ The calculator displays exact amounts in both ounces and milliliters:
                 ' Fallback: Check installation folder
                 csvPath = IO.Path.Combine(InstallDir, "Settings", "epoxyCost.csv")
             End If
-            
+
             If Not IO.File.Exists(csvPath) Then
                 ErrorHandler.LogError(New Exception($"CSV file not found in AppData or Installation folder"), "MigrateEpoxyCosts")
                 Return 0
