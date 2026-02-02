@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Renamed executable from `Woodworkers Friend.exe` to `WwFriend.exe` for cleaner file naming
+- Updated installer to request administrator privileges for Program Files installation
+
+### Fixed
+- Installer "Error 5: Access is denied" when installing to Program Files directory
+- Added `PrivilegesRequiredOverridesAllowed=dialog` to allow user choice of install location
+
+### Infrastructure
+- Excluded `Installer/` directory and `.exe` files from version control
+- Installer binaries removed from Git repository (build locally or via CI/CD)
+
 ### Planned
 - Cloud sync for projects across devices
 - Mobile companion app
