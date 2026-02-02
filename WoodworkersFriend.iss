@@ -42,16 +42,13 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 ; Application files (exclude log files, debug symbols, and database files)
 Source: "C:\VB18\Release\WwFriend\net10.0-windows10.0.26100.0\*"; DestDir: "{app}"; Excludes: "*.log,*.pdb,*.db,*.db.v1.backup"; Flags: ignoreversion recursesubdirs createallsubdirs
-; Documentation (root level)
+; Documentation (root level - user-facing only)
 Source: "README.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "CHANGELOG.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "INSTALL.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "RELEASE_NOTES.md"; DestDir: "{app}"; Flags: ignoreversion
-; Additional documentation folder
-Source: "Woodworkers Friend\Docs\*.md"; DestDir: "{app}\Docs"; Flags: ignoreversion recursesubdirs
-Source: "Woodworkers Friend\Docs\*.txt"; DestDir: "{app}\Docs"; Flags: ignoreversion recursesubdirs
-; Resources folder (icons, images)
+; Resources folder (icons, images, help content)
 Source: "Woodworkers Friend\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
