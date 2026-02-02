@@ -172,6 +172,8 @@ Partial Public Class FrmMain
         nodeCalculators.Nodes.Add("doors", "Door Calculator")
         nodeCalculators.Nodes.Add("boardfeet", "Board Feet Calculator")
         nodeCalculators.Nodes.Add("epoxy", "Epoxy Pour Calculator")
+        nodeCalculators.Nodes.Add("areacalc", "Epoxy Area Calculator")
+        nodeCalculators.Nodes.Add("stonecoat", "Stone Coat Top Coat Calculator")
         nodeCalculators.Nodes.Add("polygon", "Polygon Calculator")
         nodeCalculators.Nodes.Add("MiterAngle", "Miter Angle Calculator")
         nodeCalculators.Nodes.Add("MaterialsFinishing", "Materials & Finishing")
