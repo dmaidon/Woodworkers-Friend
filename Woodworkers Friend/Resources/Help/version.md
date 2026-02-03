@@ -2,11 +2,49 @@
 
 ## Woodworker's Friend
 
-**Current Version:** 3.0.0  
-**Release Date:** January 2026  
-**Platform:** .NET 10.0 (Windows)
+**Current Version:** 1.0.1 (Build 26.2.3.15)  
+**Release Date:** February 3, 2026  
+**Platform:** .NET 10.0 (Windows 10/11)
 
-## What's New in Version 3.0
+## What's New in Version 1.0.1
+
+### Critical Fixes
+
+#### Database Migration System ✅
+- **Fixed**: Reference data now loads correctly on first run
+- **Fixed**: "attempt to write a readonly database" error
+- **Fixed**: "no such table: WoodSpecies" race condition
+- **Result**: All 127 reference rows migrate successfully
+  - 25 wood species
+  - 12 joinery types
+  - 15 hardware standards
+  - 68 wood costs
+  - 7 epoxy costs
+
+#### UI Fixes
+- **Fixed**: About tab logo now displays correctly
+- **Fixed**: Main form opens at correct size (1200x1014)
+
+#### Startup Fixes
+- **Fixed**: Missing `CreateProgramFolders()` method that prevented app initialization
+- **Fixed**: Reference.db schema creation issues (SQLite.NET multi-statement compatibility)
+
+### Technical Improvements
+- Early database initialization prevents race conditions
+- Schema verification after creation
+- Comprehensive error logging for troubleshooting
+- Proper file attribute management (read-only handling)
+- Installer configuration for single-folder architecture
+
+### Help System Enhancements
+- Added "Epoxy Area Calculator" help topic with comprehensive guide
+- Added "Stone Coat Top Coat Calculator" help topic with detailed instructions
+- Topics integrated into navigation tree under Calculators section
+- Full search support for new topics
+
+---
+
+## Version 1.0.0 (January 30, 2026) - Initial Release
 
 ### Major Features Added
 

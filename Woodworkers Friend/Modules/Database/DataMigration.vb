@@ -1,6 +1,7 @@
 ' ============================================================================
-' Last Updated: January 30, 2026
-' Changes: Phase 5 - Added SeedDefaultPreferences() for user preferences persistence
+' Last Updated: February 3, 2026
+' Changes: CRITICAL FIX - Temporarily remove Reference.db read-only attribute during migrations
+'          Phase 5 - Added SeedDefaultPreferences() for user preferences persistence
 '          Phase 4 - Added MigrateHelpContent() for help system database migration
 ' ============================================================================
 
@@ -118,6 +119,22 @@ Public Class DataMigration
     ''' </summary>
     Public Shared Sub PerformInitialMigration()
         Try
+            ' CRITICAL: Initialize ReferenceDataManager FIRST to ensure schema exists
+            ' before any migration code tries to open connections
+            Dim refManager = DatabaseManager.Instance.Reference
+            ErrorHandler.LogError(New Exception("ReferenceDataManager initialized"), "PerformInitialMigration")
+            
+            ' CRITICAL: Remove read-only attribute from Reference.db BEFORE migrations
+            ' Database may have been marked read-only from a previous run
+            Dim refDbPath = IO.Path.Combine(AppResourcesDir, "Reference.db")
+            If IO.File.Exists(refDbPath) Then
+                Dim fileInfo As New IO.FileInfo(refDbPath)
+                If fileInfo.IsReadOnly Then
+                    fileInfo.IsReadOnly = False
+                    ErrorHandler.LogError(New Exception("Removed read-only attribute from Reference.db for migration"), "PerformInitialMigration")
+                End If
+            End If
+
             ' Check if wood species migration is needed
             If Not IsWoodSpeciesMigrated() Then
                 ErrorHandler.LogError(New Exception("First run detected - starting initial data migration"), "PerformInitialMigration")
@@ -180,11 +197,17 @@ Public Class DataMigration
                     ErrorHandler.LogError(New Exception($"Epoxy costs migrated: {epoxyCostCount} items"), "PerformInitialMigration")
                 End If
             End If
-            
-            ' Finalize Reference.db as read-only AFTER all migrations complete
-            DatabaseManager.Instance.Reference.FinalizeDatabase()
         Catch ex As Exception
             ErrorHandler.LogError(ex, "PerformInitialMigration")
+        Finally
+            ' CRITICAL: Finalize Reference.db as read-only AFTER all migrations complete
+            ' This prevents "attempt to write a readonly database" errors
+            Try
+                DatabaseManager.Instance.Reference.FinalizeDatabase()
+                ErrorHandler.LogError(New Exception("Reference.db finalized as read-only"), "PerformInitialMigration")
+            Catch finalizeEx As Exception
+                ErrorHandler.LogError(finalizeEx, "PerformInitialMigration - FinalizeDatabase failed")
+            End Try
         End Try
     End Sub
 

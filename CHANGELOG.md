@@ -9,12 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- **Help System Enhancements**
-  - Added "Epoxy Area Calculator" help topic with comprehensive calculator guide
-  - Added "Stone Coat Top Coat Calculator" help topic with detailed instructions
-  - Topics integrated into navigation tree under Calculators section
-  - Full search support for new topics
+---
+
+## [1.0.1] - 2026-02-03
+
+### Fixed
+- **Database Migration Critical Fix**: Resolved dual issues preventing reference data from loading on first run:
+  - **Issue 1A**: Removed Windows read-only file attribute from Reference.db that persisted from previous runs
+  - **Issue 1B**: Fixed lazy initialization race condition where schema was created mid-migration
+  - Solution: Force ReferenceDataManager initialization BEFORE any migration code executes
+  - **Result**: All 127 rows now migrate successfully (25 wood species, 12 joinery types, 15 hardware items, 68 wood costs, 7 epoxy costs)
+- **About Tab Logo**: Fixed logo image not displaying in PbMwwLogo control on About tab
+- **Form Opening Size**: Corrected default form size from 1178x958 to 1200x1014
+
+### Changed
+- Database initialization now occurs at start of `PerformInitialMigration()` to prevent schema creation race conditions
+- Added schema verification step after creation to catch failures early
+- Added comprehensive error logging and verification for migration process
+- Database file attribute management: removed at migration start, reapplied in Finally block after all migrations complete
+- Improved error messages for database migration failures
+
+---
+
+## [1.0.0] - 2026-01-30
 
 ### Fixed
 - **Critical Startup Bug**: Added missing `CreateProgramFolders()` method that prevented app from initializing
@@ -36,9 +53,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed executable from `Woodworkers Friend.exe` to `WwFriend.exe` for cleaner file naming
 - Updated installer to request administrator privileges for C:\ root installation
 
+### Added - Help System Enhancements
+- **Help System Enhancements**
+  - Added "Epoxy Area Calculator" help topic with comprehensive calculator guide
+  - Added "Stone Coat Top Coat Calculator" help topic with detailed instructions
+  - Topics integrated into navigation tree under Calculators section
+  - Full search support for new topics
+
 ---
 
-## [1.0.0] - 2026-01-30
+## [1.0.0] - 2026-01-30 (Initial Release)
 
 ### Added - Phase 7: Reference & Cost Management System Complete
 
@@ -334,6 +358,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Milestone |
 |---------|------|-----------|
+| 1.0.1 | 2026-02-03 | **Critical Fix** - Database migration fixes |
 | 1.0.0 | 2026-01-30 | **Full Release** - Complete feature set |
 | 0.9.0 | 2025-12-15 | Beta - Core calculators |
 | 0.5.0 | 2025-11-01 | Alpha - Prototype testing |
@@ -375,6 +400,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### **Phase 7: Reference System** ✅
 - **7.1:** Joinery reference database (12 types)
 - **7.2:** Hardware standards database (16 items)
+- **7.3:** Cost Management System (66 wood costs, 8 epoxy costs)
 
 ---
 
@@ -403,4 +429,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 *This changelog is maintained as part of the Woodworker's Friend project.*
-*Last Updated: January 30, 2026*
+*Last Updated: February 3, 2026*

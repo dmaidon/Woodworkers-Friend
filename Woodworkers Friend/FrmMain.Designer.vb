@@ -36,9 +36,9 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         CmsLog = New ContextMenuStrip(components)
         CmsLogSelectAll = New ToolStripMenuItem()
@@ -106,9 +106,8 @@ Partial Class FrmMain
         Label28 = New Label()
         Label27 = New Label()
         Label26 = New Label()
-        BtnDrawDrawerImage = New Button()
-        PnlResults = New Panel()
         RtbResults = New RichTextBox()
+        BtnDrawDrawerImage = New Button()
         GroupBox11 = New GroupBox()
         RbArithmetic = New RadioButton()
         RbFibonacci = New RadioButton()
@@ -126,7 +125,7 @@ Partial Class FrmMain
         Label34 = New Label()
         TxtDrawerProjectName = New TextBox()
         TpDoors = New TabPage()
-        GbSetScale = New GroupBox()
+        GbxSetScale = New GroupBox()
         RbImperial = New RadioButton()
         RbMetric = New RadioButton()
         ScDoors = New SplitContainer()
@@ -140,7 +139,7 @@ Partial Class FrmMain
         BtnBathroomDoorPreset = New Button()
         BtnKitchenDoorPreset = New Button()
         Label48 = New Label()
-        Panel6 = New Panel()
+        PnlCabinetOpening = New Panel()
         TxtCabinetOpeningHeight = New TextBox()
         TxtCabinetOpeningWidth = New TextBox()
         Label35 = New Label()
@@ -154,7 +153,7 @@ Partial Class FrmMain
         LblRailLength = New Label()
         BtnCalculateDoors = New Button()
         BtnSaveDoorProject = New Button()
-        Panel8 = New Panel()
+        PnlDoorOptions = New Panel()
         TxtDoorOverlay = New TextBox()
         TxtGapSize = New TextBox()
         TxtRailWidth = New TextBox()
@@ -162,16 +161,16 @@ Partial Class FrmMain
         Label41 = New Label()
         Label42 = New Label()
         Label43 = New Label()
-        Panel9 = New Panel()
+        PnlOverlayInsetOptions = New Panel()
         RbInset = New RadioButton()
         RbOverlay = New RadioButton()
         Label44 = New Label()
-        Panel10 = New Panel()
+        Pnl1Door2DoorRadio = New Panel()
         Rb2Door = New RadioButton()
         Rb1Door = New RadioButton()
         Label45 = New Label()
         TxtDoorProjectName = New TextBox()
-        Panel7 = New Panel()
+        PnlDoorPanelOptions = New Panel()
         TxtPanelExpansionGap = New TextBox()
         TxtPanelGrooveDepth = New TextBox()
         Label38 = New Label()
@@ -222,6 +221,7 @@ Partial Class FrmMain
         RbAreaPour = New RadioButton()
         DgvAreaCalc = New DataGridView()
         PnlStoneCoatTopCoat = New Panel()
+        LblTopCoat = New Label()
         RbTcWaste20 = New RadioButton()
         RbTcWaste15 = New RadioButton()
         RbTcWaste10 = New RadioButton()
@@ -259,7 +259,7 @@ Partial Class FrmMain
         Label3 = New Label()
         Label2 = New Label()
         TpConversions = New TabPage()
-        Panel4 = New Panel()
+        PnlConverters = New Panel()
         GroupBox4 = New GroupBox()
         LblFraction2Decimal = New Label()
         TxtFraction2Decimal = New TextBox()
@@ -277,7 +277,7 @@ Partial Class FrmMain
         TxtInches2Mm = New TextBox()
         Label14 = New Label()
         Label13 = New Label()
-        Panel2 = New Panel()
+        PnlFractionDecimalConversions = New Panel()
         RtbFraction2Mm = New RichTextBox()
         RtbFraction2Decimal = New RichTextBox()
         Label10 = New Label()
@@ -627,7 +627,7 @@ Partial Class FrmMain
         LblWoodPropertiesReference = New Label()
         DgvWoodProperties = New DataGridView()
         TpJoineryReference = New TabPage()
-        Panel11 = New Panel()
+        PnlJoineryOptions = New Panel()
         Label67 = New Label()
         TxtJoineryHistory = New TextBox()
         Label66 = New Label()
@@ -638,7 +638,7 @@ Partial Class FrmMain
         TxtJoineryTools = New TextBox()
         TxtJoineryUses = New TextBox()
         TxtJoineryDescription = New TextBox()
-        Panel1 = New Panel()
+        PnlJoineryTypes = New Panel()
         LblJoineryGlue = New Label()
         LblJoineryStrength = New Label()
         LblJoineryDifficulty = New Label()
@@ -759,7 +759,6 @@ Partial Class FrmMain
         TmrRotation = New Timer(components)
         TmrDoorCalculationDelay = New Timer(components)
         TmrClock = New Timer(components)
-        LblTopCoat = New Label()
         CmsLog.SuspendLayout()
         Ss1.SuspendLayout()
         Ss2.SuspendLayout()
@@ -776,21 +775,20 @@ Partial Class FrmMain
         GroupBox7.SuspendLayout()
         GroupBox6.SuspendLayout()
         GroupBox5.SuspendLayout()
-        PnlResults.SuspendLayout()
         GroupBox11.SuspendLayout()
         TpDoors.SuspendLayout()
-        GbSetScale.SuspendLayout()
+        GbxSetScale.SuspendLayout()
         CType(ScDoors, ComponentModel.ISupportInitialize).BeginInit()
         ScDoors.Panel1.SuspendLayout()
         ScDoors.Panel2.SuspendLayout()
         ScDoors.SuspendLayout()
         GroupBox12.SuspendLayout()
-        Panel6.SuspendLayout()
+        PnlCabinetOpening.SuspendLayout()
         GroupBox10.SuspendLayout()
-        Panel8.SuspendLayout()
-        Panel9.SuspendLayout()
-        Panel10.SuspendLayout()
-        Panel7.SuspendLayout()
+        PnlDoorOptions.SuspendLayout()
+        PnlOverlayInsetOptions.SuspendLayout()
+        Pnl1Door2DoorRadio.SuspendLayout()
+        PnlDoorPanelOptions.SuspendLayout()
         TpBoardfeet.SuspendLayout()
         PnlBoardFeet.SuspendLayout()
         CType(DgvBoardfeet, ComponentModel.ISupportInitialize).BeginInit()
@@ -802,12 +800,12 @@ Partial Class FrmMain
         PnlStoneCoatTopCoat.SuspendLayout()
         PnlEpoxyPours.SuspendLayout()
         TpConversions.SuspendLayout()
-        Panel4.SuspendLayout()
+        PnlConverters.SuspendLayout()
         GroupBox4.SuspendLayout()
         GroupBox3.SuspendLayout()
         GroupBox2.SuspendLayout()
         GroupBox1.SuspendLayout()
-        Panel2.SuspendLayout()
+        PnlFractionDecimalConversions.SuspendLayout()
         TpCalculators.SuspendLayout()
         PnlDadoCalc.SuspendLayout()
         GbxBladeCombination.SuspendLayout()
@@ -898,8 +896,8 @@ Partial Class FrmMain
         PnlWoodProperties.SuspendLayout()
         CType(DgvWoodProperties, ComponentModel.ISupportInitialize).BeginInit()
         TpJoineryReference.SuspendLayout()
-        Panel11.SuspendLayout()
-        Panel1.SuspendLayout()
+        PnlJoineryOptions.SuspendLayout()
+        PnlJoineryTypes.SuspendLayout()
         GbxJoineryFilter.SuspendLayout()
         CType(DgvJoineryTypes, ComponentModel.ISupportInitialize).BeginInit()
         TpHardwareStandards.SuspendLayout()
@@ -1003,10 +1001,10 @@ Partial Class FrmMain
         Ss1.GripMargin = New Padding(0)
         Ss1.ImageScalingSize = New Size(24, 24)
         Ss1.Items.AddRange(New ToolStripItem() {TsslVersion, TsslCpy, TsslError, TsslClock})
-        Ss1.Location = New Point(0, 925)
+        Ss1.Location = New Point(0, 981)
         Ss1.Name = "Ss1"
         Ss1.Padding = New Padding(1, 0, 13, 0)
-        Ss1.Size = New Size(1178, 33)
+        Ss1.Size = New Size(1200, 33)
         Ss1.SizingGrip = False
         Ss1.TabIndex = 0
         Ss1.Text = "StatusStrip1"
@@ -1023,7 +1021,7 @@ Partial Class FrmMain
         TsslCpy.Font = New Font("Microsoft Sans Serif", 8.28F, FontStyle.Italic)
         TsslCpy.ForeColor = Color.Brown
         TsslCpy.Name = "TsslCpy"
-        TsslCpy.Size = New Size(1116, 26)
+        TsslCpy.Size = New Size(1138, 26)
         TsslCpy.Spring = True
         TsslCpy.Text = "cpy"
         ' 
@@ -1046,10 +1044,10 @@ Partial Class FrmMain
         Ss2.GripMargin = New Padding(0)
         Ss2.ImageScalingSize = New Size(24, 24)
         Ss2.Items.AddRange(New ToolStripItem() {TsslTimesRun})
-        Ss2.Location = New Point(0, 892)
+        Ss2.Location = New Point(0, 948)
         Ss2.Name = "Ss2"
         Ss2.Padding = New Padding(1, 0, 13, 0)
-        Ss2.Size = New Size(1178, 33)
+        Ss2.Size = New Size(1200, 33)
         Ss2.SizingGrip = False
         Ss2.TabIndex = 1
         Ss2.Text = "StatusStrip2"
@@ -1069,10 +1067,10 @@ Partial Class FrmMain
         Ss3.GripMargin = New Padding(0)
         Ss3.ImageScalingSize = New Size(24, 24)
         Ss3.Items.AddRange(New ToolStripItem() {TsslToggleTheme, TsslMemoriam, TsslToggleDoorExploded, TsslScale})
-        Ss3.Location = New Point(0, 859)
+        Ss3.Location = New Point(0, 915)
         Ss3.Name = "Ss3"
         Ss3.Padding = New Padding(1, 0, 13, 0)
-        Ss3.Size = New Size(1178, 33)
+        Ss3.Size = New Size(1200, 33)
         Ss3.SizingGrip = False
         Ss3.TabIndex = 2
         Ss3.Text = "StatusStrip3"
@@ -1085,7 +1083,7 @@ Partial Class FrmMain
         ' TsslMemoriam
         ' 
         TsslMemoriam.Name = "TsslMemoriam"
-        TsslMemoriam.Size = New Size(1070, 26)
+        TsslMemoriam.Size = New Size(1092, 26)
         TsslMemoriam.Spring = True
         ' 
         ' TsslToggleDoorExploded
@@ -1128,7 +1126,7 @@ Partial Class FrmMain
         Tc.Location = New Point(0, 0)
         Tc.Name = "Tc"
         Tc.SelectedIndex = 0
-        Tc.Size = New Size(1178, 854)
+        Tc.Size = New Size(1200, 854)
         Tc.TabIndex = 3
         ' 
         ' TpDrawers
@@ -1139,7 +1137,7 @@ Partial Class FrmMain
         TpDrawers.Location = New Point(4, 27)
         TpDrawers.Name = "TpDrawers"
         TpDrawers.Padding = New Padding(3)
-        TpDrawers.Size = New Size(1170, 823)
+        TpDrawers.Size = New Size(1192, 823)
         TpDrawers.TabIndex = 1
         TpDrawers.Text = "Drawers"
         ' 
@@ -1169,16 +1167,16 @@ Partial Class FrmMain
         ' 
         ' SplitContainer1.Panel2
         ' 
+        SplitContainer1.Panel2.Controls.Add(RtbResults)
         SplitContainer1.Panel2.Controls.Add(BtnDrawDrawerImage)
-        SplitContainer1.Panel2.Controls.Add(PnlResults)
         SplitContainer1.Panel2.Controls.Add(GroupBox11)
         SplitContainer1.Panel2.Controls.Add(Label47)
         SplitContainer1.Panel2.Controls.Add(Label33)
         SplitContainer1.Panel2.Controls.Add(BtnSaveProject)
         SplitContainer1.Panel2.Controls.Add(Label34)
         SplitContainer1.Panel2.Controls.Add(TxtDrawerProjectName)
-        SplitContainer1.Size = New Size(1160, 813)
-        SplitContainer1.SplitterDistance = 524
+        SplitContainer1.Size = New Size(1182, 813)
+        SplitContainer1.SplitterDistance = 533
         SplitContainer1.SplitterWidth = 8
         SplitContainer1.TabIndex = 0
         ' 
@@ -1249,17 +1247,17 @@ Partial Class FrmMain
         ' 
         ' DgvDrawerHeights
         ' 
-        DataGridViewCellStyle1.BackColor = Color.OldLace
-        DgvDrawerHeights.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = Color.OldLace
+        DgvDrawerHeights.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         DgvDrawerHeights.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = SystemColors.Control
-        DataGridViewCellStyle2.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
-        DgvDrawerHeights.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = SystemColors.Control
+        DataGridViewCellStyle5.Font = New Font("Segoe UI", 7.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle5.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = DataGridViewTriState.True
+        DgvDrawerHeights.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         DgvDrawerHeights.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvDrawerHeights.Dock = DockStyle.Fill
         DgvDrawerHeights.Location = New Point(3, 25)
@@ -1628,38 +1626,28 @@ Partial Class FrmMain
         Label26.Text = "# Drawers"
         Label26.TextAlign = ContentAlignment.MiddleRight
         ' 
+        ' RtbResults
+        ' 
+        RtbResults.BackColor = Color.White
+        RtbResults.Dock = DockStyle.Bottom
+        RtbResults.Location = New Point(0, 507)
+        RtbResults.Name = "RtbResults"
+        RtbResults.ReadOnly = True
+        RtbResults.ShowSelectionMargin = True
+        RtbResults.Size = New Size(637, 302)
+        RtbResults.TabIndex = 5
+        RtbResults.Text = ""
+        ' 
         ' BtnDrawDrawerImage
         ' 
         BtnDrawDrawerImage.BackColor = Color.MistyRose
         BtnDrawDrawerImage.Enabled = False
-        BtnDrawDrawerImage.Location = New Point(168, 439)
+        BtnDrawDrawerImage.Location = New Point(168, 421)
         BtnDrawDrawerImage.Name = "BtnDrawDrawerImage"
         BtnDrawDrawerImage.Size = New Size(211, 34)
         BtnDrawDrawerImage.TabIndex = 19
         BtnDrawDrawerImage.Text = "Drawer Shop Drawings"
         BtnDrawDrawerImage.UseVisualStyleBackColor = False
-        ' 
-        ' PnlResults
-        ' 
-        PnlResults.BorderStyle = BorderStyle.Fixed3D
-        PnlResults.Controls.Add(RtbResults)
-        PnlResults.Dock = DockStyle.Bottom
-        PnlResults.Location = New Point(0, 541)
-        PnlResults.Name = "PnlResults"
-        PnlResults.Size = New Size(624, 268)
-        PnlResults.TabIndex = 18
-        ' 
-        ' RtbResults
-        ' 
-        RtbResults.BackColor = Color.White
-        RtbResults.Dock = DockStyle.Fill
-        RtbResults.Location = New Point(0, 0)
-        RtbResults.Name = "RtbResults"
-        RtbResults.ReadOnly = True
-        RtbResults.ShowSelectionMargin = True
-        RtbResults.Size = New Size(620, 264)
-        RtbResults.TabIndex = 5
-        RtbResults.Text = ""
         ' 
         ' GroupBox11
         ' 
@@ -1815,7 +1803,7 @@ Partial Class FrmMain
         Label47.AutoSize = True
         Label47.Font = New Font("Georgia", 16.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label47.ForeColor = Color.Maroon
-        Label47.Location = New Point(210, 500)
+        Label47.Location = New Point(210, 466)
         Label47.Name = "Label47"
         Label47.Size = New Size(139, 38)
         Label47.TabIndex = 16
@@ -1835,7 +1823,7 @@ Partial Class FrmMain
         ' BtnSaveProject
         ' 
         BtnSaveProject.BackColor = Color.MistyRose
-        BtnSaveProject.Location = New Point(42, 399)
+        BtnSaveProject.Location = New Point(42, 379)
         BtnSaveProject.Name = "BtnSaveProject"
         BtnSaveProject.Size = New Size(112, 29)
         BtnSaveProject.TabIndex = 7
@@ -1846,7 +1834,7 @@ Partial Class FrmMain
         ' 
         Label34.AutoSize = True
         Label34.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label34.Location = New Point(237, 405)
+        Label34.Location = New Point(229, 385)
         Label34.Name = "Label34"
         Label34.Size = New Size(114, 21)
         Label34.TabIndex = 9
@@ -1854,7 +1842,7 @@ Partial Class FrmMain
         ' 
         ' TxtDrawerProjectName
         ' 
-        TxtDrawerProjectName.Location = New Point(355, 401)
+        TxtDrawerProjectName.Location = New Point(339, 381)
         TxtDrawerProjectName.Name = "TxtDrawerProjectName"
         TxtDrawerProjectName.Size = New Size(150, 26)
         TxtDrawerProjectName.TabIndex = 8
@@ -1863,31 +1851,31 @@ Partial Class FrmMain
         ' 
         TpDoors.BackColor = Color.Gainsboro
         TpDoors.BorderStyle = BorderStyle.Fixed3D
-        TpDoors.Controls.Add(GbSetScale)
+        TpDoors.Controls.Add(GbxSetScale)
         TpDoors.Controls.Add(ScDoors)
         TpDoors.Location = New Point(4, 27)
         TpDoors.Name = "TpDoors"
-        TpDoors.Size = New Size(1170, 823)
+        TpDoors.Size = New Size(1192, 823)
         TpDoors.TabIndex = 4
         TpDoors.Text = "Doors"
         ' 
-        ' GbSetScale
+        ' GbxSetScale
         ' 
-        GbSetScale.BackColor = Color.WhiteSmoke
-        GbSetScale.Controls.Add(RbImperial)
-        GbSetScale.Controls.Add(RbMetric)
-        GbSetScale.Location = New Point(396, 739)
-        GbSetScale.Name = "GbSetScale"
-        GbSetScale.Size = New Size(281, 71)
-        GbSetScale.TabIndex = 23
-        GbSetScale.TabStop = False
-        GbSetScale.Text = "Set Scale"
+        GbxSetScale.BackColor = Color.WhiteSmoke
+        GbxSetScale.Controls.Add(RbImperial)
+        GbxSetScale.Controls.Add(RbMetric)
+        GbxSetScale.Location = New Point(454, 752)
+        GbxSetScale.Name = "GbxSetScale"
+        GbxSetScale.Size = New Size(281, 56)
+        GbxSetScale.TabIndex = 23
+        GbxSetScale.TabStop = False
+        GbxSetScale.Text = "Set Scale"
         ' 
         ' RbImperial
         ' 
         RbImperial.AutoSize = True
         RbImperial.Checked = True
-        RbImperial.Location = New Point(39, 25)
+        RbImperial.Location = New Point(35, 17)
         RbImperial.Name = "RbImperial"
         RbImperial.Size = New Size(107, 22)
         RbImperial.TabIndex = 1
@@ -1898,7 +1886,7 @@ Partial Class FrmMain
         ' RbMetric
         ' 
         RbMetric.AutoSize = True
-        RbMetric.Location = New Point(162, 25)
+        RbMetric.Location = New Point(158, 17)
         RbMetric.Name = "RbMetric"
         RbMetric.Size = New Size(87, 22)
         RbMetric.TabIndex = 2
@@ -1921,13 +1909,13 @@ Partial Class FrmMain
         ScDoors.Panel1.Controls.Add(BtnLoadDoorProject)
         ScDoors.Panel1.Controls.Add(GroupBox12)
         ScDoors.Panel1.Controls.Add(Label48)
-        ScDoors.Panel1.Controls.Add(Panel6)
+        ScDoors.Panel1.Controls.Add(PnlCabinetOpening)
         ScDoors.Panel1.Controls.Add(GroupBox10)
         ScDoors.Panel1.Controls.Add(BtnCalculateDoors)
         ScDoors.Panel1.Controls.Add(BtnSaveDoorProject)
-        ScDoors.Panel1.Controls.Add(Panel8)
+        ScDoors.Panel1.Controls.Add(PnlDoorOptions)
         ScDoors.Panel1.Controls.Add(TxtDoorProjectName)
-        ScDoors.Panel1.Controls.Add(Panel7)
+        ScDoors.Panel1.Controls.Add(PnlDoorPanelOptions)
         ' 
         ' ScDoors.Panel2
         ' 
@@ -1937,8 +1925,8 @@ Partial Class FrmMain
         ScDoors.Panel2.Controls.Add(BtnExportDoorResults)
         ScDoors.Panel2.Controls.Add(Label50)
         ScDoors.Panel2.Controls.Add(Label49)
-        ScDoors.Size = New Size(1166, 734)
-        ScDoors.SplitterDistance = 554
+        ScDoors.Size = New Size(1188, 734)
+        ScDoors.SplitterDistance = 564
         ScDoors.SplitterWidth = 8
         ScDoors.TabIndex = 22
         ' 
@@ -2046,19 +2034,19 @@ Partial Class FrmMain
         Label48.TabIndex = 22
         Label48.Text = "Door Calculations"
         ' 
-        ' Panel6
+        ' PnlCabinetOpening
         ' 
-        Panel6.BackColor = Color.WhiteSmoke
-        Panel6.BorderStyle = BorderStyle.FixedSingle
-        Panel6.Controls.Add(TxtCabinetOpeningHeight)
-        Panel6.Controls.Add(TxtCabinetOpeningWidth)
-        Panel6.Controls.Add(Label35)
-        Panel6.Controls.Add(Label36)
-        Panel6.Controls.Add(Label37)
-        Panel6.Location = New Point(26, 67)
-        Panel6.Name = "Panel6"
-        Panel6.Size = New Size(487, 65)
-        Panel6.TabIndex = 16
+        PnlCabinetOpening.BackColor = Color.WhiteSmoke
+        PnlCabinetOpening.BorderStyle = BorderStyle.FixedSingle
+        PnlCabinetOpening.Controls.Add(TxtCabinetOpeningHeight)
+        PnlCabinetOpening.Controls.Add(TxtCabinetOpeningWidth)
+        PnlCabinetOpening.Controls.Add(Label35)
+        PnlCabinetOpening.Controls.Add(Label36)
+        PnlCabinetOpening.Controls.Add(Label37)
+        PnlCabinetOpening.Location = New Point(26, 67)
+        PnlCabinetOpening.Name = "PnlCabinetOpening"
+        PnlCabinetOpening.Size = New Size(487, 65)
+        PnlCabinetOpening.TabIndex = 16
         ' 
         ' TxtCabinetOpeningHeight
         ' 
@@ -2195,25 +2183,25 @@ Partial Class FrmMain
         BtnSaveDoorProject.Text = "Save Project"
         BtnSaveDoorProject.UseVisualStyleBackColor = False
         ' 
-        ' Panel8
+        ' PnlDoorOptions
         ' 
-        Panel8.BackColor = Color.WhiteSmoke
-        Panel8.BorderStyle = BorderStyle.FixedSingle
-        Panel8.Controls.Add(TxtDoorOverlay)
-        Panel8.Controls.Add(TxtGapSize)
-        Panel8.Controls.Add(TxtRailWidth)
-        Panel8.Controls.Add(TxtStileWidth)
-        Panel8.Controls.Add(Label41)
-        Panel8.Controls.Add(Label42)
-        Panel8.Controls.Add(Label43)
-        Panel8.Controls.Add(Panel9)
-        Panel8.Controls.Add(Label44)
-        Panel8.Controls.Add(Panel10)
-        Panel8.Controls.Add(Label45)
-        Panel8.Location = New Point(26, 136)
-        Panel8.Name = "Panel8"
-        Panel8.Size = New Size(223, 275)
-        Panel8.TabIndex = 19
+        PnlDoorOptions.BackColor = Color.WhiteSmoke
+        PnlDoorOptions.BorderStyle = BorderStyle.FixedSingle
+        PnlDoorOptions.Controls.Add(TxtDoorOverlay)
+        PnlDoorOptions.Controls.Add(TxtGapSize)
+        PnlDoorOptions.Controls.Add(TxtRailWidth)
+        PnlDoorOptions.Controls.Add(TxtStileWidth)
+        PnlDoorOptions.Controls.Add(Label41)
+        PnlDoorOptions.Controls.Add(Label42)
+        PnlDoorOptions.Controls.Add(Label43)
+        PnlDoorOptions.Controls.Add(PnlOverlayInsetOptions)
+        PnlDoorOptions.Controls.Add(Label44)
+        PnlDoorOptions.Controls.Add(Pnl1Door2DoorRadio)
+        PnlDoorOptions.Controls.Add(Label45)
+        PnlDoorOptions.Location = New Point(26, 136)
+        PnlDoorOptions.Name = "PnlDoorOptions"
+        PnlDoorOptions.Size = New Size(223, 275)
+        PnlDoorOptions.TabIndex = 19
         ' 
         ' TxtDoorOverlay
         ' 
@@ -2272,16 +2260,16 @@ Partial Class FrmMain
         Label43.TabIndex = 0
         Label43.Text = "Door Options"
         ' 
-        ' Panel9
+        ' PnlOverlayInsetOptions
         ' 
-        Panel9.AutoSize = True
-        Panel9.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Panel9.Controls.Add(RbInset)
-        Panel9.Controls.Add(RbOverlay)
-        Panel9.Location = New Point(23, 30)
-        Panel9.Name = "Panel9"
-        Panel9.Size = New Size(182, 30)
-        Panel9.TabIndex = 4
+        PnlOverlayInsetOptions.AutoSize = True
+        PnlOverlayInsetOptions.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        PnlOverlayInsetOptions.Controls.Add(RbInset)
+        PnlOverlayInsetOptions.Controls.Add(RbOverlay)
+        PnlOverlayInsetOptions.Location = New Point(23, 30)
+        PnlOverlayInsetOptions.Name = "PnlOverlayInsetOptions"
+        PnlOverlayInsetOptions.Size = New Size(182, 30)
+        PnlOverlayInsetOptions.TabIndex = 4
         ' 
         ' RbInset
         ' 
@@ -2315,16 +2303,16 @@ Partial Class FrmMain
         Label44.Text = "Stile Width"
         Label44.TextAlign = ContentAlignment.MiddleRight
         ' 
-        ' Panel10
+        ' Pnl1Door2DoorRadio
         ' 
-        Panel10.AutoSize = True
-        Panel10.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Panel10.Controls.Add(Rb2Door)
-        Panel10.Controls.Add(Rb1Door)
-        Panel10.Location = New Point(17, 168)
-        Panel10.Name = "Panel10"
-        Panel10.Size = New Size(186, 32)
-        Panel10.TabIndex = 5
+        Pnl1Door2DoorRadio.AutoSize = True
+        Pnl1Door2DoorRadio.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Pnl1Door2DoorRadio.Controls.Add(Rb2Door)
+        Pnl1Door2DoorRadio.Controls.Add(Rb1Door)
+        Pnl1Door2DoorRadio.Location = New Point(17, 168)
+        Pnl1Door2DoorRadio.Name = "Pnl1Door2DoorRadio"
+        Pnl1Door2DoorRadio.Size = New Size(186, 32)
+        Pnl1Door2DoorRadio.TabIndex = 5
         ' 
         ' Rb2Door
         ' 
@@ -2370,19 +2358,19 @@ Partial Class FrmMain
         TxtDoorProjectName.Size = New Size(228, 26)
         TxtDoorProjectName.TabIndex = 17
         ' 
-        ' Panel7
+        ' PnlDoorPanelOptions
         ' 
-        Panel7.BackColor = Color.WhiteSmoke
-        Panel7.BorderStyle = BorderStyle.FixedSingle
-        Panel7.Controls.Add(TxtPanelExpansionGap)
-        Panel7.Controls.Add(TxtPanelGrooveDepth)
-        Panel7.Controls.Add(Label38)
-        Panel7.Controls.Add(Label39)
-        Panel7.Controls.Add(Label40)
-        Panel7.Location = New Point(275, 164)
-        Panel7.Name = "Panel7"
-        Panel7.Size = New Size(223, 108)
-        Panel7.TabIndex = 20
+        PnlDoorPanelOptions.BackColor = Color.WhiteSmoke
+        PnlDoorPanelOptions.BorderStyle = BorderStyle.FixedSingle
+        PnlDoorPanelOptions.Controls.Add(TxtPanelExpansionGap)
+        PnlDoorPanelOptions.Controls.Add(TxtPanelGrooveDepth)
+        PnlDoorPanelOptions.Controls.Add(Label38)
+        PnlDoorPanelOptions.Controls.Add(Label39)
+        PnlDoorPanelOptions.Controls.Add(Label40)
+        PnlDoorPanelOptions.Location = New Point(275, 164)
+        PnlDoorPanelOptions.Name = "PnlDoorPanelOptions"
+        PnlDoorPanelOptions.Size = New Size(223, 108)
+        PnlDoorPanelOptions.TabIndex = 20
         ' 
         ' TxtPanelExpansionGap
         ' 
@@ -2430,9 +2418,9 @@ Partial Class FrmMain
         ' 
         ' RtbDoorResults
         ' 
-        RtbDoorResults.Location = New Point(23, 205)
+        RtbDoorResults.Location = New Point(27, 136)
         RtbDoorResults.Name = "RtbDoorResults"
-        RtbDoorResults.Size = New Size(555, 310)
+        RtbDoorResults.Size = New Size(555, 471)
         RtbDoorResults.TabIndex = 0
         RtbDoorResults.Text = ""
         ' 
@@ -2440,7 +2428,7 @@ Partial Class FrmMain
         ' 
         BtnDrawDoorImage.BackColor = Color.MistyRose
         BtnDrawDoorImage.Enabled = False
-        BtnDrawDoorImage.Location = New Point(204, 601)
+        BtnDrawDoorImage.Location = New Point(204, 680)
         BtnDrawDoorImage.Name = "BtnDrawDoorImage"
         BtnDrawDoorImage.Size = New Size(190, 34)
         BtnDrawDoorImage.TabIndex = 28
@@ -2450,7 +2438,7 @@ Partial Class FrmMain
         ' BtnPrintDoorResults
         ' 
         BtnPrintDoorResults.BackColor = Color.MistyRose
-        BtnPrintDoorResults.Location = New Point(89, 548)
+        BtnPrintDoorResults.Location = New Point(89, 627)
         BtnPrintDoorResults.Name = "BtnPrintDoorResults"
         BtnPrintDoorResults.Size = New Size(191, 29)
         BtnPrintDoorResults.TabIndex = 27
@@ -2460,7 +2448,7 @@ Partial Class FrmMain
         ' BtnExportDoorResults
         ' 
         BtnExportDoorResults.BackColor = Color.MistyRose
-        BtnExportDoorResults.Location = New Point(320, 548)
+        BtnExportDoorResults.Location = New Point(320, 627)
         BtnExportDoorResults.Name = "BtnExportDoorResults"
         BtnExportDoorResults.Size = New Size(191, 29)
         BtnExportDoorResults.TabIndex = 26
@@ -2472,7 +2460,7 @@ Partial Class FrmMain
         Label50.AutoSize = True
         Label50.Font = New Font("Georgia", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label50.ForeColor = Color.Maroon
-        Label50.Location = New Point(248, 164)
+        Label50.Location = New Point(239, 92)
         Label50.Name = "Label50"
         Label50.Size = New Size(105, 29)
         Label50.TabIndex = 25
@@ -2497,7 +2485,7 @@ Partial Class FrmMain
         TpBoardfeet.Location = New Point(4, 27)
         TpBoardfeet.Name = "TpBoardfeet"
         TpBoardfeet.Padding = New Padding(3)
-        TpBoardfeet.Size = New Size(1170, 823)
+        TpBoardfeet.Size = New Size(1192, 823)
         TpBoardfeet.TabIndex = 0
         TpBoardfeet.Text = "Boardfeet"
         ' 
@@ -2528,7 +2516,7 @@ Partial Class FrmMain
         PnlBoardFeet.Dock = DockStyle.Top
         PnlBoardFeet.Location = New Point(3, 3)
         PnlBoardFeet.Name = "PnlBoardFeet"
-        PnlBoardFeet.Size = New Size(1160, 567)
+        PnlBoardFeet.Size = New Size(1182, 567)
         PnlBoardFeet.TabIndex = 0
         ' 
         ' BtnLoadBoardFeetHistory
@@ -2720,8 +2708,8 @@ Partial Class FrmMain
         ' 
         ' DgvBoardfeet
         ' 
-        DataGridViewCellStyle3.BackColor = Color.Beige
-        DgvBoardfeet.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.BackColor = Color.Beige
+        DgvBoardfeet.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         DgvBoardfeet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DgvBoardfeet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvBoardfeet.Columns.AddRange(New DataGridViewColumn() {bfCol0, bfCol1, bfCol2, bfCol3, bfCol4, bfCol5, bfCol6, bfCol7})
@@ -2785,7 +2773,7 @@ Partial Class FrmMain
         TpCalcs.Controls.Add(TcCalculattions)
         TpCalcs.Location = New Point(4, 27)
         TpCalcs.Name = "TpCalcs"
-        TpCalcs.Size = New Size(1170, 823)
+        TpCalcs.Size = New Size(1192, 823)
         TpCalcs.TabIndex = 6
         TpCalcs.Text = "Calculations"
         TpCalcs.UseVisualStyleBackColor = True
@@ -2804,7 +2792,7 @@ Partial Class FrmMain
         TcCalculattions.Multiline = True
         TcCalculattions.Name = "TcCalculattions"
         TcCalculattions.SelectedIndex = 0
-        TcCalculattions.Size = New Size(1166, 819)
+        TcCalculattions.Size = New Size(1188, 819)
         TcCalculattions.TabIndex = 0
         ' 
         ' TpEpoxy
@@ -2817,7 +2805,7 @@ Partial Class FrmMain
         TpEpoxy.Location = New Point(4, 4)
         TpEpoxy.Name = "TpEpoxy"
         TpEpoxy.Padding = New Padding(3)
-        TpEpoxy.Size = New Size(1134, 811)
+        TpEpoxy.Size = New Size(1156, 811)
         TpEpoxy.TabIndex = 0
         TpEpoxy.Text = "Epoxy"
         ' 
@@ -2900,6 +2888,17 @@ Partial Class FrmMain
         PnlStoneCoatTopCoat.Name = "PnlStoneCoatTopCoat"
         PnlStoneCoatTopCoat.Size = New Size(334, 382)
         PnlStoneCoatTopCoat.TabIndex = 7
+        ' 
+        ' LblTopCoat
+        ' 
+        LblTopCoat.AutoSize = True
+        LblTopCoat.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        LblTopCoat.ForeColor = Color.Maroon
+        LblTopCoat.Location = New Point(53, 12)
+        LblTopCoat.Name = "LblTopCoat"
+        LblTopCoat.Size = New Size(197, 21)
+        LblTopCoat.TabIndex = 9
+        LblTopCoat.Text = "Stone Coat Top Coat"
         ' 
         ' RbTcWaste20
         ' 
@@ -3284,28 +3283,28 @@ Partial Class FrmMain
         ' 
         TpConversions.BackColor = Color.Gainsboro
         TpConversions.BorderStyle = BorderStyle.Fixed3D
-        TpConversions.Controls.Add(Panel4)
-        TpConversions.Controls.Add(Panel2)
+        TpConversions.Controls.Add(PnlConverters)
+        TpConversions.Controls.Add(PnlFractionDecimalConversions)
         TpConversions.Location = New Point(4, 4)
         TpConversions.Name = "TpConversions"
         TpConversions.Padding = New Padding(3)
-        TpConversions.Size = New Size(1128, 811)
+        TpConversions.Size = New Size(1150, 811)
         TpConversions.TabIndex = 1
         TpConversions.Text = "Conversions"
         ' 
-        ' Panel4
+        ' PnlConverters
         ' 
-        Panel4.BackColor = Color.WhiteSmoke
-        Panel4.BorderStyle = BorderStyle.Fixed3D
-        Panel4.Controls.Add(GroupBox4)
-        Panel4.Controls.Add(GroupBox3)
-        Panel4.Controls.Add(GroupBox2)
-        Panel4.Controls.Add(GroupBox1)
-        Panel4.Controls.Add(Label13)
-        Panel4.Location = New Point(655, 175)
-        Panel4.Name = "Panel4"
-        Panel4.Size = New Size(300, 456)
-        Panel4.TabIndex = 5
+        PnlConverters.BackColor = Color.WhiteSmoke
+        PnlConverters.BorderStyle = BorderStyle.Fixed3D
+        PnlConverters.Controls.Add(GroupBox4)
+        PnlConverters.Controls.Add(GroupBox3)
+        PnlConverters.Controls.Add(GroupBox2)
+        PnlConverters.Controls.Add(GroupBox1)
+        PnlConverters.Controls.Add(Label13)
+        PnlConverters.Location = New Point(655, 175)
+        PnlConverters.Name = "PnlConverters"
+        PnlConverters.Size = New Size(300, 456)
+        PnlConverters.TabIndex = 5
         ' 
         ' GroupBox4
         ' 
@@ -3479,18 +3478,18 @@ Partial Class FrmMain
         Label13.TabIndex = 0
         Label13.Text = "Converters"
         ' 
-        ' Panel2
+        ' PnlFractionDecimalConversions
         ' 
-        Panel2.BackColor = Color.WhiteSmoke
-        Panel2.BorderStyle = BorderStyle.Fixed3D
-        Panel2.Controls.Add(RtbFraction2Mm)
-        Panel2.Controls.Add(RtbFraction2Decimal)
-        Panel2.Controls.Add(Label10)
-        Panel2.Controls.Add(Label8)
-        Panel2.Location = New Point(175, 211)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(465, 385)
-        Panel2.TabIndex = 4
+        PnlFractionDecimalConversions.BackColor = Color.WhiteSmoke
+        PnlFractionDecimalConversions.BorderStyle = BorderStyle.Fixed3D
+        PnlFractionDecimalConversions.Controls.Add(RtbFraction2Mm)
+        PnlFractionDecimalConversions.Controls.Add(RtbFraction2Decimal)
+        PnlFractionDecimalConversions.Controls.Add(Label10)
+        PnlFractionDecimalConversions.Controls.Add(Label8)
+        PnlFractionDecimalConversions.Location = New Point(175, 211)
+        PnlFractionDecimalConversions.Name = "PnlFractionDecimalConversions"
+        PnlFractionDecimalConversions.Size = New Size(465, 385)
+        PnlFractionDecimalConversions.TabIndex = 4
         ' 
         ' RtbFraction2Mm
         ' 
@@ -3550,7 +3549,7 @@ Partial Class FrmMain
         TpCalculators.Controls.Add(PnlTableTip)
         TpCalculators.Location = New Point(4, 4)
         TpCalculators.Name = "TpCalculators"
-        TpCalculators.Size = New Size(1128, 811)
+        TpCalculators.Size = New Size(1150, 811)
         TpCalculators.TabIndex = 2
         TpCalculators.Text = "Calculators"
         ' 
@@ -3567,7 +3566,7 @@ Partial Class FrmMain
         PnlDadoCalc.Controls.Add(GbxDadoSet)
         PnlDadoCalc.Controls.Add(GbxDadoCalc)
         PnlDadoCalc.Dock = DockStyle.Right
-        PnlDadoCalc.Location = New Point(608, 0)
+        PnlDadoCalc.Location = New Point(630, 0)
         PnlDadoCalc.Name = "PnlDadoCalc"
         PnlDadoCalc.Size = New Size(516, 807)
         PnlDadoCalc.TabIndex = 8
@@ -3950,7 +3949,7 @@ Partial Class FrmMain
         TpSpacings.Controls.Add(ScSpacings)
         TpSpacings.Location = New Point(4, 4)
         TpSpacings.Name = "TpSpacings"
-        TpSpacings.Size = New Size(1128, 811)
+        TpSpacings.Size = New Size(1150, 811)
         TpSpacings.TabIndex = 3
         TpSpacings.Text = "Spacings"
         ' 
@@ -3968,8 +3967,8 @@ Partial Class FrmMain
         ' ScSpacings.Panel2
         ' 
         ScSpacings.Panel2.Controls.Add(GbxBiscuitDomino)
-        ScSpacings.Size = New Size(1124, 807)
-        ScSpacings.SplitterDistance = 554
+        ScSpacings.Size = New Size(1146, 807)
+        ScSpacings.SplitterDistance = 564
         ScSpacings.SplitterWidth = 6
         ScSpacings.TabIndex = 0
         ' 
@@ -3995,7 +3994,7 @@ Partial Class FrmMain
         GbxClampSpacing.Dock = DockStyle.Fill
         GbxClampSpacing.Location = New Point(0, 0)
         GbxClampSpacing.Name = "GbxClampSpacing"
-        GbxClampSpacing.Size = New Size(550, 803)
+        GbxClampSpacing.Size = New Size(560, 803)
         GbxClampSpacing.TabIndex = 0
         GbxClampSpacing.TabStop = False
         GbxClampSpacing.Text = "Clamp Spacing"
@@ -4050,7 +4049,7 @@ Partial Class FrmMain
         TxtClampNotes.Multiline = True
         TxtClampNotes.Name = "TxtClampNotes"
         TxtClampNotes.ScrollBars = ScrollBars.Both
-        TxtClampNotes.Size = New Size(544, 395)
+        TxtClampNotes.Size = New Size(554, 395)
         TxtClampNotes.TabIndex = 13
         ' 
         ' Label56
@@ -4180,7 +4179,7 @@ Partial Class FrmMain
         GbxBiscuitDomino.Dock = DockStyle.Fill
         GbxBiscuitDomino.Location = New Point(0, 0)
         GbxBiscuitDomino.Name = "GbxBiscuitDomino"
-        GbxBiscuitDomino.Size = New Size(560, 803)
+        GbxBiscuitDomino.Size = New Size(572, 803)
         GbxBiscuitDomino.TabIndex = 0
         GbxBiscuitDomino.TabStop = False
         GbxBiscuitDomino.Text = "Biscuit Domino Spacing"
@@ -4379,7 +4378,7 @@ Partial Class FrmMain
         TpAngles.Controls.Add(ScAngles)
         TpAngles.Location = New Point(4, 4)
         TpAngles.Name = "TpAngles"
-        TpAngles.Size = New Size(1128, 811)
+        TpAngles.Size = New Size(1150, 811)
         TpAngles.TabIndex = 4
         TpAngles.Text = "Angles"
         ' 
@@ -4397,8 +4396,8 @@ Partial Class FrmMain
         ' ScAngles.Panel2
         ' 
         ScAngles.Panel2.Controls.Add(GbxMiterAngleCalc)
-        ScAngles.Size = New Size(1124, 807)
-        ScAngles.SplitterDistance = 492
+        ScAngles.Size = New Size(1146, 807)
+        ScAngles.SplitterDistance = 501
         ScAngles.SplitterWidth = 6
         ScAngles.TabIndex = 0
         ' 
@@ -4409,7 +4408,7 @@ Partial Class FrmMain
         GbxPolygonCalculations.Dock = DockStyle.Fill
         GbxPolygonCalculations.Location = New Point(0, 0)
         GbxPolygonCalculations.Name = "GbxPolygonCalculations"
-        GbxPolygonCalculations.Size = New Size(488, 803)
+        GbxPolygonCalculations.Size = New Size(497, 803)
         GbxPolygonCalculations.TabIndex = 0
         GbxPolygonCalculations.TabStop = False
         GbxPolygonCalculations.Text = "Polygon Calculations"
@@ -4437,7 +4436,7 @@ Partial Class FrmMain
         PnlPolygonCalc.Font = New Font("Segoe UI", 8.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         PnlPolygonCalc.Location = New Point(3, 22)
         PnlPolygonCalc.Name = "PnlPolygonCalc"
-        PnlPolygonCalc.Size = New Size(482, 778)
+        PnlPolygonCalc.Size = New Size(491, 778)
         PnlPolygonCalc.TabIndex = 6
         ' 
         ' NudPolygonDimension
@@ -4476,7 +4475,7 @@ Partial Class FrmMain
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Percent, 16.6666679F))
         TlpPolygonResults.RowStyles.Add(New RowStyle(SizeType.Absolute, 20.0F))
-        TlpPolygonResults.Size = New Size(478, 223)
+        TlpPolygonResults.Size = New Size(487, 223)
         TlpPolygonResults.TabIndex = 23
         ' 
         ' Label90
@@ -4486,7 +4485,7 @@ Partial Class FrmMain
         Label90.Location = New Point(4, 4)
         Label90.Margin = New Padding(3)
         Label90.Name = "Label90"
-        Label90.Size = New Size(231, 29)
+        Label90.Size = New Size(236, 29)
         Label90.TabIndex = 16
         Label90.Text = "RESULTS:"
         Label90.TextAlign = ContentAlignment.MiddleLeft
@@ -4498,7 +4497,7 @@ Partial Class FrmMain
         LblPolygonInteriorAngle.Location = New Point(4, 40)
         LblPolygonInteriorAngle.Margin = New Padding(3)
         LblPolygonInteriorAngle.Name = "LblPolygonInteriorAngle"
-        LblPolygonInteriorAngle.Size = New Size(231, 29)
+        LblPolygonInteriorAngle.Size = New Size(236, 29)
         LblPolygonInteriorAngle.TabIndex = 17
         LblPolygonInteriorAngle.Tag = "Interior Angle: {0:N2}°"
         LblPolygonInteriorAngle.Text = "Interior Angle: "
@@ -4511,7 +4510,7 @@ Partial Class FrmMain
         LblPolygonSideAngle.Location = New Point(4, 76)
         LblPolygonSideAngle.Margin = New Padding(3)
         LblPolygonSideAngle.Name = "LblPolygonSideAngle"
-        LblPolygonSideAngle.Size = New Size(231, 29)
+        LblPolygonSideAngle.Size = New Size(236, 29)
         LblPolygonSideAngle.TabIndex = 3
         LblPolygonSideAngle.Tag = "Exterior Angle: {0:N2}°"
         LblPolygonSideAngle.Text = "Exterior Angle:"
@@ -4524,7 +4523,7 @@ Partial Class FrmMain
         LblPolygonPieceAngle.Location = New Point(4, 112)
         LblPolygonPieceAngle.Margin = New Padding(3)
         LblPolygonPieceAngle.Name = "LblPolygonPieceAngle"
-        LblPolygonPieceAngle.Size = New Size(231, 29)
+        LblPolygonPieceAngle.Size = New Size(236, 29)
         LblPolygonPieceAngle.TabIndex = 4
         LblPolygonPieceAngle.Tag = "Miter Cut Angle: {0:N2}°"
         LblPolygonPieceAngle.Text = "Miter Cut Angle:"
@@ -4537,7 +4536,7 @@ Partial Class FrmMain
         LblPolygonSideLengthResult.Location = New Point(4, 148)
         LblPolygonSideLengthResult.Margin = New Padding(3)
         LblPolygonSideLengthResult.Name = "LblPolygonSideLengthResult"
-        LblPolygonSideLengthResult.Size = New Size(231, 29)
+        LblPolygonSideLengthResult.Size = New Size(236, 29)
         LblPolygonSideLengthResult.TabIndex = 18
         LblPolygonSideLengthResult.Tag = "Side Length: {0:N2} {1}"
         LblPolygonSideLengthResult.Text = "Side Length: "
@@ -4549,7 +4548,7 @@ Partial Class FrmMain
         BtnCopyPolyResults.Dock = DockStyle.Fill
         BtnCopyPolyResults.Location = New Point(4, 184)
         BtnCopyPolyResults.Name = "BtnCopyPolyResults"
-        BtnCopyPolyResults.Size = New Size(231, 35)
+        BtnCopyPolyResults.Size = New Size(236, 35)
         BtnCopyPolyResults.TabIndex = 1
         BtnCopyPolyResults.Text = "Copy Results"
         BtnCopyPolyResults.UseVisualStyleBackColor = False
@@ -4558,9 +4557,9 @@ Partial Class FrmMain
         ' 
         BtnResetPolygon.BackColor = Color.MistyRose
         BtnResetPolygon.Dock = DockStyle.Fill
-        BtnResetPolygon.Location = New Point(242, 184)
+        BtnResetPolygon.Location = New Point(247, 184)
         BtnResetPolygon.Name = "BtnResetPolygon"
-        BtnResetPolygon.Size = New Size(232, 35)
+        BtnResetPolygon.Size = New Size(236, 35)
         BtnResetPolygon.TabIndex = 2
         BtnResetPolygon.Text = "Reset"
         BtnResetPolygon.UseVisualStyleBackColor = False
@@ -4569,10 +4568,10 @@ Partial Class FrmMain
         ' 
         LblPolygonArea.AutoSize = True
         LblPolygonArea.Dock = DockStyle.Fill
-        LblPolygonArea.Location = New Point(242, 148)
+        LblPolygonArea.Location = New Point(247, 148)
         LblPolygonArea.Margin = New Padding(3)
         LblPolygonArea.Name = "LblPolygonArea"
-        LblPolygonArea.Size = New Size(232, 29)
+        LblPolygonArea.Size = New Size(236, 29)
         LblPolygonArea.TabIndex = 22
         LblPolygonArea.Tag = "Area: {0:N2} {1}"
         LblPolygonArea.Text = "Area: "
@@ -4582,10 +4581,10 @@ Partial Class FrmMain
         ' 
         LblPolygonPerimeter.AutoSize = True
         LblPolygonPerimeter.Dock = DockStyle.Fill
-        LblPolygonPerimeter.Location = New Point(242, 112)
+        LblPolygonPerimeter.Location = New Point(247, 112)
         LblPolygonPerimeter.Margin = New Padding(3)
         LblPolygonPerimeter.Name = "LblPolygonPerimeter"
-        LblPolygonPerimeter.Size = New Size(232, 29)
+        LblPolygonPerimeter.Size = New Size(236, 29)
         LblPolygonPerimeter.TabIndex = 21
         LblPolygonPerimeter.Tag = "Perimeter: {0:N2} {1}"
         LblPolygonPerimeter.Text = "Perimeter"
@@ -4595,10 +4594,10 @@ Partial Class FrmMain
         ' 
         LblPolygonApothem.AutoSize = True
         LblPolygonApothem.Dock = DockStyle.Fill
-        LblPolygonApothem.Location = New Point(242, 76)
+        LblPolygonApothem.Location = New Point(247, 76)
         LblPolygonApothem.Margin = New Padding(3)
         LblPolygonApothem.Name = "LblPolygonApothem"
-        LblPolygonApothem.Size = New Size(232, 29)
+        LblPolygonApothem.Size = New Size(236, 29)
         LblPolygonApothem.TabIndex = 20
         LblPolygonApothem.Tag = "Apothem: {0:N2} {1}"
         LblPolygonApothem.Text = "Apothem: "
@@ -4608,10 +4607,10 @@ Partial Class FrmMain
         ' 
         LblPolygonRadiusResult.AutoSize = True
         LblPolygonRadiusResult.Dock = DockStyle.Fill
-        LblPolygonRadiusResult.Location = New Point(242, 40)
+        LblPolygonRadiusResult.Location = New Point(247, 40)
         LblPolygonRadiusResult.Margin = New Padding(3)
         LblPolygonRadiusResult.Name = "LblPolygonRadiusResult"
-        LblPolygonRadiusResult.Size = New Size(232, 29)
+        LblPolygonRadiusResult.Size = New Size(236, 29)
         LblPolygonRadiusResult.TabIndex = 19
         LblPolygonRadiusResult.Tag = "Radius: {0:N2} {1}"
         LblPolygonRadiusResult.Text = "Radius: "
@@ -4621,9 +4620,9 @@ Partial Class FrmMain
         ' 
         BtnPolyCalc.BackColor = Color.MistyRose
         BtnPolyCalc.Dock = DockStyle.Fill
-        BtnPolyCalc.Location = New Point(242, 4)
+        BtnPolyCalc.Location = New Point(247, 4)
         BtnPolyCalc.Name = "BtnPolyCalc"
-        BtnPolyCalc.Size = New Size(232, 29)
+        BtnPolyCalc.Size = New Size(236, 29)
         BtnPolyCalc.TabIndex = 0
         BtnPolyCalc.Text = "Calculate"
         BtnPolyCalc.UseVisualStyleBackColor = False
@@ -4765,7 +4764,7 @@ Partial Class FrmMain
         GbxMiterAngleCalc.Dock = DockStyle.Fill
         GbxMiterAngleCalc.Location = New Point(0, 0)
         GbxMiterAngleCalc.Name = "GbxMiterAngleCalc"
-        GbxMiterAngleCalc.Size = New Size(622, 803)
+        GbxMiterAngleCalc.Size = New Size(635, 803)
         GbxMiterAngleCalc.TabIndex = 0
         GbxMiterAngleCalc.TabStop = False
         GbxMiterAngleCalc.Text = "Miter Angle Calculator"
@@ -4788,7 +4787,7 @@ Partial Class FrmMain
         GbxMiterOutput.Dock = DockStyle.Top
         GbxMiterOutput.Location = New Point(3, 207)
         GbxMiterOutput.Name = "GbxMiterOutput"
-        GbxMiterOutput.Size = New Size(616, 150)
+        GbxMiterOutput.Size = New Size(629, 150)
         GbxMiterOutput.TabIndex = 1
         GbxMiterOutput.TabStop = False
         GbxMiterOutput.Text = "Output Section: "
@@ -4839,7 +4838,7 @@ Partial Class FrmMain
         GbxMiterInput.Dock = DockStyle.Top
         GbxMiterInput.Location = New Point(3, 22)
         GbxMiterInput.Name = "GbxMiterInput"
-        GbxMiterInput.Size = New Size(616, 185)
+        GbxMiterInput.Size = New Size(629, 185)
         GbxMiterInput.TabIndex = 0
         GbxMiterInput.TabStop = False
         GbxMiterInput.Text = "Input Section: "
@@ -4946,7 +4945,7 @@ Partial Class FrmMain
         TpFinishing.Controls.Add(GbxVeneerCalculator)
         TpFinishing.Location = New Point(4, 4)
         TpFinishing.Name = "TpFinishing"
-        TpFinishing.Size = New Size(1128, 811)
+        TpFinishing.Size = New Size(1150, 811)
         TpFinishing.TabIndex = 5
         TpFinishing.Text = "Finishing"
         ' 
@@ -4967,7 +4966,7 @@ Partial Class FrmMain
         GbxSharedArea.ForeColor = Color.WhiteSmoke
         GbxSharedArea.Location = New Point(0, 0)
         GbxSharedArea.Name = "GbxSharedArea"
-        GbxSharedArea.Size = New Size(1124, 112)
+        GbxSharedArea.Size = New Size(1146, 112)
         GbxSharedArea.TabIndex = 3
         GbxSharedArea.TabStop = False
         GbxSharedArea.Text = "Shared Area"
@@ -5479,7 +5478,7 @@ Partial Class FrmMain
         TpDrawings.Controls.Add(PbOutputDrawing)
         TpDrawings.Location = New Point(4, 27)
         TpDrawings.Name = "TpDrawings"
-        TpDrawings.Size = New Size(1170, 823)
+        TpDrawings.Size = New Size(1192, 823)
         TpDrawings.TabIndex = 5
         TpDrawings.Text = "Drawings"
         TpDrawings.UseVisualStyleBackColor = True
@@ -5491,7 +5490,7 @@ Partial Class FrmMain
         PbOutputDrawing.Dock = DockStyle.Fill
         PbOutputDrawing.Location = New Point(0, 0)
         PbOutputDrawing.Name = "PbOutputDrawing"
-        PbOutputDrawing.Size = New Size(1170, 823)
+        PbOutputDrawing.Size = New Size(1192, 823)
         PbOutputDrawing.TabIndex = 0
         PbOutputDrawing.TabStop = False
         ' 
@@ -5502,7 +5501,7 @@ Partial Class FrmMain
         TpJoinery.Controls.Add(ScJoinery)
         TpJoinery.Location = New Point(4, 27)
         TpJoinery.Name = "TpJoinery"
-        TpJoinery.Size = New Size(1170, 823)
+        TpJoinery.Size = New Size(1192, 823)
         TpJoinery.TabIndex = 8
         TpJoinery.Text = "Joinery"
         ' 
@@ -5534,8 +5533,8 @@ Partial Class FrmMain
         ScJoinery.Panel2.Controls.Add(GbxDovetailResults)
         ScJoinery.Panel2.Controls.Add(GbxDadoResults)
         ScJoinery.Panel2.Controls.Add(GbxBoxJointResults)
-        ScJoinery.Size = New Size(1166, 819)
-        ScJoinery.SplitterDistance = 485
+        ScJoinery.Size = New Size(1188, 819)
+        ScJoinery.SplitterDistance = 494
         ScJoinery.SplitterWidth = 8
         ScJoinery.TabIndex = 11
         ' 
@@ -6002,7 +6001,7 @@ Partial Class FrmMain
         TpWoodMovement.Controls.Add(TcWoodMovement)
         TpWoodMovement.Location = New Point(4, 27)
         TpWoodMovement.Name = "TpWoodMovement"
-        TpWoodMovement.Size = New Size(1170, 823)
+        TpWoodMovement.Size = New Size(1192, 823)
         TpWoodMovement.TabIndex = 9
         TpWoodMovement.Text = "Wood Movement"
         ' 
@@ -6016,7 +6015,7 @@ Partial Class FrmMain
         TcWoodMovement.Multiline = True
         TcWoodMovement.Name = "TcWoodMovement"
         TcWoodMovement.SelectedIndex = 0
-        TcWoodMovement.Size = New Size(1166, 819)
+        TcWoodMovement.Size = New Size(1188, 819)
         TcWoodMovement.TabIndex = 1
         ' 
         ' TpWmWoodMovement
@@ -6032,7 +6031,7 @@ Partial Class FrmMain
         TpWmWoodMovement.Location = New Point(4, 4)
         TpWmWoodMovement.Name = "TpWmWoodMovement"
         TpWmWoodMovement.Padding = New Padding(3)
-        TpWmWoodMovement.Size = New Size(1134, 811)
+        TpWmWoodMovement.Size = New Size(1156, 811)
         TpWmWoodMovement.TabIndex = 0
         TpWmWoodMovement.Text = "Wood Movement"
         ' 
@@ -6291,7 +6290,7 @@ Partial Class FrmMain
         TpWmShelfSag.Location = New Point(4, 4)
         TpWmShelfSag.Name = "TpWmShelfSag"
         TpWmShelfSag.Padding = New Padding(3)
-        TpWmShelfSag.Size = New Size(1128, 811)
+        TpWmShelfSag.Size = New Size(1150, 811)
         TpWmShelfSag.TabIndex = 1
         TpWmShelfSag.Text = "Shelf Sag"
         ' 
@@ -6749,7 +6748,7 @@ Partial Class FrmMain
         TpCutList.Controls.Add(ScCutList)
         TpCutList.Location = New Point(4, 27)
         TpCutList.Name = "TpCutList"
-        TpCutList.Size = New Size(1170, 823)
+        TpCutList.Size = New Size(1192, 823)
         TpCutList.TabIndex = 10
         TpCutList.Text = "Cut List"
         ' 
@@ -6769,8 +6768,8 @@ Partial Class FrmMain
         ' 
         ScCutList.Panel2.Controls.Add(GbCutListResults)
         ScCutList.Panel2.Controls.Add(GbCuttingDiagram)
-        ScCutList.Size = New Size(1166, 819)
-        ScCutList.SplitterDistance = 494
+        ScCutList.Size = New Size(1188, 819)
+        ScCutList.SplitterDistance = 503
         ScCutList.SplitterWidth = 8
         ScCutList.TabIndex = 0
         ' 
@@ -7011,7 +7010,7 @@ Partial Class FrmMain
         TpReferences.Controls.Add(TcReferences)
         TpReferences.Location = New Point(4, 27)
         TpReferences.Name = "TpReferences"
-        TpReferences.Size = New Size(1170, 823)
+        TpReferences.Size = New Size(1192, 823)
         TpReferences.TabIndex = 12
         TpReferences.Text = "References"
         ' 
@@ -7028,7 +7027,7 @@ Partial Class FrmMain
         TcReferences.Multiline = True
         TcReferences.Name = "TcReferences"
         TcReferences.SelectedIndex = 0
-        TcReferences.Size = New Size(1166, 819)
+        TcReferences.Size = New Size(1188, 819)
         TcReferences.TabIndex = 0
         ' 
         ' TpWoodProperties
@@ -7039,7 +7038,7 @@ Partial Class FrmMain
         TpWoodProperties.Location = New Point(4, 4)
         TpWoodProperties.Name = "TpWoodProperties"
         TpWoodProperties.Padding = New Padding(3)
-        TpWoodProperties.Size = New Size(1134, 811)
+        TpWoodProperties.Size = New Size(1156, 811)
         TpWoodProperties.TabIndex = 0
         TpWoodProperties.Text = "Wood Properties"
         TpWoodProperties.UseVisualStyleBackColor = True
@@ -7057,7 +7056,7 @@ Partial Class FrmMain
         PnlWoodDetails.Dock = DockStyle.Bottom
         PnlWoodDetails.Location = New Point(3, 429)
         PnlWoodDetails.Name = "PnlWoodDetails"
-        PnlWoodDetails.Size = New Size(1128, 379)
+        PnlWoodDetails.Size = New Size(1150, 379)
         PnlWoodDetails.TabIndex = 2
         ' 
         ' BtnAddWoodSpecies
@@ -7132,7 +7131,7 @@ Partial Class FrmMain
         PnlWoodProperties.Dock = DockStyle.Top
         PnlWoodProperties.Location = New Point(3, 3)
         PnlWoodProperties.Name = "PnlWoodProperties"
-        PnlWoodProperties.Size = New Size(1128, 112)
+        PnlWoodProperties.Size = New Size(1150, 112)
         PnlWoodProperties.TabIndex = 1
         ' 
         ' LblWoodSearch
@@ -7216,35 +7215,35 @@ Partial Class FrmMain
         ' TpJoineryReference
         ' 
         TpJoineryReference.BackColor = Color.Gainsboro
-        TpJoineryReference.Controls.Add(Panel11)
-        TpJoineryReference.Controls.Add(Panel1)
+        TpJoineryReference.Controls.Add(PnlJoineryOptions)
+        TpJoineryReference.Controls.Add(PnlJoineryTypes)
         TpJoineryReference.Controls.Add(GbxJoineryFilter)
         TpJoineryReference.Controls.Add(DgvJoineryTypes)
         TpJoineryReference.Location = New Point(4, 4)
         TpJoineryReference.Name = "TpJoineryReference"
         TpJoineryReference.Padding = New Padding(3)
-        TpJoineryReference.Size = New Size(1128, 811)
+        TpJoineryReference.Size = New Size(1150, 811)
         TpJoineryReference.TabIndex = 1
         TpJoineryReference.Text = "Joinery Types"
         ' 
-        ' Panel11
+        ' PnlJoineryOptions
         ' 
-        Panel11.BackColor = Color.Silver
-        Panel11.BorderStyle = BorderStyle.FixedSingle
-        Panel11.Controls.Add(Label67)
-        Panel11.Controls.Add(TxtJoineryHistory)
-        Panel11.Controls.Add(Label66)
-        Panel11.Controls.Add(Label65)
-        Panel11.Controls.Add(Label64)
-        Panel11.Controls.Add(TxtJoineryReinforcement)
-        Panel11.Controls.Add(TxtJoineryStrengthChar)
-        Panel11.Controls.Add(TxtJoineryTools)
-        Panel11.Controls.Add(TxtJoineryUses)
-        Panel11.Controls.Add(TxtJoineryDescription)
-        Panel11.Location = New Point(509, 324)
-        Panel11.Name = "Panel11"
-        Panel11.Size = New Size(609, 481)
-        Panel11.TabIndex = 3
+        PnlJoineryOptions.BackColor = Color.Silver
+        PnlJoineryOptions.BorderStyle = BorderStyle.FixedSingle
+        PnlJoineryOptions.Controls.Add(Label67)
+        PnlJoineryOptions.Controls.Add(TxtJoineryHistory)
+        PnlJoineryOptions.Controls.Add(Label66)
+        PnlJoineryOptions.Controls.Add(Label65)
+        PnlJoineryOptions.Controls.Add(Label64)
+        PnlJoineryOptions.Controls.Add(TxtJoineryReinforcement)
+        PnlJoineryOptions.Controls.Add(TxtJoineryStrengthChar)
+        PnlJoineryOptions.Controls.Add(TxtJoineryTools)
+        PnlJoineryOptions.Controls.Add(TxtJoineryUses)
+        PnlJoineryOptions.Controls.Add(TxtJoineryDescription)
+        PnlJoineryOptions.Location = New Point(509, 324)
+        PnlJoineryOptions.Name = "PnlJoineryOptions"
+        PnlJoineryOptions.Size = New Size(609, 481)
+        PnlJoineryOptions.TabIndex = 3
         ' 
         ' Label67
         ' 
@@ -7346,20 +7345,20 @@ Partial Class FrmMain
         TxtJoineryDescription.Size = New Size(570, 46)
         TxtJoineryDescription.TabIndex = 2
         ' 
-        ' Panel1
+        ' PnlJoineryTypes
         ' 
-        Panel1.BackColor = Color.Silver
-        Panel1.BorderStyle = BorderStyle.FixedSingle
-        Panel1.Controls.Add(LblJoineryGlue)
-        Panel1.Controls.Add(LblJoineryStrength)
-        Panel1.Controls.Add(LblJoineryDifficulty)
-        Panel1.Controls.Add(LblJoineryCategory)
-        Panel1.Controls.Add(LblJoineryName)
-        Panel1.Controls.Add(LblSummary)
-        Panel1.Location = New Point(509, 102)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(609, 687)
-        Panel1.TabIndex = 2
+        PnlJoineryTypes.BackColor = Color.Silver
+        PnlJoineryTypes.BorderStyle = BorderStyle.FixedSingle
+        PnlJoineryTypes.Controls.Add(LblJoineryGlue)
+        PnlJoineryTypes.Controls.Add(LblJoineryStrength)
+        PnlJoineryTypes.Controls.Add(LblJoineryDifficulty)
+        PnlJoineryTypes.Controls.Add(LblJoineryCategory)
+        PnlJoineryTypes.Controls.Add(LblJoineryName)
+        PnlJoineryTypes.Controls.Add(LblSummary)
+        PnlJoineryTypes.Location = New Point(509, 102)
+        PnlJoineryTypes.Name = "PnlJoineryTypes"
+        PnlJoineryTypes.Size = New Size(609, 687)
+        PnlJoineryTypes.TabIndex = 2
         ' 
         ' LblJoineryGlue
         ' 
@@ -7513,7 +7512,7 @@ Partial Class FrmMain
         TpHardwareStandards.Controls.Add(ScHardwareMain)
         TpHardwareStandards.Location = New Point(4, 4)
         TpHardwareStandards.Name = "TpHardwareStandards"
-        TpHardwareStandards.Size = New Size(1128, 811)
+        TpHardwareStandards.Size = New Size(1150, 811)
         TpHardwareStandards.TabIndex = 2
         TpHardwareStandards.Text = "Hardware Standards"
         TpHardwareStandards.UseVisualStyleBackColor = True
@@ -7531,7 +7530,7 @@ Partial Class FrmMain
         GbxHardwareFilter.Dock = DockStyle.Top
         GbxHardwareFilter.Location = New Point(0, 0)
         GbxHardwareFilter.Name = "GbxHardwareFilter"
-        GbxHardwareFilter.Size = New Size(1124, 88)
+        GbxHardwareFilter.Size = New Size(1146, 88)
         GbxHardwareFilter.TabIndex = 1
         GbxHardwareFilter.TabStop = False
         GbxHardwareFilter.Text = "Filter by Category"
@@ -7634,8 +7633,8 @@ Partial Class FrmMain
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareMounting)
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareUses)
         ScHardwareMain.Panel2.Controls.Add(TxtHardwareDescription)
-        ScHardwareMain.Size = New Size(1124, 713)
-        ScHardwareMain.SplitterDistance = 496
+        ScHardwareMain.Size = New Size(1146, 713)
+        ScHardwareMain.SplitterDistance = 505
         ScHardwareMain.SplitterWidth = 6
         ScHardwareMain.TabIndex = 0
         ' 
@@ -7646,7 +7645,7 @@ Partial Class FrmMain
         DgvHardware.Location = New Point(0, 0)
         DgvHardware.Name = "DgvHardware"
         DgvHardware.RowHeadersWidth = 62
-        DgvHardware.Size = New Size(492, 709)
+        DgvHardware.Size = New Size(501, 709)
         DgvHardware.TabIndex = 0
         ' 
         ' Label72
@@ -7705,7 +7704,7 @@ Partial Class FrmMain
         PnlHardwareSummaryInfo.Dock = DockStyle.Top
         PnlHardwareSummaryInfo.Location = New Point(0, 0)
         PnlHardwareSummaryInfo.Name = "PnlHardwareSummaryInfo"
-        PnlHardwareSummaryInfo.Size = New Size(618, 315)
+        PnlHardwareSummaryInfo.Size = New Size(631, 315)
         PnlHardwareSummaryInfo.TabIndex = 18
         ' 
         ' LblHardwareWeight
@@ -7815,7 +7814,7 @@ Partial Class FrmMain
         TpSafety.Controls.Add(TlpSafety)
         TpSafety.Location = New Point(4, 4)
         TpSafety.Name = "TpSafety"
-        TpSafety.Size = New Size(1128, 811)
+        TpSafety.Size = New Size(1150, 811)
         TpSafety.TabIndex = 3
         TpSafety.Text = "Safety"
         ' 
@@ -7836,7 +7835,7 @@ Partial Class FrmMain
         TlpSafety.RowCount = 2
         TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
         TlpSafety.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0F))
-        TlpSafety.Size = New Size(1124, 807)
+        TlpSafety.Size = New Size(1146, 807)
         TlpSafety.TabIndex = 0
         ' 
         ' GbRouterSpeed
@@ -7855,7 +7854,7 @@ Partial Class FrmMain
         GbRouterSpeed.Location = New Point(15, 15)
         GbRouterSpeed.Name = "GbRouterSpeed"
         GbRouterSpeed.Padding = New Padding(10)
-        GbRouterSpeed.Size = New Size(543, 384)
+        GbRouterSpeed.Size = New Size(554, 384)
         GbRouterSpeed.TabIndex = 0
         GbRouterSpeed.TabStop = False
         GbRouterSpeed.Text = "Router Bit Speed Calculator"
@@ -7961,10 +7960,10 @@ Partial Class FrmMain
         GbBladeHeight.Controls.Add(Label79)
         GbBladeHeight.Dock = DockStyle.Fill
         GbBladeHeight.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
-        GbBladeHeight.Location = New Point(566, 15)
+        GbBladeHeight.Location = New Point(577, 15)
         GbBladeHeight.Name = "GbBladeHeight"
         GbBladeHeight.Padding = New Padding(10)
-        GbBladeHeight.Size = New Size(543, 384)
+        GbBladeHeight.Size = New Size(554, 384)
         GbBladeHeight.TabIndex = 1
         GbBladeHeight.TabStop = False
         GbBladeHeight.Text = "Blade Height Recommendations"
@@ -8066,7 +8065,7 @@ Partial Class FrmMain
         GbPushStick.Location = New Point(15, 407)
         GbPushStick.Name = "GbPushStick"
         GbPushStick.Padding = New Padding(10)
-        GbPushStick.Size = New Size(543, 385)
+        GbPushStick.Size = New Size(554, 385)
         GbPushStick.TabIndex = 2
         GbPushStick.TabStop = False
         GbPushStick.Text = "Push Stick Requirements"
@@ -8185,10 +8184,10 @@ Partial Class FrmMain
         GbxDustCollection.Controls.Add(Label86)
         GbxDustCollection.Dock = DockStyle.Fill
         GbxDustCollection.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
-        GbxDustCollection.Location = New Point(566, 407)
+        GbxDustCollection.Location = New Point(577, 407)
         GbxDustCollection.Name = "GbxDustCollection"
         GbxDustCollection.Padding = New Padding(10)
-        GbxDustCollection.Size = New Size(543, 385)
+        GbxDustCollection.Size = New Size(554, 385)
         GbxDustCollection.TabIndex = 3
         GbxDustCollection.TabStop = False
         GbxDustCollection.Text = "Dust Collection CFM Calculator"
@@ -8303,7 +8302,7 @@ Partial Class FrmMain
         TpSanding.Controls.Add(SplitContainer2)
         TpSanding.Location = New Point(4, 4)
         TpSanding.Name = "TpSanding"
-        TpSanding.Size = New Size(1128, 811)
+        TpSanding.Size = New Size(1150, 811)
         TpSanding.TabIndex = 4
         TpSanding.Text = "Sanding"
         ' 
@@ -8322,8 +8321,8 @@ Partial Class FrmMain
         ' 
         SplitContainer2.Panel2.Controls.Add(TxtGritNotes)
         SplitContainer2.Panel2.Controls.Add(LblGritResult)
-        SplitContainer2.Size = New Size(1124, 807)
-        SplitContainer2.SplitterDistance = 496
+        SplitContainer2.Size = New Size(1146, 807)
+        SplitContainer2.SplitterDistance = 505
         SplitContainer2.SplitterWidth = 6
         SplitContainer2.TabIndex = 2
         ' 
@@ -8343,7 +8342,7 @@ Partial Class FrmMain
         GbxSandingGrit.Dock = DockStyle.Fill
         GbxSandingGrit.Location = New Point(0, 0)
         GbxSandingGrit.Name = "GbxSandingGrit"
-        GbxSandingGrit.Size = New Size(492, 803)
+        GbxSandingGrit.Size = New Size(501, 803)
         GbxSandingGrit.TabIndex = 0
         GbxSandingGrit.TabStop = False
         GbxSandingGrit.Text = "Sanding Grit Progression"
@@ -8457,7 +8456,7 @@ Partial Class FrmMain
         LblOptimalGritSequence.Dock = DockStyle.Top
         LblOptimalGritSequence.Location = New Point(3, 22)
         LblOptimalGritSequence.Name = "LblOptimalGritSequence"
-        LblOptimalGritSequence.Size = New Size(486, 140)
+        LblOptimalGritSequence.Size = New Size(495, 140)
         LblOptimalGritSequence.TabIndex = 0
         ' 
         ' TxtGritNotes
@@ -8468,7 +8467,7 @@ Partial Class FrmMain
         TxtGritNotes.Name = "TxtGritNotes"
         TxtGritNotes.ReadOnly = True
         TxtGritNotes.ScrollBars = ScrollBars.Both
-        TxtGritNotes.Size = New Size(618, 751)
+        TxtGritNotes.Size = New Size(631, 751)
         TxtGritNotes.TabIndex = 1
         ' 
         ' LblGritResult
@@ -8488,7 +8487,7 @@ Partial Class FrmMain
         TpHelp.BorderStyle = BorderStyle.Fixed3D
         TpHelp.Location = New Point(4, 27)
         TpHelp.Name = "TpHelp"
-        TpHelp.Size = New Size(1170, 823)
+        TpHelp.Size = New Size(1192, 823)
         TpHelp.TabIndex = 7
         TpHelp.Text = "Help"
         ' 
@@ -8507,13 +8506,12 @@ Partial Class FrmMain
         TpAbout.Controls.Add(RtbLog)
         TpAbout.Location = New Point(4, 27)
         TpAbout.Name = "TpAbout"
-        TpAbout.Size = New Size(1170, 823)
+        TpAbout.Size = New Size(1192, 823)
         TpAbout.TabIndex = 11
         TpAbout.Text = "About"
         ' 
         ' PbMwwLogo
         ' 
-        PbMwwLogo.Image = CType(resources.GetObject("PbMwwLogo.Image"), Image)
         PbMwwLogo.InitialImage = CType(resources.GetObject("PbMwwLogo.InitialImage"), Image)
         PbMwwLogo.Location = New Point(999, 243)
         PbMwwLogo.Name = "PbMwwLogo"
@@ -8654,22 +8652,11 @@ Partial Class FrmMain
         ' 
         TmrClock.Interval = 1000
         ' 
-        ' LblTopCoat
-        ' 
-        LblTopCoat.AutoSize = True
-        LblTopCoat.Font = New Font("Georgia", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        LblTopCoat.ForeColor = Color.Maroon
-        LblTopCoat.Location = New Point(53, 12)
-        LblTopCoat.Name = "LblTopCoat"
-        LblTopCoat.Size = New Size(197, 21)
-        LblTopCoat.TabIndex = 9
-        LblTopCoat.Text = "Stone Coat Top Coat"
-        ' 
         ' FrmMain
         ' 
         AutoScaleDimensions = New SizeF(9.0F, 18.0F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1178, 958)
+        ClientSize = New Size(1200, 1014)
         Controls.Add(Tc)
         Controls.Add(Ss3)
         Controls.Add(Ss2)
@@ -8705,12 +8692,11 @@ Partial Class FrmMain
         GroupBox6.PerformLayout()
         GroupBox5.ResumeLayout(False)
         GroupBox5.PerformLayout()
-        PnlResults.ResumeLayout(False)
         GroupBox11.ResumeLayout(False)
         GroupBox11.PerformLayout()
         TpDoors.ResumeLayout(False)
-        GbSetScale.ResumeLayout(False)
-        GbSetScale.PerformLayout()
+        GbxSetScale.ResumeLayout(False)
+        GbxSetScale.PerformLayout()
         ScDoors.Panel1.ResumeLayout(False)
         ScDoors.Panel1.PerformLayout()
         ScDoors.Panel2.ResumeLayout(False)
@@ -8718,18 +8704,18 @@ Partial Class FrmMain
         CType(ScDoors, ComponentModel.ISupportInitialize).EndInit()
         ScDoors.ResumeLayout(False)
         GroupBox12.ResumeLayout(False)
-        Panel6.ResumeLayout(False)
-        Panel6.PerformLayout()
+        PnlCabinetOpening.ResumeLayout(False)
+        PnlCabinetOpening.PerformLayout()
         GroupBox10.ResumeLayout(False)
         GroupBox10.PerformLayout()
-        Panel8.ResumeLayout(False)
-        Panel8.PerformLayout()
-        Panel9.ResumeLayout(False)
-        Panel9.PerformLayout()
-        Panel10.ResumeLayout(False)
-        Panel10.PerformLayout()
-        Panel7.ResumeLayout(False)
-        Panel7.PerformLayout()
+        PnlDoorOptions.ResumeLayout(False)
+        PnlDoorOptions.PerformLayout()
+        PnlOverlayInsetOptions.ResumeLayout(False)
+        PnlOverlayInsetOptions.PerformLayout()
+        Pnl1Door2DoorRadio.ResumeLayout(False)
+        Pnl1Door2DoorRadio.PerformLayout()
+        PnlDoorPanelOptions.ResumeLayout(False)
+        PnlDoorPanelOptions.PerformLayout()
         TpBoardfeet.ResumeLayout(False)
         PnlBoardFeet.ResumeLayout(False)
         PnlBoardFeet.PerformLayout()
@@ -8745,8 +8731,8 @@ Partial Class FrmMain
         PnlEpoxyPours.ResumeLayout(False)
         PnlEpoxyPours.PerformLayout()
         TpConversions.ResumeLayout(False)
-        Panel4.ResumeLayout(False)
-        Panel4.PerformLayout()
+        PnlConverters.ResumeLayout(False)
+        PnlConverters.PerformLayout()
         GroupBox4.ResumeLayout(False)
         GroupBox4.PerformLayout()
         GroupBox3.ResumeLayout(False)
@@ -8755,8 +8741,8 @@ Partial Class FrmMain
         GroupBox2.PerformLayout()
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
-        Panel2.ResumeLayout(False)
-        Panel2.PerformLayout()
+        PnlFractionDecimalConversions.ResumeLayout(False)
+        PnlFractionDecimalConversions.PerformLayout()
         TpCalculators.ResumeLayout(False)
         PnlDadoCalc.ResumeLayout(False)
         PnlDadoCalc.PerformLayout()
@@ -8881,10 +8867,10 @@ Partial Class FrmMain
         PnlWoodProperties.PerformLayout()
         CType(DgvWoodProperties, ComponentModel.ISupportInitialize).EndInit()
         TpJoineryReference.ResumeLayout(False)
-        Panel11.ResumeLayout(False)
-        Panel11.PerformLayout()
-        Panel1.ResumeLayout(False)
-        Panel1.PerformLayout()
+        PnlJoineryOptions.ResumeLayout(False)
+        PnlJoineryOptions.PerformLayout()
+        PnlJoineryTypes.ResumeLayout(False)
+        PnlJoineryTypes.PerformLayout()
         GbxJoineryFilter.ResumeLayout(False)
         GbxJoineryFilter.PerformLayout()
         CType(DgvJoineryTypes, ComponentModel.ISupportInitialize).EndInit()
@@ -8997,7 +8983,6 @@ Partial Class FrmMain
     Friend WithEvents Label27 As Label
     Friend WithEvents Label26 As Label
     Friend WithEvents BtnDrawDrawerImage As Button
-    Friend WithEvents PnlResults As Panel
     Friend WithEvents RtbResults As RichTextBox
     Friend WithEvents GroupBox11 As GroupBox
     Friend WithEvents RbArithmetic As RadioButton
@@ -9017,7 +9002,7 @@ Partial Class FrmMain
     Friend WithEvents TxtDrawerProjectName As TextBox
 
     ' Doors Tab Controls
-    Friend WithEvents GbSetScale As GroupBox
+    Friend WithEvents GbxSetScale As GroupBox
     Friend WithEvents RbImperial As RadioButton
     Friend WithEvents RbMetric As RadioButton
     Friend WithEvents ScDoors As SplitContainer
@@ -9031,7 +9016,7 @@ Partial Class FrmMain
     Friend WithEvents BtnBathroomDoorPreset As Button
     Friend WithEvents BtnKitchenDoorPreset As Button
     Friend WithEvents Label48 As Label
-    Friend WithEvents Panel6 As Panel
+    Friend WithEvents PnlCabinetOpening As Panel
     Friend WithEvents TxtCabinetOpeningHeight As TextBox
     Friend WithEvents TxtCabinetOpeningWidth As TextBox
     Friend WithEvents Label35 As Label
@@ -9045,7 +9030,7 @@ Partial Class FrmMain
     Friend WithEvents LblRailLength As Label
     Friend WithEvents BtnCalculateDoors As Button
     Friend WithEvents BtnSaveDoorProject As Button
-    Friend WithEvents Panel8 As Panel
+    Friend WithEvents PnlDoorOptions As Panel
     Friend WithEvents TxtDoorOverlay As TextBox
     Friend WithEvents TxtGapSize As TextBox
     Friend WithEvents TxtRailWidth As TextBox
@@ -9053,16 +9038,16 @@ Partial Class FrmMain
     Friend WithEvents Label41 As Label
     Friend WithEvents Label42 As Label
     Friend WithEvents Label43 As Label
-    Friend WithEvents Panel9 As Panel
+    Friend WithEvents PnlOverlayInsetOptions As Panel
     Friend WithEvents RbInset As RadioButton
     Friend WithEvents RbOverlay As RadioButton
     Friend WithEvents Label44 As Label
-    Friend WithEvents Panel10 As Panel
+    Friend WithEvents Pnl1Door2DoorRadio As Panel
     Friend WithEvents Rb2Door As RadioButton
     Friend WithEvents Rb1Door As RadioButton
     Friend WithEvents Label45 As Label
     Friend WithEvents TxtDoorProjectName As TextBox
-    Friend WithEvents Panel7 As Panel
+    Friend WithEvents PnlDoorPanelOptions As Panel
     Friend WithEvents TxtPanelExpansionGap As TextBox
     Friend WithEvents TxtPanelGrooveDepth As TextBox
     Friend WithEvents Label38 As Label
@@ -9154,7 +9139,7 @@ Partial Class FrmMain
     Friend WithEvents Label2 As Label
 
     ' Conversions Tab Controls
-    Friend WithEvents Panel4 As Panel
+    Friend WithEvents PnlConverters As Panel
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents LblFraction2Decimal As Label
     Friend WithEvents TxtFraction2Decimal As TextBox
@@ -9172,7 +9157,7 @@ Partial Class FrmMain
     Friend WithEvents TxtInches2Mm As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents PnlFractionDecimalConversions As Panel
     Friend WithEvents RtbFraction2Mm As RichTextBox
     Friend WithEvents RtbFraction2Decimal As RichTextBox
     Friend WithEvents Label10 As Label
@@ -9397,7 +9382,7 @@ Partial Class FrmMain
     Friend WithEvents RbJoineryBox As RadioButton
     Friend WithEvents RbJoineryFrame As RadioButton
     Friend WithEvents RbJoineryAll As RadioButton
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PnlJoineryTypes As Panel
     Friend WithEvents LblSummary As Label
     Friend WithEvents LblJoineryCount As Label
     Friend WithEvents LblJoineryGlue As Label
@@ -9405,7 +9390,7 @@ Partial Class FrmMain
     Friend WithEvents LblJoineryDifficulty As Label
     Friend WithEvents LblJoineryCategory As Label
     Friend WithEvents LblJoineryName As Label
-    Friend WithEvents Panel11 As Panel
+    Friend WithEvents PnlJoineryOptions As Panel
     Friend WithEvents Label62 As Label
     Friend WithEvents Label66 As Label
     Friend WithEvents Label65 As Label

@@ -84,9 +84,21 @@ Public Class ReferenceDataManager
                 ' File exists - verify it has tables. If schema is invalid, recreate it.
                 If Not VerifyDatabaseSchema() Then
                     ErrorHandler.LogError(New Exception("Reference.db schema invalid - recreating"), "ReferenceDataManager.InitializeDatabase")
+                    
+                    ' CRITICAL: Remove read-only attribute BEFORE deleting
+                    RemoveReadOnlyAttribute()
+                    
                     File.Delete(_databasePath)
                     CreateDatabaseSchema()
                     ErrorHandler.LogError(New Exception("Reference.db schema recreated"), "ReferenceDataManager.InitializeDatabase")
+                    
+                    ' CRITICAL: Verify schema was actually created
+                    If Not VerifyDatabaseSchema() Then
+                        ErrorHandler.LogError(New Exception("CRITICAL: Schema verification failed after creation!"), "ReferenceDataManager.InitializeDatabase")
+                        Throw New Exception("Failed to create Reference.db schema")
+                    Else
+                        ErrorHandler.LogError(New Exception("Schema verification passed after creation"), "ReferenceDataManager.InitializeDatabase")
+                    End If
                 End If
             End If
 
@@ -108,39 +120,42 @@ Public Class ReferenceDataManager
     End Sub
 
     Private Sub CreateDatabaseSchema()
-        Dim createConnectionString = $"Data Source={_databasePath};Version=3;"
+        Try
+            Dim createConnectionString = $"Data Source={_databasePath};Version=3;"
 
-        Using conn As New SQLiteConnection(createConnectionString)
-            conn.Open()
+            Using conn As New SQLiteConnection(createConnectionString)
+                conn.Open()
+                ErrorHandler.LogError(New Exception($"CreateDatabaseSchema: Connection opened to {_databasePath}"), "CreateDatabaseSchema")
 
-            ' Execute each CREATE TABLE separately - SQLite.NET doesn't support multi-statement commands
-            Using cmd As New SQLiteCommand(conn)
-                ' Wood Species Table
-                cmd.CommandText = "
-                    CREATE TABLE IF NOT EXISTS WoodSpecies (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        CommonName TEXT NOT NULL,
-                        ScientificName TEXT,
-                        WoodType TEXT NOT NULL,
-                        JankaHardness INTEGER,
-                        SpecificGravity REAL,
-                        Density REAL,
-                        MoistureContent REAL,
-                        ShrinkageRadial REAL,
-                        ShrinkageTangential REAL,
-                        TypicalUses TEXT,
-                        Workability TEXT,
-                        Cautions TEXT,
-                        Notes TEXT,
-                        DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
-                    );"
-                cmd.ExecuteNonQuery()
+                ' Execute each CREATE TABLE separately - SQLite.NET doesn't support multi-statement commands
+                Using cmd As New SQLiteCommand(conn)
+                    ' Wood Species Table
+                    cmd.CommandText = "
+                        CREATE TABLE IF NOT EXISTS WoodSpecies (
+                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            CommonName TEXT NOT NULL,
+                            ScientificName TEXT,
+                            WoodType TEXT NOT NULL,
+                            JankaHardness INTEGER,
+                            SpecificGravity REAL,
+                            Density REAL,
+                            MoistureContent REAL,
+                            ShrinkageRadial REAL,
+                            ShrinkageTangential REAL,
+                            TypicalUses TEXT,
+                            Workability TEXT,
+                            Cautions TEXT,
+                            Notes TEXT,
+                            DateAdded DATETIME DEFAULT CURRENT_TIMESTAMP
+                        );"
+                    cmd.ExecuteNonQuery()
+                    ErrorHandler.LogError(New Exception("WoodSpecies table created"), "CreateDatabaseSchema")
 
-                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_wood_common_name ON WoodSpecies(CommonName);"
-                cmd.ExecuteNonQuery()
+                    cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_wood_common_name ON WoodSpecies(CommonName);"
+                    cmd.ExecuteNonQuery()
 
-                cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_wood_type ON WoodSpecies(WoodType);"
-                cmd.ExecuteNonQuery()
+                    cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_wood_type ON WoodSpecies(WoodType);"
+                    cmd.ExecuteNonQuery()
 
                 ' Joinery Types Table
                 cmd.CommandText = "
@@ -202,8 +217,15 @@ Public Class ReferenceDataManager
 
                 cmd.CommandText = "INSERT INTO DatabaseVersion (Version) VALUES ('1.0');"
                 cmd.ExecuteNonQuery()
+                ErrorHandler.LogError(New Exception("DatabaseVersion table created and initialized"), "CreateDatabaseSchema")
             End Using
         End Using
+        
+        ErrorHandler.LogError(New Exception("CreateDatabaseSchema completed successfully"), "CreateDatabaseSchema")
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "CreateDatabaseSchema - FAILED")
+            Throw
+        End Try
     End Sub
 
     Private Function VerifyDatabaseSchema() As Boolean

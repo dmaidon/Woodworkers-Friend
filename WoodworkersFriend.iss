@@ -2,7 +2,7 @@
 ; Requires Inno Setup 6.0 or later (https://jrsoftware.org/isinfo.php)
 
 #define MyAppName "Woodworker's Friend"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Dennis N. Maidon"
 #define MyAppURL "https://www.maidonww.com"
 #define MyAppSupportEmail "support@maidonww.com"

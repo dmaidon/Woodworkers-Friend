@@ -5,7 +5,7 @@ Friend Module Globals
     ' Global variables and constants
     Friend Const AppName As String = "Woodworker's Friend"
 
-    Friend Const Version As String = "1.0.0"
+    Friend Const Version As String = "1.0.1"
 
     Friend Const SupportEmail As String = "support@maidonww.com"
 
@@ -18,6 +18,7 @@ Friend Module Globals
 
     ' Directory paths - All in application installation folder
     Friend ReadOnly InstallDir As String = Application.StartupPath
+
     Friend ReadOnly LogDir As String = Path.Combine(InstallDir, "Logs")
     Friend ReadOnly SetDir As String = Path.Combine(InstallDir, "Settings")
     Friend ReadOnly ProjectDir As String = Path.Combine(InstallDir, "Projects")

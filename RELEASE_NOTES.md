@@ -1,4 +1,4 @@
-# 🪚 Woodworker's Friend v1.0.0 - Release Notes
+# 🪚 Woodworker's Friend v1.0.1 - Release Notes
 
 **Release Date:** February 2, 2026
 

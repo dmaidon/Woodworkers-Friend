@@ -44,7 +44,7 @@
 ### Installation
 
 1. **Download** the latest installer from [Releases](https://github.com/dmaidon/Woodworkers-Friend/releases)
-2. **Run** `WoodworkersFriend-Setup-v1.0.0.exe` with administrator privileges
+2. **Run** `WoodworkersFriend-Setup-v1.0.1.exe` with administrator privileges
 3. **Install** to `C:\Woodworker's Friend\` (default location)
 4. **Launch** from Desktop or Start Menu
 
@@ -55,9 +55,9 @@
 
 **First Run:**
 - Databases created automatically in `C:\Woodworker's Friend\Data\`
-- 31 help topics loaded
-- 25 wood species, 12 joinery types, 11+ hardware standards initialized
-- 68 wood costs and 7 epoxy costs migrated
+- Reference data migrated: 25 wood species, 12 joinery types, 15 hardware standards, 68 wood costs, 7 epoxy costs
+- 31+ help topics loaded automatically
+- User preferences initialized with defaults
 
 For detailed installation instructions, see [INSTALL.md](INSTALL.md)
 

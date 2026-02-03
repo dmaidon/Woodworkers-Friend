@@ -60,6 +60,9 @@ Public Class FrmMain
             LoadUserPreferences()
             ApplyTheme(CurrentTheme)
 
+            ' Debug log: Record form opening size
+            ErrorHandler.LogError(New Exception($"Form opening size: {Me.ClientSize.Width} x {Me.ClientSize.Height} (WindowState: {Me.WindowState})"), "FrmMain_Load")
+
             ' RtfParser.ParseRtfTableToCsv("c:\temp\hardwood.pdf.rtf", "c:\temp\hardwood.csv")
         Catch ex As Exception
             MessageBox.Show($"Error during form load: {ex.Message}{vbCrLf}{vbCrLf}Stack trace:{vbCrLf}{ex.StackTrace}",
@@ -181,6 +184,16 @@ Public Class FrmMain
         TsslCpy.Text = GetCopyrightNotice()
         TsslVersion.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
         TsslTimesRun.Text = TimesRun.ToString
+
+        ' Load logo image on About tab from embedded resource
+        Try
+            ' PbMwwLogo already has InitialImage set in Designer, but we can also set the Image property
+            If PbMwwLogo.InitialImage IsNot Nothing Then
+                PbMwwLogo.Image = PbMwwLogo.InitialImage
+            End If
+        Catch ex As Exception
+            ErrorHandler.LogError(ex, "InitializeUI - Logo loading failed")
+        End Try
 
         ' Initialize system tray icon
         InitializeSystemTray()
@@ -429,7 +442,7 @@ Public Class FrmMain
             ' Load window state
             Dim savedState = db.GetPreference("WindowState", "Normal")
             Dim savedWidth = db.GetIntPreference("WindowWidth", 1200)
-            Dim savedHeight = db.GetIntPreference("WindowHeight", 800)
+            Dim savedHeight = db.GetIntPreference("WindowHeight", 1014)
 
             If savedState.Equals("Maximized", StringComparison.OrdinalIgnoreCase) Then
                 Me.WindowState = FormWindowState.Maximized
@@ -527,6 +540,10 @@ Public Class FrmMain
     Private Sub FrmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         SaveUserPreferences()
         CleanupSystemTray()
+    End Sub
+
+    Private Sub SplitContainer1_Panel2_Paint(sender As Object, e As PaintEventArgs) Handles SplitContainer1.Panel2.Paint
+
     End Sub
 
 #End Region
